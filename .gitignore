@@ -4,19 +4,12 @@ animations/mlp/.claude/
 animations/mlp/.agents/
 animations/mlp/skills-lock.json
 
-# ── MNIST dataset (53 MB — see README for download instructions) ──────────────
+# ── Large source data (not needed to run the presentation) ───────────────────
 MNIST_ORG/
-
-# ── Generated files (reproducible via scripts — see README) ──────────────────
-mnist-sample.js
 mnist-sample.json
-cnn-weights.js
 
-# ── GloVe source + generated vectors (163 MB / 4.6 MB) ───────────────────────
-# Source: https://nlp.stanford.edu/data/glove.6B.zip
-# Regenerate: python3 generate-glove.py
+# ── GloVe source text (163 MB — regenerate with: python3 generate-glove.py) ──
 glove.6B.50d.txt
-glove-vectors.js
 
 # ── Trained model weights ─────────────────────────────────────────────────────
 *.pth
