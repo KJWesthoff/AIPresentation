@@ -1,0 +1,125 @@
+<svg width="1000" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="500" y="40" font-family="JetBrains Mono, monospace" font-size="24" fill="#00d9ff" text-anchor="middle" font-weight="600">
+    Multilayer Perceptron Architecture
+  </text>
+
+  <!-- Layer Labels -->
+  <text x="150" y="90" font-family="JetBrains Mono, monospace" font-size="16" fill="#adb5bd" text-anchor="middle">Input Layer</text>
+  <text x="150" y="110" font-family="JetBrains Mono, monospace" font-size="14" fill="#6c757d" text-anchor="middle">(784 features)</text>
+
+  <text x="500" y="90" font-family="JetBrains Mono, monospace" font-size="16" fill="#adb5bd" text-anchor="middle">Hidden Layer</text>
+  <text x="500" y="110" font-family="JetBrains Mono, monospace" font-size="14" fill="#6c757d" text-anchor="middle">(16 neurons)</text>
+
+  <text x="850" y="90" font-family="JetBrains Mono, monospace" font-size="16" fill="#adb5bd" text-anchor="middle">Output Layer</text>
+  <text x="850" y="110" font-family="JetBrains Mono, monospace" font-size="14" fill="#6c757d" text-anchor="middle">(10 classes)</text>
+
+  <!-- Input Layer Nodes (showing subset) -->
+  <circle cx="150" cy="180" r="10" fill="#2196F3" opacity="0.8"/>
+  <circle cx="150" cy="220" r="10" fill="#2196F3" opacity="0.8"/>
+  <circle cx="150" cy="260" r="10" fill="#2196F3" opacity="0.8"/>
+  <circle cx="150" cy="300" r="10" fill="#2196F3" opacity="0.8"/>
+  <circle cx="150" cy="340" r="10" fill="#2196F3" opacity="0.6"/>
+  <circle cx="150" cy="380" r="10" fill="#2196F3" opacity="0.6"/>
+  <circle cx="150" cy="420" r="10" fill="#2196F3" opacity="0.6"/>
+
+  <!-- Dots to indicate more nodes -->
+  <text x="150" y="465" font-family="JetBrains Mono, monospace" font-size="20" fill="#2196F3" text-anchor="middle">⋮</text>
+
+  <!-- Hidden Layer Nodes -->
+  <circle cx="500" cy="160" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="200" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="240" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="280" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="320" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="360" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="400" r="12" fill="#00d9ff" opacity="0.9"/>
+  <circle cx="500" cy="440" r="12" fill="#00d9ff" opacity="0.9"/>
+
+  <!-- Output Layer Nodes -->
+  <circle cx="850" cy="200" r="12" fill="#ff9800" opacity="0.9"/>
+  <circle cx="850" cy="240" r="12" fill="#ff9800" opacity="0.9"/>
+  <circle cx="850" cy="280" r="12" fill="#ff9800" opacity="0.9"/>
+  <circle cx="850" cy="320" r="12" fill="#ff9800" opacity="0.9"/>
+  <circle cx="850" cy="360" r="12" fill="#ff9800" opacity="0.9"/>
+  <circle cx="850" cy="400" r="12" fill="#ff9800" opacity="0.9"/>
+
+  <!-- Output Labels (0-9) -->
+  <text x="880" y="205" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">0</text>
+  <text x="880" y="245" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">1</text>
+  <text x="880" y="285" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">2</text>
+  <text x="880" y="325" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">3</text>
+  <text x="880" y="365" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">...</text>
+  <text x="880" y="405" font-family="JetBrains Mono, monospace" font-size="12" fill="#f8f9fa">9</text>
+
+  <!-- Connections (subset to avoid clutter) -->
+  <!-- Input to Hidden -->
+  <line x1="160" y1="180" x2="488" y2="160" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+  <line x1="160" y1="180" x2="488" y2="200" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+  <line x1="160" y1="180" x2="488" y2="280" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <line x1="160" y1="220" x2="488" y2="160" stroke="#4CAF50" stroke-width="1.5" opacity="0.3"/>
+  <line x1="160" y1="220" x2="488" y2="240" stroke="#4CAF50" stroke-width="2" opacity="0.4"/>
+  <line x1="160" y1="220" x2="488" y2="320" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <line x1="160" y1="260" x2="488" y2="200" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+  <line x1="160" y1="260" x2="488" y2="280" stroke="#4CAF50" stroke-width="1.5" opacity="0.3"/>
+  <line x1="160" y1="260" x2="488" y2="360" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <line x1="160" y1="300" x2="488" y2="240" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+  <line x1="160" y1="300" x2="488" y2="320" stroke="#4CAF50" stroke-width="1.5" opacity="0.3"/>
+  <line x1="160" y1="300" x2="488" y2="400" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+
+  <!-- Hidden to Output -->
+  <line x1="512" y1="160" x2="838" y2="200" stroke="#4CAF50" stroke-width="1.5" opacity="0.3"/>
+  <line x1="512" y1="160" x2="838" y2="240" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+  <line x1="512" y1="160" x2="838" y2="320" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+
+  <line x1="512" y1="200" x2="838" y2="200" stroke="#4CAF50" stroke-width="2" opacity="0.4"/>
+  <line x1="512" y1="200" x2="838" y2="280" stroke="#4CAF50" stroke-width="1.5" opacity="0.3"/>
+  <line x1="512" y1="200" x2="838" y2="360" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <line x1="512" y1="240" x2="838" y2="240" stroke="#4CAF50" stroke-width="2" opacity="0.4"/>
+  <line x1="512" y1="240" x2="838" y2="320" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+
+  <line x1="512" y1="280" x2="838" y2="280" stroke="#4CAF50" stroke-width="2.5" opacity="0.5"/>
+  <line x1="512" y1="280" x2="838" y2="240" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+  <line x1="512" y1="280" x2="838" y2="360" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <line x1="512" y1="320" x2="838" y2="320" stroke="#4CAF50" stroke-width="2" opacity="0.4"/>
+  <line x1="512" y1="320" x2="838" y2="280" stroke="#4CAF50" stroke-width="1" opacity="0.2"/>
+  <line x1="512" y1="320" x2="838" y2="400" stroke="#f44336" stroke-width="1" opacity="0.2"/>
+
+  <!-- Forward Pass Formula -->
+  <rect x="50" y="510" width="900" height="70" fill="#0a0a0a" rx="8" opacity="0.7"/>
+  <text x="500" y="540" font-family="JetBrains Mono, monospace" font-size="18" fill="#00d9ff" text-anchor="middle" font-weight="600">
+    Forward Pass:
+  </text>
+  <text x="500" y="565" font-family="JetBrains Mono, monospace" font-size="16" fill="#f8f9fa" text-anchor="middle">
+    y = σ(W₂ · σ(W₁ · x + b₁) + b₂)
+  </text>
+
+  <!-- Weights annotation -->
+  <text x="325" y="140" font-family="JetBrains Mono, monospace" font-size="12" fill="#9d4edd" text-anchor="middle">W₁ ∈ ℝ¹⁶ˣ⁷⁸⁴</text>
+  <line x1="280" y1="145" x2="280" y2="300" stroke="#9d4edd" stroke-width="1" opacity="0.3" stroke-dasharray="3,3"/>
+
+  <text x="675" y="140" font-family="JetBrains Mono, monospace" font-size="12" fill="#9d4edd" text-anchor="middle">W₂ ∈ ℝ¹⁰ˣ¹⁶</text>
+  <line x1="630" y1="145" x2="630" y2="350" stroke="#9d4edd" stroke-width="1" opacity="0.3" stroke-dasharray="3,3"/>
+
+  <!-- Activation visualization -->
+  <g transform="translate(50, 150)">
+    <text x="0" y="-10" font-family="JetBrains Mono, monospace" font-size="10" fill="#adb5bd">Activation σ(z)</text>
+    <!-- Sigmoid curve -->
+    <path d="M 0 40 Q 20 40 30 30 T 50 10 T 70 0" stroke="#00d9ff" stroke-width="1.5" fill="none"/>
+    <line x1="0" y1="40" x2="0" y2="0" stroke="#495057" stroke-width="0.5"/>
+    <line x1="0" y1="20" x2="70" y2="20" stroke="#495057" stroke-width="0.5"/>
+  </g>
+
+  <!-- Reference -->
+  <text x="500" y="595" font-family="JetBrains Mono, monospace" font-size="11" fill="#6c757d" text-anchor="middle" font-style="italic">
+    Inspired by: 3Blue1Brown Neural Networks series
+  </text>
+</svg>
