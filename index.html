@@ -2510,6 +2510,48 @@
           <div id="bert-arch-canvas" style="width:100%;height:490px;"></div>
         </div>
       </section>
+
+      <section id="unembedding">
+        <h2 style="margin-bottom:6px;">Un-embedding Matrix: From Embedding to Next Token</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="unembedding-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="attn-masking">
+        <h2 style="margin-bottom:6px;">Masking in Attention</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="attn-masking-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="llm-arch-families">
+        <h2 style="margin-bottom:6px;">LLM Architecture Families</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="llm-arch-families-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="cross-attention">
+        <h2 style="margin-bottom:6px;">Cross-Attention: Encoder–Decoder Bridge</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="cross-attn-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="llm-training">
+        <h2 style="margin-bottom:6px;">How LLMs Are Trained</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="llm-training-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="llm-params">
+        <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
 </section>
 
 <section id="qkv-generation">
@@ -6971,268 +7013,6 @@
   })();
   </script>
 
-  <!-- Transformer Decoder / Language Model architecture animation -->
-  <script>
-  (function(){
-    const W=1100,H=490;
-    const CE='#00e676',CM='#00d9ff',CF='#ffa014',CH='#ffd54f',CP='#e040fb';
-    const Cm='rgba(155,175,200,0.65)',Ct='rgba(225,238,255,0.88)';
-
-    function rgba(hex,a){
-      const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-      return `rgba(${r},${g},${b},${a})`;
-    }
-
-    // Token layout
-    const TOKENS=['"The"','"cat"','"sat"','"on"'];
-    const N=4;
-    const TX=[105,245,385,525];  // token x-centers
-    const TY=447,TW=108,TH=36;
-
-    // Three transformer layers (y0=top, y1=bottom; data flows upward → smaller y)
-    const LYS=[{y0:318,y1:402},{y0:208,y1:292},{y0:98,y1:182}];
-    const MF=0.47;    // fraction of layer height = MHA sub-block
-    const LX0=44,LX1=614; // layer left/right edge
-
-    // Prediction head / output (right side, aligned with layer 3)
-    const PH={x:678,y:108,w:148,h:52};
-    const OT={x:844,y:108,w:120,h:52};
-
-    function draw(el){
-      el.innerHTML='';
-      const svg=d3.select(el).append('svg')
-        .attr('viewBox',`0 0 ${W} ${H}`)
-        .style('width','100%').style('height','100%');
-
-      const defs=svg.append('defs');
-      [['aw','rgba(192,207,232,0.75)'],['ag',CH],['ap',CP]].forEach(([id,col])=>{
-        defs.append('marker').attr('id',id)
-          .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
-          .attr('markerWidth',4).attr('markerHeight',4).attr('orient','auto')
-          .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',col);
-      });
-
-      // ── INPUT TOKEN EMBEDDINGS ─────────────────────────────────────────
-      const gTok=svg.append('g').attr('opacity',0);
-      TOKENS.forEach((tok,i)=>{
-        const cx=TX[i],last=(i===N-1);
-        gTok.append('rect')
-          .attr('x',cx-TW/2).attr('y',TY-TH/2).attr('width',TW).attr('height',TH).attr('rx',6)
-          .attr('fill',rgba(CE,0.10)).attr('stroke',last?rgba(CH,0.90):rgba(CE,0.55))
-          .attr('stroke-width',last?2.2:1.4);
-        gTok.append('text').attr('x',cx).attr('y',TY+5)
-          .attr('text-anchor','middle').attr('fill',last?CH:rgba(CE,0.90))
-          .attr('font-size',13).attr('font-weight','700').attr('font-family','monospace')
-          .text(tok);
-        gTok.append('text').attr('x',cx).attr('y',TY+TH/2+14)
-          .attr('text-anchor','middle').attr('fill',Cm).attr('font-size',9.5)
-          .attr('font-family','sans-serif').text(['x₁','x₂','x₃','x₄'][i]);
-      });
-      // "Embed" label on left
-      gTok.append('text').attr('x',LX0-4).attr('y',TY+5)
-        .attr('text-anchor','end').attr('fill',rgba(CE,0.70))
-        .attr('font-size',9.5).attr('font-family','sans-serif').attr('font-style','italic')
-        .text('Embed');
-
-      // ── LAST-TOKEN COLUMN HIGHLIGHT (faint gold strip across all layers) ─
-      const gCol=svg.append('g').attr('opacity',0);
-      gCol.append('rect')
-        .attr('x',TX[N-1]-TW/2).attr('y',LYS[LYS.length-1].y0-2)
-        .attr('width',TW).attr('height',LYS[0].y1-LYS[LYS.length-1].y0+4)
-        .attr('fill',rgba(CH,0.05)).attr('stroke',rgba(CH,0.18))
-        .attr('stroke-width',1).attr('stroke-dasharray','4,6').attr('rx',4);
-
-      // ── TRANSFORMER LAYERS ────────────────────────────────────────────
-      const gLays=LYS.map(({y0,y1},li)=>{
-        const g=svg.append('g').attr('opacity',0);
-        const mH=Math.round((y1-y0)*MF), fH=(y1-y0)-mH-2;
-        const yM=y0, yF=y0+mH+2;
-
-        // MHA block
-        g.append('rect').attr('x',LX0).attr('y',yM).attr('width',LX1-LX0).attr('height',mH).attr('rx',5)
-          .attr('fill',rgba(CM,0.10)).attr('stroke',rgba(CM,0.38)).attr('stroke-width',1.4);
-        g.append('text').attr('x',LX0+8).attr('y',yM+mH/2+4)
-          .attr('fill',rgba(CM,0.80)).attr('font-size',10).attr('font-weight','600')
-          .attr('font-family','sans-serif').text('Multi-Head Self-Attention');
-
-        // FFN block
-        g.append('rect').attr('x',LX0).attr('y',yF).attr('width',LX1-LX0).attr('height',fH).attr('rx',5)
-          .attr('fill',rgba(CF,0.10)).attr('stroke',rgba(CF,0.38)).attr('stroke-width',1.4);
-        g.append('text').attr('x',LX0+8).attr('y',yF+fH/2+4)
-          .attr('fill',rgba(CF,0.80)).attr('font-size',10).attr('font-weight','600')
-          .attr('font-family','sans-serif').text('Feed-Forward Network  (MLP)');
-
-        // Dashed gold highlight cell for last token in each sub-block
-        [[yM+2,mH-4],[yF+2,fH-4]].forEach(([sy2,sh])=>{
-          g.append('rect')
-            .attr('x',TX[N-1]-TW/2).attr('y',sy2).attr('width',TW).attr('height',sh).attr('rx',4)
-            .attr('fill','none').attr('stroke',rgba(CH,0.70)).attr('stroke-width',1.5)
-            .attr('stroke-dasharray','4,3');
-        });
-
-        // Layer label (left)
-        g.append('text').attr('x',LX0-6).attr('y',(y0+y1)/2+4)
-          .attr('text-anchor','end').attr('fill',Cm).attr('font-size',9.5)
-          .attr('font-family','sans-serif').text(`L${li+1}`);
-
-        return g;
-      });
-
-      // ── CAUSAL ATTENTION ARCS inside each MHA block ───────────────────
-      const gAttn=LYS.map(({y0,y1})=>{
-        const g=svg.append('g').attr('opacity',0);
-        const mH=Math.round((y1-y0)*MF), yCtr=y0+mH/2;
-        const dip=Math.min(14, mH*0.35);
-        // From each token to the last token (causal: all previous attend to last)
-        for(let s=0;s<N;s++){
-          const x1=TX[s],x2=TX[N-1];
-          if(x1===x2){
-            g.append('path')
-              .attr('d',`M${x2},${yCtr-7} C${x2+20},${yCtr-18} ${x2+20},${yCtr+4} ${x2},${yCtr+7}`)
-              .attr('fill','none').attr('stroke',rgba(CM,0.35)).attr('stroke-width',0.9);
-          } else {
-            g.append('path')
-              .attr('d',`M${x1},${yCtr} Q${(x1+x2)/2},${yCtr+dip} ${x2},${yCtr}`)
-              .attr('fill','none').attr('stroke',rgba(CM,0.25)).attr('stroke-width',0.8)
-              .attr('marker-end','url(#aw)');
-          }
-        }
-        // Lighter arcs among other tokens for context
-        for(let s=0;s<N-1;s++){
-          for(let t=s+1;t<N-1;t++){
-            g.append('path')
-              .attr('d',`M${TX[s]},${yCtr} Q${(TX[s]+TX[t])/2},${yCtr+dip*0.7} ${TX[t]},${yCtr}`)
-              .attr('fill','none').attr('stroke',rgba(CM,0.10)).attr('stroke-width',0.7);
-          }
-        }
-        return g;
-      });
-
-      // ── VERTICAL DATA-FLOW ARROWS ─────────────────────────────────────
-      const gFlow=svg.append('g').attr('opacity',0);
-
-      function flowArrow(cx,y1,y2,last){
-        gFlow.append('line')
-          .attr('x1',cx).attr('y1',y1).attr('x2',cx).attr('y2',y2)
-          .attr('stroke',last?rgba(CH,0.80):'rgba(192,207,232,0.28)')
-          .attr('stroke-width',last?2:1)
-          .attr('marker-end',`url(#${last?'ag':'aw'})`);
-      }
-
-      // tok → Layer 1
-      TX.forEach((cx,i)=>flowArrow(cx, TY-TH/2-1, LYS[0].y1+2, i===N-1));
-      // Layer 1 → Layer 2
-      TX.forEach((cx,i)=>flowArrow(cx, LYS[0].y0-1, LYS[1].y1+2, i===N-1));
-      // Layer 2 → Layer 3
-      TX.forEach((cx,i)=>flowArrow(cx, LYS[1].y0-1, LYS[2].y1+2, i===N-1));
-
-      // ── ×N LAYERS BRACKET ─────────────────────────────────────────────
-      const gBrc=svg.append('g').attr('opacity',0);
-      const brX=LX1+16, yBT=LYS[LYS.length-1].y0, yBB=LYS[0].y1, yBM=(yBT+yBB)/2;
-      gBrc.append('line').attr('x1',brX).attr('y1',yBT).attr('x2',brX).attr('y2',yBB)
-        .attr('stroke',Cm).attr('stroke-width',1.2);
-      [[brX,yBT],[brX,yBB],[brX,yBM]].forEach(([x,y])=>
-        gBrc.append('line').attr('x1',x).attr('y1',y).attr('x2',x+7).attr('y2',y)
-          .attr('stroke',Cm).attr('stroke-width',1.2));
-      gBrc.append('text').attr('x',brX+11).attr('y',yBM-5)
-        .attr('fill',rgba(CM,0.85)).attr('font-size',12).attr('font-weight','700')
-        .attr('font-family','sans-serif').text('×N');
-      gBrc.append('text').attr('x',brX+11).attr('y',yBM+9)
-        .attr('fill',Cm).attr('font-size',9.5).attr('font-family','sans-serif').text('Layers');
-
-      // ── PREDICTION HEAD ───────────────────────────────────────────────
-      const gPred=svg.append('g').attr('opacity',0);
-      const arY=PH.y+PH.h/2;
-
-      // Arrow from last token right edge of top layer → pred head
-      gPred.append('line')
-        .attr('x1',TX[N-1]+TW/2+2).attr('y1',arY)
-        .attr('x2',PH.x-4).attr('y2',arY)
-        .attr('stroke',rgba(CH,0.85)).attr('stroke-width',2.2)
-        .attr('marker-end','url(#ag)');
-      gPred.append('text')
-        .attr('x',(TX[N-1]+TW/2+PH.x)/2).attr('y',arY-9)
-        .attr('text-anchor','middle').attr('fill',rgba(CH,0.75))
-        .attr('font-size',9).attr('font-family','sans-serif').text('h_N (last token)');
-
-      // Prediction head box
-      gPred.append('rect')
-        .attr('x',PH.x).attr('y',PH.y).attr('width',PH.w).attr('height',PH.h).attr('rx',7)
-        .attr('fill',rgba(CP,0.10)).attr('stroke',rgba(CP,0.55)).attr('stroke-width',1.5);
-      gPred.append('text').attr('x',PH.x+PH.w/2).attr('y',PH.y+19)
-        .attr('text-anchor','middle').attr('fill',rgba(CP,0.90))
-        .attr('font-size',10.5).attr('font-weight','600').attr('font-family','sans-serif')
-        .text('Linear  +  Softmax');
-      gPred.append('text').attr('x',PH.x+PH.w/2).attr('y',PH.y+35)
-        .attr('text-anchor','middle').attr('fill',Cm)
-        .attr('font-size',9).attr('font-family','sans-serif')
-        .text('P(next token | x₁…x_N)');
-
-      // Arrow → output token box
-      gPred.append('line')
-        .attr('x1',PH.x+PH.w+3).attr('y1',arY).attr('x2',OT.x-4).attr('y2',arY)
-        .attr('stroke',rgba(CP,0.70)).attr('stroke-width',1.8)
-        .attr('marker-end','url(#ap)');
-
-      // Output token box
-      gPred.append('rect')
-        .attr('x',OT.x).attr('y',OT.y).attr('width',OT.w).attr('height',OT.h).attr('rx',7)
-        .attr('fill',rgba(CP,0.12)).attr('stroke',rgba(CP,0.55)).attr('stroke-width',1.5);
-      gPred.append('text').attr('x',OT.x+OT.w/2).attr('y',OT.y+19)
-        .attr('text-anchor','middle').attr('fill',rgba(CP,0.90))
-        .attr('font-size',13).attr('font-weight','700').attr('font-family','monospace')
-        .text('"mat"');
-      gPred.append('text').attr('x',OT.x+OT.w/2).attr('y',OT.y+35)
-        .attr('text-anchor','middle').attr('fill',Cm)
-        .attr('font-size',9).attr('font-family','sans-serif').text('next token');
-
-      // ── INFO PANEL ────────────────────────────────────────────────────
-      const gInfo=svg.append('g').attr('opacity',0);
-      const iX=675,iY=200,iW=396,iH=262;
-      gInfo.append('rect').attr('x',iX).attr('y',iY).attr('width',iW).attr('height',iH).attr('rx',8)
-        .attr('fill','rgba(8,14,28,0.65)').attr('stroke',rgba(CM,0.20)).attr('stroke-width',1);
-      [[CM,'Multi-Head Self-Attention','each token attends to all preceding tokens'],
-       [CF,'Feed-Forward Network','non-linear transformation per position'],
-       [CE,'Token + Positional Embeddings','d-dimensional input vectors'],
-       [CH,'Last token h_N','its representation encodes all context'],
-       [CP,'Linear + Softmax','maps d → vocab → probability over next token']
-      ].forEach(([c,title,sub],i)=>{
-        const ry=iY+26+i*46;
-        gInfo.append('rect').attr('x',iX+12).attr('y',ry-9).attr('width',12).attr('height',12).attr('rx',2)
-          .attr('fill',rgba(c,0.55)).attr('stroke',rgba(c,0.80)).attr('stroke-width',0.8);
-        gInfo.append('text').attr('x',iX+30).attr('y',ry+1)
-          .attr('fill',Ct).attr('font-size',10).attr('font-weight','600').attr('font-family','sans-serif')
-          .text(title);
-        gInfo.append('text').attr('x',iX+30).attr('y',ry+14)
-          .attr('fill',Cm).attr('font-size',9.5).attr('font-family','sans-serif').text(sub);
-      });
-
-      // ── ANIMATE ───────────────────────────────────────────────────────
-      gTok.transition().delay(150).duration(400).attr('opacity',1);
-      gFlow.transition().delay(500).duration(350).attr('opacity',1);
-      gCol.transition().delay(600).duration(400).attr('opacity',1);
-      gLays[0].transition().delay(750).duration(400).attr('opacity',1);
-      gAttn[0].transition().delay(950).duration(350).attr('opacity',1);
-      gLays[1].transition().delay(1150).duration(400).attr('opacity',1);
-      gAttn[1].transition().delay(1350).duration(350).attr('opacity',1);
-      gLays[2].transition().delay(1550).duration(400).attr('opacity',1);
-      gAttn[2].transition().delay(1750).duration(350).attr('opacity',1);
-      gBrc.transition().delay(1950).duration(400).attr('opacity',1);
-      gPred.transition().delay(2200).duration(500).attr('opacity',1);
-      gInfo.transition().delay(2650).duration(500).attr('opacity',1);
-    }
-
-    function maybeInit(){
-      const el=document.getElementById('bert-arch-canvas');
-      if(el&&!el._bertReady){el._bertReady=true;draw(el);}
-    }
-    Reveal.on('ready',maybeInit);
-    Reveal.on('slidechanged',ev=>{
-      if(ev.currentSlide&&ev.currentSlide.id==='bert-architecture')maybeInit();
-    });
-  })();
-  </script>
-
   <!-- Q, K, V generation animation -->
   <script>
   (function () {
@@ -7387,6 +7167,2084 @@
     Reveal.on('ready', maybeInit);
     Reveal.on('slidechanged', ev => {
       if (ev.currentSlide && ev.currentSlide.id === 'qkv-generation') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- LLM model landscape: parameters & architecture (llm-params slide) -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const LMARG=218, TMARG=50, RMARG=96, BMARG=62;
+    const BW=W-LMARG-RMARG;   // bar chart width  = 786
+    const CH=H-TMARG-BMARG;   // chart height     = 378
+    const CX='rgba(220,238,255,0.88)';
+    const CM='rgba(155,180,210,0.55)';
+
+    const MODELS=[
+      {name:'Mistral 7B',        co:'Mistral',   yr:2023, tot:7,    act:null, col:'#ff9800'},
+      {name:'Phi-4',              co:'Microsoft', yr:2025, tot:14,   act:null, col:'#50c8ff'},
+      {name:'Mixtral 8×7B',     co:'Mistral',   yr:2023, tot:46,   act:12,   col:'#ff9800'},
+      {name:'Llama 4 Scout',    co:'Meta',      yr:2025, tot:109,  act:17,   col:'#4da8ff'},
+      {name:'GPT-3',              co:'OpenAI',   yr:2020, tot:175,  act:null, col:'#00d9ff'},
+      {name:'Grok-1',             co:'xAI',      yr:2024, tot:314,  act:null, col:'#e040fb'},
+      {name:'Llama 3.1',         co:'Meta',      yr:2024, tot:405,  act:null, col:'#4da8ff'},
+      {name:'DeepSeek V3',      co:'DeepSeek',  yr:2024, tot:671,  act:37,   col:'#ff5252'},
+      {name:'GPT-4',              co:'OpenAI',   yr:2023, tot:1000, act:null, col:'#00d9ff'},
+      {name:'Llama 4 Behemoth', co:'Meta',      yr:2025, tot:2000, act:288,  col:'#4da8ff'},
+    ];
+    const N=MODELS.length;
+    const ROW_H=CH/N;   // 37.8 px
+
+    const LOG_LO=Math.log10(5), LOG_HI=Math.log10(2500);
+    function px(v){ return (Math.log10(v)-LOG_LO)/(LOG_HI-LOG_LO)*BW; }
+    function fmtB(v){ return v>=1000 ? v/1000+'T' : v+'B'; }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      // ── Gridlines & axis ──
+      const gAxis=svg.append('g').attr('opacity',0);
+      [10,100,1000].concat([2000]).forEach(v=>{
+        const x=LMARG+px(v);
+        gAxis.append('line')
+          .attr('x1',x).attr('y1',TMARG-8).attr('x2',x).attr('y2',TMARG+CH)
+          .attr('stroke',CM).attr('stroke-width',1).attr('stroke-dasharray','3,3');
+        gAxis.append('text')
+          .attr('x',x).attr('y',TMARG-13).attr('text-anchor','middle')
+          .attr('font-size',9).attr('font-family','monospace').attr('fill',CM)
+          .text(fmtB(v));
+      });
+      gAxis.append('line')
+        .attr('x1',LMARG).attr('y1',TMARG+CH).attr('x2',LMARG+BW).attr('y2',TMARG+CH)
+        .attr('stroke',CM).attr('stroke-opacity',0.35).attr('stroke-width',1);
+      gAxis.append('text')
+        .attr('x',LMARG+BW/2).attr('y',H-8).attr('text-anchor','middle')
+        .attr('font-size',9).attr('font-family','monospace').attr('fill',CM)
+        .text('Total parameters (log scale)');
+
+      // ── Model rows ──
+      const gBars=MODELS.map(()=>svg.append('g').attr('opacity',0));
+
+      MODELS.forEach((m,i)=>{
+        const ry=TMARG+i*ROW_H;
+        const barH=ROW_H*0.44;
+        const barY=ry+ROW_H*0.28;
+        const isMoE=m.act!==null;
+        const g=gBars[i];
+
+        // Row separator
+        if(i>0){
+          g.append('line')
+            .attr('x1',0).attr('y1',ry).attr('x2',W).attr('y2',ry)
+            .attr('stroke',CM).attr('stroke-opacity',0.15).attr('stroke-width',0.5);
+        }
+
+        // Total params bar (light background for MoE, solid for dense)
+        const bwTot=px(m.tot);
+        g.append('rect')
+          .attr('x',LMARG).attr('y',barY).attr('width',bwTot).attr('height',barH).attr('rx',3)
+          .attr('fill',m.col).attr('fill-opacity',isMoE?0.16:0.42);
+
+        // Active params bar (solid, MoE only)
+        if(isMoE){
+          const bwAct=px(m.act);
+          g.append('rect')
+            .attr('x',LMARG).attr('y',barY+barH*0.14).attr('width',bwAct).attr('height',barH*0.72).attr('rx',2)
+            .attr('fill',m.col).attr('fill-opacity',0.74);
+        }
+
+        // Model name (left, colour-coded by company)
+        g.append('text')
+          .attr('x',LMARG-10).attr('y',ry+ROW_H/2-1)
+          .attr('text-anchor','end').attr('font-size',10.5)
+          .attr('font-family','monospace').attr('fill',m.col).attr('font-weight','600')
+          .text(m.name);
+
+        // Company · Year (smaller)
+        g.append('text')
+          .attr('x',LMARG-10).attr('y',ry+ROW_H/2+11)
+          .attr('text-anchor','end').attr('font-size',8.5)
+          .attr('font-family','monospace').attr('fill',CM)
+          .text(m.co+' · '+m.yr);
+
+        // Value label (right of bar, capped so it never hits the badge column)
+        const totStr=fmtB(m.tot)+(m.tot===1000?'†':'');
+        const actStr=isMoE?' ('+fmtB(m.act)+' active)':'';
+        const labelX=Math.min(LMARG+bwTot+6, LMARG+BW-140);
+        g.append('text')
+          .attr('x',labelX).attr('y',barY+barH*0.72)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',CX).attr('fill-opacity',0.8)
+          .text(totStr+actStr);
+
+        // Dense / MoE badge (far right)
+        const bx=W-RMARG+6, bw=50, bh=barH;
+        g.append('rect')
+          .attr('x',bx).attr('y',barY).attr('width',bw).attr('height',bh).attr('rx',3)
+          .attr('fill',isMoE?'rgba(157,78,221,0.13)':'rgba(0,217,255,0.11)')
+          .attr('stroke',isMoE?'#9d4edd':'#00d9ff')
+          .attr('stroke-opacity',0.45).attr('stroke-width',1);
+        g.append('text')
+          .attr('x',bx+bw/2).attr('y',barY+bh/2+3.5)
+          .attr('text-anchor','middle').attr('font-size',8.5)
+          .attr('font-family','monospace')
+          .attr('fill',isMoE?'#9d4edd':'#00d9ff')
+          .text(isMoE?'MoE':'Dense');
+      });
+
+      // ── Legend ──
+      const gLeg=svg.append('g').attr('opacity',0);
+      // Company colours
+      const cos=[
+        {l:'OpenAI',c:'#00d9ff'},{l:'Meta',c:'#4da8ff'},
+        {l:'Mistral',c:'#ff9800'},{l:'Microsoft',c:'#50c8ff'},
+        {l:'DeepSeek',c:'#ff5252'},{l:'xAI',c:'#e040fb'},
+      ];
+      const ly1=H-BMARG+20;
+      cos.forEach((co,ci)=>{
+        const lx=LMARG+ci*108;
+        gLeg.append('rect').attr('x',lx).attr('y',ly1-8).attr('width',13).attr('height',9).attr('rx',2)
+          .attr('fill',co.c).attr('fill-opacity',0.7);
+        gLeg.append('text').attr('x',lx+17).attr('y',ly1)
+          .attr('font-size',8.5).attr('font-family','monospace').attr('fill',CM).text(co.l);
+      });
+      // Bar type legend + footnote
+      const ly2=H-BMARG+38;
+      [{l:'Total parameters',op:0.35},{l:'Active parameters per token (MoE routing)',op:0.75}].forEach((it,ii)=>{
+        const lx=LMARG+ii*245;
+        gLeg.append('rect').attr('x',lx).attr('y',ly2-8).attr('width',13).attr('height',9).attr('rx',2)
+          .attr('fill','#8899bb').attr('fill-opacity',it.op);
+        gLeg.append('text').attr('x',lx+17).attr('y',ly2)
+          .attr('font-size',8).attr('font-family','monospace').attr('fill',CM).text(it.l);
+      });
+      gLeg.append('text')
+        .attr('x',LMARG+560).attr('y',ly2)
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM)
+        .text('† GPT-4 parameter count is an estimate (not officially disclosed)');
+
+      // ── Animate ──
+      gAxis.transition().delay(0).duration(400).attr('opacity',1);
+      gBars.forEach((g,i)=>{
+        g.transition().delay(250+i*160).duration(380).attr('opacity',1);
+      });
+      gLeg.transition().delay(250+N*160+300).duration(500).attr('opacity',1);
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('llm-params-canvas');
+      if(el&&!el._llmParamsReady){el._llmParamsReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',ev=>{
+      if(ev.previousSlide&&ev.previousSlide.id==='llm-params'){
+        const el=document.getElementById('llm-params-canvas');
+        if(el) el._llmParamsReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='llm-params') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- LLM Training animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    // Three training phases
+    const PHASES=[
+      {
+        id:'pre',
+        title:'Pre-training',
+        sub:'Self-supervised  ·  next-token prediction',
+        col:C1,
+        scale:'~10²³ tokens',
+        data:'Web · books · code · Wikipedia',
+        loss:'Cross-entropy  L = −log P(xₜ | x₁…xₜ₋₁)',
+        detail:[
+          'Predict next token at every position',
+          'Labels are the input itself (shifted)',
+          'Gradient flows back through all layers',
+          'Learns grammar, facts, reasoning patterns',
+        ],
+        badge:'Unsupervised',
+      },
+      {
+        id:'sft',
+        title:'Fine-tuning  (SFT)',
+        sub:'Supervised  ·  instruction following',
+        col:C2,
+        scale:'10³ – 10⁶ examples',
+        data:'(prompt, ideal response) pairs',
+        loss:'Same cross-entropy on response tokens',
+        detail:[
+          'Human-written demonstration data',
+          'Model learns response format & style',
+          'Frozen backbone or full fine-tune',
+          'Much cheaper than pre-training',
+        ],
+        badge:'Supervised',
+      },
+      {
+        id:'rlhf',
+        title:'RLHF / DPO',
+        sub:'Alignment  ·  human preference',
+        col:C3,
+        scale:'10³ – 10⁵ comparisons',
+        data:'(prompt, chosen, rejected) triples',
+        loss:'Reward model  +  PPO / DPO objective',
+        detail:[
+          'Humans rank model outputs A vs B',
+          'Reward model learns what "better" means',
+          'Policy updated to maximise reward',
+          'Adds safety, helpfulness, honesty',
+        ],
+        badge:'Reinforcement',
+      },
+    ];
+
+    const NP=PHASES.length;
+    const PAD=18;
+    const COLW=(W-PAD*(NP+1))/NP;   // ~336px per column
+    const colX=function(i){ return PAD+(COLW+PAD)*i; };
+
+    // Row geometry inside each column
+    const COL_TOP=44;
+    const BADGE_H=18;
+    const SCALE_Y=COL_TOP+78;
+    const DATA_Y=SCALE_Y+20;
+    const LOSS_Y=DATA_Y+20;
+    const DIV_Y=LOSS_Y+26;
+    const DETAIL_Y=DIV_Y+8;
+    const DETAIL_SP=17;
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','lt-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.2).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+
+      // Arrow marker between phases
+      defs.append('marker').attr('id','lt-arr')
+        .attr('markerWidth',8).attr('markerHeight',6)
+        .attr('refX',7).attr('refY',3).attr('orient','auto')
+        .append('polygon').attr('points','0 0,8 3,0 6')
+        .attr('fill',CM).attr('opacity',0.70);
+
+      // One group per column (animates in left-to-right)
+      const groups=PHASES.map(function(){ return svg.append('g').attr('opacity',0); });
+
+      // Phase arrows between columns (in a separate early group)
+      const gArrows=svg.append('g').attr('opacity',0);
+      for(var ai=0;ai<NP-1;ai++){
+        var ax1=colX(ai)+COLW+2;
+        var ax2=colX(ai+1)-4;
+        var ay=COL_TOP+50;
+        gArrows.append('line')
+          .attr('x1',ax1).attr('y1',ay)
+          .attr('x2',ax2).attr('y2',ay)
+          .attr('stroke',CM).attr('stroke-width',2).attr('marker-end','url(#lt-arr)');
+        gArrows.append('text')
+          .attr('x',(ax1+ax2)/2).attr('y',ay-6)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',CM)
+          .text('initialise ↓');
+      }
+
+      PHASES.forEach(function(ph,i){
+        var g=groups[i];
+        var gx=colX(i);
+        var cx=gx+COLW/2;
+        var c=ph.col;
+
+        // Column background card
+        g.append('rect')
+          .attr('x',gx).attr('y',COL_TOP-8)
+          .attr('width',COLW).attr('height',H-COL_TOP-10).attr('rx',7)
+          .attr('fill',c).attr('fill-opacity',0.05)
+          .attr('stroke',c).attr('stroke-opacity',0.22).attr('stroke-width',1.2);
+
+        // Phase number circle
+        g.append('circle')
+          .attr('cx',gx+22).attr('cy',COL_TOP+14)
+          .attr('r',12)
+          .attr('fill',c).attr('fill-opacity',0.18)
+          .attr('stroke',c).attr('stroke-opacity',0.55).attr('stroke-width',1.4)
+          .attr('filter','url(#lt-glow)');
+        g.append('text')
+          .attr('x',gx+22).attr('y',COL_TOP+19)
+          .attr('text-anchor','middle').attr('font-size',11)
+          .attr('font-family','monospace').attr('fill',c).attr('font-weight','700')
+          .text(i+1);
+
+        // Title
+        g.append('text')
+          .attr('x',gx+42).attr('y',COL_TOP+12)
+          .attr('font-size',12).attr('font-family','monospace')
+          .attr('fill',c).attr('font-weight','700')
+          .text(ph.title);
+        g.append('text')
+          .attr('x',gx+42).attr('y',COL_TOP+26)
+          .attr('font-size',7.5).attr('font-family','monospace')
+          .attr('fill',c).attr('fill-opacity',0.60)
+          .text(ph.sub);
+
+        // Badge pill
+        g.append('rect')
+          .attr('x',gx+COLW-82).attr('y',COL_TOP+2)
+          .attr('width',76).attr('height',BADGE_H).attr('rx',9)
+          .attr('fill',c).attr('fill-opacity',0.15)
+          .attr('stroke',c).attr('stroke-opacity',0.40).attr('stroke-width',0.8);
+        g.append('text')
+          .attr('x',gx+COLW-44).attr('y',COL_TOP+14)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.80)
+          .text(ph.badge);
+
+        // Scale / data / loss rows
+        [
+          {label:'Scale:',  val:ph.scale,  y:SCALE_Y},
+          {label:'Data:',   val:ph.data,   y:DATA_Y},
+          {label:'Loss:',   val:ph.loss,   y:LOSS_Y},
+        ].forEach(function(row){
+          g.append('text')
+            .attr('x',gx+10).attr('y',row.y)
+            .attr('font-size',8).attr('font-family','monospace')
+            .attr('fill',c).attr('fill-opacity',0.65).attr('font-weight','700')
+            .text(row.label);
+          g.append('text')
+            .attr('x',gx+10).attr('y',row.y+13)
+            .attr('font-size',8).attr('font-family','monospace')
+            .attr('fill',CW).attr('fill-opacity',0.55)
+            .text(row.val);
+        });
+
+        // Divider
+        g.append('line')
+          .attr('x1',gx+10).attr('y1',DIV_Y)
+          .attr('x2',gx+COLW-10).attr('y2',DIV_Y)
+          .attr('stroke',c).attr('stroke-opacity',0.20).attr('stroke-width',0.8);
+
+        // Detail bullets
+        ph.detail.forEach(function(line,li){
+          var dy=DETAIL_Y+li*DETAIL_SP;
+          g.append('text')
+            .attr('x',gx+14).attr('y',dy+11)
+            .attr('font-size',8.5).attr('font-family','monospace')
+            .attr('fill',c).attr('fill-opacity',0.55)
+            .text('▸');
+          g.append('text')
+            .attr('x',gx+26).attr('y',dy+11)
+            .attr('font-size',8.5).attr('font-family','monospace')
+            .attr('fill',CW).attr('fill-opacity',0.60)
+            .text(line);
+        });
+
+        // Mini loss-curve sparkline at bottom of card
+        var SPK_Y=H-46, SPK_H=28, SPK_W=COLW-28;
+        var SPK_X=gx+14;
+        // Generate a decaying curve path
+        var pts=[];
+        for(var si=0;si<=20;si++){
+          var sx=SPK_X+si*(SPK_W/20);
+          var sv;
+          if(ph.id==='pre')   sv=SPK_Y+SPK_H*(1-Math.exp(-si*0.15))*(si<18?1:0.98);
+          else if(ph.id==='sft') sv=SPK_Y+SPK_H*(0.45+0.45*(1-Math.exp(-(si)*0.20)));
+          else                sv=SPK_Y+SPK_H*(0.72+0.22*(1-Math.exp(-(si)*0.22)));
+          // flip: high loss=low y  →  invert
+          sv=SPK_Y+SPK_H-(sv-SPK_Y);
+          pts.push([sx,sv]);
+        }
+        var pathD='M '+pts.map(function(p){return p[0]+','+p[1];}).join(' L ');
+        g.append('path')
+          .attr('d',pathD).attr('fill','none')
+          .attr('stroke',c).attr('stroke-opacity',0.40).attr('stroke-width',1.5);
+        g.append('text')
+          .attr('x',SPK_X).attr('y',SPK_Y-4)
+          .attr('font-size',7).attr('font-family','monospace')
+          .attr('fill',c).attr('fill-opacity',0.38)
+          .text('loss ↓');
+        // x-axis
+        g.append('line')
+          .attr('x1',SPK_X).attr('y1',SPK_Y+SPK_H)
+          .attr('x2',SPK_X+SPK_W).attr('y2',SPK_Y+SPK_H)
+          .attr('stroke',c).attr('stroke-opacity',0.15).attr('stroke-width',0.7);
+      });
+
+      // Animate columns left-to-right, arrows after first column
+      gArrows.transition().delay(350).duration(400).attr('opacity',1);
+      groups.forEach(function(g,i){
+        g.transition().delay(i*480).duration(600).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('llm-training-canvas');
+      if(el&&!el._ltReady){el._ltReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='llm-training'){
+        const el=document.getElementById('llm-training-canvas');
+        if(el) el._ltReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='llm-training') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Cross-attention animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    // English source (encoder) and French target (decoder)
+    const ENC_TOKS=['The','cat','sat','on','mat'];
+    const DEC_TOKS=['Le','chat',"s'est"];
+    const NE=5, ND=3;
+    const ENC_COLS=[CI, C3, C2, C1, CA]; // per encoder-token colour
+
+    // Cross-attention weights [decoder row][encoder col], each row sums to 1
+    const ATTN=[
+      [0.35, 0.25, 0.15, 0.15, 0.10],   // Le   → The(hi)
+      [0.08, 0.68, 0.10, 0.08, 0.06],   // chat → cat(hi)
+      [0.06, 0.10, 0.65, 0.12, 0.07],   // s'est→ sat(hi)
+    ];
+
+    const CELL_W=56, CELL_H=66, GAP=3;
+    const MATW=NE*(CELL_W+GAP)-GAP;   // 292
+    const MATH=ND*(CELL_H+GAP)-GAP;   // 204
+
+    const MAT_LEFT=185, MAT_TOP=96;
+    const MAT_RIGHT=MAT_LEFT+MATW;    // 477
+    const MAT_BOT=MAT_TOP+MATH;       // 300
+    const midY=(MAT_TOP+MAT_BOT)/2;   // 198
+
+    const ENC_Y=50, ENC_H=26;         // encoder boxes above matrix
+    const DEC_X=15, DEC_W=112;        // decoder boxes left of matrix
+
+    const OUT_X=MAT_RIGHT+44;         // 521
+    const OUT_W=88;
+    const OUT_RIGHT=OUT_X+OUT_W;      // 609
+
+    const NOTE_X=OUT_RIGHT+22;        // 631
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','ca-glow')
+        .attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.5).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+      function addArrow(id,col){
+        defs.append('marker').attr('id',id)
+          .attr('markerWidth',7).attr('markerHeight',5)
+          .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+          .append('polygon').attr('points','0 0,7 2.5,0 5')
+          .attr('fill',col).attr('opacity',0.75);
+      }
+      addArrow('ca-arr-enc',CI);
+      addArrow('ca-arr-dec',C3);
+      addArrow('ca-arr-out',C2);
+
+      const gHead=svg.append('g').attr('opacity',0);
+      const gEnc =svg.append('g').attr('opacity',0);
+      const gDec =svg.append('g').attr('opacity',0);
+      const gMat =svg.append('g').attr('opacity',0);
+      const gHL  =svg.append('g').attr('opacity',0);
+      const gOut =svg.append('g').attr('opacity',0);
+      const gNote=svg.append('g').attr('opacity',0);
+
+      // ── Titles ──
+      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('Cross-Attention Weight Matrix');
+      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',33)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
+        .text('Q (decoder) · K (encoder)^T / √d   —   each row sums to 1');
+
+      // Column-axis label (encoder above)
+      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',ENC_Y-4)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
+        .text('Encoder output  →  Keys (K) and Values (V)');
+
+      // Decoder label (above decoder column)
+      gHead.append('text').attr('x',DEC_X+DEC_W/2).attr('y',ENC_Y+2)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.60)
+        .text('Decoder');
+      gHead.append('text').attr('x',DEC_X+DEC_W/2).attr('y',ENC_Y+14)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.42)
+        .text('(Q source)');
+
+      // Output label
+      gHead.append('text').attr('x',OUT_X+OUT_W/2).attr('y',ENC_Y+2)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.60)
+        .text('Context');
+      gHead.append('text').attr('x',OUT_X+OUT_W/2).attr('y',ENC_Y+14)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.42)
+        .text('(Σ w·V)');
+
+      // ── Encoder token boxes (above matrix, aligned to columns) ──
+      ENC_TOKS.forEach(function(tok,ci){
+        var bx=MAT_LEFT+ci*(CELL_W+GAP);
+        var col=ENC_COLS[ci];
+        gEnc.append('rect')
+          .attr('x',bx).attr('y',ENC_Y)
+          .attr('width',CELL_W).attr('height',ENC_H).attr('rx',3)
+          .attr('fill',col).attr('fill-opacity',0.14)
+          .attr('stroke',col).attr('stroke-opacity',0.45).attr('stroke-width',1);
+        gEnc.append('text')
+          .attr('x',bx+CELL_W/2).attr('y',ENC_Y+ENC_H/2+4)
+          .attr('text-anchor','middle').attr('font-size',10)
+          .attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.92)
+          .attr('font-weight','700').text('"'+tok+'"');
+        // Arrow down into matrix
+        gEnc.append('line')
+          .attr('x1',bx+CELL_W/2).attr('y1',ENC_Y+ENC_H+3)
+          .attr('x2',bx+CELL_W/2).attr('y2',MAT_TOP-5)
+          .attr('stroke',col).attr('stroke-opacity',0.38).attr('stroke-width',1.2)
+          .attr('marker-end','url(#ca-arr-enc)');
+      });
+
+      // ── Decoder token boxes (left of matrix, aligned to rows) ──
+      DEC_TOKS.forEach(function(tok,ri){
+        var by=MAT_TOP+ri*(CELL_H+GAP);
+        var isHL=ri===1;
+        gDec.append('rect')
+          .attr('x',DEC_X).attr('y',by)
+          .attr('width',DEC_W).attr('height',CELL_H).attr('rx',3)
+          .attr('fill',C3).attr('fill-opacity',isHL?0.14:0.07)
+          .attr('stroke',C3).attr('stroke-opacity',isHL?0.50:0.24).attr('stroke-width',1);
+        gDec.append('text')
+          .attr('x',DEC_X+DEC_W/2).attr('y',by+CELL_H/2+4)
+          .attr('text-anchor','middle').attr('font-size',11)
+          .attr('font-family','monospace').attr('fill',C3)
+          .attr('fill-opacity',isHL?0.95:0.60).attr('font-weight',isHL?'700':'400')
+          .text('"'+tok+'"');
+        // Q arrow into matrix
+        gDec.append('line')
+          .attr('x1',DEC_X+DEC_W+3).attr('y1',by+CELL_H/2)
+          .attr('x2',MAT_LEFT-5).attr('y2',by+CELL_H/2)
+          .attr('stroke',C3).attr('stroke-opacity',0.38).attr('stroke-width',1.2)
+          .attr('marker-end','url(#ca-arr-dec)');
+        gDec.append('text')
+          .attr('x',DEC_X+DEC_W-2).attr('y',by+CELL_H/2-5)
+          .attr('text-anchor','end').attr('font-size',7)
+          .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.45)
+          .text('Q →');
+      });
+
+      // ── Cross-attention matrix ──
+      for(var ri=0;ri<ND;ri++){
+        for(var ci=0;ci<NE;ci++){
+          var v=ATTN[ri][ci];
+          var col=ENC_COLS[ci];
+          var cx=MAT_LEFT+ci*(CELL_W+GAP);
+          var cy=MAT_TOP+ri*(CELL_H+GAP);
+          gMat.append('rect')
+            .attr('x',cx).attr('y',cy)
+            .attr('width',CELL_W).attr('height',CELL_H).attr('rx',2)
+            .attr('fill',col).attr('fill-opacity',0.04+v*0.72);
+          if(v>0.12) gMat.append('text')
+            .attr('x',cx+CELL_W/2).attr('y',cy+CELL_H/2+4)
+            .attr('text-anchor','middle').attr('font-size',9.5)
+            .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.65)
+            .text(v.toFixed(2));
+        }
+      }
+
+      // ── Highlight: "chat" row + "cat" peak cell ──
+      var HL_RI=1, HL_CI=1;
+      var hlcx=MAT_LEFT+HL_CI*(CELL_W+GAP);
+      var hlcy=MAT_TOP+HL_RI*(CELL_H+GAP);
+      // Row ring
+      gHL.append('rect')
+        .attr('x',MAT_LEFT-2).attr('y',hlcy-1)
+        .attr('width',MATW+4).attr('height',CELL_H+2).attr('rx',3)
+        .attr('fill','none').attr('stroke',C3).attr('stroke-opacity',0.60).attr('stroke-width',1.7)
+        .attr('filter','url(#ca-glow)');
+      // Peak cell ring
+      gHL.append('rect')
+        .attr('x',hlcx-1).attr('y',hlcy-1)
+        .attr('width',CELL_W+2).attr('height',CELL_H+2).attr('rx',3)
+        .attr('fill','none').attr('stroke',C3).attr('stroke-opacity',0.90).attr('stroke-width',2.3)
+        .attr('filter','url(#ca-glow)');
+      // Callout
+      gHL.append('text')
+        .attr('x',hlcx+CELL_W/2).attr('y',hlcy-6)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.90)
+        .text('"chat" → "cat"  0.68');
+
+      // ── Output context vectors (right panel) ──
+      // Arrow from matrix to output
+      gOut.append('line')
+        .attr('x1',MAT_RIGHT+5).attr('y1',midY)
+        .attr('x2',OUT_X-9).attr('y2',midY)
+        .attr('stroke',C2).attr('stroke-width',2.0).attr('marker-end','url(#ca-arr-out)');
+      gOut.append('text')
+        .attr('x',(MAT_RIGHT+OUT_X)/2).attr('y',midY-7)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.72)
+        .text('× V');
+
+      DEC_TOKS.forEach(function(tok,ri){
+        var oy=MAT_TOP+ri*(CELL_H+GAP);
+        var isHL=ri===1;
+        var oBox=gOut.append('rect')
+          .attr('x',OUT_X).attr('y',oy+5)
+          .attr('width',OUT_W).attr('height',CELL_H-10).attr('rx',4)
+          .attr('fill',C2).attr('fill-opacity',isHL?0.13:0.07)
+          .attr('stroke',C2).attr('stroke-opacity',isHL?0.50:0.22).attr('stroke-width',1);
+        if(isHL) oBox.attr('filter','url(#ca-glow)');
+
+        // Composition strip (weighted colour bar from each encoder token)
+        var STRIP_W=OUT_W-14, STRIP_H=10;
+        var sx=OUT_X+7;
+        ATTN[ri].forEach(function(w,ci){
+          var sw=STRIP_W*w;
+          gOut.append('rect')
+            .attr('x',sx).attr('y',oy+10)
+            .attr('width',Math.max(sw-1,0)).attr('height',STRIP_H).attr('rx',1)
+            .attr('fill',ENC_COLS[ci]).attr('fill-opacity',0.68);
+          sx+=sw;
+        });
+
+        gOut.append('text')
+          .attr('x',OUT_X+OUT_W/2).attr('y',oy+CELL_H-8)
+          .attr('text-anchor','middle').attr('font-size',8.5)
+          .attr('font-family','monospace')
+          .attr('fill',isHL?C3:CW).attr('fill-opacity',isHL?0.92:0.45)
+          .text('ctx_'+tok);
+      });
+
+      // ── Right note ──
+      var NY=MAT_TOP;
+      function nline(txt,col,sz,bold){
+        if(!txt){NY+=7;return;}
+        gNote.append('text')
+          .attr('x',NOTE_X).attr('y',NY)
+          .attr('font-size',sz||9).attr('font-family','monospace')
+          .attr('fill',col||CM).attr('font-weight',bold?'700':'400')
+          .text(txt);
+        NY+=(sz||9)+(bold?8:5);
+      }
+      nline('Cross-Attention',CW,11,true);
+      nline('');
+      nline('Q  ←  decoder output',C3,9);
+      nline('K  ←  encoder output',CI,9);
+      nline('V  ←  encoder output',CI,9);
+      nline('');
+      nline('"chat" → "cat": 0.68',C3,9,true);
+      nline('French noun directly',CM,8.5);
+      nline('targets English noun',CM,8.5);
+      nline('');
+      nline('No causal mask —',CW,9);
+      nline('decoder sees ALL',CM,8.5);
+      nline('encoder positions',CM,8.5);
+      nline('');
+      nline('Used in:',CW,8.5);
+      nline('T5 · BART · Flan-T5',C2,8.5);
+
+      // Bottom insight box
+      var IB_Y=MAT_BOT+18, IB_X=DEC_X, IB_W=OUT_RIGHT-DEC_X;
+      gNote.append('rect')
+        .attr('x',IB_X).attr('y',IB_Y).attr('width',IB_W).attr('height',54).attr('rx',6)
+        .attr('fill',CI).attr('fill-opacity',0.06)
+        .attr('stroke',CI).attr('stroke-opacity',0.26).attr('stroke-width',1.1);
+      gNote.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+17)
+        .attr('text-anchor','middle').attr('font-size',9.5)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('Key difference from self-attention:');
+      gNote.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+34)
+        .attr('text-anchor','middle').attr('font-size',9)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.80)
+        .text('Q and K,V come from different sequences — decoder "reads" the full encoder at every step');
+
+      var seq=[
+        [gHead,    0,  400],
+        [gEnc,   400,  550],
+        [gDec,   900,  500],
+        [gMat,  1400,  650],
+        [gHL,   2100,  400],
+        [gOut,  2600,  550],
+        [gNote, 3200,  500],
+      ];
+      seq.forEach(function(s){
+        s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('cross-attn-canvas');
+      if(el&&!el._crossReady){el._crossReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='cross-attention'){
+        const el=document.getElementById('cross-attn-canvas');
+        if(el) el._crossReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='cross-attention') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- LLM Architecture Families animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    const ARCHS=[
+      {title:'Encoder-Only',       sub:'BERT · RoBERTa · DeBERTa',   col:C1, type:'enc'},
+      {title:'Decoder-Only',       sub:'GPT-4 · Llama · Claude',      col:C3, type:'dec'},
+      {title:'Encoder–Decoder',    sub:'T5 · BART · Flan-T5',         col:C2, type:'encdec'},
+      {title:'Mixture of Experts', sub:'Mixtral · Grok · Gemini',     col:CA, type:'moe'},
+    ];
+    const FEATS={
+      enc:   ['Bidirectional attention','Full context at every layer','Classification · NER · QA'],
+      dec:   ['Causal (masked) attention','Left-to-right generation','Chat · completion · code'],
+      encdec:['Cross-attention bridge','Encode then decode','Translation · summarization'],
+      moe:   ['Router selects top-k experts','Sparse — only 2 of N active','Scale without full cost'],
+    };
+
+    const NC=4, PAD=12;
+    const COLW=(W-PAD*(NC+1))/NC;   // ~260 px per column
+    const colX=function(i){ return PAD+(COLW+PAD)*i; };
+
+    // ── Shared layer-stack helper ──
+    function layerStack(g, gx, cx, y0, layers, lh, lgap){
+      const lw=COLW-18;
+      layers.forEach(function(lyr,li){
+        const c=lyr.c, ry=y0+li*(lh+lgap);
+        const isDashed=(lyr.l==='× N layers');
+        g.append('rect')
+          .attr('x',gx+9).attr('y',ry).attr('width',lw).attr('height',lh).attr('rx',3.5)
+          .attr('fill',c).attr('fill-opacity',0.09)
+          .attr('stroke',c).attr('stroke-opacity',0.30).attr('stroke-width',0.9)
+          .attr('stroke-dasharray',isDashed?'5,4':'none');
+        g.append('text')
+          .attr('x',cx).attr('y',ry+lh/2+4)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.80)
+          .text(lyr.l);
+      });
+    }
+
+    // ── Attention heatmap helper ──
+    function heatmap(g, hmX, hmY, NT, CELL, col, causal){
+      for(let r=0;r<NT;r++) for(let c2=0;c2<NT;c2++){
+        const masked=causal&&(c2>r);
+        const v=masked?0:Math.sin(r*2.1+c2*1.3+0.5)*0.35+0.65;
+        g.append('rect')
+          .attr('x',hmX+c2*CELL+0.5).attr('y',hmY+r*CELL+0.5)
+          .attr('width',CELL-1).attr('height',CELL-1).attr('rx',1.5)
+          .attr('fill',col).attr('fill-opacity',masked?0.03:v*0.70);
+      }
+      g.append('rect')
+        .attr('x',hmX).attr('y',hmY).attr('width',NT*CELL).attr('height',NT*CELL)
+        .attr('fill','none').attr('stroke',col).attr('stroke-opacity',0.28).attr('stroke-width',0.8);
+    }
+
+    // ── Encoder-only / Decoder-only ──
+    function drawSingle(g, gx, cx, y0, col, causal){
+      const NT=5, CELL=20;
+      const gridW=NT*CELL;
+      const hmX=cx-gridW/2, hmY=y0+18;
+
+      g.append('text').attr('x',cx).attr('y',hmY-5)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.58)
+        .text(causal?'causal (masked) attention':'bidirectional attention');
+
+      heatmap(g, hmX, hmY, NT, CELL, col, causal);
+
+      if(causal){
+        g.append('line')
+          .attr('x1',hmX).attr('y1',hmY).attr('x2',hmX+gridW).attr('y2',hmY+gridW)
+          .attr('stroke',col).attr('stroke-opacity',0.25).attr('stroke-width',0.8)
+          .attr('stroke-dasharray','3,3');
+        g.append('text').attr('x',hmX+gridW+4).attr('y',hmY+8)
+          .attr('font-size',6).attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',0.50).text('masked');
+      } else {
+        g.append('text').attr('x',hmX-4).attr('y',hmY+gridW/2+4)
+          .attr('text-anchor','end').attr('font-size',11)
+          .attr('fill',col).attr('fill-opacity',0.55).text('↔');
+      }
+
+      // Six-layer stack
+      const stackY=hmY+gridW+14;
+      const lh=19, lgap=3;
+      const aLbl=causal?'Causal Attn →':'Bidir Attn ↔';
+      const LYRS=[
+        {l:'Embedding',c:CI},
+        {l:aLbl, c:col}, {l:'FFN',c:'#9d4edd'},
+        {l:aLbl, c:col}, {l:'FFN',c:'#9d4edd'},
+        {l:'× N layers',c:CM},
+      ];
+      layerStack(g, gx, cx, stackY, LYRS, lh, lgap);
+
+      // ×N brace
+      const brH=LYRS.length*(lh+lgap)-lgap;
+      const brX=gx+COLW-6;
+      g.append('path')
+        .attr('d',`M ${brX} ${stackY} l 5 0 l 0 ${brH} l -5 0`)
+        .attr('fill','none').attr('stroke',CM).attr('stroke-width',1).attr('stroke-opacity',0.35);
+    }
+
+    // ── Encoder–Decoder ──
+    function drawEncDec(g, gx, cx, y0, col){
+      const lh=20, lgap=2;
+      const halfW=Math.floor((COLW-24)/2);
+      const encX=gx+6, decX=gx+18+halfW;
+      const stackY=y0+18;
+
+      const ENC=[{l:'Embed',c:CI},{l:'Bidir ↔',c:col},{l:'FFN',c:'#9d4edd'},
+                 {l:'Bidir ↔',c:col},{l:'FFN',c:'#9d4edd'},{l:'×N',c:CM}];
+      const DEC=[{l:'Embed',c:CI},{l:'Causal →',c:col},{l:'Cross ✕',c:C3},
+                 {l:'FFN',c:'#9d4edd'},{l:'Causal →',c:col},{l:'×N',c:CM}];
+
+      // Stack labels
+      g.append('text').attr('x',encX+halfW/2).attr('y',stackY-5)
+        .attr('text-anchor','middle').attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',col).attr('fill-opacity',0.72).text('Encoder');
+      g.append('text').attr('x',decX+halfW/2).attr('y',stackY-5)
+        .attr('text-anchor','middle').attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.72).text('Decoder');
+
+      [ENC,DEC].forEach(function(lyrs,si){
+        const sx=si===0?encX:decX;
+        lyrs.forEach(function(lyr,li){
+          const c=lyr.l==='Cross ✕'?C3:lyr.c;
+          const ry=stackY+li*(lh+lgap);
+          g.append('rect')
+            .attr('x',sx).attr('y',ry).attr('width',halfW).attr('height',lh).attr('rx',3)
+            .attr('fill',c).attr('fill-opacity',0.09)
+            .attr('stroke',c).attr('stroke-opacity',0.32).attr('stroke-width',0.9)
+            .attr('stroke-dasharray',lyr.l==='×N'?'5,4':'none');
+          g.append('text')
+            .attr('x',sx+halfW/2).attr('y',ry+lh/2+4)
+            .attr('text-anchor','middle').attr('font-size',6.5)
+            .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.82)
+            .text(lyr.l);
+        });
+      });
+
+      // Cross-attention bridge arrow at "Cross ✕" row (li=2)
+      const crossY=stackY+2*(lh+lgap)+lh/2;
+      g.append('defs').append('marker').attr('id','af-arr-o')
+        .attr('markerWidth',6).attr('markerHeight',4)
+        .attr('refX',5).attr('refY',2).attr('orient','auto')
+        .append('polygon').attr('points','0 0,6 2,0 4')
+        .attr('fill',C3).attr('opacity',0.85);
+      g.append('line')
+        .attr('x1',encX+halfW).attr('y1',crossY)
+        .attr('x2',decX-2).attr('y2',crossY)
+        .attr('stroke',C3).attr('stroke-opacity',0.75).attr('stroke-width',2.2)
+        .attr('marker-end','url(#af-arr-o)');
+
+      // Mini heatmaps below stacks
+      const hmY=stackY+ENC.length*(lh+lgap)+10;
+      const NT=4, CELL=11;
+      const hmEncX=encX+(halfW-NT*CELL)/2;
+      const hmDecX=decX+(halfW-NT*CELL)/2;
+      g.append('text').attr('x',encX+halfW/2).attr('y',hmY-3)
+        .attr('text-anchor','middle').attr('font-size',6)
+        .attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.55)
+        .text('bidir');
+      g.append('text').attr('x',decX+halfW/2).attr('y',hmY-3)
+        .attr('text-anchor','middle').attr('font-size',6)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.55)
+        .text('causal');
+      heatmap(g, hmEncX, hmY, NT, CELL, col, false);
+      heatmap(g, hmDecX, hmY, NT, CELL, C3, true);
+    }
+
+    // ── Mixture of Experts ──
+    function drawMoE(g, gx, cx, y0, col){
+      const lw=COLW-18;
+      let cy=y0+14;
+
+      // Embedding
+      g.append('rect').attr('x',gx+9).attr('y',cy).attr('width',lw).attr('height',19).attr('rx',3.5)
+        .attr('fill',CI).attr('fill-opacity',0.09).attr('stroke',CI).attr('stroke-opacity',0.32).attr('stroke-width',0.9);
+      g.append('text').attr('x',cx).attr('y',cy+12.5).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.80)
+        .text('Embedding');
+      cy+=27;
+
+      // Causal attention
+      g.append('rect').attr('x',gx+9).attr('y',cy).attr('width',lw).attr('height',19).attr('rx',3.5)
+        .attr('fill',col).attr('fill-opacity',0.09).attr('stroke',col).attr('stroke-opacity',0.32).attr('stroke-width',0.9);
+      g.append('text').attr('x',cx).attr('y',cy+12.5).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.80)
+        .text('Causal Attn →');
+      cy+=27;
+
+      // Router (golden, glowing)
+      const rw=70;
+      g.append('rect').attr('x',cx-rw/2).attr('y',cy).attr('width',rw).attr('height',22).attr('rx',4)
+        .attr('fill',C3).attr('fill-opacity',0.20).attr('stroke',C3).attr('stroke-opacity',0.72).attr('stroke-width',1.5)
+        .attr('filter','url(#af-glow)');
+      g.append('text').attr('x',cx).attr('y',cy+14).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-family','monospace').attr('fill',C3).attr('font-weight','700')
+        .text('Router');
+      cy+=30;
+
+      // 4 expert boxes — experts 1 and 3 are active (top-2 routing)
+      const N_EXP=4, ACTIVE=[1,3];
+      const expW=48, expH=34;
+      const expGap=(COLW-N_EXP*expW)/(N_EXP+1);
+      for(let ei=0;ei<N_EXP;ei++){
+        const ex=gx+expGap+(expW+expGap)*ei;
+        const active=ACTIVE.includes(ei);
+        const ec=active?col:CI;
+
+        g.append('line')
+          .attr('x1',cx).attr('y1',cy-8)
+          .attr('x2',ex+expW/2).attr('y2',cy)
+          .attr('stroke',active?C3:CI)
+          .attr('stroke-opacity',active?0.68:0.15)
+          .attr('stroke-width',active?2:0.8)
+          .attr('stroke-dasharray',active?'none':'4,3');
+
+        const box=g.append('rect')
+          .attr('x',ex).attr('y',cy).attr('width',expW).attr('height',expH).attr('rx',4)
+          .attr('fill',ec).attr('fill-opacity',active?0.18:0.04)
+          .attr('stroke',ec).attr('stroke-opacity',active?0.70:0.18).attr('stroke-width',active?1.5:0.8);
+        if(active) box.attr('filter','url(#af-glow)');
+
+        g.append('text').attr('x',ex+expW/2).attr('y',cy+expH/2+1)
+          .attr('text-anchor','middle').attr('font-size',active?8.5:7.5)
+          .attr('font-family','monospace').attr('fill',ec).attr('fill-opacity',active?0.90:0.28)
+          .attr('font-weight',active?'700':'400').text('E'+ei);
+        g.append('text').attr('x',ex+expW/2).attr('y',cy+expH/2+13)
+          .attr('text-anchor','middle').attr('font-size',6.5)
+          .attr('font-family','monospace').attr('fill',ec).attr('fill-opacity',active?0.65:0.20)
+          .text(active?'active':'inactive');
+      }
+      cy+=expH+10;
+
+      // "top-2 of N" note
+      g.append('text').attr('x',cx).attr('y',cy+5).attr('text-anchor','middle')
+        .attr('font-size',7).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.68)
+        .text('top-2 of N experts per token');
+      cy+=20;
+
+      // Weighted merge output
+      g.append('rect').attr('x',gx+9).attr('y',cy).attr('width',lw).attr('height',19).attr('rx',3.5)
+        .attr('fill',col).attr('fill-opacity',0.09).attr('stroke',col).attr('stroke-opacity',0.28).attr('stroke-width',0.9);
+      g.append('text').attr('x',cx).attr('y',cy+12.5).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.72)
+        .text('weighted merge');
+      cy+=27;
+
+      // ×N dashed repeat indicator
+      g.append('rect').attr('x',gx+9).attr('y',cy).attr('width',lw).attr('height',19).attr('rx',3.5)
+        .attr('fill',CM).attr('fill-opacity',0.02)
+        .attr('stroke',CM).attr('stroke-opacity',0.25).attr('stroke-width',0.9)
+        .attr('stroke-dasharray','5,4');
+      g.append('text').attr('x',cx).attr('y',cy+12.5).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM).attr('fill-opacity',0.70)
+        .text('× N layers');
+    }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','af-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+
+      const groups=ARCHS.map(function(){ return svg.append('g').attr('opacity',0); });
+
+      ARCHS.forEach(function(arch,ci){
+        const gx=colX(ci);
+        const cx=gx+COLW/2;
+        const g=groups[ci];
+        const c=arch.col;
+
+        // Column card
+        g.append('rect')
+          .attr('x',gx).attr('y',6).attr('width',COLW).attr('height',H-14).attr('rx',10)
+          .attr('fill',c).attr('fill-opacity',0.04)
+          .attr('stroke',c).attr('stroke-opacity',0.20).attr('stroke-width',1.2);
+
+        // Title
+        g.append('text').attr('x',cx).attr('y',30)
+          .attr('text-anchor','middle').attr('font-size',11.5)
+          .attr('font-family','monospace').attr('fill',c).attr('font-weight','700')
+          .text(arch.title);
+        g.append('text').attr('x',cx).attr('y',44)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.55)
+          .text(arch.sub);
+
+        // Diagram
+        const diagY=52;
+        if(arch.type==='enc')    drawSingle(g,gx,cx,diagY,c,false);
+        else if(arch.type==='dec')    drawSingle(g,gx,cx,diagY,c,true);
+        else if(arch.type==='encdec') drawEncDec(g,gx,cx,diagY,c);
+        else if(arch.type==='moe')    drawMoE(g,gx,cx,diagY,c);
+
+        // Divider
+        const divY=H-10-FEATS[arch.type].length*24-8;
+        g.append('line')
+          .attr('x1',gx+14).attr('y1',divY).attr('x2',gx+COLW-14).attr('y2',divY)
+          .attr('stroke',c).attr('stroke-opacity',0.15).attr('stroke-width',0.8);
+
+        // Feature bullets
+        const bulletY=divY+8;
+        FEATS[arch.type].forEach(function(feat,fi){
+          const fy=bulletY+fi*24;
+          g.append('rect')
+            .attr('x',gx+8).attr('y',fy).attr('width',COLW-16).attr('height',18).attr('rx',3)
+            .attr('fill',c).attr('fill-opacity',0.06)
+            .attr('stroke',c).attr('stroke-opacity',0.14).attr('stroke-width',0.7);
+          g.append('text')
+            .attr('x',cx).attr('y',fy+12)
+            .attr('text-anchor','middle').attr('font-size',7.5)
+            .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.82)
+            .text(feat);
+        });
+      });
+
+      // Reveal columns left-to-right
+      groups.forEach(function(g,i){
+        g.transition().delay(i*450).duration(600).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('llm-arch-families-canvas');
+      if(el&&!el._archFamReady){el._archFamReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='llm-arch-families'){
+        const el=document.getElementById('llm-arch-families-canvas');
+        if(el) el._archFamReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='llm-arch-families') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Attention masking animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+    const CMASK='#cc3333';
+
+    const TOKS=['The','cat','sat','on','mat'];
+    const N=5;
+    const CELL=46, GAP=2;
+    const MATW=N*(CELL+GAP)-GAP;   // 238
+
+    function rawScore(r,c){
+      return [0.85,0.55,0.30,0.15,0.08][Math.min(Math.abs(r-c),4)];
+    }
+    const SOFT=[
+      [1.00, 0,    0,    0,    0   ],
+      [0.60, 0.40, 0,    0,    0   ],
+      [0.35, 0.40, 0.25, 0,    0   ],
+      [0.20, 0.25, 0.30, 0.25, 0   ],
+      [0.12, 0.18, 0.28, 0.26, 0.16],
+    ];
+
+    const ROW_LBL_X=58;
+    const M1_X=65,  M1_RIGHT=M1_X+MATW;       // 65, 303
+    const M2_X=363, M2_RIGHT=M2_X+MATW;        // 363, 601
+    const OP2_X=M2_RIGHT+12, OP2_END=OP2_X+50; // 613, 663
+    const M3_X=OP2_END+10,  M3_RIGHT=M3_X+MATW;// 673, 911
+    const NOTE_X=M3_RIGHT+22;                  // 933
+
+    const COL_LBL_Y=80, MAT_TOP=94;
+    const MATBOT=MAT_TOP+MATW;   // 332
+    const midY=(MAT_TOP+MATBOT)/2; // 213
+    const LEGB_Y=348;
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','am-glow')
+        .attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.5).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+      defs.append('marker').attr('id','am-arr')
+        .attr('markerWidth',7).attr('markerHeight',5)
+        .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0 0,7 2.5,0 5')
+        .attr('fill',C2).attr('opacity',0.85);
+
+      const gHead=svg.append('g').attr('opacity',0);
+      const gM1  =svg.append('g').attr('opacity',0);
+      const gOp1 =svg.append('g').attr('opacity',0);
+      const gM2  =svg.append('g').attr('opacity',0);
+      const gOp2 =svg.append('g').attr('opacity',0);
+      const gM3  =svg.append('g').attr('opacity',0);
+      const gNote=svg.append('g').attr('opacity',0);
+      const gLeg =svg.append('g').attr('opacity',0);
+
+      // ── Section titles ──
+      [[M1_X+MATW/2,'Attention Scores','Q · K^T / √d'],
+       [M2_X+MATW/2,'Causal Mask','0 = allow,  −∞ = block'],
+       [M3_X+MATW/2,'Attention Weights','row-wise softmax  (each row sums to 1)'],
+      ].forEach(function(t){
+        gHead.append('text').attr('x',t[0]).attr('y',20)
+          .attr('text-anchor','middle').attr('font-size',10.5)
+          .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+          .text(t[1]);
+        gHead.append('text').attr('x',t[0]).attr('y',35)
+          .attr('text-anchor','middle').attr('font-size',8)
+          .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
+          .text(t[2]);
+      });
+      // Axis labels
+      gHead.append('text')
+        .attr('x',11).attr('y',midY+4).attr('text-anchor','middle')
+        .attr('font-size',8).attr('font-family','monospace').attr('fill',CM)
+        .attr('transform',`rotate(-90,11,${midY})`).text('query ↓');
+      gHead.append('text')
+        .attr('x',M1_X+MATW/2).attr('y',COL_LBL_Y-10)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CM).text('← key →');
+
+      // ── Matrix helper ──
+      function drawMatrix(g,mx,doRow,doCols,cellFn){
+        if(doCols){
+          TOKS.forEach(function(tok,ci){
+            g.append('text')
+              .attr('x',mx+ci*(CELL+GAP)+CELL/2).attr('y',COL_LBL_Y)
+              .attr('text-anchor','middle').attr('font-size',9)
+              .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.48)
+              .text(tok);
+          });
+        }
+        if(doRow){
+          TOKS.forEach(function(tok,ri){
+            g.append('text')
+              .attr('x',ROW_LBL_X).attr('y',MAT_TOP+ri*(CELL+GAP)+CELL/2+4)
+              .attr('text-anchor','end').attr('font-size',9)
+              .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.48)
+              .text(tok);
+          });
+        }
+        for(var ri=0;ri<N;ri++){
+          for(var ci=0;ci<N;ci++){
+            cellFn(g,ri,ci,mx+ci*(CELL+GAP),MAT_TOP+ri*(CELL+GAP));
+          }
+        }
+      }
+
+      // M1: raw scores (all cells, heatmap by distance from diagonal)
+      drawMatrix(gM1,M1_X,true,true,function(g,ri,ci,cx,cy){
+        var v=rawScore(ri,ci);
+        g.append('rect')
+          .attr('x',cx).attr('y',cy).attr('width',CELL).attr('height',CELL).attr('rx',2)
+          .attr('fill',CI).attr('fill-opacity',0.07+v*0.78);
+        if(v>=0.55) g.append('text')
+          .attr('x',cx+CELL/2).attr('y',cy+CELL/2+4)
+          .attr('text-anchor','middle').attr('font-size',8)
+          .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.55)
+          .text(v.toFixed(2));
+      });
+
+      // Op1: "+"
+      gOp1.append('text')
+        .attr('x',(M1_RIGHT+M2_X)/2).attr('y',midY+8)
+        .attr('text-anchor','middle').attr('font-size',26)
+        .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.50)
+        .text('+');
+
+      // M2: causal mask (lower tri = 0, upper tri = −∞)
+      drawMatrix(gM2,M2_X,false,true,function(g,ri,ci,cx,cy){
+        if(ci>ri){
+          g.append('rect')
+            .attr('x',cx).attr('y',cy).attr('width',CELL).attr('height',CELL).attr('rx',2)
+            .attr('fill',CMASK).attr('fill-opacity',0.65);
+          g.append('text')
+            .attr('x',cx+CELL/2).attr('y',cy+CELL/2+4)
+            .attr('text-anchor','middle').attr('font-size',9.5)
+            .attr('font-family','monospace').attr('fill','#ffaaaa').attr('fill-opacity',0.90)
+            .text('−∞');
+        } else {
+          g.append('rect')
+            .attr('x',cx).attr('y',cy).attr('width',CELL).attr('height',CELL).attr('rx',2)
+            .attr('fill',C2).attr('fill-opacity',0.13);
+          g.append('text')
+            .attr('x',cx+CELL/2).attr('y',cy+CELL/2+4)
+            .attr('text-anchor','middle').attr('font-size',9.5)
+            .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.60)
+            .text('0');
+        }
+      });
+
+      // Op2: "→ softmax →"
+      gOp2.append('line')
+        .attr('x1',OP2_X).attr('y1',midY)
+        .attr('x2',OP2_END-8).attr('y2',midY)
+        .attr('stroke',C2).attr('stroke-width',2.2).attr('marker-end','url(#am-arr)');
+      gOp2.append('text')
+        .attr('x',(OP2_X+OP2_END)/2).attr('y',midY-8)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.88)
+        .text('softmax');
+      gOp2.append('text')
+        .attr('x',(OP2_X+OP2_END)/2).attr('y',midY+14)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.55)
+        .text('row-wise');
+
+      // M3: attention weights after softmax
+      var HL=3; // highlight row "on"
+      drawMatrix(gM3,M3_X,false,true,function(g,ri,ci,cx,cy){
+        if(ci>ri){
+          g.append('rect')
+            .attr('x',cx).attr('y',cy).attr('width',CELL).attr('height',CELL).attr('rx',2)
+            .attr('fill',CM).attr('fill-opacity',0.06);
+          g.append('text')
+            .attr('x',cx+CELL/2).attr('y',cy+CELL/2+4)
+            .attr('text-anchor','middle').attr('font-size',8)
+            .attr('font-family','monospace').attr('fill',CM).attr('fill-opacity',0.30)
+            .text('0');
+        } else {
+          var v=SOFT[ri][ci];
+          var hl=ri===HL;
+          var rect=g.append('rect')
+            .attr('x',cx).attr('y',cy).attr('width',CELL).attr('height',CELL).attr('rx',2)
+            .attr('fill',hl?C3:C1).attr('fill-opacity',0.07+v*(hl?0.82:0.75));
+          if(hl&&v>0.12) rect.attr('filter','url(#am-glow)');
+          if(v>0.09) g.append('text')
+            .attr('x',cx+CELL/2).attr('y',cy+CELL/2+4)
+            .attr('text-anchor','middle').attr('font-size',8)
+            .attr('font-family','monospace')
+            .attr('fill',hl?C3:CW).attr('fill-opacity',hl?0.95:0.55)
+            .text(v.toFixed(2));
+        }
+      });
+      // Ring around highlighted "on" row
+      var hlY=MAT_TOP+HL*(CELL+GAP);
+      gM3.append('rect')
+        .attr('x',M3_X-2).attr('y',hlY-1)
+        .attr('width',MATW+4).attr('height',CELL+2).attr('rx',3)
+        .attr('fill','none').attr('stroke',C3).attr('stroke-opacity',0.70).attr('stroke-width',1.8)
+        .attr('filter','url(#am-glow)');
+
+      // ── Right annotation ──
+      var NY=MAT_TOP;
+      function nline(txt,col,sz,bold){
+        if(!txt){NY+=7;return;}
+        gNote.append('text')
+          .attr('x',NOTE_X).attr('y',NY)
+          .attr('font-size',sz||9).attr('font-family','monospace')
+          .attr('fill',col||CM).attr('font-weight',bold?'700':'400')
+          .text(txt);
+        NY+=(sz||9)+(bold?7:5);
+      }
+      nline('Why masking?',CW,11,true);
+      nline('');
+      nline('Each token can only',CM,8.5);
+      nline('attend to itself and',CM,8.5);
+      nline('earlier tokens.',CM,8.5);
+      nline('');
+      nline('−∞ before softmax',C1,8.5);
+      nline('→ exactly 0 after.',C1,8.5);
+      nline('');
+      nline('Encoder: full attn',C2,8.5);
+      nline('Decoder: causal only',C3,8.5);
+      nline('');
+      nline('"on" row (HL):',C3,8);
+      nline('sums to 1.00  ←',C3,8);
+
+      // ── Bottom legend: encoder vs decoder mini icons + insight ──
+      var lN=3,lC=18,lG=1,lW=lN*(lC+lG)-lG; // 3x3, 56px wide
+
+      function miniMat(lx,label,masked,col,caption){
+        gLeg.append('text')
+          .attr('x',lx+lW/2).attr('y',LEGB_Y-6)
+          .attr('text-anchor','middle').attr('font-size',9)
+          .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.65)
+          .text(label);
+        for(var ri=0;ri<lN;ri++){
+          for(var ci=0;ci<lN;ci++){
+            var blocked=masked&&ci>ri;
+            gLeg.append('rect')
+              .attr('x',lx+ci*(lC+lG)).attr('y',LEGB_Y+ri*(lC+lG))
+              .attr('width',lC).attr('height',lC).attr('rx',1)
+              .attr('fill',blocked?CMASK:col).attr('fill-opacity',blocked?0.55:0.28);
+          }
+        }
+        gLeg.append('text')
+          .attr('x',lx+lW/2).attr('y',LEGB_Y+lW+13)
+          .attr('text-anchor','middle').attr('font-size',8)
+          .attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.65)
+          .text(caption);
+      }
+
+      miniMat(100,'Encoder (BERT)',false,C2,'bidirectional');
+      miniMat(230,'Decoder (GPT)',true,C1,'lower tri only');
+
+      // Insight box
+      var IB_X=390,IB_W=510,IB_Y=LEGB_Y-10;
+      gLeg.append('rect')
+        .attr('x',IB_X).attr('y',IB_Y).attr('width',IB_W).attr('height',62).attr('rx',6)
+        .attr('fill',C3).attr('fill-opacity',0.08)
+        .attr('stroke',C3).attr('stroke-opacity',0.38).attr('stroke-width',1.2);
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+18)
+        .attr('text-anchor','middle').attr('font-size',10)
+        .attr('font-family','monospace').attr('fill',C3).attr('font-weight','700')
+        .text('Causal masking → autoregressive generation');
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+35)
+        .attr('text-anchor','middle').attr('font-size',9)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.80)
+        .text('token i attends only to tokens 0 … i−1  (no future leakage)');
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+51)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CM)
+        .text('same architecture trains in parallel — each position predicts its next token simultaneously');
+
+      // Animate
+      var seq=[
+        [gHead, 0,   400],
+        [gM1,   400, 550],
+        [gOp1, 1000, 300],
+        [gM2,  1200, 600],
+        [gOp2, 1950, 400],
+        [gM3,  2150, 650],
+        [gNote,2900, 500],
+        [gLeg, 3200, 600],
+      ];
+      seq.forEach(function(s){
+        s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('attn-masking-canvas');
+      if(el&&!el._maskReady){el._maskReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='attn-masking'){
+        const el=document.getElementById('attn-masking-canvas');
+        if(el) el._maskReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='attn-masking') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Un-embedding matrix animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    const VOCAB=[
+      {w:'the',  p:0.32, logit: 1.45},
+      {w:'a',    p:0.24, logit: 1.10},
+      {w:'top',  p:0.14, logit: 0.55},
+      {w:'its',  p:0.09, logit: 0.20},
+      {w:'her',  p:0.07, logit: 0.05},
+      {w:'my',   p:0.06, logit:-0.10},
+      {w:'this', p:0.04, logit:-0.40},
+      {w:'that', p:0.04, logit:-0.40},
+    ];
+    const NV=VOCAB.length;
+
+    const N_COLS=16, COL_W=22;
+    const ROW_H=32, ROW_GAP=3;
+    const MAT_X=110, MAT_TOP=118;
+    const MAT_W=N_COLS*COL_W;               // 352
+    const MAT_RIGHT=MAT_X+MAT_W;            // 462
+    const MAT_BOT=MAT_TOP+NV*(ROW_H+ROW_GAP); // 398
+
+    const EMB_Y=70, EMB_H=26;
+
+    const SCR_X=MAT_RIGHT+16;               // 478 — logit score boxes
+    const SCR_W=38;
+
+    const SOFTX=SCR_X+SCR_W+12;             // 528 — softmax arrow start
+    const ARR_END=SOFTX+50;                 // 578
+
+    const BAR_LBL=ARR_END+12;               // 590 — word labels for bars
+    const BAR_X=BAR_LBL+56;                // 646 — bars start
+    const BAR_MAX=1075-BAR_X;              // 429 — max bar width
+    const BAR_H=32, BAR_GAP=3;             // match matrix row height
+    const BAR_TOP=MAT_TOP;
+
+    const midY=MAT_TOP+NV*(ROW_H+ROW_GAP)/2;  // 258 — vertical centre
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','ue-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.2).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+      defs.append('marker').attr('id','ue-arr')
+        .attr('markerWidth',7).attr('markerHeight',5)
+        .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0 0,7 2.5,0 5')
+        .attr('fill',C2).attr('opacity',0.85);
+
+      const gHead=svg.append('g').attr('opacity',0);
+      const gEmb =svg.append('g').attr('opacity',0);
+      const gMat =svg.append('g').attr('opacity',0);
+      const gScr =svg.append('g').attr('opacity',0);
+      const gSoft=svg.append('g').attr('opacity',0);
+      const gBars=svg.append('g').attr('opacity',0);
+
+      // ── Section titles ──
+      gHead.append('text')
+        .attr('x',MAT_X+MAT_W/2).attr('y',20)
+        .attr('text-anchor','middle').attr('font-size',11.5)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('Un-embedding Matrix  W_U');
+      gHead.append('text')
+        .attr('x',MAT_X+MAT_W/2).attr('y',36)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.6)
+        .text('vocab_size × d  =  50,257 × 512');
+      gHead.append('text')
+        .attr('x',MAT_X+MAT_W/2).attr('y',52)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.45)
+        .text('score(word) = embedding · W_U[word]');
+      gHead.append('text')
+        .attr('x',BAR_X+BAR_MAX/2).attr('y',20)
+        .attr('text-anchor','middle').attr('font-size',11.5)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('Next-token Probabilities');
+      gHead.append('text')
+        .attr('x',BAR_X+BAR_MAX/2).attr('y',36)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.6)
+        .text('softmax over all 50,257 vocab tokens');
+
+      // ── Enriched embedding row ──
+      gEmb.append('text')
+        .attr('x',MAT_X).attr('y',EMB_Y-6)
+        .attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.88)
+        .text('enriched "on" embedding  (1 × 512):');
+      for(let ci=0;ci<N_COLS;ci++){
+        const v=Math.sin(ci*2.3+1.7)*0.5+0.5;
+        gEmb.append('rect')
+          .attr('x',MAT_X+ci*COL_W).attr('y',EMB_Y)
+          .attr('width',COL_W-2).attr('height',EMB_H).attr('rx',2)
+          .attr('fill',C3).attr('fill-opacity',0.10+v*0.72)
+          .attr('filter','url(#ue-glow)');
+      }
+      gEmb.append('text')
+        .attr('x',MAT_RIGHT+5).attr('y',EMB_Y+EMB_H/2+4)
+        .attr('font-size',12).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.45).text('…');
+      // d-dimension ruler
+      gEmb.append('line')
+        .attr('x1',MAT_X).attr('y1',MAT_TOP-10)
+        .attr('x2',MAT_RIGHT).attr('y2',MAT_TOP-10)
+        .attr('stroke',CI).attr('stroke-opacity',0.25).attr('stroke-width',0.8);
+      gEmb.append('text')
+        .attr('x',MAT_X+MAT_W/2).attr('y',MAT_TOP-13)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CI).attr('fill-opacity',0.40)
+        .text('← d = 512 dims (matching embedding) →');
+
+      // ── W_U matrix rows — one row per vocab candidate ──
+      VOCAB.forEach(function(v,wi){
+        const wy=MAT_TOP+wi*(ROW_H+ROW_GAP);
+        const isTop=(wi===0);
+        const col=isTop?C3:C1;
+
+        gMat.append('text')
+          .attr('x',MAT_X-8).attr('y',wy+ROW_H/2+4)
+          .attr('text-anchor','end')
+          .attr('font-size',isTop?11:9.5)
+          .attr('font-family','monospace')
+          .attr('fill',isTop?C3:CW)
+          .attr('fill-opacity',isTop?0.95:0.48)
+          .attr('font-weight',isTop?'700':'400')
+          .text('"'+v.w+'"');
+
+        for(let ci=0;ci<N_COLS;ci++){
+          const val=Math.sin(wi*1.9+ci*2.7+0.4)*0.5+0.5;
+          const rect=gMat.append('rect')
+            .attr('x',MAT_X+ci*COL_W).attr('y',wy)
+            .attr('width',COL_W-2).attr('height',ROW_H).attr('rx',2)
+            .attr('fill',col)
+            .attr('fill-opacity',(isTop?0.10:0.04)+val*(isTop?0.55:0.20));
+          if(isTop) rect.attr('filter','url(#ue-glow)');
+        }
+        gMat.append('text')
+          .attr('x',MAT_RIGHT+5).attr('y',wy+ROW_H/2+4)
+          .attr('font-size',11).attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',0.22).text('…');
+      });
+      gMat.append('text')
+        .attr('x',MAT_X+MAT_W/2).attr('y',MAT_BOT+14)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.40)
+        .text('⋮  50,249 more vocabulary rows  ⋮');
+
+      // ── Logit scores — dot product of embedding with each row ──
+      gScr.append('text')
+        .attr('x',SCR_X+SCR_W/2).attr('y',MAT_TOP-8)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.50)
+        .text('logits');
+
+      VOCAB.forEach(function(v,wi){
+        const wy=MAT_TOP+wi*(ROW_H+ROW_GAP);
+        const isTop=(wi===0);
+        const col=isTop?C3:C1;
+
+        gScr.append('line')
+          .attr('x1',MAT_RIGHT+3).attr('y1',wy+ROW_H/2)
+          .attr('x2',SCR_X-2).attr('y2',wy+ROW_H/2)
+          .attr('stroke',col).attr('stroke-opacity',isTop?0.50:0.15)
+          .attr('stroke-width',isTop?1.2:0.7).attr('stroke-dasharray','3,2');
+        gScr.append('rect')
+          .attr('x',SCR_X).attr('y',wy+5)
+          .attr('width',SCR_W).attr('height',ROW_H-10).attr('rx',3)
+          .attr('fill',col).attr('fill-opacity',isTop?0.15:0.04)
+          .attr('stroke',col).attr('stroke-opacity',isTop?0.55:0.15).attr('stroke-width',0.9);
+        gScr.append('text')
+          .attr('x',SCR_X+SCR_W/2).attr('y',wy+ROW_H/2+4)
+          .attr('text-anchor','middle').attr('font-size',8.5)
+          .attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',isTop?0.90:0.35)
+          .text(v.logit.toFixed(2));
+      });
+
+      // ── Softmax arrow ──
+      gSoft.append('line')
+        .attr('x1',SOFTX).attr('y1',midY)
+        .attr('x2',ARR_END-6).attr('y2',midY)
+        .attr('stroke',C2).attr('stroke-width',2.2).attr('marker-end','url(#ue-arr)');
+      gSoft.append('text')
+        .attr('x',(SOFTX+ARR_END)/2).attr('y',midY-8)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.88)
+        .text('softmax');
+      gSoft.append('text')
+        .attr('x',(SOFTX+ARR_END)/2).attr('y',midY+14)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.55)
+        .text('over all V tokens');
+
+      // ── Probability bars ──
+      VOCAB.forEach(function(v,wi){
+        const by=BAR_TOP+wi*(BAR_H+BAR_GAP);
+        const bw=v.p/VOCAB[0].p*BAR_MAX;
+        const isTop=(wi===0);
+        const col=wi===0?C3:wi===1?C1:wi===2?C2:CI;
+
+        gBars.append('text')
+          .attr('x',BAR_LBL+52).attr('y',by+BAR_H/2+4)
+          .attr('text-anchor','end')
+          .attr('font-size',isTop?11:9.5)
+          .attr('font-family','monospace')
+          .attr('fill',isTop?C3:CW)
+          .attr('fill-opacity',isTop?0.95:0.48)
+          .attr('font-weight',isTop?'700':'400')
+          .text('"'+v.w+'"');
+
+        const bar=gBars.append('rect')
+          .attr('x',BAR_X).attr('y',by)
+          .attr('width',bw).attr('height',BAR_H).attr('rx',4)
+          .attr('fill',col)
+          .attr('fill-opacity',isTop?0.78:Math.max(0.18,0.45-wi*0.05));
+        if(isTop) bar.attr('filter','url(#ue-glow)');
+
+        gBars.append('text')
+          .attr('x',BAR_X+bw+6).attr('y',by+BAR_H/2+4)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',isTop?0.90:0.45)
+          .text(Math.round(v.p*100)+'%');
+      });
+
+      gBars.append('text')
+        .attr('x',BAR_X).attr('y',BAR_TOP+NV*(BAR_H+BAR_GAP)+12)
+        .attr('font-size',7.5).attr('font-family','monospace')
+        .attr('fill',CM).text('⋯  50,249 other tokens: ≪ 1% each');
+
+      const boxY=BAR_TOP+NV*(BAR_H+BAR_GAP)+24;
+      gBars.append('rect')
+        .attr('x',BAR_X).attr('y',boxY).attr('width',295).attr('height',26).attr('rx',5)
+        .attr('fill',C3).attr('fill-opacity',0.15)
+        .attr('stroke',C3).attr('stroke-opacity',0.65).attr('stroke-width',1.4);
+      gBars.append('text')
+        .attr('x',BAR_X+148).attr('y',boxY+17)
+        .attr('text-anchor','middle').attr('font-size',10.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('font-weight','700')
+        .text('→ next token: "the"  (sample / argmax)');
+
+      // Animate — reveal section by section
+      const seq=[
+        [gHead,    0,  400],
+        [gEmb,   400,  550],
+        [gMat,  1000,  650],
+        [gScr,  1900,  500],
+        [gSoft, 2500,  450],
+        [gBars, 3050,  700],
+      ];
+      seq.forEach(function(s){
+        s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('unembedding-canvas');
+      if(el&&!el._unembReady){el._unembReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='unembedding'){
+        const el=document.getElementById('unembedding-canvas');
+        if(el) el._unembReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='unembedding') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Decoder transformer flow animation (bert-architecture slide) -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const CI='#4da8ff', C1='#00d9ff', C2='#2de8a0', C3='#ffa830';
+    const CA='#9d4edd';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    // Tokens as ROWS in the matrix (the N-dimension)
+    const TOKENS=['"The"','"cat"','"sat"','"on"'];
+    const N_TOK=4;
+
+    // Dot grid geometry
+    const N_COLS=14;     // visible embedding dimensions
+    const H_SP=26;       // horizontal spacing between dot centres
+    const V_SP=13;       // vertical spacing between token rows
+    const DOT_R=3.5;
+    const PAD=6;         // top/bottom padding inside bracket
+
+    // Derived dimensions
+    const BLOCK_H=N_TOK*V_SP+2*PAD;   // 64 px — height of one matrix block
+    const ARM=10;                       // bracket horizontal arm length
+    const LBRACK_X=121;                 // x of left bracket vertical bar
+    const DOTS_X0=LBRACK_X+ARM+4;      // 135 — first dot column centre
+    const DOTS_W=(N_COLS-1)*H_SP;      // 338 — span of dot grid
+    const DOTS_END=DOTS_X0+DOTS_W;     // 473 — last dot column centre
+    const RBRACK_X=DOTS_END+ARM+4;     // 487 — x of right bracket vertical bar
+
+    // Layer block geometry
+    const LBK_X=LBRACK_X-5;           // 116
+    const LBK_W=RBRACK_X+5-LBK_X;    // 376
+    const LBK_H=32, GAP=6;
+    const CYCLE=BLOCK_H+GAP+LBK_H+GAP; // 108 px per depth level
+
+    const BLOCK_Y=[14, 14+CYCLE, 14+2*CYCLE, 14+3*CYCLE]; // [14,122,230,338]
+    const RCOL=[CI,C1,C2,C3];
+    const RALPHA=[0.50,0.65,0.78,0.92];
+    const LBCOL=[C1,C2,C3];
+
+    // Four dashed flow channels spread across the dot grid
+    const FLOW_X=[DOTS_X0+H_SP, DOTS_X0+4*H_SP, DOTS_X0+8*H_SP, DOTS_X0+12*H_SP];
+
+    // Right panel
+    const RX=580, RPW=460;
+
+    // ── Matrix block: brackets + dot grid + token labels ──
+    function drawMatrix(g, by, ri){
+      const col=RCOL[ri], alpha=RALPHA[ri];
+      const top=by, bot=by+BLOCK_H;
+
+      // Left bracket  [
+      g.append('path')
+        .attr('d',`M ${LBRACK_X+ARM} ${top} L ${LBRACK_X} ${top} L ${LBRACK_X} ${bot} L ${LBRACK_X+ARM} ${bot}`)
+        .attr('fill','none').attr('stroke',col)
+        .attr('stroke-opacity',Math.min(1,alpha+0.1)).attr('stroke-width',2.2)
+        .attr('stroke-linejoin','miter');
+
+      // Right bracket  ]
+      g.append('path')
+        .attr('d',`M ${RBRACK_X-ARM} ${top} L ${RBRACK_X} ${top} L ${RBRACK_X} ${bot} L ${RBRACK_X-ARM} ${bot}`)
+        .attr('fill','none').attr('stroke',col)
+        .attr('stroke-opacity',Math.min(1,alpha+0.1)).attr('stroke-width',2.2)
+        .attr('stroke-linejoin','miter');
+
+      // Dots and token row labels
+      for(let ti=0;ti<N_TOK;ti++){
+        const dotY=by+PAD+ti*V_SP+V_SP/2;
+
+        // Token label — prominent for input row, dimmed for later rows
+        g.append('text')
+          .attr('x',LBRACK_X-7).attr('y',dotY+4)
+          .attr('text-anchor','end')
+          .attr('font-size',ri===0?12:10.5)
+          .attr('font-family','monospace')
+          .attr('fill',ri===0?CW:CM)
+          .attr('fill-opacity',ri===0?0.95:0.45)
+          .attr('font-weight',ri===0?'700':'400')
+          .text(TOKENS[ti]);
+
+        // Dot row
+        for(let ci=0;ci<N_COLS;ci++){
+          const dotX=DOTS_X0+ci*H_SP;
+          const v=(Math.sin(ti*3.7+ci*2.1+ri*1.8)*0.5+0.5);
+          g.append('circle')
+            .attr('cx',dotX).attr('cy',dotY).attr('r',DOT_R)
+            .attr('fill',col).attr('fill-opacity',alpha*(0.12+v*0.78));
+        }
+      }
+
+      // "…" — indicates more dimensions beyond the visible columns
+      g.append('text')
+        .attr('x',RBRACK_X+9).attr('y',by+BLOCK_H/2+4)
+        .attr('font-size',13).attr('font-family','monospace')
+        .attr('fill',col).attr('fill-opacity',alpha*0.55)
+        .text('…');
+
+      // Row label  ("Input" / "After L1" / …)
+      const lbl=['Input','After L1','After L2','After L3'][ri];
+      g.append('text')
+        .attr('x',6).attr('y',by+BLOCK_H/2+4)
+        .attr('font-size',9).attr('font-family','monospace')
+        .attr('fill',col).attr('fill-opacity',0.8)
+        .text(lbl);
+    }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      // Glow — enriched representations glow brighter
+      const fl=defs.append('filter').attr('id','ba-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.5).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+      // Arrow marker
+      defs.append('marker').attr('id','ba-arr')
+        .attr('markerWidth',7).attr('markerHeight',5)
+        .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0 0,7 2.5,0 5')
+        .attr('fill',C3).attr('opacity',0.85);
+
+      // ── Animation groups ──
+      const gDim =svg.append('g').attr('opacity',0);  // dimension labels
+      const gFlow=svg.append('g').attr('opacity',0);  // flow connectors
+      const gR   =BLOCK_Y.map(()=>svg.append('g').attr('opacity',0)); // matrix blocks
+      const gL   =LBCOL.map(()=>svg.append('g').attr('opacity',0));   // layer blocks
+      const gA   =LBCOL.map(()=>svg.append('g').attr('opacity',0));   // attn heatmaps
+      const gOut =svg.append('g').attr('opacity',0);
+      const gRgt =svg.append('g').attr('opacity',0);
+
+      // ── Dimension annotation above input matrix ──
+      // "← d dimensions →" spanning the dot grid
+      const dimY=BLOCK_Y[0]-5;
+      gDim.append('line')
+        .attr('x1',DOTS_X0).attr('y1',dimY).attr('x2',DOTS_END).attr('y2',dimY)
+        .attr('stroke',CI).attr('stroke-opacity',0.4).attr('stroke-width',0.8);
+      gDim.append('text')
+        .attr('x',(DOTS_X0+DOTS_END)/2).attr('y',dimY-3)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CI).attr('fill-opacity',0.6).text('d = 512 dimensions');
+      // N label on the left side
+      gDim.append('text')
+        .attr('x',LBRACK_X-7).attr('y',BLOCK_Y[0]+BLOCK_H/2)
+        .attr('text-anchor','end').attr('font-size',8)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CI).attr('fill-opacity',0.5).text('N tokens →');
+      // Subscript: "token + pos.enc"
+      gDim.append('text')
+        .attr('x',DOTS_X0).attr('y',BLOCK_Y[0]+BLOCK_H+4)
+        .attr('font-size',7.5).attr('font-family','monospace')
+        .attr('fill',CI).attr('fill-opacity',0.45).text('token + positional encoding');
+
+      // ── Flow connector lines (dashed, one per channel) ──
+      BLOCK_Y.forEach((by,ri)=>{
+        if(ri===3) return;
+        const layTop=by+BLOCK_H+GAP;
+        const layBot=layTop+LBK_H;
+        FLOW_X.forEach(fx=>{
+          gFlow.append('line')
+            .attr('x1',fx).attr('y1',by+BLOCK_H+1).attr('x2',fx).attr('y2',layTop-1)
+            .attr('stroke',RCOL[ri]).attr('stroke-opacity',0.50)
+            .attr('stroke-width',1.3).attr('stroke-dasharray','2.5,2');
+          gFlow.append('line')
+            .attr('x1',fx).attr('y1',layBot+1).attr('x2',fx).attr('y2',BLOCK_Y[ri+1]-1)
+            .attr('stroke',LBCOL[ri]).attr('stroke-opacity',0.50)
+            .attr('stroke-width',1.3).attr('stroke-dasharray','2.5,2');
+        });
+      });
+
+      // ── Matrix blocks ──
+      BLOCK_Y.forEach((by,ri)=>{
+        if(ri>=2) gR[ri].attr('filter','url(#ba-glow)');
+        drawMatrix(gR[ri],by,ri);
+      });
+
+      // ── Layer blocks ──
+      BLOCK_Y.slice(0,3).forEach((by,li)=>{
+        const col=LBCOL[li];
+        const ly=by+BLOCK_H+GAP;
+        gL[li].append('rect')
+          .attr('x',LBK_X).attr('y',ly).attr('width',LBK_W).attr('height',LBK_H).attr('rx',7)
+          .attr('fill',col).attr('fill-opacity',0.07)
+          .attr('stroke',col).attr('stroke-opacity',0.35).attr('stroke-width',1.5);
+        gL[li].append('text')
+          .attr('x',LBK_X+9).attr('y',ly+LBK_H/2+4)
+          .attr('font-size',9.5).attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',0.72).text(`L${li+1}`);
+
+        const comps=[
+          {l:'Masked MHA',c:C1,w:90},
+          {l:'Norm',c:'#4da8ff',w:38},
+          {l:'FFN',c:CA,w:52},
+          {l:'Norm',c:'#4da8ff',w:38},
+        ];
+        let cx2=LBK_X+38;
+        comps.forEach(cd=>{
+          gL[li].append('rect')
+            .attr('x',cx2).attr('y',ly+5).attr('width',cd.w).attr('height',LBK_H-10).attr('rx',3)
+            .attr('fill',cd.c).attr('fill-opacity',0.13)
+            .attr('stroke',cd.c).attr('stroke-opacity',0.45).attr('stroke-width',1.1);
+          gL[li].append('text')
+            .attr('x',cx2+cd.w/2).attr('y',ly+LBK_H/2+4)
+            .attr('text-anchor','middle').attr('font-size',8.5)
+            .attr('font-family','monospace').attr('fill',cd.c).text(cd.l);
+          cx2+=cd.w+5;
+        });
+        gL[li].append('text')
+          .attr('x',LBK_X+LBK_W-30).attr('y',ly+LBK_H/2+4)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',CM).text('+ res');
+      });
+
+      // ── Causal attention heatmaps (N×N triangular mask) ──
+      BLOCK_Y.slice(0,3).forEach((by,li)=>{
+        const ly=by+BLOCK_H+GAP;
+        const hmX=392, hmY=ly+4;           // after sub-components
+        const hmS=LBK_H-8;                 // 24 px square
+        const cell=hmS/N_TOK;
+        for(let r=0;r<N_TOK;r++) for(let c=0;c<N_TOK;c++){
+          const masked=c>r;
+          const v=masked?0:(Math.sin(r*2.1+c*1.3+li*0.7)*0.5+0.5);
+          gA[li].append('rect')
+            .attr('x',hmX+c*cell+0.5).attr('y',hmY+r*cell+0.5)
+            .attr('width',cell-1).attr('height',cell-1).attr('rx',1)
+            .attr('fill',CA).attr('fill-opacity',masked?0.04:v*0.65);
+        }
+        gA[li].append('rect')
+          .attr('x',hmX).attr('y',hmY).attr('width',hmS).attr('height',hmS)
+          .attr('fill','none').attr('stroke',CA).attr('stroke-opacity',0.35).attr('stroke-width',0.9);
+        gA[li].append('text')
+          .attr('x',hmX+hmS/2).attr('y',hmY-3)
+          .attr('text-anchor','middle').attr('font-size',7)
+          .attr('font-family','monospace').attr('fill',CA).attr('fill-opacity',0.6)
+          .text('attn');
+      });
+
+      // ── Output prediction (from last token position, last row) ──
+      const outX=304;  // centre of dot grid horizontally
+      const outTop=BLOCK_Y[3]+BLOCK_H;
+      const lastRowY=BLOCK_Y[3]+PAD+(N_TOK-1)*V_SP+V_SP/2;  // y-centre of last token row in final matrix
+
+      // Highlight the last token row — this fully augmented embedding is the basis for next-word prediction
+      gOut.append('rect')
+        .attr('x',DOTS_X0-1).attr('y',lastRowY-V_SP/2+1)
+        .attr('width',DOTS_END-DOTS_X0+2).attr('height',V_SP-2).attr('rx',2)
+        .attr('fill',C3).attr('fill-opacity',0.22)
+        .attr('stroke',C3).attr('stroke-opacity',0.85).attr('stroke-width',1.4)
+        .attr('filter','url(#ba-glow)');
+      gOut.append('text')
+        .attr('x',RBRACK_X+14).attr('y',lastRowY+4)
+        .attr('font-size',7).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.90)
+        .text('← now highly augmented');
+
+      gOut.append('line')
+        .attr('x1',outX).attr('y1',outTop+2).attr('x2',outX).attr('y2',outTop+22)
+        .attr('stroke',C3).attr('stroke-width',2.5).attr('marker-end','url(#ba-arr)');
+      gOut.append('rect')
+        .attr('x',outX-54).attr('y',outTop+25).attr('width',108).attr('height',24).attr('rx',5)
+        .attr('fill',C3).attr('fill-opacity',0.15)
+        .attr('stroke',C3).attr('stroke-opacity',0.7).attr('stroke-width',1.5);
+      gOut.append('text')
+        .attr('x',outX).attr('y',outTop+42)
+        .attr('text-anchor','middle').attr('font-size',11.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('font-weight','700')
+        .text('→ "the"?');
+      gOut.append('text')
+        .attr('x',outX).attr('y',outTop+57)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.78)
+        .text('last token\'s augmented embedding → Linear → Softmax');
+
+      // ── Right panel: Decoder architecture diagram ──
+      const rbx=RX+15, rbw=RPW-30;
+      gRgt.append('text')
+        .attr('x',RX+RPW/2).attr('y',28)
+        .attr('text-anchor','middle').attr('font-size',12.5)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('Decoder Architecture');
+
+      const arcBlks=[
+        {l:'Token + Positional Embedding',c:CI,h:30},
+        {sep:true,h:8},
+        {l:'Masked Multi-Head Attention',c:C1,h:30},
+        {l:'Add & LayerNorm',c:'#4da8ff',h:22},
+        {l:'Feed-Forward Network',c:CA,h:30},
+        {l:'Add & LayerNorm',c:'#4da8ff',h:22},
+        {sep:true,txt:'── × N layers ──',c:CM,h:18},
+        {l:'Linear → Softmax',c:C3,h:30},
+        {sep:true,txt:'↓  next token prediction',c:C3,h:14,sm:true},
+      ];
+      let ry2=46;
+      arcBlks.forEach(b=>{
+        if(b.sep){
+          if(b.txt){
+            gRgt.append('text')
+              .attr('x',RX+RPW/2).attr('y',ry2+10)
+              .attr('text-anchor','middle').attr('font-size',b.sm?9:10.5)
+              .attr('font-family','monospace').attr('fill',b.c).attr('fill-opacity',0.7)
+              .text(b.txt);
+          }
+          ry2+=b.h+4;
+        } else {
+          gRgt.append('rect')
+            .attr('x',rbx).attr('y',ry2).attr('width',rbw).attr('height',b.h).attr('rx',5)
+            .attr('fill',b.c).attr('fill-opacity',0.1)
+            .attr('stroke',b.c).attr('stroke-opacity',0.45).attr('stroke-width',1.3);
+          gRgt.append('text')
+            .attr('x',rbx+rbw/2).attr('y',ry2+b.h/2+4)
+            .attr('text-anchor','middle').attr('font-size',9.5)
+            .attr('font-family','monospace').attr('fill',b.c).text(b.l);
+          ry2+=b.h+6;
+        }
+      });
+      // ×N bracket spanning the repeated block
+      const brY1=94, brY2=222, brXr=rbx+rbw+6;
+      gRgt.append('path')
+        .attr('d',`M ${brXr} ${brY1} l 7 0 l 0 ${brY2-brY1} l -7 0`)
+        .attr('fill','none').attr('stroke',CM).attr('stroke-width',1.2).attr('stroke-opacity',0.45);
+      gRgt.append('text')
+        .attr('x',brXr+12).attr('y',(brY1+brY2)/2+5)
+        .attr('font-size',12).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CW).attr('fill-opacity',0.55).text('×N');
+
+      // ── Animate: reveal depth level by level ──
+      const seq=[
+        [gDim,   0,   400],
+        [gFlow,  200, 500],
+        [gR[0],  300, 500],
+        [gL[0],  900, 500],
+        [gA[0], 1200, 400],
+        [gR[1], 1600, 500],
+        [gL[1], 2200, 500],
+        [gA[1], 2500, 400],
+        [gR[2], 2900, 500],
+        [gL[2], 3500, 500],
+        [gA[2], 3800, 400],
+        [gR[3], 4200, 500],
+        [gOut,  4800, 600],
+        [gRgt,  5200, 700],
+      ];
+      seq.forEach(([g,delay,dur])=>{
+        const op=g===gFlow?0.5:1;
+        g.transition().delay(delay).duration(dur).attr('opacity',op);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('bert-arch-canvas');
+      if(el&&!el._bertArchReady){el._bertArchReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',ev=>{
+      if(ev.previousSlide&&ev.previousSlide.id==='bert-architecture'){
+        const el=document.getElementById('bert-arch-canvas');
+        if(el) el._bertArchReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='bert-architecture') maybeInit();
     });
   })();
   </script>
