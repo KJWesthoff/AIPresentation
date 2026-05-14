@@ -2406,13 +2406,21 @@
         </section>
       </section>
 
-           <section id="transformers">
-        <h2>The Inflection Point <span style="color: var(--accent-tertiary); font-weight: 600;">"Making Skynet Possible"</span></h2>
+      <section id="transformers">
+      <section id ="allyouneed">
+          <h2>The Inflection Point <span style="color: var(--accent-tertiary); font-weight: 600;">"Making Skynet Possible"</span></h2>
+        <div class="content">
+          <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                <h3 style="margin-top: 20px; margin-bottom: 15px; font-size: 28pt;"><a href="https://arxiv.org/abs/1706.03762" target="_blank" style="color: var(--primary-color); text-decoration: none; border-bottom: 2px solid var(--primary-color);">"Attention is All You Need"</a></h3>
+                  <p class="text-xl" style="color: var(--muted-color); margin-bottom: 20px;">June 2017 - Vaswani et al., Google Brain</p>
+          </div>
+        </div>
+      </section>
+
+<section id ="allyouneed_contd">
         <div class="content">
           <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px;">
             <div>
-              <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 28pt;">"Attention is All You Need"</h3>
-              <p class="text-xl" style="color: var(--muted-color); margin-bottom: 20px;">June 2017 - Vaswani et al., Google Brain</p>
 
               <div style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(157, 78, 221, 0.2)); padding: 25px; border-radius: var(--box-radius); margin-bottom: 25px; border: 2px solid var(--primary-color);">
                 <p class="text-xl" style="font-weight: 600; color: var(--primary-color);">The Breakthrough</p>
@@ -2433,25 +2441,18 @@
             </div>
             <div>
               <h3 style="color: var(--primary-color); margin-bottom: 15px;">Self-Attention Mechanism</h3>
-              <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
-                <p class="text-lg"><strong>Scaled Dot-Product Attention:</strong></p>
-                <p style="font-family: monospace; font-size: 14pt; margin-top: 10px;">
-                  Attention(Q, K, V) = softmax(QK<sup>T</sup> / √d<sub>k</sub>) V
-                </p>
-                <ul class="text-lg" style="margin-top: 15px;">
-                  <li><strong>Q</strong> (Query): What am I looking for?</li>
-                  <li><strong>K</strong> (Key): What do I contain?</li>
-                  <li><strong>V</strong> (Value): What do I actually say?</li>
-                  <li><strong>√d<sub>k</sub></strong>: Scaling factor (d<sub>k</sub> = dimension of keys)</li>
-                </ul>
-              </div>
-              <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 15px;">
-                <p class="text-lg"><strong>Key Advantages over LSTMs:</strong></p>
-                <ul class="text-lg" style="margin-top: 10px;">
-                  <li>✓ Fully parallelizable → Faster training</li>
-                  <li>✓ Direct connections between all tokens</li>
-                  <li>✓ No information bottleneck</li>
-                  <li>✓ Scales to billions of parameters</li>
+              <div style="background: rgba(0, 217, 255, 0.08); padding: 25px; border-radius: var(--box-radius); margin-bottom: 20px; border: 1px solid rgba(0, 217, 255, 0.3);">
+                <p class="text-lg" style="color: var(--muted-color); margin-bottom: 18px; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11pt;">Scaled Dot-Product Attention</p>
+                <div style="text-align: center; margin: 18px 0 24px; padding: 18px 12px; background: rgba(0,0,0,0.35); border-radius: 10px; box-shadow: 0 0 24px rgba(0, 217, 255, 0.10);">
+                  <span style="font-family: 'Georgia', serif; font-size: 22pt; color: rgba(175,190,210,0.85); letter-spacing: 0.02em; line-height: 1.5;">
+                    Attention(<span style="color:#00d9ff;font-weight:700;">Q</span>, <span style="color:#9d4edd;font-weight:700;">K</span>, <span style="color:#ffa014;font-weight:700;">V</span>) = softmax<span style="font-size:26pt;">(</span><span style="display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin: 0 4px; line-height:1.15;"><span style="font-size:18pt; border-bottom: 2px solid rgba(200,215,235,0.35); padding-bottom:2px;"><span style="color:#00d9ff;font-weight:700;">Q</span><span style="color:#9d4edd;font-weight:700;">K</span><sup style="font-size:13pt;">T</sup></span><span style="font-size:18pt; padding-top:2px;">√d<sub style="font-size:13pt;">k</sub></span></span><span style="font-size:26pt;">)</span> <span style="color:#ffa014;font-weight:700;">V</span>
+                  </span>
+                </div>
+                <ul class="text-lg" style="margin-top: 10px; column-count: 2; column-gap: 20px;">
+                  <li><strong style="color:#00d9ff;">Q</strong> — What am I looking for?</li>
+                  <li><strong style="color:#9d4edd;">K</strong> — What do I contain?</li>
+                  <li><strong style="color:#ffa014;">V</strong> — What do I actually say?</li>
+                  <li><strong style="color: var(--primary-color);">√d<sub>k</sub></strong> — Scaling factor</li>
                 </ul>
               </div>
               <div id="transformer-canvas" style="width:100%;min-height:180px;"></div>
@@ -2460,6 +2461,70 @@
         </div>
       </section>
 
+      <section id="embed-context">
+        <h2 style="margin-bottom:6px;">Embeddings Get Richer Through Context</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="embed-context-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="qkv-attention">
+        <h2 style="margin-bottom:6px;">How Words Attend to Each Other</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="qkv-attn-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="v-matrix">
+        <h2 style="margin-bottom:6px;">The Value Matrix — What to emphasize in each token embedding</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="v-matrix-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="attn-head">
+        <h2 style="margin-bottom:6px;">One Attention Head — Full Computation</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="attn-head-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="multi-head-attn">
+        <h2 style="margin-bottom:6px;">Multi-Head Attention</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="mha-canvas" style="width:100%;height:400px;"></div>
+          <div style="display:flex;gap:32px;margin-top:8px;padding:0 8px;">
+            <div style="flex:1;background:rgba(0,217,255,0.07);border:1px solid rgba(0,217,255,0.25);border-radius:8px;padding:10px 16px;">
+              <p style="margin:0;font-size:13pt;color:rgba(220,235,255,0.85);"><strong style="color:var(--primary-color);">Reshaping, not replication</strong> — the same weight budget is split across <em>h</em> heads; each head's W<sub>Q</sub>, W<sub>K</sub>, W<sub>V</sub> operate in a lower <em>d/h</em>-dimensional subspace, keeping total parameter count constant.</p>
+            </div>
+            <div style="flex:1;background:rgba(157,78,221,0.07);border:1px solid rgba(157,78,221,0.25);border-radius:8px;padding:10px 16px;">
+              <p style="margin:0;font-size:13pt;color:rgba(220,235,255,0.85);"><strong style="color:var(--secondary-color);">Random init breaks symmetry</strong> — heads start with different random weights, so gradients diverge from the first step and each head learns to track a distinct relationship (syntax, coreference, position, …).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bert-architecture">
+        <h2 style="margin-bottom:6px;">Transformer Architecture: Decoder / Language Model</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="bert-arch-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+</section>
+
+<section id="qkv-generation">
+  <h2 style="margin-bottom:8px;">From Tokens to Q, K, V</h2>
+  <div class="content" style="padding-top:4px;">
+    <div id="qkv-canvas" style="width:100%;height:500px;"></div>
+  </div>
+</section>
+
+<section id="llm-architectures">
+  <h2 style="margin-bottom:6px;">LLM Building Blocks</h2>
+  <div class="content" style="padding-top:2px;">
+    <div id="llm-arch-canvas" style="width:100%;height:490px;"></div>
+  </div>
+</section>
 
 
 
@@ -5002,5 +5067,2328 @@
   <script src="cnn-weights.js"></script>
   <!-- Neural network D3 animations -->
   <script src="neural-network-d3.js"></script>
+
+  <!-- Contextual embedding animation -->
+  <script>
+  (function () {
+    const CNATURE  = '#00e676';
+    const CFINANCE = '#00d9ff';
+    const CNEUTRAL = '#ffa014';
+    const Cm = 'rgba(155,175,200,0.60)';
+    const Ct = 'rgba(225,238,255,0.90)';
+
+    const W=1100, H=490;
+    const SEP_X = 420;            // left/right panel divider
+    const TBW=58, TBH=28, TGAP=9; // token box dimensions
+
+    const SENT = [
+      { tokens:['The','river','bank','flows','gently'], bankIdx:2, col:CNATURE,
+        label:'Nature context', y:145,
+        attn:[{from:1,w:0.80},{from:3,w:0.45},{from:4,w:0.20}] },
+      { tokens:['Save','money','at','the','bank'], bankIdx:4, col:CFINANCE,
+        label:'Finance context', y:365,
+        attn:[{from:1,w:0.78},{from:0,w:0.38},{from:2,w:0.18}] },
+    ];
+
+    // Semantic space (right panel)
+    const BANK_START = {x:758, y:240};
+    const BANK_END   = [{x:595, y:148}, {x:896, y:325}];
+
+    const NATURE_WORDS  = [{w:'river',x:552,y:108},{w:'water',x:508,y:156},
+                            {w:'stream',x:590,y:178},{w:'lake',x:542,y:126},{w:'flow',x:628,y:132}];
+    const FINANCE_WORDS = [{w:'money',x:858,y:298},{w:'deposit',x:932,y:285},
+                            {w:'savings',x:950,y:338},{w:'account',x:920,y:366},{w:'loan',x:870,y:355}];
+
+    function tokenCX(si, ti) {
+      const n = SENT[si].tokens.length;
+      const totalW = n*(TBW+TGAP)-TGAP;
+      const x0 = (SEP_X - totalW) / 2;
+      return x0 + ti*(TBW+TGAP) + TBW/2;
+    }
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs = svg.append('defs');
+      [['nat',CNATURE],['fin',CFINANCE]].forEach(([id,col]) => {
+        defs.append('marker').attr('id','ec-'+id)
+          .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
+          .attr('markerWidth',4).attr('markerHeight',4).attr('orient','auto')
+          .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',col);
+      });
+
+      // ── Panel headers + separator ──────────────────────────────────────────
+      const headerG = svg.append('g').attr('opacity',0);
+      headerG.append('text').attr('x',SEP_X/2).attr('y',22)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',11).attr('font-weight','700').attr('font-family','sans-serif').attr('letter-spacing','1.5')
+        .text('INPUT SENTENCES');
+      headerG.append('text').attr('x',SEP_X+(W-SEP_X)/2).attr('y',22)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',11).attr('font-weight','700').attr('font-family','sans-serif').attr('letter-spacing','1.5')
+        .text('EMBEDDING SPACE  (2D projection)');
+      headerG.append('line')
+        .attr('x1',SEP_X).attr('y1',30).attr('x2',SEP_X).attr('y2',H-25)
+        .attr('stroke','rgba(200,215,235,0.18)').attr('stroke-width',1).attr('stroke-dasharray','5,4');
+
+      // ── Two sentence panels ────────────────────────────────────────────────
+      const sentGs = SENT.map((s, si) => {
+        const g = svg.append('g').attr('opacity',0);
+        const markId = 'ec-'+(si===0?'nat':'fin');
+
+        // Context label
+        g.append('text').attr('x',SEP_X/2).attr('y',s.y-36)
+          .attr('text-anchor','middle').attr('fill',s.col)
+          .attr('font-size',12).attr('font-weight','700').attr('font-family','sans-serif')
+          .text(s.label);
+
+        // Token boxes
+        s.tokens.forEach((tok, ti) => {
+          const cx = tokenCX(si, ti);
+          const isBank = (ti===s.bankIdx);
+          g.append('rect')
+            .attr('x',cx-TBW/2).attr('y',s.y-TBH/2)
+            .attr('width',TBW).attr('height',TBH).attr('rx',5)
+            .attr('fill', isBank ? s.col+'2e' : 'rgba(200,215,235,0.07)')
+            .attr('stroke', isBank ? s.col : 'rgba(200,215,235,0.30)')
+            .attr('stroke-width', isBank ? 2.2 : 1);
+          g.append('text')
+            .attr('x',cx).attr('y',s.y+6)
+            .attr('text-anchor','middle').attr('fill', isBank ? s.col : Ct)
+            .attr('font-size',12).attr('font-weight', isBank ? '700' : '400')
+            .attr('font-family','sans-serif')
+            .text(tok);
+        });
+
+        return {g, markId};
+      });
+
+      // ── Attention arcs ─────────────────────────────────────────────────────
+      const arcItems = SENT.flatMap((s, si) =>
+        s.attn.map(({from,w}) => {
+          const x1 = tokenCX(si, from);
+          const x2 = tokenCX(si, s.bankIdx);
+          const midX = (x1+x2)/2;
+          const depth = 28 + Math.abs(x1-x2)*0.13;
+          const yBase = s.y + TBH/2;
+          const pathD = `M${x1},${yBase} Q${midX},${yBase+depth} ${x2},${yBase}`;
+          const path = svg.append('path')
+            .attr('d',pathD).attr('fill','none')
+            .attr('stroke',s.col).attr('stroke-width',1+w*3.2)
+            .attr('stroke-opacity',0.35+w*0.45)
+            .attr('marker-end',`url(#${'ec-'+(si===0?'nat':'fin')})`)
+            .attr('opacity',0);
+          const len = path.node().getTotalLength();
+          path.attr('stroke-dasharray',len).attr('stroke-dashoffset',len);
+          return {path, len, delay:1700+si*280+s.attn.findIndex(a=>a.from===from)*130};
+        })
+      );
+
+      // ── Connecting lines: bank token → semantic space final pos ───────────
+      const connGs = BANK_END.map((pos, i) => {
+        const s = SENT[i];
+        const col = s.col;
+        const bx = tokenCX(i, s.bankIdx) + TBW/2 + 2;
+        const by = s.y;
+        const g = svg.append('g').attr('opacity',0);
+        g.append('line')
+          .attr('x1',bx).attr('y1',by).attr('x2',SEP_X+6).attr('y2',by)
+          .attr('stroke',col+'55').attr('stroke-width',1).attr('stroke-dasharray','3,4');
+        g.append('line')
+          .attr('x1',SEP_X+6).attr('y1',by).attr('x2',pos.x).attr('y2',pos.y)
+          .attr('stroke',col+'44').attr('stroke-width',1).attr('stroke-dasharray','3,4');
+        return g;
+      });
+
+      // ── Semantic space background ──────────────────────────────────────────
+      const spaceG = svg.append('g').attr('opacity',0);
+
+      // Cluster blobs
+      [[578,140,68,50,CNATURE,'NATURE / GEOGRAPHY'],
+       [896,330,70,52,CFINANCE,'FINANCE / BANKING']].forEach(([cx,cy,rx,ry,col,lbl]) => {
+        spaceG.append('ellipse').attr('cx',cx).attr('cy',cy).attr('rx',rx).attr('ry',ry)
+          .attr('fill',col+'0c').attr('stroke',col+'40').attr('stroke-width',1.5).attr('stroke-dasharray','4,3');
+        spaceG.append('text').attr('x',cx).attr('y',cy-ry-8)
+          .attr('text-anchor','middle').attr('fill',col)
+          .attr('font-size',9.5).attr('font-weight','700').attr('font-family','sans-serif').attr('letter-spacing','0.8')
+          .text(lbl);
+      });
+
+      // Cluster vocabulary words
+      [...NATURE_WORDS,...FINANCE_WORDS].forEach(({w,x,y},i) => {
+        const col = i<NATURE_WORDS.length ? CNATURE : CFINANCE;
+        spaceG.append('text').attr('x',x).attr('y',y)
+          .attr('text-anchor','middle').attr('fill',col)
+          .attr('font-size',11).attr('font-family','sans-serif').attr('opacity',0.65)
+          .text(w);
+      });
+
+      // ── Neutral "bank" circle ──────────────────────────────────────────────
+      const bankG = svg.append('g');
+      const bankCircle = bankG.append('circle')
+        .attr('cx',BANK_START.x).attr('cy',BANK_START.y).attr('r',22)
+        .attr('fill',CNEUTRAL+'3a').attr('stroke',CNEUTRAL).attr('stroke-width',2.5).attr('opacity',0);
+      const bankLabel = bankG.append('text')
+        .attr('x',BANK_START.x).attr('y',BANK_START.y+5)
+        .attr('text-anchor','middle').attr('fill',CNEUTRAL)
+        .attr('font-size',13).attr('font-weight','700').attr('font-family','sans-serif').attr('opacity',0)
+        .text('"bank"');
+      const bankSub = bankG.append('text')
+        .attr('x',BANK_START.x).attr('y',BANK_START.y+32)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',9.5).attr('font-family','sans-serif').attr('opacity',0)
+        .text('static · context-free');
+
+      // ── Contextual bank circles (hidden, start at center) ─────────────────
+      const ctxBanks = BANK_END.map((pos, i) => {
+        const col = i===0 ? CNATURE : CFINANCE;
+        const g = bankG.append('g').attr('transform','translate(0,0)').attr('opacity',0);
+        g.append('circle')
+          .attr('cx',BANK_START.x).attr('cy',BANK_START.y).attr('r',19)
+          .attr('fill',col+'3a').attr('stroke',col).attr('stroke-width',2.5);
+        g.append('text')
+          .attr('x',BANK_START.x).attr('y',BANK_START.y+5)
+          .attr('text-anchor','middle').attr('fill',col)
+          .attr('font-size',12).attr('font-weight','700').attr('font-family','sans-serif')
+          .text('bank'+(i===0?'₁':'₂'));
+        g.append('text')
+          .attr('x',BANK_START.x).attr('y',BANK_START.y+28)
+          .attr('text-anchor','middle').attr('fill',col)
+          .attr('font-size',9).attr('font-family','sans-serif').attr('opacity',0.8)
+          .text(i===0?'river context':'money context');
+        return {g, dx:pos.x-BANK_START.x, dy:pos.y-BANK_START.y};
+      });
+
+      // ── Footer annotation ──────────────────────────────────────────────────
+      const footG = svg.append('g').attr('opacity',0);
+      footG.append('text').attr('x',W/2).attr('y',470)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',11).attr('font-family','sans-serif')
+        .text('Same token "bank" — two very different contextual embeddings. Attention pulls each toward its semantic neighborhood.');
+
+      // ── High-dimensional vector panel (far right) ──────────────────────────
+      const VCX = 1030, VY0 = 82, VRMAX = 8, VDSTEP = 22;
+      const VDIMS = [0.65, 0.12, 0.88, 0.30, 0.72, 0.45, 0.91];
+      const VELLIP_Y = VY0 + VDIMS.length * VDSTEP;   // 236
+      const VDN_Y    = VELLIP_Y + 30;                  // 266
+
+      const vecG = svg.append('g').attr('opacity', 0);
+      // Card
+      vecG.append('rect')
+        .attr('x', 968).attr('y', 38).attr('width', 124).attr('height', 262)
+        .attr('rx', 8).attr('fill', 'rgba(16,10,30,0.55)')
+        .attr('stroke', 'rgba(200,215,235,0.14)').attr('stroke-width', 1);
+      // Title
+      vecG.append('text').attr('x', VCX).attr('y', 58)
+        .attr('text-anchor', 'middle').attr('fill', Cm)
+        .attr('font-size', 11).attr('font-family', 'Georgia, serif')
+        .text('eᵢ  ∈  ℝᵈ');
+      // Ghost rings + value dots + dim labels
+      VDIMS.forEach((v, k) => {
+        const cy = VY0 + k * VDSTEP;
+        vecG.append('circle').attr('cx', VCX).attr('cy', cy).attr('r', VRMAX)
+          .attr('fill', 'none').attr('stroke', 'rgba(200,215,235,0.28)').attr('stroke-width', 1);
+        vecG.append('circle').attr('cx', VCX).attr('cy', cy)
+          .attr('r', Math.max(2, v * VRMAX)).attr('fill', 'rgba(200,215,235,0.78)');
+        vecG.append('text')
+          .attr('x', VCX - VRMAX - 7).attr('y', cy + 4)
+          .attr('text-anchor', 'end').attr('fill', Cm)
+          .attr('font-size', 8).attr('font-family', 'sans-serif')
+          .text('d' + (k + 1));
+      });
+      // Ellipsis + dₙ ring
+      vecG.append('text').attr('x', VCX).attr('y', VELLIP_Y)
+        .attr('text-anchor', 'middle').attr('fill', Cm)
+        .attr('font-size', 12).attr('font-family', 'sans-serif').text('⋮');
+      vecG.append('circle').attr('cx', VCX).attr('cy', VDN_Y).attr('r', VRMAX)
+        .attr('fill', 'none').attr('stroke', 'rgba(200,215,235,0.22)')
+        .attr('stroke-width', 1).attr('stroke-dasharray', '3,2');
+      vecG.append('text')
+        .attr('x', VCX - VRMAX - 7).attr('y', VDN_Y + 4)
+        .attr('text-anchor', 'end').attr('fill', Cm)
+        .attr('font-size', 8).attr('font-family', 'sans-serif').text('dₙ');
+      // Caption
+      vecG.append('text').attr('x', VCX).attr('y', VDN_Y + 20)
+        .attr('text-anchor', 'middle').attr('fill', Cm)
+        .attr('font-size', 8).attr('font-family', 'sans-serif')
+        .attr('font-style', 'italic').text('full embedding size');
+      vecG.append('text').attr('x', VCX).attr('y', VDN_Y + 32)
+        .attr('text-anchor', 'middle').attr('fill', Cm)
+        .attr('font-size', 8).attr('font-family', 'sans-serif')
+        .attr('font-style', 'italic').text('(e.g. 768 dims)');
+
+      // ── ANIMATE ────────────────────────────────────────────────────────────
+      headerG.transition().delay(0).duration(350).attr('opacity',1);
+      vecG.transition().delay(200).duration(500).attr('opacity',1);
+      sentGs.forEach(({g}, i) => g.transition().delay(300+i*220).duration(350).attr('opacity',1));
+      spaceG.transition().delay(750).duration(400).attr('opacity',1);
+
+      bankCircle.transition().delay(1150).duration(350).attr('opacity',1);
+      bankLabel.transition().delay(1150).duration(350).attr('opacity',1);
+      bankSub.transition().delay(1350).duration(300).attr('opacity',1);
+
+      arcItems.forEach(({path, len, delay}) => {
+        path.transition().delay(delay).duration(60).attr('opacity',1);
+        path.transition().delay(delay+60).duration(440).attr('stroke-dashoffset',0);
+      });
+
+      const splitAt = 2700;
+      bankCircle.transition().delay(splitAt).duration(280).attr('opacity',0);
+      bankLabel.transition().delay(splitAt).duration(280).attr('opacity',0);
+      bankSub.transition().delay(splitAt).duration(280).attr('opacity',0);
+
+      ctxBanks.forEach(({g, dx, dy}, i) => {
+        const d = splitAt + i*120;
+        g.transition().delay(d).duration(220).attr('opacity',1)
+          .transition().duration(900).ease(d3.easeCubicOut)
+          .attr('transform',`translate(${dx},${dy})`);
+      });
+
+      connGs.forEach((g, i) => g.transition().delay(splitAt+1200+i*100).duration(400).attr('opacity',1));
+      footG.transition().delay(splitAt+1400).duration(400).attr('opacity',1);
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('embed-context-canvas');
+      if (el && !el._embedCtxReady) { el._embedCtxReady = true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if (ev.currentSlide && ev.currentSlide.id === 'embed-context') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Word attention / Q·K animation -->
+  <script>
+  (function () {
+    const SVG_W = 1100, SVG_H = 490;
+    const CQ = '#00d9ff', CK = '#9d4edd';
+    const Cm = 'rgba(155,175,200,0.60)', Ct = 'rgba(225,238,255,0.90)';
+
+    const TOKENS = ['The', 'cat', 'sat', 'on', 'the', 'mat'];
+    const N = TOKENS.length;
+
+    const ATTN = [
+      [0.42, 0.22, 0.14, 0.08, 0.08, 0.06],
+      [0.10, 0.46, 0.26, 0.08, 0.06, 0.04],
+      [0.06, 0.26, 0.38, 0.14, 0.06, 0.10],
+      [0.05, 0.08, 0.26, 0.32, 0.14, 0.15],
+      [0.30, 0.08, 0.10, 0.10, 0.32, 0.10],
+      [0.06, 0.08, 0.18, 0.14, 0.22, 0.32],
+    ];
+
+    const LEFT_W = 560;
+    const TBW = 72, TBH = 34, TGAP = 11, TSTEP = TBW + TGAP;
+    const TY  = 112;
+    const TX0 = (LEFT_W - (N * TSTEP - TGAP)) / 2;
+    const TX  = Array.from({length: N}, (_, i) => TX0 + i * TSTEP + TBW / 2);
+
+    const HX = 610, HY = 50, LBW = 80, CW = 60, CH = 54, COL_LBL_H = 38;
+    const cx = j => HX + LBW + j * CW + CW / 2;
+    const cy = i => HY + COL_LBL_H + i * CH + CH / 2;
+
+    const WM_W = 62, WM_H = 32;
+    function drawWBox(g, col, label, subtitle, cxPos, cyPos) {
+      const bx = cxPos - WM_W / 2, by = cyPos - WM_H / 2;
+      g.append('rect').attr('x', bx).attr('y', by)
+        .attr('width', WM_W).attr('height', WM_H).attr('rx', 6)
+        .attr('fill', col + '28').attr('stroke', col).attr('stroke-width', 2.2);
+      for (let n = 1; n < 3; n++) {
+        g.append('line').attr('x1', bx).attr('x2', bx + WM_W)
+          .attr('y1', by + n * WM_H / 3).attr('y2', by + n * WM_H / 3)
+          .attr('stroke', col + '66').attr('stroke-width', 0.8);
+        g.append('line').attr('y1', by).attr('y2', by + WM_H)
+          .attr('x1', bx + n * WM_W / 3).attr('x2', bx + n * WM_W / 3)
+          .attr('stroke', col + '66').attr('stroke-width', 0.8);
+      }
+      g.append('text').attr('x', cxPos).attr('y', subtitle ? cyPos : cyPos + 6)
+        .attr('text-anchor', 'middle').attr('fill', col)
+        .attr('font-size', subtitle ? 13 : 15).attr('font-weight', '700').attr('font-family', 'Georgia, serif')
+        .text(label);
+      if (subtitle) {
+        g.append('text').attr('x', cxPos).attr('y', cyPos + 13)
+          .attr('text-anchor', 'middle').attr('fill', col + 'bb')
+          .attr('font-size', 8).attr('font-family', 'monospace')
+          .text(subtitle);
+      }
+    }
+
+    const ARC_BASE       = TY + TBH / 2 + 26;
+    const CYCLE_INTERVAL = 2200;   // ms per word
+    const INIT_DELAY     = 3200;   // ms before cycling starts (after heatmap fully visible)
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox', `0 0 ${SVG_W} ${SVG_H}`)
+        .style('width', '100%').style('height', '100%');
+
+      const defs = svg.append('defs');
+      defs.append('marker').attr('id', 'qa-tip')
+        .attr('viewBox', '0 0 8 8').attr('refX', 6).attr('refY', 4)
+        .attr('markerWidth', 4).attr('markerHeight', 4).attr('orient', 'auto')
+        .append('path').attr('d', 'M0,0 L8,4 L0,8 Z').attr('fill', CQ + 'cc');
+      defs.append('marker').attr('id', 'wq-tip')
+        .attr('viewBox', '0 0 8 8').attr('refX', 6).attr('refY', 4)
+        .attr('markerWidth', 4).attr('markerHeight', 4).attr('orient', 'auto')
+        .append('path').attr('d', 'M0,0 L8,4 L0,8 Z').attr('fill', CQ);
+      defs.append('marker').attr('id', 'wk-tip')
+        .attr('viewBox', '0 0 8 8').attr('refX', 6).attr('refY', 4)
+        .attr('markerWidth', 4).attr('markerHeight', 4).attr('orient', 'auto')
+        .append('path').attr('d', 'M0,0 L8,4 L0,8 Z').attr('fill', CK);
+
+      const grad = defs.append('linearGradient').attr('id', 'attn-grad').attr('x1', '0%').attr('x2', '100%');
+      grad.append('stop').attr('offset', '0%').attr('stop-color', '#0d1f38');
+      grad.append('stop').attr('offset', '100%').attr('stop-color', CQ);
+
+      // ── Captions ──────────────────────────────────────────────────────────
+      const capG = svg.append('g').attr('opacity', 0);
+      capG.append('rect')
+        .attr('x', 10).attr('y', 8).attr('width', LEFT_W - 20).attr('height', 36)
+        .attr('rx', 7).attr('fill', 'rgba(16,10,30,0.55)').attr('stroke', 'rgba(200,215,235,0.15)')
+        .attr('stroke-width', 1);
+      const fmlQ = capG.append('text')
+        .attr('x', LEFT_W / 2 - 18).attr('y', 30)
+        .attr('text-anchor', 'middle').attr('font-size', 12)
+        .attr('font-family', 'Georgia, serif').attr('fill', Cm);
+      fmlQ.append('tspan').text('Attention(');
+      fmlQ.append('tspan').attr('fill', CQ).attr('font-weight', '700').attr('font-size', 14).text('Q');
+      fmlQ.append('tspan').attr('fill', Cm).text(', ');
+      fmlQ.append('tspan').attr('fill', CK).attr('font-weight', '700').attr('font-size', 14).text('K');
+      fmlQ.append('tspan').attr('fill', Cm).text(', ');
+      fmlQ.append('tspan').attr('fill', '#ffa014').attr('font-weight', '700').text('V');
+      fmlQ.append('tspan').attr('fill', Cm).text(') = softmax (');
+      fmlQ.append('tspan').attr('fill', CQ).attr('font-weight', '700').attr('font-size', 19).text('Q');
+      fmlQ.append('tspan').attr('fill', CK).attr('font-weight', '700').attr('font-size', 19).text('K');
+      fmlQ.append('tspan').attr('fill', Cm).text('ᵀ / √dₖ ) · ');
+      fmlQ.append('tspan').attr('fill', '#ffa014').attr('font-weight', '700').text('V');
+      fmlQ.append('tspan').attr('fill', CQ + '80').attr('font-size', 10)
+        .attr('font-family', 'sans-serif').attr('font-style', 'italic').attr('font-weight', 'normal')
+        .text('  ← this slide');
+      capG.append('line')
+        .attr('x1', LEFT_W).attr('y1', 34).attr('x2', LEFT_W).attr('y2', SVG_H - 18)
+        .attr('stroke', 'rgba(200,215,235,0.18)').attr('stroke-width', 1).attr('stroke-dasharray', '5,4');
+
+      // ── Token boxes — all neutral (cycling overlay activates the active query) ──
+      const tokGs = TOKENS.map((tok, i) => {
+        const g = svg.append('g').attr('opacity', 0);
+        g.append('rect')
+          .attr('x', TX[i] - TBW / 2).attr('y', TY - TBH / 2)
+          .attr('width', TBW).attr('height', TBH).attr('rx', 6)
+          .attr('fill', 'rgba(200,215,235,0.08)')
+          .attr('stroke', 'rgba(200,215,235,0.28)').attr('stroke-width', 1);
+        g.append('text')
+          .attr('x', TX[i]).attr('y', TY + 6).attr('text-anchor', 'middle')
+          .attr('fill', Ct).attr('font-size', 13).attr('font-family', 'sans-serif').text(tok);
+        const BW = 20, BH = 18, BX = TX[i] - BW / 2, BY = TY + TBH / 2 + 4;
+        g.append('rect').attr('x', BX).attr('y', BY).attr('width', BW).attr('height', BH).attr('rx', 4)
+          .attr('fill', CK + '18').attr('stroke', CK + '88').attr('stroke-width', 1.2);
+        g.append('text').attr('x', TX[i]).attr('y', BY + 13).attr('text-anchor', 'middle')
+          .attr('fill', CK).attr('font-size', 11).attr('font-weight', '700').attr('font-family', 'sans-serif')
+          .text('K');
+        return g;
+      });
+
+      // ── Per-query overlay groups: active highlight + arcs + heatmap row ────
+      const qGroups = TOKENS.map((tok, qi) => {
+        const qg = svg.append('g').attr('opacity', 0);
+
+        // Token highlight (overlaid on neutral box)
+        qg.append('rect')
+          .attr('x', TX[qi] - TBW / 2).attr('y', TY - TBH / 2)
+          .attr('width', TBW).attr('height', TBH).attr('rx', 6)
+          .attr('fill', CQ + '2e').attr('stroke', CQ).attr('stroke-width', 2.4);
+        qg.append('text')
+          .attr('x', TX[qi]).attr('y', TY + 6).attr('text-anchor', 'middle')
+          .attr('fill', CQ).attr('font-size', 13).attr('font-weight', '700').attr('font-family', 'sans-serif')
+          .text(tok);
+        // Q badge (solid fill covers the K badge underneath)
+        const BW = 20, BH = 18, BX = TX[qi] - BW / 2, BY = TY + TBH / 2 + 4;
+        qg.append('rect').attr('x', BX).attr('y', BY).attr('width', BW).attr('height', BH).attr('rx', 4)
+          .attr('fill', CQ).attr('stroke', CQ).attr('stroke-width', 1.4);
+        qg.append('text').attr('x', TX[qi]).attr('y', BY + 13).attr('text-anchor', 'middle')
+          .attr('fill', '#081830').attr('font-size', 11).attr('font-weight', '700').attr('font-family', 'sans-serif')
+          .text('Q');
+
+        // Heatmap row highlight + active row label
+        qg.append('rect')
+          .attr('x', HX + LBW).attr('y', HY + COL_LBL_H + qi * CH)
+          .attr('width', N * CW).attr('height', CH)
+          .attr('fill', 'none').attr('stroke', CQ).attr('stroke-width', 2);
+        qg.append('text').attr('x', HX + LBW - 5).attr('y', cy(qi) + 4)
+          .attr('text-anchor', 'end').attr('fill', CQ)
+          .attr('font-size', 10).attr('font-weight', '700').attr('font-family', 'sans-serif')
+          .text(tok);
+
+        // Attention arcs for this query
+        const arcs = TOKENS.map((_, j) => {
+          const w = ATTN[qi][j];
+          const x1 = TX[qi], x2 = TX[j];
+          const dist = Math.abs(j - qi);
+          const depth = 20 + dist * 20;
+          const midX = (x1 + x2) / 2;
+          const isSelf = (j === qi);
+          let pathSel, pathLen = 0;
+
+          if (isSelf) {
+            pathSel = qg.append('path')
+              .attr('d', `M${x1 - 10},${ARC_BASE} C${x1 - 28},${ARC_BASE + 32} ${x1 + 28},${ARC_BASE + 32} ${x1 + 10},${ARC_BASE}`)
+              .attr('fill', 'none').attr('stroke', CQ)
+              .attr('stroke-width', 1.5 + w * 9).attr('stroke-opacity', 0.45 + w * 0.5)
+              .attr('opacity', 0);
+          } else {
+            pathSel = qg.append('path')
+              .attr('d', `M${x1},${ARC_BASE} Q${midX},${ARC_BASE + depth} ${x2},${ARC_BASE}`)
+              .attr('fill', 'none').attr('stroke', CQ)
+              .attr('stroke-width', 1.5 + w * 9).attr('stroke-opacity', 0.40 + w * 0.55)
+              .attr('marker-end', 'url(#qa-tip)');
+            pathLen = pathSel.node().getTotalLength();
+            pathSel.attr('stroke-dasharray', pathLen).attr('stroke-dashoffset', pathLen);
+          }
+
+          const lx = isSelf ? x1 : midX;
+          const ly = isSelf ? ARC_BASE + 40 : ARC_BASE + depth * 0.62;
+          const lbl = qg.append('text').attr('x', lx).attr('y', ly)
+            .attr('text-anchor', 'middle').attr('fill', CQ)
+            .attr('font-size', 9.5).attr('font-weight', '600').attr('font-family', 'sans-serif')
+            .attr('opacity', 0)
+            .text(w.toFixed(2));
+
+          return { pathSel, pathLen, lbl, isSelf };
+        });
+
+        qg._arcs = arcs;
+        return qg;
+      });
+
+      // ── Heatmap (static) ───────────────────────────────────────────────────
+      const WB_CY = 22, WQ_CX = HX + LBW / 2, WK_CX = HX + LBW + N * CW / 2;
+
+      const hmAnnotG = svg.append('g').attr('opacity', 0);
+      // Wq beside the Q axis label at the row midpoint, just left of the matrix gutter
+      const WQ_X = HX - 16, WQ_Y = HY + COL_LBL_H + N * CH / 2;
+      drawWBox(hmAnnotG, CQ, 'Wq', 'eᵢ · Wq = Q', WQ_X, WQ_Y);
+      // Horizontal arrow from Wq → tip just at the Q axis pill left edge
+      hmAnnotG.append('line')
+        .attr('x1', WQ_X + WM_W / 2 + 2).attr('y1', WQ_Y)
+        .attr('x2', WQ_CX - 14).attr('y2', WQ_Y)
+        .attr('stroke', CQ).attr('stroke-width', 2.2).attr('marker-end', 'url(#wq-tip)');
+      drawWBox(hmAnnotG, CK, 'Wk', 'eᵢ · Wk = K', WK_CX, WB_CY);
+      hmAnnotG.append('text').attr('x', WK_CX + WM_W / 2 + 6).attr('y', WB_CY + 5)
+        .attr('text-anchor', 'start').attr('fill', CK)
+        .attr('font-size', 11).attr('font-weight', '700').attr('font-family', 'sans-serif')
+        .text('→ K  (key columns)');
+      // Downward arrow from Wk → tip just at the K axis pill top edge
+      hmAnnotG.append('line')
+        .attr('x1', WK_CX).attr('y1', WB_CY + WM_H / 2 + 1)
+        .attr('x2', WK_CX).attr('y2', HY + 4)
+        .attr('stroke', CK).attr('stroke-width', 2.2).attr('marker-end', 'url(#wk-tip)');
+
+      const hmHeadG = svg.append('g').attr('opacity', 0);
+      // K axis pill
+      const kLblX = HX + LBW + N * CW / 2, kLblY = HY + 18;
+      hmHeadG.append('rect').attr('x', kLblX - 106).attr('y', kLblY - 14)
+        .attr('width', 212).attr('height', 20).attr('rx', 6)
+        .attr('fill', CK + '22').attr('stroke', CK + '55').attr('stroke-width', 1);
+      hmHeadG.append('text').attr('x', kLblX).attr('y', kLblY)
+        .attr('text-anchor', 'middle').attr('fill', CK)
+        .attr('font-size', 12).attr('font-weight', '700').attr('font-family', 'sans-serif').attr('letter-spacing', '0.5')
+        .text('K  (key vectors → columns)');
+      // Q axis pill
+      const qLblX = HX + LBW / 2, qLblY = HY + COL_LBL_H + N * CH / 2;
+      hmHeadG.append('rect')
+        .attr('x', qLblX - 106).attr('y', qLblY - 10).attr('width', 212).attr('height', 20).attr('rx', 6)
+        .attr('fill', CQ + '22').attr('stroke', CQ + '55').attr('stroke-width', 1)
+        .attr('transform', `rotate(-90,${qLblX},${qLblY})`);
+      hmHeadG.append('text')
+        .attr('x', qLblX).attr('y', qLblY)
+        .attr('text-anchor', 'middle').attr('fill', CQ)
+        .attr('font-size', 12).attr('font-weight', '700').attr('font-family', 'sans-serif').attr('letter-spacing', '0.5')
+        .attr('transform', `rotate(-90,${qLblX},${qLblY})`)
+        .text('Q  (query vectors → rows)');
+      TOKENS.forEach((t, j) => {
+        hmHeadG.append('text').attr('x', cx(j)).attr('y', HY + COL_LBL_H - 4)
+          .attr('text-anchor', 'middle').attr('fill', Cm).attr('font-size', 10).attr('font-family', 'sans-serif')
+          .text(t);
+      });
+
+      const hmRowGs = TOKENS.map((rowTok, i) => {
+        const g = svg.append('g').attr('opacity', 0);
+        g.append('text').attr('x', HX + LBW - 5).attr('y', cy(i) + 4)
+          .attr('text-anchor', 'end').attr('fill', Cm)
+          .attr('font-size', 10).attr('font-weight', '400').attr('font-family', 'sans-serif')
+          .text(rowTok);
+        TOKENS.forEach((_, j) => {
+          const w = ATTN[i][j];
+          const fill = d3.interpolateRgb('#0d1f38', CQ)(Math.min(w / 0.48, 1));
+          const rx = HX + LBW + j * CW + 1, ry = HY + COL_LBL_H + i * CH + 1;
+          g.append('rect').attr('x', rx).attr('y', ry)
+            .attr('width', CW - 2).attr('height', CH - 2).attr('rx', 3).attr('fill', fill);
+          if (w >= 0.10) {
+            g.append('text').attr('x', cx(j)).attr('y', cy(i) + 5)
+              .attr('text-anchor', 'middle')
+              .attr('fill', w > 0.28 ? '#071422' : 'rgba(225,238,255,0.72)')
+              .attr('font-size', 9.5).attr('font-weight', '600').attr('font-family', 'sans-serif')
+              .text(w.toFixed(2));
+          }
+        });
+        return g;
+      });
+
+      const legY = HY + COL_LBL_H + N * CH + 12;
+      const legG = svg.append('g').attr('opacity', 0);
+      legG.append('rect').attr('x', HX + LBW).attr('y', legY)
+        .attr('width', N * CW).attr('height', 9).attr('rx', 3).attr('fill', 'url(#attn-grad)');
+      legG.append('text').attr('x', HX + LBW).attr('y', legY + 20)
+        .attr('fill', Cm).attr('font-size', 9).attr('font-family', 'sans-serif').text('low');
+      legG.append('text').attr('x', HX + LBW + N * CW).attr('y', legY + 20)
+        .attr('text-anchor', 'end').attr('fill', Cm).attr('font-size', 9).attr('font-family', 'sans-serif')
+        .text('high attention weight');
+
+      // ── Initial fade-in ────────────────────────────────────────────────────
+      capG.transition().delay(0).duration(350).attr('opacity', 1);
+      tokGs.forEach((g, i) => g.transition().delay(300 + i * 100).duration(300).attr('opacity', 1));
+      hmAnnotG.transition().delay(1100).duration(380).attr('opacity', 1);
+      hmHeadG.transition().delay(1400).duration(350).attr('opacity', 1);
+      hmRowGs.forEach((g, i) => g.transition().delay(1700 + i * 200).duration(340).attr('opacity', 1));
+      legG.transition().delay(1700 + N * 200).duration(350).attr('opacity', 1);
+
+      // ── Cycling: step through each word as active query ────────────────────
+      let cycleQI = 0;
+
+      function activateQuery(qi) {
+        const qg = qGroups[qi];
+        qg.attr('opacity', 1);
+        qg._arcs.forEach((arc, j) => {
+          arc.pathSel.interrupt();
+          arc.lbl.interrupt();
+          arc.lbl.attr('opacity', 0);
+          if (arc.isSelf) {
+            arc.pathSel.attr('opacity', 0)
+              .transition().delay(j * 110).duration(300).attr('opacity', 1);
+          } else {
+            arc.pathSel
+              .attr('stroke-dasharray', arc.pathLen)
+              .attr('stroke-dashoffset', arc.pathLen)
+              .transition().delay(j * 110).duration(400).attr('stroke-dashoffset', 0);
+          }
+          arc.lbl.transition().delay(j * 110 + 370).duration(200).attr('opacity', 0.9);
+        });
+      }
+
+      function deactivateQuery(qi) {
+        const qg = qGroups[qi];
+        qg._arcs.forEach(arc => { arc.pathSel.interrupt(); arc.lbl.interrupt(); });
+        qg.transition().duration(220).attr('opacity', 0);
+      }
+
+      function advanceCycle() {
+        deactivateQuery(cycleQI);
+        cycleQI = (cycleQI + 1) % N;
+        setTimeout(() => activateQuery(cycleQI), 150);
+      }
+
+      el._initTimer = setTimeout(() => {
+        activateQuery(0);
+        el._cycleTimer = setInterval(advanceCycle, CYCLE_INTERVAL);
+      }, INIT_DELAY);
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('qkv-attn-canvas');
+      if (el && !el._qkvAttnReady) { el._qkvAttnReady = true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if (ev.previousSlide && ev.previousSlide.id === 'qkv-attention') {
+        const el = document.getElementById('qkv-attn-canvas');
+        if (el) {
+          clearTimeout(el._initTimer);
+          clearInterval(el._cycleTimer);
+          el._cycleTimer = null;
+          el._qkvAttnReady = false;
+        }
+      }
+      if (ev.currentSlide && ev.currentSlide.id === 'qkv-attention') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- V matrix / weighted blend animation -->
+  <script>
+  (function () {
+    const SVG_W = 1100, SVG_H = 490;
+    const CV_COL = '#ffa014';
+    const CK = '#9d4edd';
+    const CGRAY = 'rgba(180,200,220,0.88)';
+    const Cm = 'rgba(155,175,200,0.60)';
+
+    const TOKENS = ['The', 'cat', 'sat', 'on', 'the', 'mat'];
+    const N = TOKENS.length, NDIMS = 6;
+
+    const E_VECS = [
+      [0.52, 0.48, 0.55, 0.44, 0.50, 0.47],
+      [0.58, 0.54, 0.56, 0.52, 0.57, 0.50],
+      [0.46, 0.54, 0.50, 0.58, 0.44, 0.56],
+      [0.42, 0.51, 0.46, 0.54, 0.40, 0.52],
+      [0.54, 0.47, 0.52, 0.43, 0.53, 0.45],
+      [0.50, 0.46, 0.57, 0.43, 0.51, 0.54],
+    ];
+    const V_VECS = [
+      [0.20, 0.80, 0.10, 0.85, 0.30, 0.70],
+      [0.95, 0.15, 0.95, 0.20, 0.85, 0.45],
+      [0.40, 0.90, 0.25, 0.75, 0.15, 0.85],
+      [0.65, 0.45, 0.70, 0.25, 0.75, 0.15],
+      [0.15, 0.65, 0.55, 0.15, 0.90, 0.40],
+      [0.75, 0.10, 0.65, 0.55, 0.20, 0.82],
+    ];
+
+    // Wv weight heatmap [row=in_dim][col=out_dim]
+    const WV_WEIGHTS = [
+      [0.10, 0.85, 0.08, 0.90, 0.22, 0.75],
+      [0.92, 0.12, 0.95, 0.18, 0.88, 0.42],
+      [0.35, 0.90, 0.20, 0.78, 0.12, 0.88],
+      [0.68, 0.40, 0.72, 0.20, 0.76, 0.10],
+      [0.10, 0.68, 0.50, 0.10, 0.92, 0.35],
+      [0.80, 0.08, 0.66, 0.55, 0.16, 0.85],
+    ];
+
+    const V_NOTES = [
+      '”The” — Wv amplifies dims 2 & 4 (article / function-word pattern)',
+      '”cat” — Wv strongly boosts dims 1, 3, 5 (subject signature)',
+      '”sat” — Wv emphasizes dims 2, 4, 6 (action / verb pattern)',
+      '”on” — Wv selects dims 1, 3, 5 (relational / locative marker)',
+      '”the” — mirrors “The” — Wv picks up function-word pattern',
+      '”mat” — Wv amplifies dims 1, 4, 6 (object / noun signature)',
+    ];
+
+    // Token row
+    const TOK_W = 72, TOK_H = 34, TOK_GAP = 15, TOK_STEP = TOK_W + TOK_GAP;
+    const TX0 = (SVG_W - (N * TOK_STEP - TOK_GAP)) / 2;
+    const TOK_CY = 90;
+
+    // Dot-vector geometry
+    const RMAX = 14, DOT_STEP = 34;
+    const DOT_Y0 = 162;                                // y of first dot (d1)
+    const EMB_CX = 200, V_CX = 900, WV_CX = 550;
+    const WV_CY = DOT_Y0 + (NDIMS - 1) * DOT_STEP / 2; // = 247 (column midpoint)
+    const WV_SIZE = 90, WV_CELL = WV_SIZE / NDIMS;      // 15 px per cell
+
+    const LBL_Y = 136;
+    const INIT_DELAY = 1600, CYCLE_INTERVAL = 3400;
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox', `0 0 ${SVG_W} ${SVG_H}`)
+        .style('width', '100%').style('height', '100%');
+
+      const defs = svg.append('defs');
+      defs.append('marker').attr('id', 'vmtip')
+        .attr('viewBox', '0 0 8 8').attr('refX', 6).attr('refY', 4)
+        .attr('markerWidth', 4).attr('markerHeight', 4).attr('orient', 'auto')
+        .append('path').attr('d', 'M0,0 L8,4 L0,8 Z').attr('fill', CV_COL + '88');
+
+      // ── Formula card ─────────────────────────────────────────────────────
+      const FY = 33;
+      svg.append('rect')
+        .attr('x', SVG_W / 2 - 320).attr('y', 8).attr('width', 640).attr('height', 36)
+        .attr('rx', 7).attr('fill', 'rgba(16,10,30,0.55)').attr('stroke', CV_COL + '35')
+        .attr('stroke-width', 1);
+      // Formula text — centered, Georgia serif, variables color-coded
+      const fml = svg.append('text')
+        .attr('x', 528).attr('y', FY)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', 14).attr('font-family', 'Georgia, serif').attr('fill', Cm);
+      fml.append('tspan').text('Attention(');
+      fml.append('tspan').attr('fill', '#00d9ff').attr('font-weight', '700').text('Q');
+      fml.append('tspan').attr('fill', Cm).text(', ');
+      fml.append('tspan').attr('fill', '#9d4edd').attr('font-weight', '700').text('K');
+      fml.append('tspan').attr('fill', Cm).text(', ');
+      fml.append('tspan').attr('fill', CV_COL).attr('font-weight', '700').text('V');
+      fml.append('tspan').attr('fill', Cm).text(') = softmax (');
+      fml.append('tspan').attr('fill', '#00d9ff').attr('font-weight', '700').text('Q');
+      fml.append('tspan').attr('fill', '#9d4edd').attr('font-weight', '700').text('K');
+      fml.append('tspan').attr('fill', Cm).text('ᵀ / √dₖ ) · ');
+      // V — bigger, brighter, bolded to mark "this slide"
+      fml.append('tspan').attr('fill', CV_COL).attr('font-weight', '700').attr('font-size', 20).text('V');
+      fml.append('tspan').attr('fill', CV_COL + '80').attr('font-size', 10)
+        .attr('font-family', 'sans-serif').attr('font-style', 'italic').attr('font-weight', 'normal')
+        .text(' ← this slide');
+
+      // ── Sentence token row ────────────────────────────────────────────────
+      const tokBoxes = TOKENS.map((tok, i) => {
+        const bx = TX0 + i * TOK_STEP, cx = bx + TOK_W / 2;
+        const box = svg.append('rect')
+          .attr('x', bx).attr('y', TOK_CY - TOK_H / 2)
+          .attr('width', TOK_W).attr('height', TOK_H).attr('rx', 8)
+          .attr('fill', 'rgba(255,160,20,0.07)').attr('stroke', 'rgba(255,160,20,0.28)')
+          .attr('stroke-width', 1.5);
+        const lbl = svg.append('text')
+          .attr('x', cx).attr('y', TOK_CY + 6)
+          .attr('text-anchor', 'middle').attr('fill', 'rgba(255,160,20,0.36)')
+          .attr('font-size', 14).attr('font-weight', '700').attr('font-family', 'sans-serif')
+          .text('”' + tok + '”');
+        return { box, lbl, cx };
+      });
+
+      // ── Elbow connector: active token → EMB column ────────────────────────
+      const JOIN_Y = TOK_CY + TOK_H / 2 + 20;  // = 127
+      const conn = svg.append('path')
+        .attr('stroke', CV_COL + '50').attr('stroke-width', 1.2)
+        .attr('stroke-dasharray', '5,4').attr('fill', 'none').attr('opacity', 0);
+
+      // ── Panel labels ──────────────────────────────────────────────────────
+      const embLbl = svg.append('text').attr('x', EMB_CX).attr('y', LBL_Y)
+        .attr('text-anchor', 'middle').attr('font-size', 11).attr('font-family', 'sans-serif');
+      embLbl.append('tspan').attr('fill', CGRAY).text('eᵢ  ');
+      const embWord = embLbl.append('tspan').attr('fill', CV_COL).attr('font-weight', '700').text('');
+
+      const vLbl = svg.append('text').attr('x', V_CX).attr('y', LBL_Y)
+        .attr('text-anchor', 'middle').attr('font-size', 11).attr('font-family', 'sans-serif');
+      vLbl.append('tspan').attr('fill', CK).text('Vᵢ = Wv · eᵢ  ');
+      const vWord = vLbl.append('tspan').attr('fill', CV_COL).attr('font-weight', '700').text('');
+
+      // ── Ghost rings + dim labels (persistent skeleton) ────────────────────
+      for (let k = 0; k < NDIMS; k++) {
+        const cy = DOT_Y0 + k * DOT_STEP;
+        svg.append('circle').attr('cx', EMB_CX).attr('cy', cy).attr('r', RMAX)
+          .attr('fill', 'rgba(180,200,220,0.04)').attr('stroke', CGRAY)
+          .attr('stroke-width', 1).attr('opacity', 0.32);
+        svg.append('circle').attr('cx', V_CX).attr('cy', cy).attr('r', RMAX)
+          .attr('fill', 'rgba(157,78,221,0.04)').attr('stroke', CK)
+          .attr('stroke-width', 1).attr('opacity', 0.32);
+        svg.append('text')
+          .attr('x', EMB_CX - RMAX - 9).attr('y', cy + 4)
+          .attr('text-anchor', 'end').attr('fill', Cm)
+          .attr('font-size', 8.5).attr('font-family', 'sans-serif').text('d' + (k + 1));
+      }
+
+      // ── Truncation indicator: ⋮ then a dashed dₙ ring ────────────────────
+      const ELLIP_Y = DOT_Y0 + NDIMS * DOT_STEP - 2;  // 358
+      const DN_Y    = ELLIP_Y + 34;                     // 392
+      [EMB_CX, V_CX].forEach(cx => {
+        svg.append('text')
+          .attr('x', cx).attr('y', ELLIP_Y)
+          .attr('text-anchor', 'middle').attr('fill', Cm)
+          .attr('font-size', 13).attr('font-family', 'sans-serif').text('⋮');
+      });
+      svg.append('circle').attr('cx', EMB_CX).attr('cy', DN_Y).attr('r', RMAX)
+        .attr('fill', 'none').attr('stroke', CGRAY)
+        .attr('stroke-width', 1).attr('stroke-dasharray', '3,2').attr('opacity', 0.22);
+      svg.append('circle').attr('cx', V_CX).attr('cy', DN_Y).attr('r', RMAX)
+        .attr('fill', 'none').attr('stroke', CK)
+        .attr('stroke-width', 1).attr('stroke-dasharray', '3,2').attr('opacity', 0.22);
+      svg.append('text')
+        .attr('x', EMB_CX - RMAX - 9).attr('y', DN_Y + 4)
+        .attr('text-anchor', 'end').attr('fill', Cm)
+        .attr('font-size', 8.5).attr('font-family', 'sans-serif').text('dₙ');
+      svg.append('text')
+        .attr('x', EMB_CX + RMAX + 6).attr('y', DN_Y + 4)
+        .attr('text-anchor', 'start').attr('fill', Cm)
+        .attr('font-size', 8).attr('font-family', 'sans-serif').attr('font-style', 'italic')
+        .text('full embedding size');
+
+      // ── Wv heatmap ────────────────────────────────────────────────────────
+      const wvBX = WV_CX - WV_SIZE / 2;   // = 505
+      const wvBY = WV_CY - WV_SIZE / 2;   // = 202
+      svg.append('rect')
+        .attr('x', wvBX - 2).attr('y', wvBY - 24).attr('width', WV_SIZE + 4).attr('height', WV_SIZE + 30)
+        .attr('rx', 8).attr('fill', CV_COL + '10').attr('stroke', CV_COL).attr('stroke-width', 1.8);
+      svg.append('text').attr('x', WV_CX).attr('y', wvBY - 8)
+        .attr('text-anchor', 'middle').attr('fill', CV_COL)
+        .attr('font-size', 15).attr('font-weight', '700').attr('font-family', 'monospace').text('Wv');
+      WV_WEIGHTS.forEach((row, ri) => {
+        row.forEach((w, ci) => {
+          svg.append('rect')
+            .attr('x', wvBX + ci * WV_CELL + 1).attr('y', wvBY + ri * WV_CELL + 1)
+            .attr('width', WV_CELL - 2).attr('height', WV_CELL - 2).attr('rx', 2)
+            .attr('fill', `rgba(255,160,20,${(0.10 + w * 0.68).toFixed(2)})`);
+        });
+      });
+
+      // ── Arrows emb → Wv → V with operator labels ──────────────────────────
+      const arrowY = WV_CY;
+      svg.append('line')
+        .attr('x1', EMB_CX + RMAX + 8).attr('y1', arrowY)
+        .attr('x2', wvBX - 6).attr('y2', arrowY)
+        .attr('stroke', CV_COL + '60').attr('stroke-width', 2).attr('marker-end', 'url(#vmtip)');
+      svg.append('line')
+        .attr('x1', wvBX + WV_SIZE + 8).attr('y1', arrowY)
+        .attr('x2', V_CX - RMAX - 8).attr('y2', arrowY)
+        .attr('stroke', CV_COL + '60').attr('stroke-width', 2).attr('marker-end', 'url(#vmtip)');
+      svg.append('text')
+        .attr('x', (EMB_CX + RMAX + wvBX) / 2).attr('y', arrowY - 6)
+        .attr('text-anchor', 'middle').attr('fill', CV_COL + '90')
+        .attr('font-size', 14).attr('font-family', 'monospace').text('·');
+      svg.append('text')
+        .attr('x', (wvBX + WV_SIZE + V_CX - RMAX) / 2).attr('y', arrowY - 6)
+        .attr('text-anchor', 'middle').attr('fill', CV_COL + '90')
+        .attr('font-size', 14).attr('font-family', 'monospace').text('=');
+
+      // ── Per-word animated dot groups ──────────────────────────────────────
+      const wordGs = TOKENS.map((tok, qi) => {
+        const g = svg.append('g').attr('opacity', 0);
+
+        // Embedding dots (gray), start at r=0
+        const embDots = E_VECS[qi].map((_, k) =>
+          g.append('circle')
+            .attr('cx', EMB_CX).attr('cy', DOT_Y0 + k * DOT_STEP)
+            .attr('r', 0).attr('fill', CGRAY)
+        );
+
+        // Value dots (purple), start at r=0
+        const vDots = V_VECS[qi].map((_, k) =>
+          g.append('circle')
+            .attr('cx', V_CX).attr('cy', DOT_Y0 + k * DOT_STEP)
+            .attr('r', 0).attr('fill', CK)
+        );
+
+        // ↑/↓ diff indicators to the right of each V dot
+        const diffGs = V_VECS[qi].map((v, k) => {
+          const diff = v - E_VECS[qi][k];
+          const dg = g.append('g').attr('opacity', 0);
+          if (Math.abs(diff) > 0.08) {
+            dg.append('text')
+              .attr('x', V_CX + RMAX + 7).attr('y', DOT_Y0 + k * DOT_STEP + 4)
+              .attr('text-anchor', 'start')
+              .attr('fill', diff > 0 ? '#00e676' : '#ff5252')
+              .attr('font-size', 10).attr('font-weight', '700')
+              .text(diff > 0 ? '↑' : '↓');
+          }
+          return dg;
+        });
+
+        const noteG = g.append('g').attr('opacity', 0);
+        noteG.append('text').attr('x', SVG_W / 2).attr('y', 464)
+          .attr('text-anchor', 'middle').attr('fill', Cm)
+          .attr('font-size', 11).attr('font-family', 'sans-serif')
+          .text(V_NOTES[qi]);
+
+        return { g, embDots, vDots, diffGs, noteG };
+      });
+
+      let cycleQI = 0;
+
+      function activateWord(qi) {
+        // Highlight active token
+        TOKENS.forEach((_, i) => {
+          const active = i === qi;
+          tokBoxes[i].box
+            .attr('fill', active ? CV_COL + '25' : 'rgba(255,160,20,0.07)')
+            .attr('stroke', active ? CV_COL : 'rgba(255,160,20,0.28)')
+            .attr('stroke-width', active ? 2.2 : 1.5);
+          tokBoxes[i].lbl.attr('fill', active ? CV_COL : 'rgba(255,160,20,0.36)');
+        });
+
+        // Elbow path: token bottom → horizontal join → down to first dot
+        const tokCX = tokBoxes[qi].cx;
+        conn
+          .attr('d', `M${tokCX},${TOK_CY + TOK_H / 2 + 2} L${tokCX},${JOIN_Y} L${EMB_CX},${JOIN_Y} L${EMB_CX},${DOT_Y0 - RMAX - 5}`)
+          .attr('opacity', 0.55);
+
+        embWord.text('”' + TOKENS[qi] + '”');
+        vWord.text('”' + TOKENS[qi] + '”');
+
+        // Reset dots to r=0 then animate
+        const wg = wordGs[qi];
+        wg.embDots.forEach(d => d.interrupt().attr('r', 0));
+        wg.vDots.forEach(d => d.interrupt().attr('r', 0));
+        wg.diffGs.forEach(dg => dg.interrupt().attr('opacity', 0));
+        wg.noteG.interrupt().attr('opacity', 0);
+        wg.g.interrupt().attr('opacity', 1);
+
+        wg.embDots.forEach((dot, k) => {
+          dot.transition().delay(300 + k * 55).duration(400)
+            .attr('r', Math.max(2, E_VECS[qi][k] * RMAX));
+        });
+        wg.vDots.forEach((dot, k) => {
+          dot.transition().delay(1000 + k * 55).duration(440)
+            .attr('r', Math.max(2, V_VECS[qi][k] * RMAX));
+        });
+        wg.diffGs.forEach((dg, k) => {
+          dg.transition().delay(1980 + k * 40).duration(200).attr('opacity', 1);
+        });
+        wg.noteG.transition().delay(2150).duration(280).attr('opacity', 1);
+      }
+
+      function deactivateWord(qi) {
+        wordGs[qi].g.interrupt().transition().duration(200).attr('opacity', 0);
+      }
+
+      function advanceCycle() {
+        deactivateWord(cycleQI);
+        cycleQI = (cycleQI + 1) % N;
+        setTimeout(() => activateWord(cycleQI), 220);
+      }
+
+      el._vmInitTimer = setTimeout(() => {
+        activateWord(0);
+        el._vmCycleTimer = setInterval(advanceCycle, CYCLE_INTERVAL);
+      }, INIT_DELAY);
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('v-matrix-canvas');
+      if (el && !el._vMatrixReady) { el._vMatrixReady = true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if (ev.previousSlide && ev.previousSlide.id === 'v-matrix') {
+        const el = document.getElementById('v-matrix-canvas');
+        if (el) {
+          clearTimeout(el._vmInitTimer);
+          clearInterval(el._vmCycleTimer);
+          el._vmCycleTimer = null;
+          el._vMatrixReady = false;
+        }
+      }
+      if (ev.currentSlide && ev.currentSlide.id === 'v-matrix') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- One Attention Head 2D diagram -->
+  <script>
+  (function () {
+    const SVG_W = 1100, SVG_H = 490;
+    const CQ  = '#00d9ff';
+    const CK  = '#9d4edd';
+    const CV  = '#ffa014';
+    const CXC = '#4da8ff';
+    const CAC = '#3ecf72';
+    const Cm  = 'rgba(155,175,200,0.65)';
+
+    // Single large head: dₖ = dᵥ = d  (no splitting across heads)
+    const N_H  = 78;   // pixel height = N rows
+    const D_W  = 72;   // pixel width  = d (model dimension)
+    const DK_W = 72;   // = D_W: one head gets the full dimension
+
+    const yQ = 148, yK = 242, yV = 336;
+
+    const PX = {ox: 28, oy: yK - N_H/2};
+
+    // Projection box
+    const pbX = 124, pbW = 104;
+    const pbGap = 26;
+    const qkvOx = pbX + pbW + pbGap;   // 254
+
+    const PQ = {ox: qkvOx, oy: yQ - N_H/2};
+    const PK = {ox: qkvOx, oy: yK - N_H/2};
+    const PV = {ox: qkvOx, oy: yV - N_H/2};
+
+    const pbY = PQ.oy - 14;
+    const pbH = PV.oy + N_H + 14 - pbY;
+
+    // Attention matrices — right of Q/K/V
+    const yAttn = (yQ + yK) / 2;   // 195
+    const PS = {ox: qkvOx + DK_W + 60, oy: yAttn - N_H/2};   // 386, 156
+    const PA = {ox: PS.ox + N_H + 70,  oy: PS.oy};             // 534, 156
+    const PO = {ox: PA.ox + N_H + 64,  oy: PS.oy};             // 676, 156
+
+    const SCORES = [
+      [0.86,0.38,0.12,0.07,0.04],
+      [0.40,0.88,0.45,0.14,0.05],
+      [0.08,0.44,0.90,0.42,0.08],
+      [0.04,0.14,0.45,0.88,0.40],
+      [0.03,0.07,0.12,0.38,0.86],
+    ];
+
+    function cellV(r,c,s){ return Math.sin(r*7.3+c*13.1+s)*0.5+0.5; }
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${SVG_W} ${SVG_H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs = svg.append('defs');
+      [['ahq',CQ],['ahk',CK],['ahv',CV],['aha',CAC],['ahx',CXC]].forEach(([id,col]) => {
+        defs.append('marker').attr('id',id)
+          .attr('markerWidth',7).attr('markerHeight',5)
+          .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+          .append('polygon').attr('points','0 0,7 2.5,0 5')
+          .attr('fill',col).attr('opacity',0.85);
+      });
+
+      function mat(g,p,W,H,nR,nC,fc,opts={}) {
+        const {ox,oy} = p;
+        const al=opts.alpha||0.88, hm=opts.heatmap||null, sd=opts.seed||0;
+        const cW=W/nC, cH=H/nR;
+        for(let r=0;r<nR;r++) for(let c=0;c<nC;c++){
+          const v = hm ? hm[r][c] : cellV(r,c,sd);
+          g.append('rect')
+            .attr('x',ox+c*cW+0.5).attr('y',oy+r*cH+0.5)
+            .attr('width',cW-1).attr('height',cH-1).attr('rx',1)
+            .attr('fill',fc).attr('fill-opacity',al*(0.13+v*0.57));
+        }
+        g.append('rect').attr('x',ox).attr('y',oy).attr('width',W).attr('height',H)
+          .attr('fill','none').attr('stroke',fc).attr('stroke-opacity',0.65)
+          .attr('stroke-width',1.8).attr('rx',2);
+      }
+
+      function name(g,p,W,label,col){
+        g.append('text').attr('x',p.ox+W/2).attr('y',p.oy-7)
+          .attr('text-anchor','middle').attr('font-size',13)
+          .attr('font-family','Georgia,serif').attr('font-weight','700')
+          .attr('fill',col).text(label);
+      }
+
+      function dimH(g,x1,x2,y,label,col){
+        g.append('line').attr('x1',x1).attr('y1',y).attr('x2',x2).attr('y2',y)
+          .attr('stroke',col).attr('stroke-width',0.9).attr('opacity',0.5);
+        [x1,x2].forEach(x=>
+          g.append('line').attr('x1',x).attr('y1',y-3).attr('x2',x).attr('y2',y+3)
+            .attr('stroke',col).attr('stroke-width',0.9).attr('opacity',0.5));
+        g.append('text').attr('x',(x1+x2)/2).attr('y',y+14)
+          .attr('text-anchor','middle').attr('font-size',11)
+          .attr('font-family','Georgia,serif').attr('font-style','italic')
+          .attr('fill',col).attr('opacity',0.88).text(label);
+      }
+
+      function dimV(g,y1,y2,x,label,col){
+        g.append('line').attr('x1',x).attr('y1',y1).attr('x2',x).attr('y2',y2)
+          .attr('stroke',col).attr('stroke-width',0.9).attr('opacity',0.5);
+        [y1,y2].forEach(y=>
+          g.append('line').attr('x1',x-3).attr('y1',y).attr('x2',x+3).attr('y2',y)
+            .attr('stroke',col).attr('stroke-width',0.9).attr('opacity',0.5));
+        g.append('text').attr('x',x-8).attr('y',(y1+y2)/2+4)
+          .attr('text-anchor','end').attr('font-size',11)
+          .attr('font-family','Georgia,serif').attr('font-style','italic')
+          .attr('fill',col).attr('opacity',0.88).text(label);
+      }
+
+      function arrow(g,x1,y1,x2,y2,col,marker,dash){
+        g.append('line').attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2)
+          .attr('stroke',col).attr('stroke-width',1.5)
+          .attr('stroke-dasharray',dash?'5,3':'none')
+          .attr('marker-end',`url(#${marker})`);
+      }
+
+      // ── Animation groups ──
+      const gX       = svg.append('g').attr('opacity',0);
+      const gProj    = svg.append('g').attr('opacity',0);
+      const gQKV     = svg.append('g').attr('opacity',0);
+      const gS       = svg.append('g').attr('opacity',0);
+      const gA       = svg.append('g').attr('opacity',0);
+      const gO       = svg.append('g').attr('opacity',0);
+      const gFormula = svg.append('g').attr('opacity',0);
+      const gLeg     = svg.append('g').attr('opacity',0);
+
+      // ══════════════ "1 Head" badge (top-right) ══════════════
+      const bx = SVG_W - 120, by = 14;
+      svg.append('rect').attr('x',bx).attr('y',by).attr('width',106).attr('height',22)
+        .attr('rx',11).attr('fill','rgba(62,207,114,0.12)')
+        .attr('stroke',CAC).attr('stroke-width',1.2).attr('stroke-opacity',0.55);
+      svg.append('text').attr('x',bx+53).attr('y',by+14.5)
+        .attr('text-anchor','middle').attr('font-size',11)
+        .attr('font-family','Georgia,serif').attr('font-weight','700')
+        .attr('fill',CAC).attr('opacity',0.80).text('1 head  ·  dₖ = d');
+
+      // ══════════════ X  (N × d) ══════════════
+      mat(gX, PX, D_W, N_H, 5, 5, CXC, {seed:1});
+      name(gX, PX, D_W, 'X', CXC);
+      dimV(gX, PX.oy, PX.oy+N_H, PX.ox-14, 'N', CXC);
+      dimH(gX, PX.ox, PX.ox+D_W, PX.oy+N_H+6, 'd', CXC);
+      arrow(gX, PX.ox+D_W+3, PX.oy+N_H/2, pbX-3, PX.oy+N_H/2, CXC, 'ahx', false);
+
+      // ══════════════ Linear Projection box  ══════════════
+      gProj.append('rect')
+        .attr('x',pbX).attr('y',pbY).attr('width',pbW).attr('height',pbH)
+        .attr('rx',9).attr('fill','rgba(110,135,165,0.10)')
+        .attr('stroke','rgba(175,200,228,0.60)').attr('stroke-width',1.8);
+
+      // Two-line label — each line fits inside the 104 px box at font-size 8.5
+      gProj.append('text')
+        .attr('x',pbX+pbW/2).attr('y',pbY+12)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill','rgba(195,212,232,0.60)').text('Learned through');
+      gProj.append('text')
+        .attr('x',pbX+pbW/2).attr('y',pbY+23)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill','rgba(195,212,232,0.60)').text('backpropagation');
+
+      dimV(gProj, PX.oy, PX.oy+N_H, pbX-10, 'd', 'rgba(148,168,198,0.52)');
+
+      // W_Q, W_K, W_V chips — square (d×d) for single head
+      const chipW = 82, chipH = 26, chipX = pbX + (pbW - chipW) / 2;
+      [[yQ,CQ,'W_Q',2],[yK,CK,'W_K',3],[yV,CV,'W_V',4]].forEach(([yC,col,lbl,sd])=>{
+        const cp = {ox:chipX, oy:yC - chipH/2};
+        mat(gProj, cp, chipW, chipH, 4, 4, col, {seed:sd, alpha:0.62});
+        gProj.append('text')
+          .attr('x',chipX+chipW/2).attr('y',cp.oy-4)
+          .attr('text-anchor','middle').attr('font-size',11)
+          .attr('font-family','Georgia,serif').attr('font-weight','700')
+          .attr('fill',col).text(lbl);
+        // d×d shape annotation
+        gProj.append('text')
+          .attr('x',chipX+chipW/2).attr('y',cp.oy+chipH+11)
+          .attr('text-anchor','middle').attr('font-size',8)
+          .attr('font-family','Georgia,serif').attr('font-style','italic')
+          .attr('fill',col).attr('opacity',0.50).text('d × d');
+      });
+
+      // Short arrows from projection box right → Q, K, V
+      [[yQ,CQ,'ahq'],[yK,CK,'ahk'],[yV,CV,'ahv']].forEach(([yC,col,mk])=>{
+        arrow(gProj, pbX+pbW+3, yC, qkvOx-3, yC, col, mk, false);
+      });
+
+      // ══════════════ Q  K  V  (N × d  — full dimension) ══════════════
+      // Only V gets the dimH "d" label — Q and K labels would fall inside the
+      // next matrix's bounding box given the tight 94 px vertical spacing.
+      [[PQ,'Q',CQ,5],[PK,'K',CK,6],[PV,'V',CV,7]].forEach(([p,lbl,cc,sd],i)=>{
+        mat(gQKV, p, DK_W, N_H, 5, 5, cc, {seed:sd});
+        name(gQKV, p, DK_W, lbl, cc);
+        if(i===2) dimH(gQKV, p.ox, p.ox+DK_W, p.oy+N_H+6, 'd', cc);
+      });
+      dimV(gQKV, PQ.oy, PQ.oy+N_H, PQ.ox-11, 'N', CQ);
+
+      // ══════════════ Scores  Q·Kᵀ  (N×N) ══════════════
+      mat(gS, PS, N_H, N_H, 5, 5, CAC, {heatmap:SCORES, alpha:0.92});
+      name(gS, PS, N_H, 'Q·Kᵀ', CAC);
+      dimV(gS, PS.oy, PS.oy+N_H, PS.ox-11, 'N', CAC);
+      dimH(gS, PS.ox, PS.ox+N_H, PS.oy+N_H+6, 'N', CAC);
+
+      arrow(gS, PQ.ox+DK_W+3, yQ, PS.ox-3, PS.oy+N_H*0.27, CQ, 'ahq', true);
+      arrow(gS, PK.ox+DK_W+3, yK, PS.ox-3, PS.oy+N_H*0.73, CK, 'ahk', true);
+      gS.append('text')
+        .attr('x',(PQ.ox+DK_W+PS.ox)/2).attr('y',PS.oy-24)
+        .attr('text-anchor','middle').attr('font-size',8.5).attr('font-style','italic')
+        .attr('fill',Cm).text('dot product  ÷  √d');
+
+      // ══════════════ Attention weights  A  (N×N) ══════════════
+      mat(gA, PA, N_H, N_H, 5, 5, CAC, {heatmap:SCORES, alpha:0.92});
+      name(gA, PA, N_H, 'A', CAC);
+      dimV(gA, PA.oy, PA.oy+N_H, PA.ox-11, 'N', CAC);
+      dimH(gA, PA.ox, PA.ox+N_H, PA.oy+N_H+6, 'N', CAC);
+
+      const sCY = PS.oy+N_H/2;
+      arrow(gA, PS.ox+N_H+3, sCY, PA.ox-3, sCY, CAC, 'aha', false);
+      gA.append('text')
+        .attr('x',(PS.ox+N_H+PA.ox)/2).attr('y',sCY-8)
+        .attr('text-anchor','middle').attr('font-size',8.5).attr('font-style','italic')
+        .attr('fill',CAC).text('softmax');
+
+      // ══════════════ Output  (N × d) ══════════════
+      mat(gO, PO, DK_W, N_H, 5, 5, CAC, {seed:8, alpha:0.92});
+      name(gO, PO, DK_W, 'Out', CAC);
+      dimV(gO, PO.oy, PO.oy+N_H, PO.ox-11, 'N', CAC);
+      dimH(gO, PO.ox, PO.ox+DK_W, PO.oy+N_H+6, 'd', CAC);
+
+      // A → × → Out
+      const aCY = PA.oy+N_H/2;
+      arrow(gO, PA.ox+N_H+3, aCY, PO.ox-3, aCY, CAC, 'aha', false);
+      gO.append('text')
+        .attr('x',(PA.ox+N_H+PO.ox)/2).attr('y',aCY-7)
+        .attr('text-anchor','middle').attr('font-size',14).attr('font-weight','700')
+        .attr('fill',CV).text('×');
+
+      // V → Out: route right then up to Out right-edge centre
+      const vRX    = PV.ox+DK_W+8;
+      const routeX = PO.ox+DK_W+26;
+      const outCY  = PO.oy+N_H/2;
+      gO.append('path')
+        .attr('d',`M ${vRX},${yV} L ${routeX},${yV} L ${routeX},${outCY} L ${PO.ox+DK_W+3},${outCY}`)
+        .attr('stroke',CV).attr('stroke-width',1.3).attr('stroke-dasharray','5,3')
+        .attr('fill','none').attr('marker-end','url(#ahv)');
+      gO.append('text')
+        .attr('x',routeX+7).attr('y',(yV+outCY)/2+4)
+        .attr('text-anchor','start').attr('font-size',11).attr('font-weight','700')
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CV).text('V');
+
+      // ══════════════ Attention Formula box (right side, x 795–1077, y 140–318) ══════════════
+      const fX=795, fY=140, fW=282, fH=178;
+      const Cw='rgba(220,235,255,0.80)';
+
+      gFormula.append('rect')
+        .attr('x',fX).attr('y',fY).attr('width',fW).attr('height',fH)
+        .attr('rx',10).attr('fill','rgba(62,207,114,0.05)')
+        .attr('stroke',CAC).attr('stroke-width',1.2).attr('stroke-opacity',0.30);
+
+      gFormula.append('text')
+        .attr('x',fX+fW/2).attr('y',fY+15)
+        .attr('text-anchor','middle').attr('font-size',9.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill','rgba(155,175,200,0.55)').text('Attention Formula');
+
+      gFormula.append('line')
+        .attr('x1',fX+12).attr('y1',fY+23).attr('x2',fX+fW-12).attr('y2',fY+23)
+        .attr('stroke',CAC).attr('stroke-opacity',0.20).attr('stroke-width',0.8);
+
+      // Line 1: Attention(Q, K, V) =
+      const fL1=gFormula.append('text').attr('x',fX+fW/2).attr('y',fY+50)
+        .attr('text-anchor','middle').attr('font-size',14)
+        .attr('font-family','Georgia,serif').attr('font-style','italic');
+      fL1.append('tspan').attr('fill',Cw).text('Attention(');
+      fL1.append('tspan').attr('fill',CQ).attr('font-weight','700').text('Q');
+      fL1.append('tspan').attr('fill',Cw).text(', ');
+      fL1.append('tspan').attr('fill',CK).attr('font-weight','700').text('K');
+      fL1.append('tspan').attr('fill',Cw).text(', ');
+      fL1.append('tspan').attr('fill',CV).attr('font-weight','700').text('V');
+      fL1.append('tspan').attr('fill',Cw).text(') =');
+
+      // Line 2: softmax( QKᵀ / √d ) · V
+      const fL2=gFormula.append('text').attr('x',fX+fW/2).attr('y',fY+74)
+        .attr('text-anchor','middle').attr('font-size',14)
+        .attr('font-family','Georgia,serif').attr('font-style','italic');
+      fL2.append('tspan').attr('fill',Cw).text('softmax(');
+      fL2.append('tspan').attr('fill',CQ).attr('font-weight','700').text('Q');
+      fL2.append('tspan').attr('fill',CK).attr('font-weight','700').text('Kᵀ');
+      fL2.append('tspan').attr('fill',Cw).text(' / √d)  ·  ');
+      fL2.append('tspan').attr('fill',CV).attr('font-weight','700').text('V');
+
+      gFormula.append('line')
+        .attr('x1',fX+12).attr('y1',fY+90).attr('x2',fX+fW-12).attr('y2',fY+90)
+        .attr('stroke',CAC).attr('stroke-opacity',0.15).attr('stroke-width',0.7);
+
+      // Projection definitions: Q=XWQ, K=XWK, V=XWV (subscript via dy)
+      [[fY+110,CQ,'Q'],[fY+128,CK,'K'],[fY+146,CV,'V']].forEach(([y,col,lbl])=>{
+        const p=gFormula.append('text').attr('x',fX+fW/2).attr('y',y)
+          .attr('text-anchor','middle').attr('font-size',11)
+          .attr('font-family','Georgia,serif').attr('font-style','italic');
+        p.append('tspan').attr('fill',col).attr('font-weight','700').text(lbl);
+        p.append('tspan').attr('fill','rgba(210,225,245,0.68)').text(' = X · W');
+        p.append('tspan').attr('fill',col).attr('font-size',8.5).attr('dy','3').text(lbl);
+      });
+
+      // ══════════════ Legend ══════════════
+      const LY = 468;
+      [{x:30,col:CXC,t:'N  =  context length'},
+       {x:230,col:CXC,t:'d  =  model dimension'},
+       {x:430,col:CAC,t:'dₖ = dᵥ = d  (single head — full dimension)'},
+       {x:780,col:'rgba(155,175,200,0.65)',t:'W_Q, W_K, W_V ∈ ℝ^(d×d)'}]
+      .forEach(({x,col,t})=>{
+        gLeg.append('rect').attr('x',x).attr('y',LY-8).attr('width',7).attr('height',7)
+          .attr('rx',1).attr('fill',col).attr('opacity',0.65);
+        gLeg.append('text').attr('x',x+11).attr('y',LY)
+          .attr('font-size',9.5).attr('fill',Cm).text(t);
+      });
+
+      // ══════════════ Stage animation ══════════════
+      const delays = [250,750,1300,1950,2600,3250,3750,3900];
+      [gX,gProj,gQKV,gS,gA,gO,gFormula,gLeg].forEach((g,i)=>
+        g.transition().delay(delays[i]).duration(500).attr('opacity',1));
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('attn-head-canvas');
+      if(el && !el._attnHeadReady){ el._attnHeadReady=true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if(ev.previousSlide && ev.previousSlide.id==='attn-head'){
+        const el = document.getElementById('attn-head-canvas');
+        if(el) el._attnHeadReady=false;
+      }
+      if(ev.currentSlide && ev.currentSlide.id==='attn-head') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Multi-Head Attention diagram -->
+  <script>
+  (function(){
+    const SVG_W=1100, SVG_H=490;
+    const CQ='#00d9ff', CK='#9d4edd', CV='#ffa014';
+    const CXC='#4da8ff', CAC='#3ecf72', CO='#e040fb';
+    const Cm='rgba(155,175,200,0.65)';
+    const Cw='rgba(220,235,255,0.80)';
+
+    // Layout constants
+    const N_H=62;          // matrix pixel height (N rows) — slightly shorter to fit 4 heads
+    const H=4;             // number of heads
+    const D_W=60;          // X width (d)
+    const DK_W=32;         // per-head width (d/h)
+    const HEAD_GAP=14;     // vertical gap between heads
+
+    // Total height occupied by all heads
+    const totalH = H*N_H + (H-1)*HEAD_GAP;  // 4*62+3*14 = 290
+    const topY   = (SVG_H - totalH)/2 - 10; // ≈90 — centre vertically
+
+    // head top y-positions
+    function headY(i){ return topY + i*(N_H+HEAD_GAP); }
+
+    // X matrix (shown once, centred vertically)
+    const PX = {ox:22, oy: topY + totalH/2 - N_H/2};
+
+    // Projection box per head
+    const pbX=110, pbW=88;
+    // Q K V per head
+    const qkvOx = pbX+pbW+22;  // 220
+    // Scores / Attn / Head-out per head
+    const PSox = qkvOx+DK_W+52;   // 304
+    const PAox = PSox+N_H+52;     // 418
+    const Hout_ox = PAox+N_H+52;  // 532  head output (N×dₖ)
+
+    // Concat box
+    const concatX = Hout_ox+DK_W+28;  // 592
+    const concatW  = 20;
+    // W_O box
+    const woX = concatX+concatW+22;   // 634
+    const woW = 62;
+    // Final output
+    const outX = woX+woW+22;          // 718
+    const outW = D_W;                  // N×d
+
+    const SCORES=[
+      [0.86,0.38,0.12,0.07],[0.40,0.88,0.45,0.14],
+      [0.08,0.44,0.90,0.42],[0.04,0.14,0.45,0.88],
+    ];
+
+    function cellV(r,c,s){ return Math.sin(r*7.3+c*13.1+s)*0.5+0.5; }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${SVG_W} ${SVG_H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      [['mhq',CQ],['mhk',CK],['mhv',CV],['mha',CAC],['mhx',CXC],['mho',CO]].forEach(([id,col])=>{
+        defs.append('marker').attr('id',id)
+          .attr('markerWidth',7).attr('markerHeight',5)
+          .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+          .append('polygon').attr('points','0 0,7 2.5,0 5')
+          .attr('fill',col).attr('opacity',0.85);
+      });
+
+      function mat(g,ox,oy,W,H2,nR,nC,fc,opts={}){
+        const al=opts.alpha||0.88, hm=opts.heatmap||null, sd=opts.seed||0;
+        const cW=W/nC, cH=H2/nR;
+        for(let r=0;r<nR;r++) for(let c=0;c<nC;c++){
+          const v=hm?hm[r][c]:cellV(r,c,sd);
+          g.append('rect').attr('x',ox+c*cW+0.5).attr('y',oy+r*cH+0.5)
+            .attr('width',cW-1).attr('height',cH-1).attr('rx',1)
+            .attr('fill',fc).attr('fill-opacity',al*(0.13+v*0.57));
+        }
+        g.append('rect').attr('x',ox).attr('y',oy).attr('width',W).attr('height',H2)
+          .attr('fill','none').attr('stroke',fc).attr('stroke-opacity',0.65)
+          .attr('stroke-width',1.6).attr('rx',2);
+      }
+
+      function arrow(g,x1,y1,x2,y2,col,mk,dash){
+        g.append('line').attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2)
+          .attr('stroke',col).attr('stroke-width',1.4)
+          .attr('stroke-dasharray',dash?'4,3':'none')
+          .attr('marker-end',`url(#${mk})`);
+      }
+
+      function label(g,x,y,txt,col,fs=11,anchor='middle',bold=false){
+        g.append('text').attr('x',x).attr('y',y).attr('text-anchor',anchor)
+          .attr('font-size',fs).attr('font-family','Georgia,serif')
+          .attr('font-style','italic').attr('font-weight',bold?'700':'400')
+          .attr('fill',col).text(txt);
+      }
+
+      // Animation groups
+      const gX    = svg.append('g').attr('opacity',0);
+      const gProj = svg.append('g').attr('opacity',0);
+      const gQKV  = svg.append('g').attr('opacity',0);
+      const gSA   = svg.append('g').attr('opacity',0);
+      const gHout = svg.append('g').attr('opacity',0);
+      const gConc = svg.append('g').attr('opacity',0);
+      const gOut  = svg.append('g').attr('opacity',0);
+      const gAnn  = svg.append('g').attr('opacity',0);
+
+      // ── X matrix ──
+      mat(gX, PX.ox, PX.oy, D_W, N_H, 4, 4, CXC, {seed:1});
+      label(gX, PX.ox+D_W/2, PX.oy-7, 'X', CXC, 12);
+      // N and d dims
+      gX.append('text').attr('x',PX.ox-12).attr('y',PX.oy+N_H/2+4)
+        .attr('text-anchor','end').attr('font-size',10).attr('font-family','Georgia,serif')
+        .attr('font-style','italic').attr('fill',CXC).attr('opacity',0.75).text('N');
+      gX.append('text').attr('x',PX.ox+D_W/2).attr('y',PX.oy+N_H+14)
+        .attr('text-anchor','middle').attr('font-size',10).attr('font-family','Georgia,serif')
+        .attr('font-style','italic').attr('fill',CXC).attr('opacity',0.75).text('d');
+
+      // Arrow X → proj box (one arrow per head fanning out)
+      for(let i=0;i<H;i++){
+        const cy=headY(i)+N_H/2;
+        arrow(gX, PX.ox+D_W+3, PX.oy+N_H/2, pbX-3, cy, CXC,'mhx',true);
+      }
+
+      // ── Projection boxes + W chips (one per head) ──
+      const headCols=['#2a9fd6','#7b2fbe','#c86b00','#1a9e5a']; // tinted per head
+      for(let i=0;i<H;i++){
+        const hy=headY(i);
+        const hcol=headCols[i%4];
+        // proj box
+        gProj.append('rect').attr('x',pbX).attr('y',hy).attr('width',pbW).attr('height',N_H)
+          .attr('rx',6).attr('fill','rgba(110,135,165,0.08)')
+          .attr('stroke','rgba(175,200,228,0.45)').attr('stroke-width',1.4);
+        // head label
+        label(gProj, pbX+pbW/2, hy+10, `head ${i+1}`, 'rgba(195,212,232,0.55)', 8.5);
+        // W_Q W_K W_V chips (tiny)
+        const chipW2=22, chipH2=12, chipY=[hy+16, hy+N_H/2-6, hy+N_H-22];
+        [[CQ,'WQ'],[CK,'WK'],[CV,'WV']].forEach(([cc,wl],wi)=>{
+          const cx=pbX+(pbW-chipW2)/2;
+          mat(gProj, cx, chipY[wi], chipW2, chipH2, 2, 2, cc, {seed:wi+2+i, alpha:0.55});
+          label(gProj, cx+chipW2/2, chipY[wi]-3, wl, cc, 7.5);
+        });
+        // arrows from proj box → Q, K, V
+        [[hy+N_H*0.20,CQ,'mhq'],[hy+N_H*0.50,CK,'mhk'],[hy+N_H*0.80,CV,'mhv']].forEach(([yc,cc,mk])=>{
+          arrow(gProj, pbX+pbW+2, yc, qkvOx-2, yc, cc, mk, false);
+        });
+      }
+
+      // ── Q K V per head ──
+      for(let i=0;i<H;i++){
+        const hy=headY(i);
+        [[hy+N_H*0.20-N_H*0.13,CQ,5+i],[hy+N_H*0.50-N_H*0.13,CK,9+i],[hy+N_H*0.80-N_H*0.13,CV,13+i]].forEach(([oy2,cc,sd])=>{
+          const clampedOy=Math.max(hy, Math.min(hy+N_H-Math.round(N_H*0.26), oy2));
+          mat(gQKV, qkvOx, clampedOy, DK_W, Math.round(N_H*0.26), 2, 2, cc, {seed:sd, alpha:0.80});
+        });
+        // Q label above head
+        label(gQKV, qkvOx+DK_W/2, headY(i)-5, 'Q,K,V', 'rgba(200,215,235,0.45)', 7.5);
+      }
+
+      // ── Score and Attention per head ──
+      const sH=Math.round(N_H*0.72);
+      for(let i=0;i<H;i++){
+        const hy=headY(i);
+        const sOy=hy+(N_H-sH)/2;
+        // scores Q·Kᵀ
+        mat(gSA, PSox, sOy, sH, sH, 4, 4, CAC, {heatmap:SCORES, alpha:0.88});
+        // attn weights
+        mat(gSA, PAox, sOy, sH, sH, 4, 4, CAC, {heatmap:SCORES, alpha:0.88});
+        // arrows
+        arrow(gSA, qkvOx+DK_W+2, hy+N_H*0.20, PSox-2, sOy+sH*0.25, CQ,'mhq',true);
+        arrow(gSA, qkvOx+DK_W+2, hy+N_H*0.50, PSox-2, sOy+sH*0.75, CK,'mhk',true);
+        arrow(gSA, PSox+sH+2, sOy+sH/2, PAox-2, sOy+sH/2, CAC,'mha',false);
+        // softmax label (only first head to avoid clutter)
+        if(i===0) label(gSA,(PSox+sH+PAox)/2, sOy-8,'softmax',Cm,7.5);
+      }
+
+      // ── Head outputs (N × dₖ) ──
+      for(let i=0;i<H;i++){
+        const hy=headY(i);
+        const sH2=Math.round(N_H*0.72);
+        const sOy=hy+(N_H-sH2)/2;
+        // V → head-out path (dashed)
+        const vOy=hy+N_H*0.80-Math.round(N_H*0.13);
+        gHout.append('path')
+          .attr('d',`M ${qkvOx+DK_W+2},${vOy+Math.round(N_H*0.13)} L ${PAox+sH2+10},${vOy+Math.round(N_H*0.13)} L ${PAox+sH2+10},${sOy+sH2/2} L ${PAox+sH2+2},${sOy+sH2/2}`)
+          .attr('stroke',CV).attr('stroke-width',1.2).attr('stroke-dasharray','4,3')
+          .attr('fill','none').attr('marker-end','url(#mhv)');
+        // head output matrix
+        mat(gHout, Hout_ox, hy, DK_W, N_H, 4, 2, CAC, {seed:20+i, alpha:0.88});
+        arrow(gHout, PAox+sH2+2, sOy+sH2/2, Hout_ox-2, hy+N_H/2, CAC,'mha',false);
+      }
+      // label head outputs
+      label(gHout, Hout_ox+DK_W/2, headY(0)-7, 'head outputs', 'rgba(200,215,235,0.50)', 7.5);
+      label(gHout, Hout_ox+DK_W/2, headY(0)-7+8, '(N × d/h each)', 'rgba(200,215,235,0.40)', 7);
+
+      // ── Concat box ──
+      const concatY=topY, concatH=totalH;
+      gConc.append('rect').attr('x',concatX).attr('y',concatY)
+        .attr('width',concatW).attr('height',concatH)
+        .attr('rx',4).attr('fill','rgba(224,64,251,0.10)')
+        .attr('stroke',CO).attr('stroke-width',1.4).attr('stroke-opacity',0.55);
+      // concat label rotated
+      gConc.append('text').attr('x',concatX+concatW/2).attr('y',concatY+concatH/2)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CO).attr('opacity',0.75)
+        .attr('transform',`rotate(-90,${concatX+concatW/2},${concatY+concatH/2})`)
+        .text('Concat');
+      // arrows from head outputs into concat box
+      for(let i=0;i<H;i++){
+        arrow(gConc, Hout_ox+DK_W+2, headY(i)+N_H/2, concatX-2, headY(i)+N_H/2, CO,'mho',false);
+      }
+
+      // ── Concatenated matrix (N × d) then W_O ──
+      const concatMatX=concatX+concatW+6;
+      const concatMatY=concatY;
+      // show as a single tall matrix right of concat box
+      mat(gConc, concatMatX, concatMatY, DK_W*H/2, concatH, 4, 4, CO, {seed:30, alpha:0.72});
+
+      // W_O box
+      gOut.append('rect').attr('x',woX).attr('y',concatY+concatH/2-40)
+        .attr('width',woW).attr('height',80)
+        .attr('rx',7).attr('fill','rgba(224,64,251,0.08)')
+        .attr('stroke',CO).attr('stroke-width',1.3).attr('stroke-opacity',0.50);
+      mat(gOut, woX+8, concatY+concatH/2-24, woW-16, 48, 3, 3, CO, {seed:35, alpha:0.55});
+      label(gOut, woX+woW/2, concatY+concatH/2-44, 'W_O', CO, 11);
+      label(gOut, woX+woW/2, concatY+concatH/2+50, 'd×d', 'rgba(200,215,235,0.45)', 8);
+
+      // arrow concat → W_O
+      arrow(gOut, concatMatX+DK_W*H/2+2, concatY+concatH/2, woX-2, concatY+concatH/2, CO,'mho',false);
+      // arrow W_O → final output
+      arrow(gOut, woX+woW+2, concatY+concatH/2, outX-2, concatY+concatH/2, CO,'mho',false);
+
+      // ── Final output ──
+      const outY=concatY+concatH/2-N_H/2;
+      mat(gOut, outX, outY, outW, N_H, 4, 4, CAC, {seed:40, alpha:0.92});
+      label(gOut, outX+outW/2, outY-8, 'Output', CAC, 12, 'middle', true);
+      label(gOut, outX+outW/2, outY+N_H+14, 'N × d', CAC, 9);
+
+      // ── Annotations (formula + labels) ──
+      // Title annotation above each zone (first head row only)
+      [
+        [pbX+pbW/2,      topY-18, 'Projections',       'rgba(195,212,232,0.55)'],
+        [qkvOx+DK_W/2,   topY-18, 'Q, K, V',           'rgba(195,212,232,0.55)'],
+        [(PSox+PAox+sH)/2, topY-18, 'Score → Attn',    'rgba(195,212,232,0.55)'],
+        [Hout_ox+DK_W/2, topY-18, '',                  'rgba(195,212,232,0.55)'],
+      ].forEach(([x,y,t,c])=> t && label(gAnn,x,y,t,c,8.5));
+
+      // MHA formula bottom
+      const fY2=SVG_H-28;
+      const ftext2 = gAnn.append('text').attr('x',SVG_W/2).attr('y',fY2)
+        .attr('text-anchor','middle').attr('font-size',11)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',Cw);
+      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text('MultiHead(');
+      ftext2.append('tspan').attr('fill',CQ).attr('font-weight','700').text('Q');
+      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(', ');
+      ftext2.append('tspan').attr('fill',CK).attr('font-weight','700').text('K');
+      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(', ');
+      ftext2.append('tspan').attr('fill',CV).attr('font-weight','700').text('V');
+      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(')  =  Concat(head');
+      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill','rgba(200,215,235,0.55)').text('1');
+      ftext2.append('tspan').attr('font-size',11).attr('dy','-3').attr('fill','rgba(200,215,235,0.70)').text(', … , head');
+      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill','rgba(200,215,235,0.55)').text('h');
+      ftext2.append('tspan').attr('font-size',11).attr('dy','-3').attr('fill','rgba(200,215,235,0.70)').text(')  W');
+      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill',CO).text('O');
+
+      // dₖ = d/h note
+      label(gAnn, qkvOx+DK_W/2, SVG_H-28, 'dₖ=d/h', Cm, 8.5);
+
+      const delays=[200,600,1000,1500,2000,2500,3000,3400];
+      [gX,gProj,gQKV,gSA,gHout,gConc,gOut,gAnn].forEach((g,i)=>
+        g.transition().delay(delays[i]).duration(450).attr('opacity',1));
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('mha-canvas');
+      if(el && !el._mhaReady){ el._mhaReady=true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev=>{
+      if(ev.previousSlide && ev.previousSlide.id==='multi-head-attn'){
+        const el=document.getElementById('mha-canvas');
+        if(el) el._mhaReady=false;
+      }
+      if(ev.currentSlide && ev.currentSlide.id==='multi-head-attn') maybeInit();
+    });
+  })();
+  </script>
+
+
+  <!-- LLM Architecture Building Blocks animation -->
+  <script>
+  (function () {
+    const CE  = '#00d9ff';   // encoder  — cyan
+    const CD  = '#9d4edd';   // decoder  — purple
+    const CX  = '#ffa014';   // enc-dec  — amber
+    const CTok= '#00e676';   // tokenizer — green
+    const Cm  = 'rgba(155,175,200,0.60)';
+    const Ct  = 'rgba(225,238,255,0.88)';
+
+    const W=1100, H=490;
+
+    // Column geometry
+    const cols = [
+      { id:'enc',  title:'Encoder-Only',     sub:'Bidirectional context',
+        col:CE,  x:38,  w:298,
+        blockLabel:['Self-Attn  ↔','Self-Attn  ↔','Self-Attn  ↔'],
+        outputLabel:'[CLS] representation',
+        models:['BERT','RoBERTa','DistilBERT'],
+        usecase:'Classification · Embeddings · NER',
+        attnFull:true },
+      { id:'dec',  title:'Decoder-Only',      sub:'Causal / autoregressive',
+        col:CD,  x:401, w:298,
+        blockLabel:['Masked Attn  →','Masked Attn  →','Masked Attn  →'],
+        outputLabel:'Next-token prediction',
+        models:['GPT-4','Claude','Llama','Mistral'],
+        usecase:'Text Generation · Chat · Code',
+        attnFull:false },
+      { id:'encdec',title:'Encoder–Decoder',  sub:'Sequence-to-sequence',
+        col:CX,  x:764, w:298,
+        blockLabel:['Encoder','Cross-Attn','Decoder'],
+        outputLabel:'Generated sequence',
+        models:['T5','BART','mT5'],
+        usecase:'Translation · Summarization',
+        attnFull:null },
+    ];
+
+    const BH=52, BGAP=7;               // block height / gap
+    const ARCH_Y=100;                   // architecture area top
+    const BLK_Y0=ARCH_Y+38;            // first block top
+    const OUT_Y =BLK_Y0+3*(BH+BGAP)+6; // output label y
+    const ATTN_Y=OUT_Y+30;             // attention pattern y
+    const MOD_Y =ATTN_Y+70;            // model names y
+    const USE_Y =MOD_Y+22;             // use-case y
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs = svg.append('defs');
+
+      // Arrow marker (tokenizer strip)
+      defs.append('marker').attr('id','arch-arr')
+        .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
+        .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+        .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',Cm);
+
+      // ── TOKENIZER STRIP ────────────────────────────────────────────────────
+      const tokG = svg.append('g').attr('opacity',0);
+      tokG.append('rect')
+        .attr('x',30).attr('y',8).attr('width',1040).attr('height',64)
+        .attr('rx',10)
+        .attr('fill','rgba(0,230,118,0.05)')
+        .attr('stroke',CTok+'66').attr('stroke-width',1.5);
+
+      tokG.append('text').attr('x',52).attr('y',30)
+        .attr('fill',CTok).attr('font-size',11).attr('font-weight','700').attr('font-family','sans-serif').attr('letter-spacing','1')
+        .text('TOKENIZER  +  EMBEDDINGS');
+
+      // Raw text
+      tokG.append('text').attr('x',52).attr('y',56)
+        .attr('fill',Ct).attr('font-size',12).attr('font-family','monospace')
+        .text('"Hello, world"');
+
+      // Arrow
+      tokG.append('line').attr('x1',150).attr('y1',48).attr('x2',172).attr('y2',48)
+        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
+
+      // Token boxes
+      const toks = ['Hel','##lo',',','world'];
+      const tXs   = [176, 218, 260, 294];
+      toks.forEach((t, i) => {
+        const tw = t.length*7+12;
+        tokG.append('rect').attr('x',tXs[i]).attr('y',36).attr('width',tw).attr('height',24).attr('rx',4)
+          .attr('fill',CTok+'22').attr('stroke',CTok+'99').attr('stroke-width',1);
+        tokG.append('text').attr('x',tXs[i]+tw/2).attr('y',52)
+          .attr('text-anchor','middle').attr('fill',CTok).attr('font-size',10).attr('font-family','monospace')
+          .text(t);
+      });
+
+      tokG.append('line').attr('x1',352).attr('y1',48).attr('x2',372).attr('y2',48)
+        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
+      tokG.append('text').attr('x',376).attr('y',52)
+        .attr('fill',Cm).attr('font-size',11).attr('font-family','monospace')
+        .text('[9906, 11, 995]');
+
+      tokG.append('line').attr('x1',498).attr('y1',48).attr('x2',518).attr('y2',48)
+        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
+      tokG.append('text').attr('x',522).attr('y',52)
+        .attr('fill',Cm).attr('font-size',11).attr('font-family','sans-serif')
+        .text('Embedding lookup  +  Positional Encoding  →  vectors  →  Architecture');
+
+      // ── THREE ARCHITECTURE COLUMNS ─────────────────────────────────────────
+      const colGs = cols.map(col => {
+        const g = svg.append('g').attr('opacity',0);
+        const cx = col.x + col.w/2;
+
+        // Column background
+        g.append('rect')
+          .attr('x',col.x).attr('y',ARCH_Y-4)
+          .attr('width',col.w).attr('height',H-ARCH_Y)
+          .attr('rx',10)
+          .attr('fill',col.col+'0a')
+          .attr('stroke',col.col+'44').attr('stroke-width',1.2);
+
+        // Title
+        g.append('text').attr('x',cx).attr('y',ARCH_Y+16)
+          .attr('text-anchor','middle').attr('fill',col.col)
+          .attr('font-size',15).attr('font-weight','700').attr('font-family','sans-serif')
+          .text(col.title);
+        g.append('text').attr('x',cx).attr('y',ARCH_Y+31)
+          .attr('text-anchor','middle').attr('fill',Cm)
+          .attr('font-size',10).attr('font-family','sans-serif')
+          .text(col.sub);
+
+        return g;
+      });
+
+      // ── TRANSFORMER BLOCKS (staggered per column then per block) ───────────
+      const blockGs = [];
+      cols.forEach((col, ci) => {
+        const cx = col.x + col.w/2;
+        const bw = col.w - 28;
+        const bx = col.x + 14;
+        blockGs.push([]);
+
+        col.blockLabel.forEach((label, bi) => {
+          const g = svg.append('g').attr('opacity',0);
+          const by = BLK_Y0 + bi*(BH+BGAP);
+
+          // Outer box
+          g.append('rect').attr('x',bx).attr('y',by).attr('width',bw).attr('height',BH).attr('rx',6)
+            .attr('fill',col.col+'18').attr('stroke',col.col).attr('stroke-width',1.6);
+
+          // Divider line at mid-height
+          g.append('line').attr('x1',bx+8).attr('y1',by+BH/2).attr('x2',bx+bw-8).attr('y2',by+BH/2)
+            .attr('stroke',col.col+'55').attr('stroke-width',0.8);
+
+          // Top label: attention type
+          g.append('text').attr('x',cx).attr('y',by+BH/2-5)
+            .attr('text-anchor','middle').attr('fill',col.col)
+            .attr('font-size',11).attr('font-weight','600').attr('font-family','sans-serif')
+            .text(label);
+
+          // Bottom label: FFN
+          g.append('text').attr('x',cx).attr('y',by+BH-8)
+            .attr('text-anchor','middle').attr('fill',Cm)
+            .attr('font-size',10).attr('font-family','sans-serif')
+            .text('Feed-Forward Network');
+
+          blockGs[ci].push(g);
+        });
+
+        // ×N label between first and second block
+        const nG = svg.append('g').attr('opacity',0);
+        nG.append('text')
+          .attr('x', col.x + col.w - 18)
+          .attr('y', BLK_Y0 + BH/2 + 4)
+          .attr('text-anchor','middle').attr('fill',col.col+'bb')
+          .attr('font-size',11).attr('font-family','sans-serif')
+          .text('×N');
+        blockGs[ci].push(nG);
+      });
+
+      // ── OUTPUT LABELS ──────────────────────────────────────────────────────
+      const outGs = cols.map((col, ci) => {
+        const g = svg.append('g').attr('opacity',0);
+        const cx = col.x + col.w/2;
+        g.append('text').attr('x',cx).attr('y',OUT_Y)
+          .attr('text-anchor','middle').attr('fill',col.col)
+          .attr('font-size',11).attr('font-weight','600').attr('font-family','sans-serif')
+          .text('↓  '+col.outputLabel);
+        return g;
+      });
+
+      // ── ATTENTION PATTERN MINI-DIAGRAMS ────────────────────────────────────
+      const attnGs = cols.map((col, ci) => {
+        const g = svg.append('g').attr('opacity',0);
+        const n=5, r=4, gap=11;
+        const totalW = (n-1)*gap;
+        const ox = col.x + col.w/2 - totalW/2;
+        const oy = ATTN_Y;
+
+        for (let row=0; row<n; row++) {
+          for (let c2=0; c2<n; c2++) {
+            let filled = false;
+            if (col.attnFull === true)  filled = true;
+            if (col.attnFull === false) filled = (c2 <= row);
+            if (col.attnFull === null)  filled = (c2 <= row) || (row < 2 && c2 < 3);
+
+            if (filled) {
+              g.append('circle')
+                .attr('cx', ox + c2*gap).attr('cy', oy + row*gap)
+                .attr('r', r)
+                .attr('fill', col.col+'99');
+            } else {
+              g.append('circle')
+                .attr('cx', ox + c2*gap).attr('cy', oy + row*gap)
+                .attr('r', r)
+                .attr('fill','none')
+                .attr('stroke', col.col+'33').attr('stroke-width',0.8);
+            }
+          }
+        }
+
+        // Legend text
+        const legendText = col.attnFull===true ? 'Full attention' : col.attnFull===false ? 'Causal mask' : 'Cross-attention';
+        g.append('text')
+          .attr('x', col.x+col.w/2).attr('y', oy + n*gap + 4)
+          .attr('text-anchor','middle').attr('fill',Cm)
+          .attr('font-size',9.5).attr('font-family','sans-serif')
+          .text(legendText);
+
+        return g;
+      });
+
+      // ── MODEL NAME BADGES ──────────────────────────────────────────────────
+      const modelGs = cols.map((col, ci) => {
+        const g = svg.append('g').attr('opacity',0);
+        const totalW = col.w - 20;
+        const badgeH = 18;
+        const badges = col.models;
+        const badgeW = Math.min(60, Math.floor((totalW - (badges.length-1)*6) / badges.length));
+        const totalBW = badges.length * badgeW + (badges.length-1)*6;
+        let bx = col.x + (col.w - totalBW)/2;
+
+        badges.forEach(m => {
+          g.append('rect').attr('x',bx).attr('y',MOD_Y-badgeH+2)
+            .attr('width',badgeW).attr('height',badgeH).attr('rx',9)
+            .attr('fill',col.col+'28').attr('stroke',col.col+'88').attr('stroke-width',1);
+          g.append('text').attr('x',bx+badgeW/2).attr('y',MOD_Y-2)
+            .attr('text-anchor','middle').attr('fill',col.col)
+            .attr('font-size',9.5).attr('font-weight','700').attr('font-family','sans-serif')
+            .text(m);
+          bx += badgeW + 6;
+        });
+
+        g.append('text').attr('x',col.x+col.w/2).attr('y',USE_Y)
+          .attr('text-anchor','middle').attr('fill',Cm)
+          .attr('font-size',9.5).attr('font-family','sans-serif')
+          .text(col.usecase);
+
+        return g;
+      });
+
+      // ── ANIMATION ──────────────────────────────────────────────────────────
+      // P0: Tokenizer strip
+      tokG.transition().delay(0).duration(400).attr('opacity',1);
+
+      // P1: Column backgrounds + titles
+      colGs.forEach((g,ci) => g.transition().delay(500+ci*200).duration(350).attr('opacity',1));
+
+      // P2: Transformer blocks (per column, per block)
+      cols.forEach((_,ci) => {
+        blockGs[ci].forEach((g, bi) => {
+          g.transition().delay(1100+ci*200+bi*120).duration(300).attr('opacity',1);
+        });
+      });
+
+      // P3: Output labels + attention patterns
+      outGs.forEach((g,ci) => g.transition().delay(1900+ci*150).duration(300).attr('opacity',1));
+      attnGs.forEach((g,ci) => g.transition().delay(2100+ci*150).duration(350).attr('opacity',1));
+
+      // P4: Model badges + use-case
+      modelGs.forEach((g,ci) => g.transition().delay(2600+ci*150).duration(350).attr('opacity',1));
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('llm-arch-canvas');
+      if (el && !el._llmArchReady) { el._llmArchReady = true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if (ev.currentSlide && ev.currentSlide.id === 'llm-architectures') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Transformer Decoder / Language Model architecture animation -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const CE='#00e676',CM='#00d9ff',CF='#ffa014',CH='#ffd54f',CP='#e040fb';
+    const Cm='rgba(155,175,200,0.65)',Ct='rgba(225,238,255,0.88)';
+
+    function rgba(hex,a){
+      const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+      return `rgba(${r},${g},${b},${a})`;
+    }
+
+    // Token layout
+    const TOKENS=['"The"','"cat"','"sat"','"on"'];
+    const N=4;
+    const TX=[105,245,385,525];  // token x-centers
+    const TY=447,TW=108,TH=36;
+
+    // Three transformer layers (y0=top, y1=bottom; data flows upward → smaller y)
+    const LYS=[{y0:318,y1:402},{y0:208,y1:292},{y0:98,y1:182}];
+    const MF=0.47;    // fraction of layer height = MHA sub-block
+    const LX0=44,LX1=614; // layer left/right edge
+
+    // Prediction head / output (right side, aligned with layer 3)
+    const PH={x:678,y:108,w:148,h:52};
+    const OT={x:844,y:108,w:120,h:52};
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      [['aw','rgba(192,207,232,0.75)'],['ag',CH],['ap',CP]].forEach(([id,col])=>{
+        defs.append('marker').attr('id',id)
+          .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
+          .attr('markerWidth',4).attr('markerHeight',4).attr('orient','auto')
+          .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',col);
+      });
+
+      // ── INPUT TOKEN EMBEDDINGS ─────────────────────────────────────────
+      const gTok=svg.append('g').attr('opacity',0);
+      TOKENS.forEach((tok,i)=>{
+        const cx=TX[i],last=(i===N-1);
+        gTok.append('rect')
+          .attr('x',cx-TW/2).attr('y',TY-TH/2).attr('width',TW).attr('height',TH).attr('rx',6)
+          .attr('fill',rgba(CE,0.10)).attr('stroke',last?rgba(CH,0.90):rgba(CE,0.55))
+          .attr('stroke-width',last?2.2:1.4);
+        gTok.append('text').attr('x',cx).attr('y',TY+5)
+          .attr('text-anchor','middle').attr('fill',last?CH:rgba(CE,0.90))
+          .attr('font-size',13).attr('font-weight','700').attr('font-family','monospace')
+          .text(tok);
+        gTok.append('text').attr('x',cx).attr('y',TY+TH/2+14)
+          .attr('text-anchor','middle').attr('fill',Cm).attr('font-size',9.5)
+          .attr('font-family','sans-serif').text(['x₁','x₂','x₃','x₄'][i]);
+      });
+      // "Embed" label on left
+      gTok.append('text').attr('x',LX0-4).attr('y',TY+5)
+        .attr('text-anchor','end').attr('fill',rgba(CE,0.70))
+        .attr('font-size',9.5).attr('font-family','sans-serif').attr('font-style','italic')
+        .text('Embed');
+
+      // ── LAST-TOKEN COLUMN HIGHLIGHT (faint gold strip across all layers) ─
+      const gCol=svg.append('g').attr('opacity',0);
+      gCol.append('rect')
+        .attr('x',TX[N-1]-TW/2).attr('y',LYS[LYS.length-1].y0-2)
+        .attr('width',TW).attr('height',LYS[0].y1-LYS[LYS.length-1].y0+4)
+        .attr('fill',rgba(CH,0.05)).attr('stroke',rgba(CH,0.18))
+        .attr('stroke-width',1).attr('stroke-dasharray','4,6').attr('rx',4);
+
+      // ── TRANSFORMER LAYERS ────────────────────────────────────────────
+      const gLays=LYS.map(({y0,y1},li)=>{
+        const g=svg.append('g').attr('opacity',0);
+        const mH=Math.round((y1-y0)*MF), fH=(y1-y0)-mH-2;
+        const yM=y0, yF=y0+mH+2;
+
+        // MHA block
+        g.append('rect').attr('x',LX0).attr('y',yM).attr('width',LX1-LX0).attr('height',mH).attr('rx',5)
+          .attr('fill',rgba(CM,0.10)).attr('stroke',rgba(CM,0.38)).attr('stroke-width',1.4);
+        g.append('text').attr('x',LX0+8).attr('y',yM+mH/2+4)
+          .attr('fill',rgba(CM,0.80)).attr('font-size',10).attr('font-weight','600')
+          .attr('font-family','sans-serif').text('Multi-Head Self-Attention');
+
+        // FFN block
+        g.append('rect').attr('x',LX0).attr('y',yF).attr('width',LX1-LX0).attr('height',fH).attr('rx',5)
+          .attr('fill',rgba(CF,0.10)).attr('stroke',rgba(CF,0.38)).attr('stroke-width',1.4);
+        g.append('text').attr('x',LX0+8).attr('y',yF+fH/2+4)
+          .attr('fill',rgba(CF,0.80)).attr('font-size',10).attr('font-weight','600')
+          .attr('font-family','sans-serif').text('Feed-Forward Network  (MLP)');
+
+        // Dashed gold highlight cell for last token in each sub-block
+        [[yM+2,mH-4],[yF+2,fH-4]].forEach(([sy2,sh])=>{
+          g.append('rect')
+            .attr('x',TX[N-1]-TW/2).attr('y',sy2).attr('width',TW).attr('height',sh).attr('rx',4)
+            .attr('fill','none').attr('stroke',rgba(CH,0.70)).attr('stroke-width',1.5)
+            .attr('stroke-dasharray','4,3');
+        });
+
+        // Layer label (left)
+        g.append('text').attr('x',LX0-6).attr('y',(y0+y1)/2+4)
+          .attr('text-anchor','end').attr('fill',Cm).attr('font-size',9.5)
+          .attr('font-family','sans-serif').text(`L${li+1}`);
+
+        return g;
+      });
+
+      // ── CAUSAL ATTENTION ARCS inside each MHA block ───────────────────
+      const gAttn=LYS.map(({y0,y1})=>{
+        const g=svg.append('g').attr('opacity',0);
+        const mH=Math.round((y1-y0)*MF), yCtr=y0+mH/2;
+        const dip=Math.min(14, mH*0.35);
+        // From each token to the last token (causal: all previous attend to last)
+        for(let s=0;s<N;s++){
+          const x1=TX[s],x2=TX[N-1];
+          if(x1===x2){
+            g.append('path')
+              .attr('d',`M${x2},${yCtr-7} C${x2+20},${yCtr-18} ${x2+20},${yCtr+4} ${x2},${yCtr+7}`)
+              .attr('fill','none').attr('stroke',rgba(CM,0.35)).attr('stroke-width',0.9);
+          } else {
+            g.append('path')
+              .attr('d',`M${x1},${yCtr} Q${(x1+x2)/2},${yCtr+dip} ${x2},${yCtr}`)
+              .attr('fill','none').attr('stroke',rgba(CM,0.25)).attr('stroke-width',0.8)
+              .attr('marker-end','url(#aw)');
+          }
+        }
+        // Lighter arcs among other tokens for context
+        for(let s=0;s<N-1;s++){
+          for(let t=s+1;t<N-1;t++){
+            g.append('path')
+              .attr('d',`M${TX[s]},${yCtr} Q${(TX[s]+TX[t])/2},${yCtr+dip*0.7} ${TX[t]},${yCtr}`)
+              .attr('fill','none').attr('stroke',rgba(CM,0.10)).attr('stroke-width',0.7);
+          }
+        }
+        return g;
+      });
+
+      // ── VERTICAL DATA-FLOW ARROWS ─────────────────────────────────────
+      const gFlow=svg.append('g').attr('opacity',0);
+
+      function flowArrow(cx,y1,y2,last){
+        gFlow.append('line')
+          .attr('x1',cx).attr('y1',y1).attr('x2',cx).attr('y2',y2)
+          .attr('stroke',last?rgba(CH,0.80):'rgba(192,207,232,0.28)')
+          .attr('stroke-width',last?2:1)
+          .attr('marker-end',`url(#${last?'ag':'aw'})`);
+      }
+
+      // tok → Layer 1
+      TX.forEach((cx,i)=>flowArrow(cx, TY-TH/2-1, LYS[0].y1+2, i===N-1));
+      // Layer 1 → Layer 2
+      TX.forEach((cx,i)=>flowArrow(cx, LYS[0].y0-1, LYS[1].y1+2, i===N-1));
+      // Layer 2 → Layer 3
+      TX.forEach((cx,i)=>flowArrow(cx, LYS[1].y0-1, LYS[2].y1+2, i===N-1));
+
+      // ── ×N LAYERS BRACKET ─────────────────────────────────────────────
+      const gBrc=svg.append('g').attr('opacity',0);
+      const brX=LX1+16, yBT=LYS[LYS.length-1].y0, yBB=LYS[0].y1, yBM=(yBT+yBB)/2;
+      gBrc.append('line').attr('x1',brX).attr('y1',yBT).attr('x2',brX).attr('y2',yBB)
+        .attr('stroke',Cm).attr('stroke-width',1.2);
+      [[brX,yBT],[brX,yBB],[brX,yBM]].forEach(([x,y])=>
+        gBrc.append('line').attr('x1',x).attr('y1',y).attr('x2',x+7).attr('y2',y)
+          .attr('stroke',Cm).attr('stroke-width',1.2));
+      gBrc.append('text').attr('x',brX+11).attr('y',yBM-5)
+        .attr('fill',rgba(CM,0.85)).attr('font-size',12).attr('font-weight','700')
+        .attr('font-family','sans-serif').text('×N');
+      gBrc.append('text').attr('x',brX+11).attr('y',yBM+9)
+        .attr('fill',Cm).attr('font-size',9.5).attr('font-family','sans-serif').text('Layers');
+
+      // ── PREDICTION HEAD ───────────────────────────────────────────────
+      const gPred=svg.append('g').attr('opacity',0);
+      const arY=PH.y+PH.h/2;
+
+      // Arrow from last token right edge of top layer → pred head
+      gPred.append('line')
+        .attr('x1',TX[N-1]+TW/2+2).attr('y1',arY)
+        .attr('x2',PH.x-4).attr('y2',arY)
+        .attr('stroke',rgba(CH,0.85)).attr('stroke-width',2.2)
+        .attr('marker-end','url(#ag)');
+      gPred.append('text')
+        .attr('x',(TX[N-1]+TW/2+PH.x)/2).attr('y',arY-9)
+        .attr('text-anchor','middle').attr('fill',rgba(CH,0.75))
+        .attr('font-size',9).attr('font-family','sans-serif').text('h_N (last token)');
+
+      // Prediction head box
+      gPred.append('rect')
+        .attr('x',PH.x).attr('y',PH.y).attr('width',PH.w).attr('height',PH.h).attr('rx',7)
+        .attr('fill',rgba(CP,0.10)).attr('stroke',rgba(CP,0.55)).attr('stroke-width',1.5);
+      gPred.append('text').attr('x',PH.x+PH.w/2).attr('y',PH.y+19)
+        .attr('text-anchor','middle').attr('fill',rgba(CP,0.90))
+        .attr('font-size',10.5).attr('font-weight','600').attr('font-family','sans-serif')
+        .text('Linear  +  Softmax');
+      gPred.append('text').attr('x',PH.x+PH.w/2).attr('y',PH.y+35)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',9).attr('font-family','sans-serif')
+        .text('P(next token | x₁…x_N)');
+
+      // Arrow → output token box
+      gPred.append('line')
+        .attr('x1',PH.x+PH.w+3).attr('y1',arY).attr('x2',OT.x-4).attr('y2',arY)
+        .attr('stroke',rgba(CP,0.70)).attr('stroke-width',1.8)
+        .attr('marker-end','url(#ap)');
+
+      // Output token box
+      gPred.append('rect')
+        .attr('x',OT.x).attr('y',OT.y).attr('width',OT.w).attr('height',OT.h).attr('rx',7)
+        .attr('fill',rgba(CP,0.12)).attr('stroke',rgba(CP,0.55)).attr('stroke-width',1.5);
+      gPred.append('text').attr('x',OT.x+OT.w/2).attr('y',OT.y+19)
+        .attr('text-anchor','middle').attr('fill',rgba(CP,0.90))
+        .attr('font-size',13).attr('font-weight','700').attr('font-family','monospace')
+        .text('"mat"');
+      gPred.append('text').attr('x',OT.x+OT.w/2).attr('y',OT.y+35)
+        .attr('text-anchor','middle').attr('fill',Cm)
+        .attr('font-size',9).attr('font-family','sans-serif').text('next token');
+
+      // ── INFO PANEL ────────────────────────────────────────────────────
+      const gInfo=svg.append('g').attr('opacity',0);
+      const iX=675,iY=200,iW=396,iH=262;
+      gInfo.append('rect').attr('x',iX).attr('y',iY).attr('width',iW).attr('height',iH).attr('rx',8)
+        .attr('fill','rgba(8,14,28,0.65)').attr('stroke',rgba(CM,0.20)).attr('stroke-width',1);
+      [[CM,'Multi-Head Self-Attention','each token attends to all preceding tokens'],
+       [CF,'Feed-Forward Network','non-linear transformation per position'],
+       [CE,'Token + Positional Embeddings','d-dimensional input vectors'],
+       [CH,'Last token h_N','its representation encodes all context'],
+       [CP,'Linear + Softmax','maps d → vocab → probability over next token']
+      ].forEach(([c,title,sub],i)=>{
+        const ry=iY+26+i*46;
+        gInfo.append('rect').attr('x',iX+12).attr('y',ry-9).attr('width',12).attr('height',12).attr('rx',2)
+          .attr('fill',rgba(c,0.55)).attr('stroke',rgba(c,0.80)).attr('stroke-width',0.8);
+        gInfo.append('text').attr('x',iX+30).attr('y',ry+1)
+          .attr('fill',Ct).attr('font-size',10).attr('font-weight','600').attr('font-family','sans-serif')
+          .text(title);
+        gInfo.append('text').attr('x',iX+30).attr('y',ry+14)
+          .attr('fill',Cm).attr('font-size',9.5).attr('font-family','sans-serif').text(sub);
+      });
+
+      // ── ANIMATE ───────────────────────────────────────────────────────
+      gTok.transition().delay(150).duration(400).attr('opacity',1);
+      gFlow.transition().delay(500).duration(350).attr('opacity',1);
+      gCol.transition().delay(600).duration(400).attr('opacity',1);
+      gLays[0].transition().delay(750).duration(400).attr('opacity',1);
+      gAttn[0].transition().delay(950).duration(350).attr('opacity',1);
+      gLays[1].transition().delay(1150).duration(400).attr('opacity',1);
+      gAttn[1].transition().delay(1350).duration(350).attr('opacity',1);
+      gLays[2].transition().delay(1550).duration(400).attr('opacity',1);
+      gAttn[2].transition().delay(1750).duration(350).attr('opacity',1);
+      gBrc.transition().delay(1950).duration(400).attr('opacity',1);
+      gPred.transition().delay(2200).duration(500).attr('opacity',1);
+      gInfo.transition().delay(2650).duration(500).attr('opacity',1);
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('bert-arch-canvas');
+      if(el&&!el._bertReady){el._bertReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',ev=>{
+      if(ev.currentSlide&&ev.currentSlide.id==='bert-architecture')maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Q, K, V generation animation -->
+  <script>
+  (function () {
+    const CQ = '#00d9ff';
+    const CK = '#9d4edd';
+    const CV = '#ffa014';
+    const CT = 'rgba(200,215,235,0.85)';
+    const Cm = 'rgba(155,175,200,0.65)';
+
+    const TOKENS = ['"The"', '"cat"', '"sat"', '"on"'];
+    const SUB    = ['₁','₂','₃','₄'];
+
+    const W = 1100, H = 480;
+    const TX = [255, 435, 615, 795];
+    const TY = 62;
+    const TW = 92, TH = 38;
+
+    const ROWS = [
+      { id:'Q', wl:'Wq', label:'Queries (Q)', col: CQ, y: 205 },
+      { id:'K', wl:'Wk', label:'Keys (K)',    col: CK, y: 320 },
+      { id:'V', wl:'Wv', label:'Values (V)',  col: CV, y: 435 },
+    ];
+    const OW = 72, OH = 32;
+    const WBX = 148, WBW = 52, WBH = 52;
+
+    function draw(el) {
+      el.innerHTML = '';
+      const svg = d3.select(el).append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs = svg.append('defs');
+      [['aq',CQ],['ak',CK],['av',CV]].forEach(([id,col]) => {
+        defs.append('marker').attr('id',id)
+          .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
+          .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
+          .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',col);
+      });
+
+      // Caption
+      svg.append('text')
+        .attr('x', TX[0]-15).attr('y', 22)
+        .attr('fill', Cm).attr('font-size', 12).attr('font-family','sans-serif')
+        .text('Each token embedding x_i is linearly projected by three learned weight matrices into query, key, and value vectors.');
+
+      // Token boxes
+      const tokenGs = TOKENS.map((tok, i) => {
+        const g = svg.append('g').attr('opacity', 0);
+        g.append('rect')
+          .attr('x', TX[i]-TW/2).attr('y', TY-TH/2)
+          .attr('width', TW).attr('height', TH).attr('rx', 7)
+          .attr('fill','rgba(200,215,235,0.09)').attr('stroke', CT).attr('stroke-width', 1.8);
+        g.append('text')
+          .attr('x', TX[i]).attr('y', TY+7)
+          .attr('text-anchor','middle').attr('fill','rgba(225,238,255,0.95)')
+          .attr('font-size', 15).attr('font-weight','700').attr('font-family','sans-serif')
+          .text(tok);
+        g.append('text')
+          .attr('x', TX[i]).attr('y', TY+TH/2+16)
+          .attr('text-anchor','middle').attr('fill', Cm)
+          .attr('font-size', 11).attr('font-family','sans-serif')
+          .text('x'+SUB[i]);
+        return g;
+      });
+
+      // Left sidebar: W matrix boxes + row labels
+      const wRowGs = ROWS.map(r => {
+        const g = svg.append('g').attr('opacity', 0);
+        g.append('text')
+          .attr('x', 6).attr('y', r.y+6)
+          .attr('fill', r.col).attr('font-size', 13).attr('font-weight','700').attr('font-family','sans-serif')
+          .text(r.label);
+        const bx = WBX-WBW/2, by = r.y-WBH/2;
+        g.append('rect')
+          .attr('x',bx).attr('y',by).attr('width',WBW).attr('height',WBH).attr('rx',6)
+          .attr('fill',r.col+'18').attr('stroke',r.col).attr('stroke-width',2);
+        for (let n=1; n<3; n++) {
+          g.append('line').attr('x1',bx).attr('x2',bx+WBW)
+            .attr('y1',by+n*WBH/3).attr('y2',by+n*WBH/3)
+            .attr('stroke',r.col+'55').attr('stroke-width',0.7);
+          g.append('line').attr('y1',by).attr('y2',by+WBH)
+            .attr('x1',bx+n*WBW/3).attr('x2',bx+n*WBW/3)
+            .attr('stroke',r.col+'55').attr('stroke-width',0.7);
+        }
+        g.append('text')
+          .attr('x',WBX).attr('y',r.y+8)
+          .attr('text-anchor','middle').attr('fill',r.col)
+          .attr('font-size',16).attr('font-weight','bold').attr('font-family','Georgia,serif')
+          .text(r.wl);
+        // Dashed connector from W-box to first token column
+        g.append('line')
+          .attr('x1',WBX+WBW/2+5).attr('y1',r.y)
+          .attr('x2',TX[0]-OW/2-6).attr('y2',r.y)
+          .attr('stroke',r.col+'44').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+        return g;
+      });
+
+      // Output vector boxes
+      const outGs = ROWS.map(r =>
+        TX.map((cx, i) => {
+          const g = svg.append('g').attr('opacity', 0);
+          g.append('rect')
+            .attr('x',cx-OW/2).attr('y',r.y-OH/2)
+            .attr('width',OW).attr('height',OH).attr('rx',5)
+            .attr('fill',r.col+'1e').attr('stroke',r.col).attr('stroke-width',1.8);
+          g.append('text')
+            .attr('x',cx).attr('y',r.y+6)
+            .attr('text-anchor','middle').attr('fill',r.col)
+            .attr('font-size',14).attr('font-weight','bold').attr('font-family','Georgia,serif')
+            .text(r.id.toLowerCase()+SUB[i]);
+          return g;
+        })
+      );
+
+      // Connector paths: token → output, fanned (Q left, K center, V right exit)
+      const xOff = [-9, 0, 9];
+      const mids = ['aq','ak','av'];
+      const connPaths = TX.map((cx, ti) =>
+        ROWS.map((r, ri) => {
+          const x1 = cx+xOff[ri], y1 = TY+TH/2+2;
+          const x2 = cx, y2 = r.y-OH/2-3;
+          const cp1y = y1+(y2-y1)*0.35, cp2y = y1+(y2-y1)*0.65;
+          const path = svg.append('path')
+            .attr('d',`M${x1},${y1} C${x1},${cp1y} ${x2},${cp2y} ${x2},${y2}`)
+            .attr('fill','none').attr('stroke',r.col).attr('stroke-width',1.6)
+            .attr('stroke-opacity',0.5).attr('marker-end',`url(#${mids[ri]})`)
+            .attr('opacity',0);
+          const len = path.node().getTotalLength();
+          path.attr('stroke-dasharray',len).attr('stroke-dashoffset',len);
+          return path;
+        })
+      );
+
+      // Animate
+      tokenGs.forEach((g,i) => g.transition().delay(i*130).duration(320).attr('opacity',1));
+      wRowGs.forEach((g,ri) => g.transition().delay(700+ri*160).duration(320).attr('opacity',1));
+      TX.forEach((_,ti) => ROWS.forEach((_,ri) => {
+        const p = connPaths[ti][ri];
+        const d = 1350+ti*90+ri*70;
+        p.transition().delay(d).duration(60).attr('opacity',1);
+        p.transition().delay(d+60).duration(480).attr('stroke-dashoffset',0);
+      }));
+      ROWS.forEach((_,ri) => TX.forEach((_,ti) => {
+        outGs[ri][ti].transition().delay(2100+ri*180+ti*80).duration(300).attr('opacity',1);
+      }));
+    }
+
+    function maybeInit() {
+      const el = document.getElementById('qkv-canvas');
+      if (el && !el._qkvReady) { el._qkvReady = true; draw(el); }
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged', ev => {
+      if (ev.currentSlide && ev.currentSlide.id === 'qkv-generation') maybeInit();
+    });
+  })();
+  </script>
 </body>
 </html>
