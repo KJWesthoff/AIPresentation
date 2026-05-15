@@ -2503,7 +2503,25 @@
           </div>
         </div>
       </section>
+</section>
 
+<section>
+      <section id="pos-encoding-sinusoidal">
+        <h2 style="margin-bottom:6px;">Positional Encoding: Sin &amp; Cos</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="pos-enc-sin-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="pos-encoding-rope">
+        <h2 style="margin-bottom:6px;">Rotary Position Embedding (RoPE)</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="pos-enc-rope-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+</section>
+
+<section>
       <section id="bert-architecture">
         <h2 style="margin-bottom:6px;">Transformer Architecture: Decoder / Language Model</h2>
         <div class="content" style="padding-top:2px;">
@@ -2539,6 +2557,13 @@
         </div>
       </section>
 
+      <section id="cross-attn-diffusion">
+        <h2 style="margin-bottom:6px;">Cross-Attention: Text-to-Image Generation</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="cross-attn-diff-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
       <section id="llm-training">
         <h2 style="margin-bottom:6px;">How LLMs Are Trained</h2>
         <div class="content" style="padding-top:2px;">
@@ -2552,13 +2577,6 @@
           <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
         </div>
       </section>
-</section>
-
-<section id="qkv-generation">
-  <h2 style="margin-bottom:8px;">From Tokens to Q, K, V</h2>
-  <div class="content" style="padding-top:4px;">
-    <div id="qkv-canvas" style="width:100%;height:500px;"></div>
-  </div>
 </section>
 
 <section id="llm-architectures">
@@ -4261,6 +4279,378 @@
       if (slide && slide.id === 'vector-space-3d')
         setPhase(+ev.fragment.getAttribute('data-fragment-index'));
     });
+  })();
+  </script>
+
+  <!-- Sinusoidal positional encoding animation -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#00d9ff',C2='#2de8a0',C3='#ffa830',CA='#9d4edd',CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.88)';
+    const el=document.getElementById('pos-enc-sin-canvas');
+    if(!el) return;
+
+    function peVal(pos,dim){
+      const i=Math.floor(dim/2);
+      const a=pos/Math.pow(10000,2*i/128);
+      return dim%2===0?Math.sin(a):Math.cos(a);
+    }
+    function peColor(v){
+      // Solid diverging: dark-navy at 0, cyan at +1, red at −1
+      if(v>=0){const u=v;return`rgb(${Math.round(10-10*u)},${Math.round(22+u*198)},${Math.round(46+u*209)})`;}
+      const u=-v;return`rgb(${Math.round(10+u*195)},${Math.round(22*(1-u))},${Math.round(46*(1-u))})`;
+    }
+
+    function init(){
+      d3.select(el).selectAll('*').remove();
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').attr('height','100%');
+
+      const defs=svg.append('defs');
+      const flt=defs.append('filter').attr('id','psin-glow').attr('x','-20%').attr('y','-20%').attr('width','140%').attr('height','140%');
+      flt.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','3').attr('result','blur');
+      const mg=flt.append('feMerge');mg.append('feMergeNode').attr('in','blur');mg.append('feMergeNode').attr('in','SourceGraphic');
+      const lg=defs.append('linearGradient').attr('id','psin-lg').attr('x1','0%').attr('x2','100%');
+      lg.append('stop').attr('offset','0%').attr('stop-color','#cc3232').attr('stop-opacity',0.9);
+      lg.append('stop').attr('offset','50%').attr('stop-color','rgba(18,24,52,1)');
+      lg.append('stop').attr('offset','100%').attr('stop-color',C1).attr('stop-opacity',0.9);
+
+      // ── LEFT PANEL (0–450): Formula + bullets + bar chart ──
+      const gL=svg.append('g').attr('opacity',0);
+      gL.append('rect').attr('x',8).attr('y',8).attr('width',442).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(0,217,255,0.04)').attr('stroke','rgba(0,217,255,0.15)').attr('stroke-width',1);
+
+      gL.append('text').attr('x',225).attr('y',34).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',14).attr('font-weight','bold').attr('font-family','monospace')
+        .text('Sinusoidal Positional Encoding');
+
+      gL.append('text').attr('x',18).attr('y',60).attr('fill',CW).attr('font-size',12).attr('font-family','monospace')
+        .text('PE(pos, 2i)   = sin(pos / 10000 ²ⁱ/ᵈ)');
+      gL.append('text').attr('x',18).attr('y',80).attr('fill',CW).attr('font-size',12).attr('font-family','monospace')
+        .text('PE(pos, 2i+1) = cos(pos / 10000 ²ⁱ/ᵈ)');
+
+      gL.append('line').attr('x1',16).attr('y1',94).attr('x2',440).attr('y2',94).attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.8);
+
+      const props=[
+        [C2,'Unique:','every position gets a distinct encoding vector'],
+        [C3,'Relative:','dot products encode relative position distance'],
+        [CA,'Bounded:','all values in [−1, +1]  (stable gradients)'],
+        [CI,'Free:',  'zero learned parameters added to model'],
+      ];
+      props.forEach(([col,lbl,txt],i)=>{
+        const y=115+i*37;
+        gL.append('circle').attr('cx',26).attr('cy',y-5).attr('r',5).attr('fill',col).attr('filter','url(#psin-glow)');
+        gL.append('text').attr('x',38).attr('y',y).attr('fill',col).attr('font-size',11.5).attr('font-family','monospace').attr('font-weight','bold').text(lbl);
+        gL.append('text').attr('x',148).attr('y',y).attr('fill',CW).attr('font-size',11).attr('font-family','monospace').text(txt);
+      });
+
+      gL.append('line').attr('x1',16).attr('y1',265).attr('x2',440).attr('y2',265).attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.8);
+
+      gL.append('text').attr('x',225).attr('y',285).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',11).attr('font-family','monospace')
+        .text('input  =  token_embedding  +  PE(pos)');
+
+      // Column vectors as colored dots in square brackets
+      const emb=[0.82,0.18,0.61,0.07,0.76,0.42,0.14,0.53];
+      const pe =[0.31,0.92,0.20,0.72,0.11,0.81,0.55,0.36];
+      const inp=emb.map((e,j)=>Math.min(1,(e+pe[j])/1.5));
+      const nDots=8,dotR=6.5,dotStep=19,VY0=324;
+      const brkY0=VY0-dotR-5, brkY1=VY0+(nDots-1)*dotStep+dotR+5;
+
+      function drawVec(x0,col,vals,lbl){
+        gL.append('text').attr('x',x0).attr('y',brkY0-8)
+          .attr('text-anchor','middle').attr('fill',col).attr('font-size',9.5).attr('font-family','monospace').text(lbl);
+        // Left bracket
+        gL.append('path')
+          .attr('d',`M${x0-dotR-3},${brkY0} L${x0-dotR-12},${brkY0} L${x0-dotR-12},${brkY1} L${x0-dotR-3},${brkY1}`)
+          .attr('fill','none').attr('stroke',col).attr('stroke-width',1.8).attr('stroke-opacity',0.65);
+        // Right bracket
+        gL.append('path')
+          .attr('d',`M${x0+dotR+3},${brkY0} L${x0+dotR+12},${brkY0} L${x0+dotR+12},${brkY1} L${x0+dotR+3},${brkY1}`)
+          .attr('fill','none').attr('stroke',col).attr('stroke-width',1.8).attr('stroke-opacity',0.65);
+        // Dots
+        for(let j=0;j<nDots;j++)
+          gL.append('circle').attr('cx',x0).attr('cy',VY0+j*dotStep).attr('r',dotR)
+            .attr('fill',col).attr('fill-opacity',0.1+vals[j]*0.85);
+      }
+
+      drawVec(88, C1, emb, 'emb(token)');
+      drawVec(215, C3, pe,  'PE(pos)');
+      drawVec(342, C2, inp, 'input');
+
+      const midY=VY0+(nDots-1)*dotStep/2;
+      gL.append('text').attr('x',151).attr('y',midY+9)
+        .attr('text-anchor','middle').attr('fill',CW).attr('font-size',24).attr('font-weight','bold').text('+');
+      gL.append('text').attr('x',278).attr('y',midY+9)
+        .attr('text-anchor','middle').attr('fill',CW).attr('font-size',24).attr('font-weight','bold').text('=');
+
+      // ── RIGHT PANEL: Heatmap — 128 × 64, d = 128 ──
+      const gR=svg.append('g').attr('opacity',0);
+      const HX=462,HLB=42,NPOS=128,NDIM=64;
+      const cW=(1092-HX-HLB)/NDIM;   // 588/64 ≈ 9.19px
+      const cH=(H-46-54)/NPOS;        // 390/128 ≈ 3.05px
+      const HY=46;
+
+      gR.append('rect').attr('x',HX-8).attr('y',8).attr('width',W-HX+2).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(157,78,221,0.04)').attr('stroke','rgba(157,78,221,0.15)').attr('stroke-width',1);
+      gR.append('text').attr('x',HX+(W-HX)/2-6).attr('y',30).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',13).attr('font-weight','bold').attr('font-family','monospace')
+        .text('PE values  (128 positions × 64 dims,  d = 128)');
+
+      // Dim labels every 16
+      for(let j=0;j<=NDIM;j+=16)
+        gR.append('text').attr('x',HX+HLB+j*cW).attr('y',HY-5)
+          .attr('text-anchor','middle').attr('fill',CM).attr('font-size',8).attr('font-family','monospace').text(j);
+      // Pos labels every 16
+      for(let i=0;i<=NPOS;i+=16)
+        gR.append('text').attr('x',HX+HLB-4).attr('y',HY+i*cH+3)
+          .attr('text-anchor','end').attr('fill',CM).attr('font-size',8).attr('font-family','monospace').text(i);
+      gR.append('text').attr('transform',`translate(${HX+13},${HY+NPOS*cH/2}) rotate(-90)`)
+        .attr('text-anchor','middle').attr('fill',CM).attr('font-size',8.5).text('position →');
+      gR.append('text').attr('x',HX+HLB+NDIM*cW/2).attr('y',HY+NPOS*cH+14)
+        .attr('text-anchor','middle').attr('fill',CM).attr('font-size',9)
+        .text('dimension  →      low dim = high frequency  ·  high dim = low frequency  ·  even=sin, odd=cos');
+
+      // Legend
+      const lgX=HX+HLB,lgY=H-24,lgW=130,lgH=10;
+      gR.append('rect').attr('x',lgX).attr('y',lgY).attr('width',lgW).attr('height',lgH)
+        .attr('rx',4).attr('fill','url(#psin-lg)').attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.5);
+      [[lgX,'−1','start'],[lgX+lgW/2,'0','middle'],[lgX+lgW,'+1','end']].forEach(([x,t,a])=>
+        gR.append('text').attr('x',x).attr('y',lgY-3).attr('text-anchor',a).attr('fill',CM).attr('font-size',8).text(t));
+
+      // Heatmap — all 128×64 cells rendered at once, group fades in as one
+      const gCells=svg.append('g').attr('opacity',0);
+      for(let i=0;i<NPOS;i++)
+        for(let j=0;j<NDIM;j++)
+          gCells.append('rect')
+            .attr('x',HX+HLB+j*cW).attr('y',HY+i*cH)
+            .attr('width',cW).attr('height',cH)
+            .attr('fill',peColor(peVal(i,j)));
+      gCells.transition().delay(1000).duration(700).attr('opacity',1);
+
+      svg.append('line').attr('x1',456).attr('y1',18).attr('x2',456).attr('y2',H-18)
+        .attr('stroke','rgba(255,255,255,0.07)').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+
+      // Note strip — full width, pinned inside the SVG canvas
+      const gNote=svg.append('g').attr('opacity',0);
+      gNote.append('rect').attr('x',6).attr('y',477).attr('width',W-12).attr('height',12)
+        .attr('rx',4).attr('fill','rgba(0,217,255,0.05)').attr('stroke','rgba(0,217,255,0.15)').attr('stroke-width',0.7);
+      const nt=gNote.append('text').attr('x',14).attr('y',486).attr('font-size',9.5).attr('font-family','monospace');
+      nt.append('tspan').attr('fill',C1).attr('font-weight','bold').text("Why PE doesn’t reduce accuracy:");
+      nt.append('tspan').attr('fill',CM).attr('dx',8).text('the encoding is');
+      [['fixed',CW],['structured',CW],['smooth',CW],['predictable',CW],['same for every example',CW]].forEach(([w,c],i)=>{
+        if(i>0) nt.append('tspan').attr('fill',CM).attr('dx',4).text('·');
+        nt.append('tspan').attr('fill',c).attr('dx',i===0?8:4).text(w);
+      });
+      nt.append('tspan').attr('fill',CM).attr('dx',8).text('— transparent coordinate signal, not noise');
+      gNote.transition().delay(300).duration(600).attr('opacity',1);
+
+      gL.transition().delay(200).duration(600).attr('opacity',1);
+      gR.transition().delay(800).duration(600).attr('opacity',1);
+      el._sinReady=true;
+    }
+
+    Reveal.on('slidechanged',e=>{
+      if(e.currentSlide.id==='pos-encoding-sinusoidal'){ d3.select(el).selectAll('*').remove(); init(); }
+      if(e.previousSlide&&e.previousSlide.id==='pos-encoding-sinusoidal') el._sinReady=false;
+    });
+    if(document.querySelector('.present#pos-encoding-sinusoidal')) init();
+  })();
+  </script>
+
+  <!-- RoPE positional encoding animation -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#00d9ff',C2='#2de8a0',C3='#ffa830',CA='#9d4edd',CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.88)';
+    const el=document.getElementById('pos-enc-rope-canvas');
+    if(!el) return;
+
+    const CX=215,CY=258,R=152;
+    const ANG0=-10*Math.PI/180;
+    const ASTEP=30*Math.PI/180;
+    const POS_COLS=['#9ab4d2',CI,C2,C3,CA];
+
+    function vx(m){ return CX+R*Math.cos(ANG0+m*ASTEP); }
+    function vy(m){ return CY-R*Math.sin(ANG0+m*ASTEP); }
+
+    function init(){
+      d3.select(el).selectAll('*').remove();
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').attr('height','100%');
+
+      const defs=svg.append('defs');
+      const flt=defs.append('filter').attr('id','rope-glow').attr('x','-20%').attr('y','-20%').attr('width','140%').attr('height','140%');
+      flt.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','3').attr('result','blur');
+      const rmg=flt.append('feMerge');rmg.append('feMergeNode').attr('in','blur');rmg.append('feMergeNode').attr('in','SourceGraphic');
+
+      // Arrowhead markers
+      POS_COLS.forEach((col,i)=>{
+        const mk=defs.append('marker').attr('id',`rope-arr-${i}`)
+          .attr('markerWidth',8).attr('markerHeight',8).attr('refX',5).attr('refY',3.5).attr('orient','auto');
+        mk.append('path').attr('d','M0,0.5 L5.5,3.5 L0,6.5 Z').attr('fill',col);
+      });
+
+      // ── LEFT PANEL: 2D rotation diagram ──
+      const gL=svg.append('g').attr('opacity',0);
+      gL.append('rect').attr('x',8).attr('y',8).attr('width',476).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(157,78,221,0.04)').attr('stroke','rgba(157,78,221,0.18)').attr('stroke-width',1);
+
+      gL.append('text').attr('x',244).attr('y',32).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',13.5).attr('font-weight','bold').attr('font-family','monospace')
+        .text('Rotating one (q₂ᵢ, q₂ᵢ₊₁) pair');
+
+      gL.append('text').attr('x',244).attr('y',50).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',10.5).attr('font-family','monospace')
+        .text('each position m rotates the vector by m · θᵢ');
+
+      // Unit circle
+      gL.append('circle').attr('cx',CX).attr('cy',CY).attr('r',R)
+        .attr('fill','none').attr('stroke','rgba(255,255,255,0.08)').attr('stroke-width',1).attr('stroke-dasharray','4,3');
+      // Axes
+      gL.append('line').attr('x1',CX-R-10).attr('y1',CY).attr('x2',CX+R+10).attr('y2',CY)
+        .attr('stroke','rgba(255,255,255,0.12)').attr('stroke-width',1);
+      gL.append('line').attr('x1',CX).attr('y1',CY+R+10).attr('x2',CX).attr('y2',CY-R-10)
+        .attr('stroke','rgba(255,255,255,0.12)').attr('stroke-width',1);
+      // Origin dot
+      gL.append('circle').attr('cx',CX).attr('cy',CY).attr('r',3).attr('fill',CM);
+
+      // Arc between pos 0 and pos 1 showing θ₀
+      const arcR=54;
+      const a0=ANG0,a1=ANG0+ASTEP;
+      const ax0=CX+arcR*Math.cos(a0),ay0=CY-arcR*Math.sin(a0);
+      const ax1=CX+arcR*Math.cos(a1),ay1=CY-arcR*Math.sin(a1);
+      gL.append('path').attr('d',`M${ax0},${ay0} A${arcR},${arcR} 0 0 0 ${ax1},${ay1}`)
+        .attr('fill','none').attr('stroke',CW).attr('stroke-width',1.4).attr('stroke-dasharray','3,2');
+      const amidA=ANG0+ASTEP/2;
+      gL.append('text').attr('x',CX+70*Math.cos(amidA)).attr('y',CY-70*Math.sin(amidA)+4)
+        .attr('text-anchor','middle').attr('fill',CW).attr('font-size',12).attr('font-family','monospace')
+        .text('θ₀');
+
+      // Position vectors (staggered animation via individual groups)
+      const posLabels=['pos = 0','pos = 1','pos = 2','pos = 3','pos = 4'];
+      const lOff=[[18,-4],[14,-10],[8,-10],[-65,-10],[-68,-4]];
+      POS_COLS.forEach((col,i)=>{
+        const gV=svg.append('g').attr('opacity',0);
+        gV.append('line')
+          .attr('x1',CX).attr('y1',CY)
+          .attr('x2',vx(i)).attr('y2',vy(i))
+          .attr('stroke',col).attr('stroke-width',2.2)
+          .attr('marker-end',`url(#rope-arr-${i})`);
+        gV.append('circle').attr('cx',vx(i)).attr('cy',vy(i)).attr('r',4)
+          .attr('fill',col).attr('filter','url(#rope-glow)');
+        gV.append('text').attr('x',vx(i)+lOff[i][0]).attr('y',vy(i)+lOff[i][1])
+          .attr('fill',col).attr('font-size',10.5).attr('font-family','monospace').attr('font-weight','bold')
+          .text(posLabels[i]);
+        gV.transition().delay(900+i*280).duration(400).attr('opacity',1);
+      });
+
+      // Legend
+      const legX=18,legY=H-100;
+      gL.append('text').attr('x',legX).attr('y',legY-8).attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace')
+        .text('Each vector = (q₂ᵢ, q₂ᵢ₊₁) rotated in 2D plane');
+      gL.append('line').attr('x1',legX).attr('y1',legY).attr('x2',legX+200).attr('y2',legY)
+        .attr('stroke','rgba(255,255,255,0.08)').attr('stroke-width',0.8);
+      POS_COLS.forEach((col,i)=>{
+        gL.append('circle').attr('cx',legX+6+i*88).attr('cy',legY+16).attr('r',5).attr('fill',col).attr('filter','url(#rope-glow)');
+        gL.append('text').attr('x',legX+16+i*88).attr('y',legY+21).attr('fill',col)
+          .attr('font-size',9.5).attr('font-family','monospace').text(`m=${i}`);
+      });
+
+      gL.transition().delay(200).duration(600).attr('opacity',1);
+
+      // ── RIGHT PANEL (490–1092): Dim pairs + formula + models ──
+      const gR=svg.append('g').attr('opacity',0);
+      const RX=494;
+      gR.append('rect').attr('x',RX-6).attr('y',8).attr('width',W-RX+2).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(0,217,255,0.04)').attr('stroke','rgba(0,217,255,0.15)').attr('stroke-width',1);
+
+      gR.append('text').attr('x',RX+(W-RX)/2).attr('y',32).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',13.5).attr('font-weight','bold').attr('font-family','monospace')
+        .text('Dimension pairs  (d = 8 example)');
+
+      // Dimension pair rows
+      const pairs=[
+        ['[q₀, q₁]','rotate by m·θ₀','θ₀ = 1','fastest',C1,0.92],
+        ['[q₂, q₃]','rotate by m·θ₁','θ₁ = 1/10000⁰·²⁵','',C2,0.70],
+        ['[q₄, q₅]','rotate by m·θ₂','θ₂ = 1/10000⁰·⁵⁰','',C3,0.46],
+        ['[q₆, q₇]','rotate by m·θ₃','θ₃ = 1/10000⁰·⁷⁵','slowest',CA,0.22],
+      ];
+      const pY0=48,pROW=46;
+      pairs.forEach(([pair,action,freq,badge,col,spd],i)=>{
+        const y=pY0+i*pROW;
+        gR.append('rect').attr('x',RX+2).attr('y',y).attr('width',590).attr('height',pROW-4)
+          .attr('rx',6).attr('fill',`rgba(${col==='#00d9ff'?'0,217,255':col==='#2de8a0'?'45,232,160':col==='#ffa830'?'255,168,48':'157,78,221'},0.07)`)
+          .attr('stroke',col).attr('stroke-width',0.8).attr('stroke-opacity',0.5);
+        gR.append('text').attr('x',RX+14).attr('y',y+28)
+          .attr('fill',col).attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold').text(pair);
+        gR.append('text').attr('x',RX+125).attr('y',y+17)
+          .attr('fill',CW).attr('font-size',10.5).attr('font-family','monospace').text(action);
+        gR.append('text').attr('x',RX+125).attr('y',y+33)
+          .attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text(freq);
+        // Speed bar
+        const bx=RX+430,bw=140,bh=8;
+        gR.append('rect').attr('x',bx).attr('y',y+14).attr('width',bw).attr('height',bh)
+          .attr('rx',3).attr('fill','rgba(255,255,255,0.06)').attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.5);
+        gR.append('rect').attr('x',bx).attr('y',y+14).attr('width',bw*spd).attr('height',bh)
+          .attr('rx',3).attr('fill',col).attr('fill-opacity',0.7);
+        if(badge) gR.append('text').attr('x',bx+bw+6).attr('y',y+22)
+          .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text(badge);
+      });
+      // Speed label
+      gR.append('text').attr('x',RX+435).attr('y',pY0-6).attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace')
+        .text('rotation speed');
+
+      // Key property box
+      const kY=240;
+      gR.append('rect').attr('x',RX+2).attr('y',kY).attr('width',590).attr('height',100)
+        .attr('rx',8).attr('fill','rgba(45,232,160,0.07)').attr('stroke',C2).attr('stroke-width',1.2);
+      gR.append('text').attr('x',RX+14).attr('y',kY+20).attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
+        .text('Key property:');
+      gR.append('text').attr('x',RX+14).attr('y',kY+42).attr('fill',CW).attr('font-size',14).attr('font-family','monospace')
+        .text("Q'ₘ · K'ₙ  =  f(Q, K, m − n)");
+      gR.append('text').attr('x',RX+14).attr('y',kY+62).attr('fill',CM).attr('font-size',10.5).attr('font-family','monospace')
+        .text('dot product encodes only the RELATIVE distance between tokens');
+      gR.append('line').attr('x1',RX+14).attr('y1',kY+70).attr('x2',RX+578).attr('y2',kY+70)
+        .attr('stroke','rgba(255,255,255,0.08)').attr('stroke-width',0.8);
+      gR.append('text').attr('x',RX+14).attr('y',kY+86).attr('fill',CM).attr('font-size',10).attr('font-family','monospace')
+        .text('Sin/Cos PE adds to embeddings (absolute pos)  ·  RoPE rotates Q and K (relative pos)');
+
+      // Models using RoPE
+      const mY=360;
+      gR.append('text').attr('x',RX+14).attr('y',mY).attr('fill',C3).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
+        .text('Models using RoPE:');
+      gR.append('text').attr('x',RX+14).attr('y',mY+22).attr('fill',CW).attr('font-size',11).attr('font-family','monospace')
+        .text('LLaMA 2/3,  Mistral,  Gemma,  Falcon,  Qwen,  GPT-NeoX,  DeepSeek, …');
+      gR.append('text').attr('x',RX+14).attr('y',mY+46).attr('fill',CM).attr('font-size',10).attr('font-family','monospace')
+        .text('ALiBi (alternative): applies linear bias to attention scores — used in BLOOM');
+      gR.append('text').attr('x',RX+14).attr('y',mY+66).attr('fill',CM).attr('font-size',10).attr('font-family','monospace')
+        .text('Both RoPE and ALiBi avoid adding positional vectors to token embeddings entirely.');
+
+      // Comparison
+      const cpY=440;
+      gR.append('line').attr('x1',RX+2).attr('y1',cpY-8).attr('x2',RX+590).attr('y2',cpY-8)
+        .attr('stroke','rgba(255,255,255,0.07)').attr('stroke-width',0.8);
+      [[C2,'RoPE:','no learned params · relative pos · long-context friendly'],[C1,'Sin/Cos:','no learned params · absolute pos · original "Attention is All You Need"']].forEach(([col,lbl,txt],i)=>{
+        gR.append('text').attr('x',RX+14).attr('y',cpY+i*22).attr('fill',col).attr('font-size',10).attr('font-family','monospace').attr('font-weight','bold').text(lbl);
+        gR.append('text').attr('x',RX+88).attr('y',cpY+i*22).attr('fill',CM).attr('font-size',10).attr('font-family','monospace').text(txt);
+      });
+
+      // Divider
+      svg.append('line').attr('x1',486).attr('y1',18).attr('x2',486).attr('y2',H-18)
+        .attr('stroke','rgba(255,255,255,0.07)').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+
+      gR.transition().delay(600).duration(600).attr('opacity',1);
+      el._ropeReady=true;
+    }
+
+    Reveal.on('slidechanged',e=>{
+      if(e.currentSlide.id==='pos-encoding-rope'){ d3.select(el).selectAll('*').remove(); init(); }
+      if(e.previousSlide&&e.previousSlide.id==='pos-encoding-rope') el._ropeReady=false;
+    });
+    if(document.querySelector('.present#pos-encoding-rope')) init();
   })();
   </script>
 
@@ -7013,163 +7403,6 @@
   })();
   </script>
 
-  <!-- Q, K, V generation animation -->
-  <script>
-  (function () {
-    const CQ = '#00d9ff';
-    const CK = '#9d4edd';
-    const CV = '#ffa014';
-    const CT = 'rgba(200,215,235,0.85)';
-    const Cm = 'rgba(155,175,200,0.65)';
-
-    const TOKENS = ['"The"', '"cat"', '"sat"', '"on"'];
-    const SUB    = ['₁','₂','₃','₄'];
-
-    const W = 1100, H = 480;
-    const TX = [255, 435, 615, 795];
-    const TY = 62;
-    const TW = 92, TH = 38;
-
-    const ROWS = [
-      { id:'Q', wl:'Wq', label:'Queries (Q)', col: CQ, y: 205 },
-      { id:'K', wl:'Wk', label:'Keys (K)',    col: CK, y: 320 },
-      { id:'V', wl:'Wv', label:'Values (V)',  col: CV, y: 435 },
-    ];
-    const OW = 72, OH = 32;
-    const WBX = 148, WBW = 52, WBH = 52;
-
-    function draw(el) {
-      el.innerHTML = '';
-      const svg = d3.select(el).append('svg')
-        .attr('viewBox', `0 0 ${W} ${H}`)
-        .style('width','100%').style('height','100%');
-
-      const defs = svg.append('defs');
-      [['aq',CQ],['ak',CK],['av',CV]].forEach(([id,col]) => {
-        defs.append('marker').attr('id',id)
-          .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
-          .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
-          .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',col);
-      });
-
-      // Caption
-      svg.append('text')
-        .attr('x', TX[0]-15).attr('y', 22)
-        .attr('fill', Cm).attr('font-size', 12).attr('font-family','sans-serif')
-        .text('Each token embedding x_i is linearly projected by three learned weight matrices into query, key, and value vectors.');
-
-      // Token boxes
-      const tokenGs = TOKENS.map((tok, i) => {
-        const g = svg.append('g').attr('opacity', 0);
-        g.append('rect')
-          .attr('x', TX[i]-TW/2).attr('y', TY-TH/2)
-          .attr('width', TW).attr('height', TH).attr('rx', 7)
-          .attr('fill','rgba(200,215,235,0.09)').attr('stroke', CT).attr('stroke-width', 1.8);
-        g.append('text')
-          .attr('x', TX[i]).attr('y', TY+7)
-          .attr('text-anchor','middle').attr('fill','rgba(225,238,255,0.95)')
-          .attr('font-size', 15).attr('font-weight','700').attr('font-family','sans-serif')
-          .text(tok);
-        g.append('text')
-          .attr('x', TX[i]).attr('y', TY+TH/2+16)
-          .attr('text-anchor','middle').attr('fill', Cm)
-          .attr('font-size', 11).attr('font-family','sans-serif')
-          .text('x'+SUB[i]);
-        return g;
-      });
-
-      // Left sidebar: W matrix boxes + row labels
-      const wRowGs = ROWS.map(r => {
-        const g = svg.append('g').attr('opacity', 0);
-        g.append('text')
-          .attr('x', 6).attr('y', r.y+6)
-          .attr('fill', r.col).attr('font-size', 13).attr('font-weight','700').attr('font-family','sans-serif')
-          .text(r.label);
-        const bx = WBX-WBW/2, by = r.y-WBH/2;
-        g.append('rect')
-          .attr('x',bx).attr('y',by).attr('width',WBW).attr('height',WBH).attr('rx',6)
-          .attr('fill',r.col+'18').attr('stroke',r.col).attr('stroke-width',2);
-        for (let n=1; n<3; n++) {
-          g.append('line').attr('x1',bx).attr('x2',bx+WBW)
-            .attr('y1',by+n*WBH/3).attr('y2',by+n*WBH/3)
-            .attr('stroke',r.col+'55').attr('stroke-width',0.7);
-          g.append('line').attr('y1',by).attr('y2',by+WBH)
-            .attr('x1',bx+n*WBW/3).attr('x2',bx+n*WBW/3)
-            .attr('stroke',r.col+'55').attr('stroke-width',0.7);
-        }
-        g.append('text')
-          .attr('x',WBX).attr('y',r.y+8)
-          .attr('text-anchor','middle').attr('fill',r.col)
-          .attr('font-size',16).attr('font-weight','bold').attr('font-family','Georgia,serif')
-          .text(r.wl);
-        // Dashed connector from W-box to first token column
-        g.append('line')
-          .attr('x1',WBX+WBW/2+5).attr('y1',r.y)
-          .attr('x2',TX[0]-OW/2-6).attr('y2',r.y)
-          .attr('stroke',r.col+'44').attr('stroke-width',1).attr('stroke-dasharray','4,4');
-        return g;
-      });
-
-      // Output vector boxes
-      const outGs = ROWS.map(r =>
-        TX.map((cx, i) => {
-          const g = svg.append('g').attr('opacity', 0);
-          g.append('rect')
-            .attr('x',cx-OW/2).attr('y',r.y-OH/2)
-            .attr('width',OW).attr('height',OH).attr('rx',5)
-            .attr('fill',r.col+'1e').attr('stroke',r.col).attr('stroke-width',1.8);
-          g.append('text')
-            .attr('x',cx).attr('y',r.y+6)
-            .attr('text-anchor','middle').attr('fill',r.col)
-            .attr('font-size',14).attr('font-weight','bold').attr('font-family','Georgia,serif')
-            .text(r.id.toLowerCase()+SUB[i]);
-          return g;
-        })
-      );
-
-      // Connector paths: token → output, fanned (Q left, K center, V right exit)
-      const xOff = [-9, 0, 9];
-      const mids = ['aq','ak','av'];
-      const connPaths = TX.map((cx, ti) =>
-        ROWS.map((r, ri) => {
-          const x1 = cx+xOff[ri], y1 = TY+TH/2+2;
-          const x2 = cx, y2 = r.y-OH/2-3;
-          const cp1y = y1+(y2-y1)*0.35, cp2y = y1+(y2-y1)*0.65;
-          const path = svg.append('path')
-            .attr('d',`M${x1},${y1} C${x1},${cp1y} ${x2},${cp2y} ${x2},${y2}`)
-            .attr('fill','none').attr('stroke',r.col).attr('stroke-width',1.6)
-            .attr('stroke-opacity',0.5).attr('marker-end',`url(#${mids[ri]})`)
-            .attr('opacity',0);
-          const len = path.node().getTotalLength();
-          path.attr('stroke-dasharray',len).attr('stroke-dashoffset',len);
-          return path;
-        })
-      );
-
-      // Animate
-      tokenGs.forEach((g,i) => g.transition().delay(i*130).duration(320).attr('opacity',1));
-      wRowGs.forEach((g,ri) => g.transition().delay(700+ri*160).duration(320).attr('opacity',1));
-      TX.forEach((_,ti) => ROWS.forEach((_,ri) => {
-        const p = connPaths[ti][ri];
-        const d = 1350+ti*90+ri*70;
-        p.transition().delay(d).duration(60).attr('opacity',1);
-        p.transition().delay(d+60).duration(480).attr('stroke-dashoffset',0);
-      }));
-      ROWS.forEach((_,ri) => TX.forEach((_,ti) => {
-        outGs[ri][ti].transition().delay(2100+ri*180+ti*80).duration(300).attr('opacity',1);
-      }));
-    }
-
-    function maybeInit() {
-      const el = document.getElementById('qkv-canvas');
-      if (el && !el._qkvReady) { el._qkvReady = true; draw(el); }
-    }
-    Reveal.on('ready', maybeInit);
-    Reveal.on('slidechanged', ev => {
-      if (ev.currentSlide && ev.currentSlide.id === 'qkv-generation') maybeInit();
-    });
-  })();
-  </script>
 
   <!-- LLM model landscape: parameters & architecture (llm-params slide) -->
   <script>
@@ -7604,6 +7837,407 @@
         if(el) el._ltReady=false;
       }
       if(ev.currentSlide&&ev.currentSlide.id==='llm-training') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Cross-attention diffusion animation -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
+    const CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)';
+    const CW='rgba(220,238,255,0.88)';
+
+    // Text prompt tokens and their display colours
+    const TTEXT=['"a"','"red"','"cat"','"sat"'];
+    const TCOLS=[CM, '#e05050', C3, CI];
+
+    // Attention weights  [image-patch row][text-token col]
+    const ATTN=[
+      [0.15, 0.55, 0.18, 0.12],   // patch TL  → "red" dominant  (background sky colour)
+      [0.10, 0.16, 0.62, 0.12],   // patch TR  → "cat" dominant  (fur)
+      [0.20, 0.14, 0.18, 0.48],   // patch BL  → "sat" dominant  (ground / mat)
+      [0.22, 0.28, 0.32, 0.18],   // patch BR  → mixed
+    ];
+
+    // ── Layout constants ──
+    const TXTX=15, TXTY=16, TXTW=195;
+    const CAX=250, CAY=30, CAW=295, CAH=232;
+    const IMGPS=58, IMPPG=3;
+    const IMGW=2*IMGPS+IMPPG;           // 119
+    const IMG_CX=Math.round(CAX+CAW/2); // 397 — centre of CA block (x)
+    const IMG_LX=IMG_CX-Math.round(IMGW/2); // 338
+    const IMGY=314;                     // top of noisy-latent grid
+    const CA_RIGHT=CAX+CAW;             // 545
+    const OUTX=CA_RIGHT+42;             // 587
+    const NOTE_X=OUTX+IMGW+24;          // 730
+    const midCA_Y=CAY+Math.round(CAH/2);// 146
+
+    // Mini attention matrix inside CA block
+    const SMN=4, SCELL=27, SGAP=2;
+    const SMATW=SMN*(SCELL+SGAP)-SGAP; // 106
+    const SMAT_X=Math.round(CAX+(CAW-SMATW)/2); // 344
+    const SMAT_Y=CAY+42;               // 72
+
+    // Output patch colours (one per 2×2 quadrant, representing image content)
+    const OUT_COLS=['#6680b0','#d07030','#e08030','#607090'];
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','df-glow')
+        .attr('x','-35%').attr('y','-35%').attr('width','170%').attr('height','170%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.2).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+      function addArr(id,col){
+        defs.append('marker').attr('id',id)
+          .attr('markerWidth',7).attr('markerHeight',5)
+          .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+          .append('polygon').attr('points','0 0,7 2.5,0 5')
+          .attr('fill',col).attr('opacity',0.80);
+      }
+      addArr('df-kv', CI);
+      addArr('df-q',  C3);
+      addArr('df-out',C2);
+
+      const gHead=svg.append('g').attr('opacity',0);
+      const gTxt =svg.append('g').attr('opacity',0);
+      const gCA  =svg.append('g').attr('opacity',0);
+      const gImg =svg.append('g').attr('opacity',0);
+      const gQ   =svg.append('g').attr('opacity',0);
+      const gOut =svg.append('g').attr('opacity',0);
+      const gNote=svg.append('g').attr('opacity',0);
+
+      // ── Subtitle ──
+      gHead.append('text').attr('x',W/2).attr('y',13)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.45)
+        .text('Stable Diffusion · DALL·E · Imagen — image spatial features (Q) attend to text embeddings (K, V)');
+
+      // ── Text Encoder panel ──────────────────────────────────────────────
+      // Prompt box
+      gTxt.append('rect')
+        .attr('x',TXTX).attr('y',TXTY)
+        .attr('width',TXTW).attr('height',34).attr('rx',5)
+        .attr('fill',CI).attr('fill-opacity',0.08)
+        .attr('stroke',CI).attr('stroke-opacity',0.28).attr('stroke-width',1);
+      gTxt.append('text')
+        .attr('x',TXTX+TXTW/2).attr('y',TXTY+11)
+        .attr('text-anchor','middle').attr('font-size',7)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.45)
+        .text('Prompt:');
+      gTxt.append('text')
+        .attr('x',TXTX+TXTW/2).attr('y',TXTY+25)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+        .text('"a red cat sat…"');
+
+      // Text encoder block
+      const ENCY=TXTY+34+10;
+      gTxt.append('rect')
+        .attr('x',TXTX).attr('y',ENCY)
+        .attr('width',TXTW).attr('height',26).attr('rx',4)
+        .attr('fill',CI).attr('fill-opacity',0.12)
+        .attr('stroke',CI).attr('stroke-opacity',0.45).attr('stroke-width',1.2)
+        .attr('filter','url(#df-glow)');
+      gTxt.append('text')
+        .attr('x',TXTX+TXTW/2).attr('y',ENCY+17)
+        .attr('text-anchor','middle').attr('font-size',9.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('font-weight','700')
+        .text('Text Encoder  (CLIP / T5)');
+
+      // Token embedding rows → K, V
+      const TOK_Y0=ENCY+26+16;
+      const TOK_H=22, TOK_GAP=3, TOK_BAR=TXTW-30;
+      gTxt.append('text')
+        .attr('x',TXTX).attr('y',TOK_Y0-5)
+        .attr('font-size',7.5).attr('font-family','monospace')
+        .attr('fill',CI).attr('fill-opacity',0.50)
+        .text('token embeddings  →  K, V');
+      TTEXT.forEach(function(tok,ti){
+        var ty=TOK_Y0+ti*(TOK_H+TOK_GAP);
+        var col=TCOLS[ti];
+        // Embedding bar with hash-mark fill
+        gTxt.append('rect')
+          .attr('x',TXTX+30).attr('y',ty)
+          .attr('width',TOK_BAR).attr('height',TOK_H).attr('rx',3)
+          .attr('fill',col).attr('fill-opacity',0.18)
+          .attr('stroke',col).attr('stroke-opacity',0.50).attr('stroke-width',1);
+        for(var di=0;di<8;di++){
+          var v=Math.abs(Math.sin(ti*2.3+di*1.7));
+          gTxt.append('rect')
+            .attr('x',TXTX+32+di*(TOK_BAR/8)).attr('y',ty+3)
+            .attr('width',TOK_BAR/8-2).attr('height',TOK_H-6).attr('rx',1)
+            .attr('fill',col).attr('fill-opacity',0.08+v*0.28);
+        }
+        // Token label
+        gTxt.append('text')
+          .attr('x',TXTX+2).attr('y',ty+TOK_H/2+4)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',col).attr('font-weight','700').text(tok);
+        // K,V label on right
+        gTxt.append('text')
+          .attr('x',TXTX+TXTW+2).attr('y',ty+TOK_H/2+4)
+          .attr('font-size',7.5).attr('font-family','monospace')
+          .attr('fill',col).attr('fill-opacity',0.55).text('K,V');
+      });
+
+      // Arrow: text encoder → cross-attention (K, V)
+      const KV_ARR_Y=TOK_Y0+(TTEXT.length*(TOK_H+TOK_GAP))/2;
+      gTxt.append('line')
+        .attr('x1',TXTX+TXTW+2).attr('y1',KV_ARR_Y)
+        .attr('x2',CAX-6).attr('y2',KV_ARR_Y)
+        .attr('stroke',CI).attr('stroke-opacity',0.45).attr('stroke-width',2)
+        .attr('marker-end','url(#df-kv)');
+      gTxt.append('text')
+        .attr('x',(TXTX+TXTW+CAX)/2).attr('y',KV_ARR_Y-7)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
+        .text('K, V');
+
+      // ── Cross-Attention block ──────────────────────────────────────────
+      gCA.append('rect')
+        .attr('x',CAX).attr('y',CAY)
+        .attr('width',CAW).attr('height',CAH).attr('rx',8)
+        .attr('fill',CA).attr('fill-opacity',0.07)
+        .attr('stroke',CA).attr('stroke-opacity',0.36).attr('stroke-width',1.6)
+        .attr('filter','url(#df-glow)');
+      gCA.append('text')
+        .attr('x',CAX+CAW/2).attr('y',CAY+19)
+        .attr('text-anchor','middle').attr('font-size',11)
+        .attr('font-family','monospace').attr('fill',CA).attr('font-weight','700')
+        .text('Cross-Attention');
+
+      // Mini 4×4 attention matrix inside CA block
+      ATTN.forEach(function(row,ri){
+        row.forEach(function(v,ci){
+          var sx=SMAT_X+ci*(SCELL+SGAP);
+          var sy=SMAT_Y+ri*(SCELL+SGAP);
+          gCA.append('rect')
+            .attr('x',sx).attr('y',sy)
+            .attr('width',SCELL).attr('height',SCELL).attr('rx',2)
+            .attr('fill',TCOLS[ci]).attr('fill-opacity',0.06+v*0.68);
+          if(v>0.30) gCA.append('text')
+            .attr('x',sx+SCELL/2).attr('y',sy+SCELL/2+4)
+            .attr('text-anchor','middle').attr('font-size',7.5)
+            .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.65)
+            .text(v.toFixed(2));
+        });
+      });
+      // Column labels (text tokens) above mini matrix
+      TTEXT.forEach(function(tok,ci){
+        gCA.append('text')
+          .attr('x',SMAT_X+ci*(SCELL+SGAP)+SCELL/2)
+          .attr('y',SMAT_Y-4)
+          .attr('text-anchor','middle').attr('font-size',7.5)
+          .attr('font-family','monospace').attr('fill',TCOLS[ci]).attr('fill-opacity',0.72)
+          .text(tok);
+      });
+      // Row labels (image patches) left of mini matrix
+      ['p₁','p₂','p₃','p₄'].forEach(function(lbl,ri){
+        gCA.append('text')
+          .attr('x',SMAT_X-5)
+          .attr('y',SMAT_Y+ri*(SCELL+SGAP)+SCELL/2+4)
+          .attr('text-anchor','end').attr('font-size',7)
+          .attr('font-family','monospace').attr('fill',CM)
+          .text(lbl);
+      });
+      // Formula row below matrix
+      var fY=SMAT_Y+SMN*(SCELL+SGAP)+6;
+      gCA.append('text')
+        .attr('x',CAX+CAW/2).attr('y',fY)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',CA).attr('fill-opacity',0.65)
+        .text('softmax( Q·K^T/√d ) · V');
+      // Q source label at bottom of block
+      gCA.append('text')
+        .attr('x',CAX+CAW/2).attr('y',CAY+CAH-9)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.60)
+        .text('Q ↑  (from image spatial features)');
+
+      // ── Noisy image latent (below CA block) ──────────────────────────
+      gImg.append('text')
+        .attr('x',IMG_CX).attr('y',IMGY-7)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',CM)
+        .text('Noisy Image Latent  →  Q');
+
+      // 2×2 patch grid (noisy)
+      [[0,0],[1,0],[0,1],[1,1]].forEach(function(pos,pi){
+        var px=IMG_LX+pos[0]*(IMGPS+IMPPG);
+        var py=IMGY+pos[1]*(IMGPS+IMPPG);
+        gImg.append('rect')
+          .attr('x',px).attr('y',py)
+          .attr('width',IMGPS).attr('height',IMGPS).attr('rx',3)
+          .attr('fill','rgba(90,100,120,0.28)')
+          .attr('stroke','rgba(155,180,210,0.25)').attr('stroke-width',1);
+        // Noise texture (deterministic)
+        for(var ny=0;ny<4;ny++){
+          for(var nx=0;nx<4;nx++){
+            var nv=Math.abs(Math.sin(pi*1.9+nx*2.3+ny*3.1));
+            gImg.append('rect')
+              .attr('x',px+3+nx*13).attr('y',py+3+ny*13)
+              .attr('width',11).attr('height',11).attr('rx',1)
+              .attr('fill','rgba(155,180,210,'+(0.04+nv*0.22)+')');
+          }
+        }
+        gImg.append('text')
+          .attr('x',px+IMGPS/2).attr('y',py+IMGPS/2+4)
+          .attr('text-anchor','middle').attr('font-size',9)
+          .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.60)
+          .text(['Q₁','Q₂','Q₃','Q₄'][pi]);
+      });
+
+      // ── Q arrow: image latent → CA block bottom ───────────────────────
+      var Q_TOP=CAY+CAH+4;
+      gQ.append('line')
+        .attr('x1',IMG_CX).attr('y1',IMGY-3)
+        .attr('x2',IMG_CX).attr('y2',Q_TOP+8)
+        .attr('stroke',C3).attr('stroke-opacity',0.55).attr('stroke-width',2)
+        .attr('marker-end','url(#df-q)');
+      gQ.append('text')
+        .attr('x',IMG_CX+10).attr('y',(IMGY+Q_TOP)/2+5)
+        .attr('font-size',9).attr('font-family','monospace')
+        .attr('fill',C3).attr('fill-opacity',0.55).text('Q');
+
+      // ── Output: text-conditioned features ─────────────────────────────
+      // Arrow from CA right → output
+      gOut.append('line')
+        .attr('x1',CA_RIGHT+4).attr('y1',midCA_Y)
+        .attr('x2',OUTX-8).attr('y2',midCA_Y)
+        .attr('stroke',C2).attr('stroke-opacity',0.55).attr('stroke-width',2)
+        .attr('marker-end','url(#df-out)');
+      gOut.append('text')
+        .attr('x',(CA_RIGHT+OUTX)/2).attr('y',midCA_Y-7)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.55)
+        .text('× V');
+
+      // Output label
+      gOut.append('text')
+        .attr('x',OUTX+IMGW/2).attr('y',CAY-2)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.65)
+        .text('Conditioned Features');
+
+      // 2×2 output patch grid (structured / coloured)
+      [[0,0],[1,0],[0,1],[1,1]].forEach(function(pos,pi){
+        var px=OUTX+pos[0]*(IMGPS+IMPPG);
+        var py=CAY+8+pos[1]*(IMGPS+IMPPG);
+        var col=OUT_COLS[pi];
+        var boxRect=gOut.append('rect')
+          .attr('x',px).attr('y',py)
+          .attr('width',IMGPS).attr('height',IMGPS).attr('rx',3)
+          .attr('fill',col).attr('fill-opacity',0.35)
+          .attr('stroke',C2).attr('stroke-opacity',0.28).attr('stroke-width',1);
+        if(pi===1||pi===2) boxRect.attr('filter','url(#df-glow)');
+        // Structured pattern (more regular than noise)
+        for(var oy=0;oy<3;oy++){
+          for(var ox=0;ox<3;ox++){
+            var ov=Math.abs(Math.sin(pi*1.5+ox*2.1+oy*1.8));
+            gOut.append('rect')
+              .attr('x',px+5+ox*17).attr('y',py+5+oy*17)
+              .attr('width',13).attr('height',13).attr('rx',2)
+              .attr('fill',col).attr('fill-opacity',0.18+ov*0.28);
+          }
+        }
+      });
+
+      // Annotation below output patches
+      var outBotY=CAY+8+IMGPS+IMPPG+IMGPS+14;
+      gOut.append('text')
+        .attr('x',OUTX+IMGW/2).attr('y',outBotY)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.50)
+        .text('one denoising step');
+      gOut.append('text')
+        .attr('x',OUTX+IMGW/2).attr('y',outBotY+13)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CM)
+        .text('repeat T ≈ 20–50×');
+
+      // Loop-back arrow (schematic)
+      var LB_Y=outBotY+30;
+      gOut.append('path')
+        .attr('d','M '+(OUTX+IMGW/2)+','+(LB_Y)+' L '+(OUTX-14)+','+(LB_Y)+
+              ' L '+(OUTX-14)+','+(IMGY+IMGPS/2)+' L '+(IMG_LX-6)+','+(IMGY+IMGPS/2))
+        .attr('fill','none').attr('stroke',CM).attr('stroke-opacity',0.35)
+        .attr('stroke-width',1.2).attr('stroke-dasharray','4,3');
+      gOut.append('text')
+        .attr('x',OUTX-18).attr('y',(LB_Y+IMGY+IMGPS/2)/2)
+        .attr('text-anchor','end').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CM).attr('fill-opacity',0.45)
+        .attr('writing-mode','tb').text('iterate ↺');
+
+      // ── Notes ───────────────────────────────────────────────────────────
+      var NY=CAY;
+      function nline(txt,col,sz,bold){
+        if(!txt){NY+=7;return;}
+        gNote.append('text')
+          .attr('x',NOTE_X).attr('y',NY)
+          .attr('font-size',sz||9).attr('font-family','monospace')
+          .attr('fill',col||CM).attr('font-weight',bold?'700':'400')
+          .text(txt);
+        NY+=(sz||9)+(bold?8:5);
+      }
+      nline('Text → Image',CW,11,true);
+      nline('Cross-Attention',CW,11,true);
+      nline('');
+      nline('Image spatial Q queries',C3,8.5);
+      nline('text embeddings (K, V)',CI,8.5);
+      nline('');
+      nline('"red" patch → 0.55',TCOLS[1],8.5);
+      nline('"cat" patch → 0.62',TCOLS[2],8.5);
+      nline('"sat" patch → 0.48',CI,8.5);
+      nline('');
+      nline('Each patch learns',CM,8.5);
+      nline('what to draw from',CM,8.5);
+      nline('the text description',CM,8.5);
+      nline('');
+      nline('Noise level decreases',CW,8.5);
+      nline('across T steps:',CM,8.5);
+      nline('zₜ → zₜ₋₁ → … → z₀',C2,8.5);
+
+      // Bottom footnote
+      gNote.append('text').attr('x',W/2).attr('y',H-8)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',CM).attr('fill-opacity',0.45)
+        .text('Cross-attention at every denoising step keeps all generated image patches aligned with the text prompt');
+
+      var seq=[
+        [gHead,    0,  350],
+        [gTxt,   350,  550],
+        [gCA,    900,  600],
+        [gImg,  1100,  500],
+        [gQ,    1700,  400],
+        [gOut,  2200,  600],
+        [gNote, 2900,  500],
+      ];
+      seq.forEach(function(s){
+        s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('cross-attn-diff-canvas');
+      if(el&&!el._diffReady){el._diffReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='cross-attn-diffusion'){
+        const el=document.getElementById('cross-attn-diff-canvas');
+        if(el) el._diffReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='cross-attn-diffusion') maybeInit();
     });
   })();
   </script>
