@@ -1816,11 +1816,11 @@
           <div>
             <p style="color:var(--muted-color);font-size:0.78em;margin-bottom:12px;">
               Type any word equation using <code style="color:var(--primary-color);">+</code> and <code style="color:var(--accent-tertiary);">−</code>.
-              Words must be in the GloVe vocabulary (top 10 000 common words).
+              Words must be in the GloVe vocabulary (top 10 000 + curated places, food &amp; people).
             </p>
 
             <div style="display:flex;gap:10px;align-items:stretch;">
-              <input id="glove-input" type="text" value="king - man + woman" autocomplete="off" spellcheck="false"
+              <input id="glove-input" type="text" value="paris - france + germany" autocomplete="off" spellcheck="false"
                 style="flex:1;background:rgba(255,255,255,0.07);border:1.5px solid rgba(0,217,255,0.4);
                        border-radius:8px;padding:12px 16px;font-family:monospace;font-size:1.1em;
                        color:#fff;outline:none;"/>
@@ -1832,12 +1832,12 @@
 
             <!-- Preset chips -->
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
-              <span class="glove-chip">king − man + woman</span>
-              <span class="glove-chip">Paris − France + Italy</span>
-              <span class="glove-chip">doctor − man + woman</span>
-              <span class="glove-chip">strong − man + woman</span>
-              <span class="glove-chip">uncle − man + woman</span>
-              <span class="glove-chip">Berlin − Germany + France</span>
+              <span class="glove-chip">paris − france + germany</span>
+              <span class="glove-chip">tokyo − japan + china</span>
+              <span class="glove-chip">berlin − germany + italy</span>
+              <span class="glove-chip">coffee − brazil + france</span>
+              <span class="glove-chip">obama − usa + france</span>
+              <span class="glove-chip">shakespeare − england + germany</span>
             </div>
 
             <!-- Error / status -->
@@ -1900,7 +1900,7 @@
           <div style="padding-left:10px;">
             <p style="font-size:0.65em;color:var(--muted-color);margin-bottom:2px;text-transform:uppercase;letter-spacing:0.08em;">Vocabulary</p>
             <p style="font-size:0.82em;font-weight:700;color:#fff;">400 000 words <span style="color:var(--muted-color);font-weight:400;font-size:0.85em;">total</span></p>
-            <p style="font-size:0.65em;color:var(--muted-color);margin-top:1px;">Using top 10 000 here (covers ~95% of everyday text)</p>
+            <p style="font-size:0.65em;color:var(--muted-color);margin-top:1px;">Top 10 000 + ~1 000 curated places, food &amp; people (10 953 total)</p>
           </div>
 
         </div>
@@ -5353,6 +5353,7 @@
       return s;
     }
 
+    // Curated demo vocabulary: countries, cities, food, famous people
     // Returns {word, score}[] sorted desc, excluding the query words themselves
     function nearestNeighbours(vec, exclude, topN = 10) {
       const words = window.GLOVE_WORDS;
