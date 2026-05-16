@@ -2407,7 +2407,7 @@
 
       <section id="transformers">
       <section id ="allyouneed">
-          <h2>The Inflection Point <span style="color: var(--accent-tertiary); font-weight: 600;">"Making Skynet Possible"</span></h2>
+          <h2>Attention <span style="color: var(--accent-tertiary); font-weight: 600;">"Making Skynet Possible"</span></h2>
         <div class="content">
           <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
                 <h3 style="margin-top: 20px; margin-bottom: 15px; font-size: 28pt;"><a href="https://arxiv.org/abs/1706.03762" target="_blank" style="color: var(--primary-color); text-decoration: none; border-bottom: 2px solid var(--primary-color);">"Attention is All You Need"</a></h3>
@@ -2516,6 +2516,22 @@
         <h2 style="margin-bottom:6px;">Rotary Position Embedding (RoPE)</h2>
         <div class="content" style="padding-top:2px;">
           <div id="pos-enc-rope-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+</section>
+
+<section>
+      <section id="ffn-layer">
+        <h2 style="margin-bottom:6px;">Transformer Block: Feed-Forward Network (FFN)</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="ffn-layer-canvas" style="width:100%;height:490px;"></div>
+        </div>
+      </section>
+
+      <section id="ffn-activations">
+        <h2 style="margin-bottom:6px;">FFN: Activation Functions</h2>
+        <div class="content" style="padding-top:2px;">
+          <div id="ffn-activations-canvas" style="width:100%;height:490px;"></div>
         </div>
       </section>
 </section>
@@ -4650,6 +4666,420 @@
       if(e.previousSlide&&e.previousSlide.id==='pos-encoding-rope') el._ropeReady=false;
     });
     if(document.querySelector('.present#pos-encoding-rope')) init();
+  })();
+  </script>
+
+  <!-- FFN layer animation -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#00d9ff',C2='#2de8a0',C3='#ffa830',CA='#9d4edd',CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.88)';
+    const el=document.getElementById('ffn-layer-canvas');
+    if(!el) return;
+
+    function init(){
+      d3.select(el).selectAll('*').remove();
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').attr('height','100%');
+
+      const defs=svg.append('defs');
+      const flt=defs.append('filter').attr('id','ffn-glow').attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      flt.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','4').attr('result','blur');
+      const mg=flt.append('feMerge');
+      mg.append('feMergeNode').attr('in','blur');
+      mg.append('feMergeNode').attr('in','SourceGraphic');
+
+      const mkCW=defs.append('marker').attr('id','ffn-arr-w').attr('markerWidth',8).attr('markerHeight',8).attr('refX',5).attr('refY',3.5).attr('orient','auto');
+      mkCW.append('path').attr('d','M0,0.5 L5.5,3.5 L0,6.5 Z').attr('fill',CW);
+      const mkC1=defs.append('marker').attr('id','ffn-arr-c1').attr('markerWidth',8).attr('markerHeight',8).attr('refX',5).attr('refY',3.5).attr('orient','auto');
+      mkC1.append('path').attr('d','M0,0.5 L5.5,3.5 L0,6.5 Z').attr('fill',C1);
+      const mkC2=defs.append('marker').attr('id','ffn-arr-c2').attr('markerWidth',8).attr('markerHeight',8).attr('refX',5).attr('refY',3.5).attr('orient','auto');
+      mkC2.append('path').attr('d','M0,0.5 L5.5,3.5 L0,6.5 Z').attr('fill',C2);
+
+      // ─── LEFT PANEL ────────────────────────────────────────────────────────
+      const gL=svg.append('g').attr('opacity',0);
+      gL.append('rect').attr('x',8).attr('y',8).attr('width',430).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(157,78,221,0.04)').attr('stroke','rgba(157,78,221,0.15)').attr('stroke-width',1);
+      gL.append('text').attr('x',222).attr('y',34).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',14).attr('font-weight','bold').attr('font-family','monospace')
+        .text('Feed-Forward Network (FFN)');
+
+      gL.append('rect').attr('x',16).attr('y',44).attr('width',416).attr('height',68)
+        .attr('rx',5).attr('fill','rgba(157,78,221,0.09)').attr('stroke',CA+'50').attr('stroke-width',1);
+      gL.append('text').attr('x',222).attr('y',64).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',12).attr('font-family','monospace').attr('font-weight','600')
+        .text('FFN(x)  =  W₂ · GELU( W₁·x + b₁ )  +  b₂');
+      gL.append('text').attr('x',222).attr('y',88).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',11.5).attr('font-family','monospace')
+        .text("x'  =  LayerNorm( x  +  FFN(x) )");
+      gL.append('line').attr('x1',16).attr('y1',124).attr('x2',432).attr('y2',124)
+        .attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.8);
+
+      const bullets=[
+        [C3,'W₁  Expand:','d_model → 4×d_model   (e.g. 512 → 2048)'],
+        [CA,'GELU:','smooth gate — passes positive, dims negative'],
+        [C2,'W₂  Contract:','4×d_model → d_model'],
+        [C1,'Residual:','identity x added before LayerNorm'],
+        [CI,'Per-position:','same weights, every token, independently'],
+      ];
+      bullets.forEach(([col,lbl,txt],i)=>{
+        const y=148+i*40;
+        gL.append('circle').attr('cx',26).attr('cy',y-5).attr('r',5).attr('fill',col).attr('filter','url(#ffn-glow)');
+        gL.append('text').attr('x',38).attr('y',y).attr('fill',col).attr('font-size',11.5).attr('font-family','monospace').attr('font-weight','bold').text(lbl);
+        gL.append('text').attr('x',38).attr('y',y+15).attr('fill',CW).attr('font-size',10).attr('font-family','monospace').text(txt);
+      });
+
+      svg.append('line').attr('x1',444).attr('y1',18).attr('x2',444).attr('y2',H-18)
+        .attr('stroke','rgba(255,255,255,0.06)').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+
+      // ─── RIGHT PANEL GEOMETRY ──────────────────────────────────────────────
+      const CY=H/2;
+      const nIn=4, xIn=502, rIn=8,  gapIn=38;
+      const nH=16, xH=668,  rH=4.5, gapH=20;
+      const nOut=4, xOut=838, rOut=8, gapOut=38;
+      const plusX=876, plusY=CY;
+      const lnX=900, lnW=90, lnH=46;
+      const arcY=82;
+
+      function yPos(n,gap){ const t=(n-1)*gap; return d3.range(n).map(i=>CY-t/2+i*gap); }
+      const yIn=yPos(nIn,gapIn), yH=yPos(nH,gapH), yOut=yPos(nOut,gapOut);
+
+      const geluVals=[0.85,0.4,-0.25,0.7,0.55,-0.45,0.3,0.8,-0.15,0.65,0.9,-0.3,0.6,0.5,-0.1,0.75];
+
+      // ── Residual arc (drawn first, behind everything) ──
+      const gResid=svg.append('g').attr('opacity',0);
+      gResid.append('text').attr('x',(xIn+plusX)/2).attr('y',arcY-12).attr('text-anchor','middle')
+        .attr('fill',C1+'aa').attr('font-size',9.5).attr('font-family','monospace')
+        .text('residual / skip connection');
+      gResid.append('polyline')
+        .attr('points',[
+          `${xIn},${yIn[0]-rIn}`,`${xIn},${arcY}`,`${plusX},${arcY}`,`${plusX},${plusY-16}`
+        ].join(' '))
+        .attr('fill','none').attr('stroke',C1).attr('stroke-width',1.8)
+        .attr('stroke-dasharray','6,4').attr('marker-end','url(#ffn-arr-c1)');
+
+      // ── Input column ──
+      const gIn=svg.append('g').attr('opacity',0);
+      gIn.append('text').attr('x',xIn).attr('y',yIn[0]-20).attr('text-anchor','middle')
+        .attr('fill',CI).attr('font-size',10.5).attr('font-family','monospace').attr('font-weight','600').text('x');
+      gIn.append('text').attr('x',xIn).attr('y',yIn[0]-8).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('d_model');
+      yIn.forEach(y=>{
+        gIn.append('circle').attr('cx',xIn).attr('cy',y).attr('r',rIn)
+          .attr('fill',CI+'28').attr('stroke',CI).attr('stroke-width',1.5);
+      });
+      gIn.append('text').attr('x',xIn).attr('y',yIn[nIn-1]+rIn+14).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text('(token)');
+
+      // ── W1 fan lines ──
+      const gW1=svg.append('g').attr('opacity',0);
+      gW1.append('text').attr('x',(xIn+xH)/2).attr('y',24).attr('text-anchor','middle')
+        .attr('fill',C3).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
+        .text('W₁  ×4');
+      yIn.forEach(yi=>{
+        yH.forEach(yh=>{
+          gW1.append('line').attr('x1',xIn+rIn).attr('y1',yi).attr('x2',xH-rH).attr('y2',yh)
+            .attr('stroke',C3+'1c').attr('stroke-width',0.55);
+        });
+      });
+
+      // ── Hidden layer ──
+      const gH=svg.append('g').attr('opacity',0);
+      gH.append('text').attr('x',xH).attr('y',yH[0]-20).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',10.5).attr('font-family','monospace').attr('font-weight','600').text('hidden');
+      gH.append('text').attr('x',xH).attr('y',yH[0]-8).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('4×d_model');
+      const hiddenCircles=[];
+      yH.forEach((y,i)=>{
+        const c=gH.append('circle').attr('cx',xH).attr('cy',y).attr('r',rH)
+          .attr('fill',CA+'30').attr('stroke',CA).attr('stroke-width',1.2);
+        hiddenCircles.push(c);
+      });
+
+      // ── GELU legend (below hidden column, between the two fan areas) ──
+      const gGelu=svg.append('g').attr('opacity',0);
+      const geluLblY=yH[nH-1]+rH+26;
+      gGelu.append('text').attr('x',xH).attr('y',geluLblY).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',10.5).attr('font-family','monospace').attr('font-weight','bold')
+        .text('GELU activation');
+      gGelu.append('circle').attr('cx',xH-44).attr('cy',geluLblY+17).attr('r',5).attr('fill',CA+'80').attr('stroke',CA).attr('stroke-width',1.2);
+      gGelu.append('text').attr('x',xH-36).attr('y',geluLblY+21).attr('fill',CA).attr('font-size',9).attr('font-family','monospace').text('active (positive)');
+      gGelu.append('circle').attr('cx',xH-44).attr('cy',geluLblY+33).attr('r',3.5).attr('fill','#160d1f').attr('stroke',CA+'2a').attr('stroke-width',1);
+      gGelu.append('text').attr('x',xH-36).attr('y',geluLblY+37).attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('gated (negative)');
+
+      // ── W2 fan lines ──
+      const gW2=svg.append('g').attr('opacity',0);
+      gW2.append('text').attr('x',(xH+xOut)/2).attr('y',24).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
+        .text('W₂  ÷4');
+      yH.forEach(yh=>{
+        yOut.forEach(yo=>{
+          gW2.append('line').attr('x1',xH+rH).attr('y1',yh).attr('x2',xOut-rOut).attr('y2',yo)
+            .attr('stroke',C2+'1c').attr('stroke-width',0.55);
+        });
+      });
+
+      // ── Output column ──
+      const gOut=svg.append('g').attr('opacity',0);
+      gOut.append('text').attr('x',xOut).attr('y',yOut[0]-20).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',10.5).attr('font-family','monospace').attr('font-weight','600').text('FFN(x)');
+      gOut.append('text').attr('x',xOut).attr('y',yOut[0]-8).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('d_model');
+      yOut.forEach(y=>{
+        gOut.append('circle').attr('cx',xOut).attr('cy',y).attr('r',rOut)
+          .attr('fill',C2+'28').attr('stroke',C2).attr('stroke-width',1.5);
+      });
+
+      // Line from output to + circle
+      const gAdd=svg.append('g').attr('opacity',0);
+      gAdd.append('line').attr('x1',xOut+rOut).attr('y1',CY).attr('x2',plusX-16).attr('y2',CY)
+        .attr('stroke',C2).attr('stroke-width',1.5).attr('marker-end','url(#ffn-arr-c2)');
+      gAdd.append('circle').attr('cx',plusX).attr('cy',plusY).attr('r',15)
+        .attr('fill','rgba(0,217,255,0.08)').attr('stroke',C1).attr('stroke-width',1.8);
+      gAdd.append('text').attr('x',plusX).attr('y',plusY+6).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',17).attr('font-family','monospace').attr('font-weight','bold').text('+');
+
+      // ── LayerNorm box ──
+      const gLN=svg.append('g').attr('opacity',0);
+      gLN.append('line').attr('x1',plusX+15).attr('y1',plusY).attr('x2',lnX).attr('y2',plusY)
+        .attr('stroke',CW).attr('stroke-width',1.5);
+      gLN.append('rect').attr('x',lnX).attr('y',plusY-lnH/2).attr('width',lnW).attr('height',lnH)
+        .attr('rx',6).attr('fill','rgba(45,232,160,0.08)').attr('stroke',C2).attr('stroke-width',1.8);
+      gLN.append('text').attr('x',lnX+lnW/2).attr('y',plusY-4).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold').text('Layer');
+      gLN.append('text').attr('x',lnX+lnW/2).attr('y',plusY+10).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold').text('Norm');
+
+      // ── Final output arrow ──
+      const gFinal=svg.append('g').attr('opacity',0);
+      gFinal.append('line').attr('x1',lnX+lnW).attr('y1',plusY).attr('x2',lnX+lnW+34).attr('y2',plusY)
+        .attr('stroke',CW).attr('stroke-width',1.5).attr('marker-end','url(#ffn-arr-w)');
+      gFinal.append('text').attr('x',lnX+lnW+42).attr('y',plusY-7).attr('fill',CW)
+        .attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold').text("x'");
+      gFinal.append('text').attr('x',lnX+lnW+42).attr('y',plusY+9).attr('fill',CM)
+        .attr('font-size',9).attr('font-family','monospace').text('next layer');
+
+      // ─── Animation sequence ────────────────────────────────────────────────
+      function fade(g,delay,dur=450){ g.transition().delay(delay).duration(dur).attr('opacity',1); }
+      fade(gL,0,700);
+      fade(gIn,700,500);
+      fade(gW1,1300,600);
+      fade(gH,1950,500);
+      setTimeout(()=>{
+        hiddenCircles.forEach((c,i)=>{
+          const v=geluVals[i];
+          c.transition().duration(700)
+            .attr('fill',v>0?CA+'68':'#160d1f')
+            .attr('stroke',v>0?CA:CA+'2a')
+            .attr('r',v>0?rH+2:rH-1);
+        });
+      },2500);
+      fade(gGelu,2600,500);
+      fade(gW2,3200,600);
+      fade(gOut,3850,500);
+      fade(gAdd,4400,600);
+      fade(gResid,4900,700);
+      fade(gLN,5600,500);
+      fade(gFinal,6100,500);
+    }
+
+    init();
+    Reveal.on('slidechanged',e=>{
+      if(e.currentSlide.id==='ffn-layer'){ d3.select(el).selectAll('*').remove(); init(); }
+    });
+  })();
+  </script>
+
+  <!-- FFN activations slide -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#00d9ff',C2='#2de8a0',C3='#ffa830',CA='#9d4edd',CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.88)';
+    const el=document.getElementById('ffn-activations-canvas');
+    if(!el) return;
+
+    const relu=x=>Math.max(0,x);
+    const gelu=x=>0.5*x*(1+Math.tanh(0.7978*(x+0.044715*x*x*x)));
+    const silu=x=>x/(1+Math.exp(-x));
+
+    function init(){
+      d3.select(el).selectAll('*').remove();
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').attr('height','100%');
+
+      const defs=svg.append('defs');
+      const flt=defs.append('filter').attr('id','actv-glow').attr('x','-20%').attr('y','-20%').attr('width','140%').attr('height','140%');
+      flt.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation','3').attr('result','blur');
+      const mg=flt.append('feMerge');
+      mg.append('feMergeNode').attr('in','blur');
+      mg.append('feMergeNode').attr('in','SourceGraphic');
+
+      // ─── LEFT PANEL: Properties ──────────────────────────────────────────────
+      const gL=svg.append('g').attr('opacity',0);
+      gL.append('rect').attr('x',8).attr('y',8).attr('width',396).attr('height',H-16)
+        .attr('rx',8).attr('fill','rgba(0,217,255,0.04)').attr('stroke','rgba(0,217,255,0.12)').attr('stroke-width',1);
+      gL.append('text').attr('x',205).attr('y',32).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',13).attr('font-weight','bold').attr('font-family','monospace')
+        .text('What Makes a Good Activation?');
+      gL.append('line').attr('x1',16).attr('y1',42).attr('x2',396).attr('y2',42)
+        .attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.8);
+
+      const props=[
+        [C3,'Non-linear',
+         ['Stacked linear layers collapse to one linear map.',
+          'Activation breaks this — enabling rich representations.']],
+        [CA,'Smooth / differentiable',
+         ['Gradients can flow through every input value.',
+          'Avoids the dead-zone discontinuity of vanilla ReLU.']],
+        [C2,'Non-saturating',
+         ['Output grows with x on the positive side —',
+          'gradients stay alive deep in the network.']],
+        [C1,'Selective gating',
+         ['Negative or small activations are damped,',
+          'directing compute to informative dimensions.']],
+        [CI,'Computationally cheap',
+         ['Activation is on the critical path of every forward pass.',
+          'Simple, vectorizable ops matter at billion-parameter scale.']],
+      ];
+      props.forEach(([col,lbl,lines],i)=>{
+        const y=52+i*87;
+        gL.append('circle').attr('cx',25).attr('cy',y+2).attr('r',5.5).attr('fill',col).attr('filter','url(#actv-glow)');
+        gL.append('text').attr('x',37).attr('y',y+6).attr('fill',col)
+          .attr('font-size',11.5).attr('font-family','monospace').attr('font-weight','bold').text(lbl);
+        lines.forEach((line,j)=>{
+          gL.append('text').attr('x',37).attr('y',y+21+j*13).attr('fill',CW)
+            .attr('font-size',9.5).attr('font-family','monospace').text(line);
+        });
+      });
+
+      svg.append('line').attr('x1',410).attr('y1',18).attr('x2',410).attr('y2',H-18)
+        .attr('stroke','rgba(255,255,255,0.06)').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+
+      // ─── CENTER: Curve chart ──────────────────────────────────────────────────
+      const PX1=420,PX2=716,PY1=28,PY2=390;
+      const xSc=d3.scaleLinear().domain([-2.8,2.8]).range([PX1,PX2]);
+      const ySc=d3.scaleLinear().domain([-0.45,2.95]).range([PY2,PY1]);
+      const xs=d3.range(90).map(i=>-2.8+i*5.6/89);
+
+      const gAxes=svg.append('g').attr('opacity',0);
+      gAxes.append('rect').attr('x',PX1).attr('y',PY1).attr('width',PX2-PX1).attr('height',PY2-PY1)
+        .attr('fill','rgba(8,12,30,0.75)').attr('stroke','rgba(255,255,255,0.08)').attr('stroke-width',0.8).attr('rx',4);
+      gAxes.append('line').attr('x1',PX1).attr('y1',ySc(0)).attr('x2',PX2).attr('y2',ySc(0))
+        .attr('stroke','rgba(255,255,255,0.22)').attr('stroke-width',0.9);
+      gAxes.append('line').attr('x1',xSc(0)).attr('y1',PY1+2).attr('x2',xSc(0)).attr('y2',PY2)
+        .attr('stroke','rgba(255,255,255,0.22)').attr('stroke-width',0.9);
+      [-2,-1,1,2].forEach(v=>{
+        gAxes.append('text').attr('x',xSc(v)).attr('y',ySc(0)+12).attr('text-anchor','middle')
+          .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text(v);
+      });
+      [1,2].forEach(v=>{
+        gAxes.append('line').attr('x1',PX1).attr('y1',ySc(v)).attr('x2',PX2).attr('y2',ySc(v))
+          .attr('stroke','rgba(255,255,255,0.07)').attr('stroke-width',0.6).attr('stroke-dasharray','3,3');
+        gAxes.append('text').attr('x',xSc(0)-5).attr('y',ySc(v)+3).attr('text-anchor','end')
+          .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text(v);
+      });
+      gAxes.append('text').attr('x',(PX1+PX2)/2).attr('y',PY2+13).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text('input x');
+      gAxes.append('text').attr('x',(PX1+PX2)/2).attr('y',PY1-7).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('Activation curves');
+
+      function mkPath(fn){
+        return d3.line().x(x=>xSc(x))
+          .y(x=>ySc(Math.min(2.95,Math.max(-0.45,fn(x)))))
+          .curve(d3.curveCatmullRom)(xs);
+      }
+
+      const gRelu=svg.append('g').attr('opacity',0);
+      gRelu.append('path').attr('d',mkPath(relu)).attr('fill','none').attr('stroke',C3)
+        .attr('stroke-width',2.3).attr('filter','url(#actv-glow)');
+
+      const gGelu=svg.append('g').attr('opacity',0);
+      gGelu.append('path').attr('d',mkPath(gelu)).attr('fill','none').attr('stroke',CA)
+        .attr('stroke-width',2.3).attr('filter','url(#actv-glow)');
+
+      const gSilu=svg.append('g').attr('opacity',0);
+      gSilu.append('path').attr('d',mkPath(silu)).attr('fill','none').attr('stroke',C2)
+        .attr('stroke-width',2.3).attr('filter','url(#actv-glow)');
+
+      const gLeg=svg.append('g').attr('opacity',0);
+      const legY=PY2+14, legGap=(PX2-PX1)/3;
+      [[C3,'ReLU  max(0,x)'],[CA,'GELU  x·Φ(x)'],[C2,'SiLU  x·σ(x)']].forEach(([col,lbl],i)=>{
+        const lx=PX1+i*legGap+4;
+        gLeg.append('line').attr('x1',lx).attr('y1',legY+5).attr('x2',lx+16).attr('y2',legY+5)
+          .attr('stroke',col).attr('stroke-width',2.5);
+        gLeg.append('text').attr('x',lx+20).attr('y',legY+9).attr('fill',col)
+          .attr('font-size',9.5).attr('font-family','monospace').text(lbl);
+      });
+
+      // ─── RIGHT PANEL: Model table ─────────────────────────────────────────────
+      const RX=726;
+      const gR=svg.append('g').attr('opacity',0);
+      gR.append('text').attr('x',RX+182).attr('y',24).attr('text-anchor','middle')
+        .attr('fill',CW).attr('font-size',13).attr('font-weight','bold').attr('font-family','monospace')
+        .text('Used by models');
+      gR.append('line').attr('x1',RX+2).attr('y1',32).attr('x2',RX+360).attr('y2',32)
+        .attr('stroke','rgba(255,255,255,0.1)').attr('stroke-width',0.8);
+
+      const tableRows=[
+        {col:C3,fn:'ReLU',   note:'max(0, x)',      models:['Original Transformer (2017)','T5 · XLNet (early)']},
+        {col:CA,fn:'GELU',   note:'x · Φ(x)',       models:['BERT · GPT-2 · GPT-3','RoBERTa · ViT · Falcon']},
+        {col:C2,fn:'SiLU',   note:'x · σ(x)',       models:['LLaMA 1 · Phi-2 · Phi-3','BLOOM (variant)']},
+        {col:C1,fn:'SwiGLU', note:'SiLU(Wx) ⊗ Vx', models:['PaLM · LLaMA 2/3 · Gemma','Mistral · Mixtral · Gemini']},
+      ];
+
+      tableRows.forEach(({col,fn,note,models},i)=>{
+        const ry=38+i*100;
+        gR.append('rect').attr('x',RX+2).attr('y',ry).attr('width',76).attr('height',22)
+          .attr('rx',4).attr('fill',col+'1e').attr('stroke',col).attr('stroke-width',1.2);
+        gR.append('text').attr('x',RX+40).attr('y',ry+15).attr('text-anchor','middle')
+          .attr('fill',col).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold').text(fn);
+        gR.append('text').attr('x',RX+84).attr('y',ry+15)
+          .attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text(note);
+        gR.append('line').attr('x1',RX+2).attr('y1',ry+27).attr('x2',RX+358).attr('y2',ry+27)
+          .attr('stroke',col+'28').attr('stroke-width',0.7);
+        models.forEach((m,j)=>{
+          gR.append('text').attr('x',RX+10).attr('y',ry+43+j*18)
+            .attr('fill',CW).attr('font-size',10.5).attr('font-family','monospace').text('· '+m);
+        });
+      });
+
+      // SwiGLU note
+      gR.append('line').attr('x1',RX+2).attr('y1',H-48).attr('x2',RX+358).attr('y2',H-48)
+        .attr('stroke','rgba(255,255,255,0.07)').attr('stroke-width',0.7);
+      gR.append('text').attr('x',RX+4).attr('y',H-34).attr('fill',CM)
+        .attr('font-size',8.5).attr('font-family','monospace')
+        .text('* SwiGLU uses 3 matrices: FFN(x) = (SiLU(W₁x) ⊗ W₂x) · W₃');
+
+      // YouTube link
+      const gYT=svg.append('g').attr('opacity',0);
+      const ytY=H-10;
+      gYT.append('rect').attr('x',RX+2).attr('y',ytY-15).attr('width',358).attr('height',18)
+        .attr('rx',4).attr('fill','rgba(200,30,30,0.1)').attr('stroke','rgba(255,80,80,0.35)').attr('stroke-width',1);
+      gYT.append('polygon').attr('points',`${RX+10},${ytY-8} ${RX+10},${ytY+1} ${RX+20},${ytY-3.5}`)
+        .attr('fill','#ff3c3c');
+      gYT.append('a').attr('href','https://youtu.be/JRaPNrpsQ9s?si=bU5QHNlZXD8Weq3U').attr('target','_blank')
+        .append('text').attr('x',RX+25).attr('y',ytY+1).attr('fill','#ff9999')
+        .attr('font-size',9.5).attr('font-family','monospace').attr('text-decoration','underline')
+        .text('youtu.be/JRaPNrpsQ9s  —  FFN & activation functions explained');
+
+      // ─── Animation ──────────────────────────────────────────────────────────
+      function fade(g,d,t=450){ g.transition().delay(d).duration(t).attr('opacity',1); }
+      fade(gL,0,700);
+      fade(gAxes,700,500);
+      fade(gRelu,1250,500);
+      fade(gGelu,1800,500);
+      fade(gSilu,2350,500);
+      fade(gLeg,2900,400);
+      fade(gR,3300,700);
+      fade(gYT,4100,500);
+    }
+
+    init();
+    Reveal.on('slidechanged',e=>{
+      if(e.currentSlide.id==='ffn-activations'){ d3.select(el).selectAll('*').remove(); init(); }
+    });
   })();
   </script>
 
