@@ -2534,6 +2534,14 @@
           <div id="ffn-activations-canvas" style="width:100%;height:490px;"></div>
         </div>
       </section>
+
+      <section id="ffn-glu">
+        <h2 style="margin-bottom:4px;">Fancy FFN: Gated Linear Units (GLU)</h2>
+        <p style="margin:0 0 4px; font-size:11pt; color:var(--muted-color); font-style:italic;">GLU-based FFNs make that transformation more selective and expressive by adding a learned gate.</p>
+        <div class="content" style="padding-top:2px;">
+          <div id="ffn-glu-canvas" style="width:100%;height:470px;"></div>
+        </div>
+      </section>
 </section>
 
 <section>
@@ -5079,6 +5087,207 @@
     init();
     Reveal.on('slidechanged',e=>{
       if(e.currentSlide.id==='ffn-activations'){ d3.select(el).selectAll('*').remove(); init(); }
+    });
+  })();
+  </script>
+
+  <!-- FFN GLU slide -->
+  <script>
+  (function(){
+    const W=1100,H=470;
+    const C1='#00d9ff',C2='#2de8a0',C3='#ffa830',CA='#9d4edd',CI='#4da8ff';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.88)';
+    const el=document.getElementById('ffn-glu-canvas');
+    if(!el) return;
+
+    function init(){
+      d3.select(el).selectAll('*').remove();
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).attr('width','100%').attr('height','100%');
+
+      const defs=svg.append('defs');
+      function mkArr(id,col){
+        defs.append('marker').attr('id',id).attr('markerWidth',8).attr('markerHeight',6)
+          .attr('refX',6).attr('refY',3).attr('orient','auto')
+          .append('polygon').attr('points','0 0,8 3,0 6').attr('fill',col);
+      }
+      mkArr('glu-arr-w',CW); mkArr('glu-arr-c1',C1);
+
+      // ── LEFT PANEL ──────────────────────────────────────────────────────────
+      const gL=svg.append('g').attr('opacity',0);
+
+      gL.append('text').attr('x',10).attr('y',22).attr('fill',C1)
+        .attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold')
+        .text('Gated Linear Units (GLU)');
+
+      const fb=gL.append('g');
+      fb.append('rect').attr('x',8).attr('y',30).attr('width',394).attr('height',100)
+        .attr('rx',5).attr('fill','rgba(0,217,255,0.04)').attr('stroke','rgba(0,217,255,0.18)').attr('stroke-width',1);
+      fb.append('text').attr('x',16).attr('y',48).attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text('Standard FFN:');
+      fb.append('text').attr('x',16).attr('y',64).attr('fill',C3).attr('font-size',11).attr('font-family','monospace').attr('font-weight','600')
+        .text('h = Act(xW₁) · W₂');
+      fb.append('text').attr('x',16).attr('y',84).attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text('GLU-FFN (e.g. SwiGLU):');
+      fb.append('text').attr('x',16).attr('y',100).attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','600')
+        .text('h = (SiLU(xW₁) ⊗ xW₂) · W₃');
+      fb.append('text').attr('x',16).attr('y',122).attr('fill',CM).attr('font-size',9).attr('font-family','monospace')
+        .text('W₁,W₂ ∈ ℝ^{d×8d/3}   W₃ ∈ ℝ^{8d/3×d}');
+
+      const bullets=[
+        [C3,'• Gate path:',   'activation (SiLU/GELU) controls feature amplitude'],
+        [C2,'• Linear path:', 'parallel projection, no activation (W₂)'],
+        [C1,'• ⊗ Hadamard:',  'element-wise multiply — selective gating'],
+        [CA,'• Input-aware:', 'each token generates its own gate values'],
+        [CM,'• Hidden dim:',  '~8/3 d (≈ same FLOPs as standard 4× FFN)'],
+      ];
+      bullets.forEach(([col,lbl,desc],i)=>{
+        const y=152+i*46;
+        gL.append('text').attr('x',14).attr('y',y).attr('fill',col).attr('font-size',10).attr('font-family','monospace').attr('font-weight','600').text(lbl);
+        gL.append('text').attr('x',14).attr('y',y+15).attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text(desc);
+      });
+
+      const wy=408;
+      gL.append('rect').attr('x',8).attr('y',wy).attr('width',394).attr('height',64)
+        .attr('rx',5).attr('fill','rgba(157,78,221,0.06)').attr('stroke','rgba(157,78,221,0.22)').attr('stroke-width',1);
+      gL.append('text').attr('x',16).attr('y',wy+16).attr('fill',CA).attr('font-size',9.5).attr('font-family','monospace').attr('font-weight','600').text('Why it matters:');
+      gL.append('text').attr('x',16).attr('y',wy+33).attr('fill',CW).attr('font-size',9.5).attr('font-family','monospace').text('The gate learns which features to amplify or');
+      gL.append('text').attr('x',16).attr('y',wy+50).attr('fill',CW).attr('font-size',9.5).attr('font-family','monospace').text('suppress — dynamic, input-dependent control.');
+
+      svg.append('line').attr('x1',408).attr('y1',18).attr('x2',408).attr('y2',H-18)
+        .attr('stroke','rgba(255,255,255,0.06)').attr('stroke-width',1).attr('stroke-dasharray','4,4');
+
+      // ── FLOW DIAGRAM ────────────────────────────────────────────────────────
+      const gInput=svg.append('g').attr('opacity',0);
+      const gPaths=svg.append('g').attr('opacity',0);
+      const gGate =svg.append('g').attr('opacity',0);
+      const gMul  =svg.append('g').attr('opacity',0);
+      const gOut  =svg.append('g').attr('opacity',0);
+
+      const yTop=80, yBot=182, yMid=131;
+      const xLbl=428, xBr=470;
+      const bW=72, bH=28;
+      const xW12=508;
+      const xAct=614, aW=78;
+      const xMul=755, rMul=19;
+      const xW3=794, w3W=72;
+      const xArrEnd=920;
+
+      // Input "x" + stem
+      gInput.append('text').attr('x',xLbl).attr('y',yMid+6).attr('text-anchor','middle')
+        .attr('fill',CI).attr('font-size',17).attr('font-family','monospace').attr('font-weight','bold').text('x');
+      gInput.append('text').attr('x',xLbl).attr('y',yMid+20).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',8.5).attr('font-family','monospace').text('d_model');
+      gInput.append('line').attr('x1',xLbl+14).attr('y1',yMid).attr('x2',xBr).attr('y2',yMid)
+        .attr('stroke',CI).attr('stroke-width',1.8);
+      gInput.append('circle').attr('cx',xBr).attr('cy',yMid).attr('r',3.5).attr('fill',CI);
+
+      // Branch → W1 (gate) / W2 (linear)
+      gPaths.append('polyline')
+        .attr('points',`${xBr},${yMid} ${xBr},${yTop} ${xW12},${yTop}`)
+        .attr('fill','none').attr('stroke',C3).attr('stroke-width',1.6);
+      gPaths.append('polyline')
+        .attr('points',`${xBr},${yMid} ${xBr},${yBot} ${xW12},${yBot}`)
+        .attr('fill','none').attr('stroke',C2).attr('stroke-width',1.6);
+      // W1 box
+      gPaths.append('rect').attr('x',xW12).attr('y',yTop-bH/2).attr('width',bW).attr('height',bH)
+        .attr('rx',5).attr('fill','rgba(255,168,48,0.10)').attr('stroke',C3).attr('stroke-width',1.6);
+      gPaths.append('text').attr('x',xW12+bW/2).attr('y',yTop+5).attr('text-anchor','middle')
+        .attr('fill',C3).attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold').text('W₁');
+      // W2 box
+      gPaths.append('rect').attr('x',xW12).attr('y',yBot-bH/2).attr('width',bW).attr('height',bH)
+        .attr('rx',5).attr('fill','rgba(45,232,160,0.10)').attr('stroke',C2).attr('stroke-width',1.6);
+      gPaths.append('text').attr('x',xW12+bW/2).attr('y',yBot+5).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold').text('W₂');
+      // Path labels
+      gPaths.append('text').attr('x',598).attr('y',yTop-18).attr('text-anchor','middle')
+        .attr('fill',C3+'bb').attr('font-size',9.5).attr('font-family','monospace').text('gate path');
+      gPaths.append('text').attr('x',xW12+bW/2).attr('y',yBot+26).attr('text-anchor','middle')
+        .attr('fill',C2+'bb').attr('font-size',9.5).attr('font-family','monospace').text('linear path  (no activation)');
+
+      // W1 → Act (gate fn)
+      gGate.append('line').attr('x1',xW12+bW).attr('y1',yTop).attr('x2',xAct).attr('y2',yTop)
+        .attr('stroke',C3).attr('stroke-width',1.6);
+      gGate.append('rect').attr('x',xAct).attr('y',yTop-bH/2).attr('width',aW).attr('height',bH)
+        .attr('rx',5).attr('fill','rgba(157,78,221,0.12)').attr('stroke',CA).attr('stroke-width',1.6);
+      gGate.append('text').attr('x',xAct+aW/2).attr('y',yTop-2).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',12).attr('font-family','monospace').attr('font-weight','bold').text('SiLU');
+      gGate.append('text').attr('x',xAct+aW/2).attr('y',yTop+12).attr('text-anchor','middle')
+        .attr('fill',CA+'80').attr('font-size',8.5).attr('font-family','monospace').text('gate fn');
+
+      // Act → ⊗ (elbow from top), W2 → ⊗ (elbow from bottom)
+      gMul.append('polyline')
+        .attr('points',`${xAct+aW},${yTop} ${xMul},${yTop} ${xMul},${yMid-rMul}`)
+        .attr('fill','none').attr('stroke',CA).attr('stroke-width',1.6);
+      gMul.append('polyline')
+        .attr('points',`${xW12+bW},${yBot} ${xMul},${yBot} ${xMul},${yMid+rMul}`)
+        .attr('fill','none').attr('stroke',C2).attr('stroke-width',1.6);
+      gMul.append('circle').attr('cx',xMul).attr('cy',yMid).attr('r',rMul)
+        .attr('fill','rgba(0,217,255,0.07)').attr('stroke',C1).attr('stroke-width',1.8);
+      gMul.append('text').attr('x',xMul).attr('y',yMid+7).attr('text-anchor','middle')
+        .attr('fill',C1).attr('font-size',20).attr('font-family','monospace').attr('font-weight','bold').text('⊗');
+
+      // ⊗ → W3 → output
+      gOut.append('line').attr('x1',xMul+rMul).attr('y1',yMid).attr('x2',xW3).attr('y2',yMid)
+        .attr('stroke',C1).attr('stroke-width',1.6);
+      gOut.append('rect').attr('x',xW3).attr('y',yMid-bH/2).attr('width',w3W).attr('height',bH)
+        .attr('rx',5).attr('fill','rgba(77,168,255,0.10)').attr('stroke',CI).attr('stroke-width',1.6);
+      gOut.append('text').attr('x',xW3+w3W/2).attr('y',yMid+5).attr('text-anchor','middle')
+        .attr('fill',CI).attr('font-size',13).attr('font-family','monospace').attr('font-weight','bold').text('W₃');
+      gOut.append('line').attr('x1',xW3+w3W).attr('y1',yMid).attr('x2',xArrEnd-10).attr('y2',yMid)
+        .attr('stroke',CW).attr('stroke-width',1.6).attr('marker-end','url(#glu-arr-w)');
+      gOut.append('text').attr('x',xArrEnd).attr('y',yMid-4).attr('fill',CW)
+        .attr('font-size',15).attr('font-family','monospace').attr('font-weight','bold').text("x'");
+      gOut.append('text').attr('x',xArrEnd).attr('y',yMid+13).attr('fill',CM)
+        .attr('font-size',8.5).attr('font-family','monospace').text('d_model');
+
+      // ── VARIANTS TABLE ──────────────────────────────────────────────────────
+      const gTab=svg.append('g').attr('opacity',0);
+      const TY=228;
+      const hCols=[418,520,618,822];
+      gTab.append('line').attr('x1',415).attr('y1',TY-2).attr('x2',1085).attr('y2',TY-2)
+        .attr('stroke','rgba(255,255,255,0.08)').attr('stroke-width',1);
+      ['Variant','Gate fn','Formula','Used by'].forEach((h,i)=>{
+        gTab.append('text').attr('x',hCols[i]).attr('y',TY+13).attr('fill',CM)
+          .attr('font-size',9.5).attr('font-family','monospace').attr('font-weight','600').text(h);
+      });
+      gTab.append('line').attr('x1',415).attr('y1',TY+19).attr('x2',1085).attr('y2',TY+19)
+        .attr('stroke','rgba(255,255,255,0.10)').attr('stroke-width',1);
+
+      [
+        [C1,'GLU',   'σ (sigmoid)','σ(xW₁) ⊗ xW₂',    'Dauphin et al. 2017 (original)'],
+        [C3,'ReGLU', 'ReLU',       'ReLU(xW₁) ⊗ xW₂', 'PaLM (ablation)'],
+        [CA,'GeGLU', 'GELU',       'GELU(xW₁) ⊗ xW₂', 'T5 v1.1 · Gopher'],
+        [C2,'SwiGLU','SiLU',       'SiLU(xW₁) ⊗ xW₂', 'LLaMA 2/3 · Mistral · Gemma · PaLM · Mixtral'],
+      ].forEach(([col,name,gate,formula,models],i)=>{
+        const ry=TY+44+i*52;
+        gTab.append('text').attr('x',hCols[0]).attr('y',ry)
+          .attr('fill',col).attr('font-size',12).attr('font-family','monospace').attr('font-weight','bold').text(name);
+        gTab.append('text').attr('x',hCols[1]).attr('y',ry)
+          .attr('fill',col+'cc').attr('font-size',10).attr('font-family','monospace').text(gate);
+        gTab.append('text').attr('x',hCols[2]).attr('y',ry)
+          .attr('fill',CW+'99').attr('font-size',9.5).attr('font-family','monospace').text(formula);
+        gTab.append('text').attr('x',hCols[3]).attr('y',ry)
+          .attr('fill',CM).attr('font-size',9.5).attr('font-family','monospace').text(models);
+        if(i<3) gTab.append('line').attr('x1',415).attr('y1',ry+14).attr('x2',1085).attr('y2',ry+14)
+          .attr('stroke','rgba(255,255,255,0.04)').attr('stroke-width',1);
+      });
+      // SwiGLU dominance note
+      gTab.append('text').attr('x',415).attr('y',TY+44+4*52-4)
+        .attr('fill',C2+'88').attr('font-size',9).attr('font-family','monospace')
+        .text('★ SwiGLU is the dominant choice in modern LLMs (LLaMA, Mistral, Gemma, Qwen, DeepSeek...)');
+
+      function fade(g,d,t=450){ g.transition().delay(d).duration(t).attr('opacity',1); }
+      fade(gL,0,700);
+      fade(gInput,700,500);
+      fade(gPaths,1200,500);
+      fade(gGate,1800,500);
+      fade(gMul,2400,500);
+      fade(gOut,3000,500);
+      fade(gTab,3600,700);
+    }
+
+    init();
+    Reveal.on('slidechanged',e=>{
+      if(e.currentSlide.id==='ffn-glu'){ d3.select(el).selectAll('*').remove(); init(); }
     });
   })();
   </script>
