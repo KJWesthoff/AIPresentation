@@ -1836,7 +1836,6 @@
               <span class="glove-chip">tokyo − japan + china</span>
               <span class="glove-chip">berlin − germany + italy</span>
               <span class="glove-chip">coffee − brazil + france</span>
-              <span class="glove-chip">obama − usa + france</span>
               <span class="glove-chip">shakespeare − england + germany</span>
             </div>
 
@@ -2483,7 +2482,7 @@
       </section>
 
       <section id="attn-head">
-        <h2 style="margin-bottom:6px;">One Attention Head — Full Computation</h2>
+        <h2 style="margin-bottom:6px;">Self-attention</h2>
         <div class="content" style="padding-top:2px;">
           <div id="attn-head-canvas" style="width:100%;height:490px;"></div>
         </div>
@@ -2492,10 +2491,10 @@
       <section id="multi-head-attn">
         <h2 style="margin-bottom:6px;">Multi-Head Attention</h2>
         <div class="content" style="padding-top:2px;">
-          <div id="mha-canvas" style="width:100%;height:400px;"></div>
+          <div id="mha-canvas" style="width:100%;height:460px;"></div>
           <div style="display:flex;gap:32px;margin-top:8px;padding:0 8px;">
             <div style="flex:1;background:rgba(0,217,255,0.07);border:1px solid rgba(0,217,255,0.25);border-radius:8px;padding:10px 16px;">
-              <p style="margin:0;font-size:13pt;color:rgba(220,235,255,0.85);"><strong style="color:var(--primary-color);">Reshaping, not replication</strong> — the same weight budget is split across <em>h</em> heads; each head's W<sub>Q</sub>, W<sub>K</sub>, W<sub>V</sub> operate in a lower <em>d/h</em>-dimensional subspace, keeping total parameter count constant.</p>
+              <p style="margin:0;font-size:13pt;color:rgba(220,235,255,0.85);"><strong style="color:var(--primary-color);">Same budget, lower dimension</strong> — each head has its own W<sup>Q</sup><sub>i</sub>, W<sup>K</sup><sub>i</sub>, W<sup>V</sup><sub>i</sub> (shape d×d<sub>k</sub>), so the total parameter count equals one full d×d projection — the budget is divided, not multiplied.</p>
             </div>
             <div style="flex:1;background:rgba(157,78,221,0.07);border:1px solid rgba(157,78,221,0.25);border-radius:8px;padding:10px 16px;">
               <p style="margin:0;font-size:13pt;color:rgba(220,235,255,0.85);"><strong style="color:var(--secondary-color);">Random init breaks symmetry</strong> — heads start with different random weights, so gradients diverge from the first step and each head learns to track a distinct relationship (syntax, coreference, position, …).</p>
@@ -6825,57 +6824,81 @@
   })();
   </script>
 
-  <!-- Multi-Head Attention diagram -->
+  <!-- Multi-Head Attention diagram — corrected: each head has its own W_Q_i W_K_i W_V_i -->
   <script>
   (function(){
-    const SVG_W=1100, SVG_H=490;
-    const CQ='#00d9ff', CK='#9d4edd', CV='#ffa014';
-    const CXC='#4da8ff', CAC='#3ecf72', CO='#e040fb';
-    const Cm='rgba(155,175,200,0.65)';
-    const Cw='rgba(220,235,255,0.80)';
+    const SVG_W=1100, SVG_H=460;
+    const CQ='#00d9ff', CK='#9d4edd', CV='#ffa014', CX='#4da8ff';
+    const Cm='rgba(155,175,200,0.65)', Cw='rgba(220,235,255,0.85)';
+    const HC=['#ff6b6b','#ffd93d','#6bcb77','#4d96ff']; // per-head colours
 
-    // Layout constants
-    const N_H=62;          // matrix pixel height (N rows) — slightly shorter to fit 4 heads
-    const H=4;             // number of heads
-    const D_W=60;          // X width (d)
-    const DK_W=32;         // per-head width (d/h)
-    const HEAD_GAP=14;     // vertical gap between heads
+    // ── Geometry ──────────────────────────────────────────────────
+    // Each head has its OWN W_Q_i, W_K_i, W_V_i  (d × d_k each).
+    // The SAME X feeds all heads in parallel.
+    // Vaswani et al. 2017: head_i = Attention(X W^Q_i, X W^K_i, X W^V_i)
+    const nN=6, nD=8, nH=4, nDk=nD/nH; // N, d, h, d_k = d/h = 2
 
-    // Total height occupied by all heads
-    const totalH = H*N_H + (H-1)*HEAD_GAP;  // 4*62+3*14 = 290
-    const topY   = (SVG_H - totalH)/2 - 10; // ≈90 — centre vertically
+    // X matrix display:  N×d
+    const XW=nD*13, XH=nN*10;  // 104×60
+    const xOx=18, xOy=Math.round((SVG_H-XH)/2); // vertically centred
 
-    // head top y-positions
-    function headY(i){ return topY + i*(N_H+HEAD_GAP); }
+    // Per-head weight matrix W_?_i: d × d_k  (tall & narrow — d rows, dk cols)
+    const WWw=nDk*11, WWh=nD*9;  // 22×72
+    // Per-head output matrix Q_i/K_i/V_i: N × d_k  (same width, shorter)
+    const QWw=nDk*11, QWh=nN*10; // 22×60
 
-    // X matrix (shown once, centred vertically)
-    const PX = {ox:22, oy: topY + totalH/2 - N_H/2};
+    // 4 head rows, evenly spaced
+    const rowH=82, rowGap=14;
+    const totalRowH=nH*rowH+(nH-1)*rowGap;  // 4*82+3*14 = 370
+    const headTopY=Math.round((SVG_H-totalRowH)/2); // 45
+    function headY(i){ return headTopY+i*(rowH+rowGap); }
 
-    // Projection box per head
-    const pbX=110, pbW=88;
-    // Q K V per head
-    const qkvOx = pbX+pbW+22;  // 220
-    // Scores / Attn / Head-out per head
-    const PSox = qkvOx+DK_W+52;   // 304
-    const PAox = PSox+N_H+52;     // 418
-    const Hout_ox = PAox+N_H+52;  // 532  head output (N×dₖ)
+    // Within each row, W centre and Q centre are both at headY+rowH/2 = headY+41
+    const wCenOff=Math.round((rowH-WWh)/2); // offset from headY to top of W  = 5
+    const qCenOff=Math.round((rowH-QWh)/2); // offset from headY to top of Q  = 11
 
-    // Concat box
-    const concatX = Hout_ox+DK_W+28;  // 592
-    const concatW  = 20;
-    // W_O box
-    const woX = concatX+concatW+22;   // 634
-    const woW = 62;
-    // Final output
-    const outX = woX+woW+22;          // 718
-    const outW = D_W;                  // N×d
+    // X positions inside each head row
+    const hBoxX=152;          // left edge of head row box
+    // Three [W → Q] triplets (Q-triplet, K-triplet, V-triplet)
+    const tSep=20;            // gap between the Q/K/V triplets
+    const arrW=18;            // pixel width of the "→" arrow gap
+    const wqX=hBoxX+28;      // Wq_i left edge
+    const qiX=wqX+WWw+arrW;  // Q_i left edge  (= wqX+40)
+    const wkX=qiX+QWw+tSep;  // Wk_i            (= wqX+40+22+20=wqX+82)
+    const kiX=wkX+WWw+arrW;  // K_i
+    const wvX=kiX+QWw+tSep;  // Wv_i
+    const viX=wvX+WWw+arrW;  // V_i
+    const hBoxRight=viX+QWw+10; // right edge of head box
 
-    const SCORES=[
-      [0.86,0.38,0.12,0.07],[0.40,0.88,0.45,0.14],
-      [0.08,0.44,0.90,0.42],[0.04,0.14,0.45,0.88],
-    ];
+    // ── Helpers ───────────────────────────────────────────────────
+    function cv(r,c,s){ return Math.sin(r*7.3+c*13.1+(s||0))*.5+.5; }
 
-    function cellV(r,c,s){ return Math.sin(r*7.3+c*13.1+s)*0.5+0.5; }
+    function mat(g,ox,oy,w,h,nr,nc,col,al,seed){
+      const cw=w/nc, ch=h/nr;
+      for(let r=0;r<nr;r++) for(let c=0;c<nc;c++){
+        const v=cv(r,c,seed||0);
+        g.append('rect').attr('x',ox+c*cw+.5).attr('y',oy+r*ch+.5)
+          .attr('width',cw-1).attr('height',ch-1).attr('rx',1)
+          .attr('fill',col).attr('fill-opacity',(al||.8)*(0.12+v*.58));
+      }
+      g.append('rect').attr('x',ox).attr('y',oy).attr('width',w).attr('height',h)
+        .attr('fill','none').attr('stroke',col).attr('stroke-opacity',.72)
+        .attr('stroke-width',1.5).attr('rx',2);
+    }
+
+    function lbl(g,x,y,txt,col,fs,anc,bold){
+      return g.append('text').attr('x',x).attr('y',y)
+        .attr('text-anchor',anc||'middle').attr('font-size',fs||11)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('font-weight',bold?'700':'400').attr('fill',col).text(txt);
+    }
+
+    // Arrow with a small arrowhead from (x1,y) to (x2,y)
+    function harrow(g,x1,y,x2,col,mk){
+      g.append('line').attr('x1',x1).attr('y1',y).attr('x2',x2).attr('y2',y)
+        .attr('stroke',col).attr('stroke-width',1.4)
+        .attr('marker-end',`url(#${mk})`);
+    }
 
     function draw(el){
       el.innerHTML='';
@@ -6884,218 +6907,240 @@
         .style('width','100%').style('height','100%');
 
       const defs=svg.append('defs');
-      [['mhq',CQ],['mhk',CK],['mhv',CV],['mha',CAC],['mhx',CXC],['mho',CO]].forEach(([id,col])=>{
+      [['mq',CQ],['mk',CK],['mv',CV],['mx',CX]].forEach(([id,col])=>{
         defs.append('marker').attr('id',id)
           .attr('markerWidth',7).attr('markerHeight',5)
           .attr('refX',6).attr('refY',2.5).attr('orient','auto')
           .append('polygon').attr('points','0 0,7 2.5,0 5')
-          .attr('fill',col).attr('opacity',0.85);
+          .attr('fill',col).attr('opacity',.85);
       });
+      HC.forEach((col,i)=>{
+        defs.append('marker').attr('id',`mh${i}`)
+          .attr('markerWidth',6).attr('markerHeight',5)
+          .attr('refX',5).attr('refY',2.5).attr('orient','auto')
+          .append('polygon').attr('points','0 0,6 2.5,0 5')
+          .attr('fill',col).attr('opacity',.75);
+      });
+      defs.append('marker').attr('id','mw')
+        .attr('markerWidth',7).attr('markerHeight',5)
+        .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0 0,7 2.5,0 5')
+        .attr('fill',Cw).attr('opacity',.8);
 
-      function mat(g,ox,oy,W,H2,nR,nC,fc,opts={}){
-        const al=opts.alpha||0.88, hm=opts.heatmap||null, sd=opts.seed||0;
-        const cW=W/nC, cH=H2/nR;
-        for(let r=0;r<nR;r++) for(let c=0;c<nC;c++){
-          const v=hm?hm[r][c]:cellV(r,c,sd);
-          g.append('rect').attr('x',ox+c*cW+0.5).attr('y',oy+r*cH+0.5)
-            .attr('width',cW-1).attr('height',cH-1).attr('rx',1)
-            .attr('fill',fc).attr('fill-opacity',al*(0.13+v*0.57));
+      // ─── Stage 0: X (shared input) ────────────────────────────
+      const gX=svg.append('g').attr('opacity',0);
+      mat(gX,xOx,xOy,XW,XH,nN,nD,CX,.88,1);
+      lbl(gX,xOx+XW/2,xOy-9,'X',CX,16,'middle',true);
+      lbl(gX,xOx-8,xOy+XH/2+4,'N',CX,9,'end');
+      lbl(gX,xOx+XW/2,xOy+XH+13,'d',CX,9);
+      const badge=gX.append('g');
+      badge.append('rect').attr('x',xOx).attr('y',xOy+XH+22).attr('width',XW).attr('height',14)
+        .attr('rx',3).attr('fill',CX).attr('fill-opacity',.12)
+        .attr('stroke',CX).attr('stroke-opacity',.35).attr('stroke-width',1);
+      badge.append('text').attr('x',xOx+XW/2).attr('y',xOy+XH+32)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CX).attr('fill-opacity',.75).text('shared by all heads');
+
+      // ─── Stage 1: Fan arrows X → each head row ────────────────
+      const gFan=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h), cy=hy+rowH/2;
+        const srcX=xOx+XW+3, srcY=xOy+XH/2;
+        const dstX=hBoxX-3, dstY=cy;
+        const cpX=(srcX+dstX)/2;
+        gFan.append('path')
+          .attr('d',`M ${srcX},${srcY} C ${cpX},${srcY} ${cpX},${dstY} ${dstX},${dstY}`)
+          .attr('fill','none').attr('stroke',HC[h])
+          .attr('stroke-width',1.5).attr('stroke-opacity',.65)
+          .attr('marker-end',`url(#mh${h})`);
+      }
+
+      // ─── Stage 2: Head row boxes + per-head weight matrices ───
+      const gW=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h);
+        const wTopY=hy+wCenOff;
+        const cy=hy+rowH/2;
+        gW.append('rect').attr('x',hBoxX).attr('y',hy)
+          .attr('width',hBoxRight-hBoxX).attr('height',rowH)
+          .attr('rx',7).attr('fill',HC[h]).attr('fill-opacity',.06)
+          .attr('stroke',HC[h]).attr('stroke-opacity',.28).attr('stroke-width',1.3);
+        lbl(gW,hBoxX+14,cy+4.5,`h${h+1}`,HC[h],13,'start',true);
+        [[wqX,CQ,10,'W_Q'],[wkX,CK,20,'W_K'],[wvX,CV,30,'W_V']]
+          .forEach(([ox,col,seed,sym])=>{
+            mat(gW,ox,wTopY,WWw,WWh,nD,nDk,col,.60,seed+h*5);
+            if(h===0) lbl(gW,ox+WWw/2,wTopY-7,sym,col,8,'middle',true);
+          });
+        if(h===0) lbl(gW,wkX+WWw/2,wTopY+WWh+11,'d×dₖ',Cm,7.5);
+      }
+
+      // ─── Stage 3: Per-head Q_i, K_i, V_i + arrows ────────────
+      const gQKV=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h);
+        const wTopY=hy+wCenOff, qTopY=hy+qCenOff;
+        const wCy=wTopY+WWh/2;
+        [[wqX,qiX,CQ,'mq'],[wkX,kiX,CK,'mk'],[wvX,viX,CV,'mv']].forEach(([wx,qx,col,mk])=>{
+          harrow(gQKV,wx+WWw+2,wCy,qx-2,col,mk);
+        });
+        [[qiX,CQ,2,'Q'],[kiX,CK,5,'K'],[viX,CV,8,'V']].forEach(([ox,col,seed,sym])=>{
+          mat(gQKV,ox,qTopY,QWw,QWh,nN,nDk,col,.85,seed+h*5+1);
+          if(h===0){
+            const t=gQKV.append('text').attr('x',ox+QWw/2).attr('y',qTopY-7)
+              .attr('text-anchor','middle').attr('font-family','Georgia,serif')
+              .attr('font-style','italic').attr('fill',col);
+            t.append('tspan').attr('font-size',10).attr('font-weight','700').text(sym);
+            t.append('tspan').attr('font-size',7).attr('dy',2.5).text('i');
+          }
+        });
+        if(h===0) lbl(gQKV,kiX+QWw/2,133,'N×dₖ',Cm,7.5);
+      }
+
+      // ─── Stage 4: Column labels (left half) ───────────────────
+      const gAnn=svg.append('g').attr('opacity',0);
+      lbl(gAnn,xOx+XW/2,22,'Input',Cm,8.5);
+      lbl(gAnn,(wqX+viX+QWw)/2,22,'Weights  →  Q, K, V',Cm,8.5);
+
+      // ─── Right-half geometry ──────────────────────────────────
+      const sSz=9;
+      const SSw=nN*sSz, SSh=nN*sSz;          // 54×54  score / attn (N×N)
+      const sCenOff=Math.round((rowH-SSh)/2); // (82-54)/2 = 14
+
+      const siX=viX+QWw+20;                  // 426  score S_i
+      const aiX=siX+SSw+20;                  // 500  attn  A_i
+      const hoX=aiX+SSw+20;                  // 574  head_i output (N×dk)
+
+      const catX=hoX+QWw+42;                 // 638  concat (N×d)
+      const catOy=xOy;                       // 200
+
+      const WWOw=nD*8, WWOh=nD*8;           // 64×64  W_O (d×d)
+      const CWo='#ff9f43';
+      const woX=catX+XW+18;                  // 760
+      const woOy=Math.round((SVG_H-WWOh)/2); // 198
+
+      const Cout='#00e676';
+      const outX=woX+WWOw+18;                // 842  output (N×d)
+      const outOy=catOy;                     // 200
+
+      // ─── Stage 5: Score matrices S_i = Q_i·K_i^T / √dk ───────
+      const gScore=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h);
+        const sTopY=hy+sCenOff;
+        mat(gScore,siX,sTopY,SSw,SSh,nN,nN,HC[h],.78,h*17+3);
+        if(h===0){
+          const t=gScore.append('text').attr('x',siX+SSw/2).attr('y',sTopY-7)
+            .attr('text-anchor','middle').attr('font-family','Georgia,serif')
+            .attr('font-style','italic').attr('fill',HC[0]);
+          t.append('tspan').attr('font-size',10).attr('font-weight','700').text('S');
+          t.append('tspan').attr('font-size',7).attr('dy',2.5).text('i');
+          lbl(gScore,siX+SSw/2,121,'Q·Kᵀ/√dₖ',Cm,7,'middle');
         }
-        g.append('rect').attr('x',ox).attr('y',oy).attr('width',W).attr('height',H2)
-          .attr('fill','none').attr('stroke',fc).attr('stroke-opacity',0.65)
-          .attr('stroke-width',1.6).attr('rx',2);
       }
 
-      function arrow(g,x1,y1,x2,y2,col,mk,dash){
-        g.append('line').attr('x1',x1).attr('y1',y1).attr('x2',x2).attr('y2',y2)
-          .attr('stroke',col).attr('stroke-width',1.4)
-          .attr('stroke-dasharray',dash?'4,3':'none')
-          .attr('marker-end',`url(#${mk})`);
+      // ─── Stage 6: Attention weights A_i = softmax(S_i) ───────
+      const gAttn=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h);
+        const sTopY=hy+sCenOff;
+        const sMidY=sTopY+SSh/2;
+        harrow(gAttn,siX+SSw+2,sMidY,aiX-2,HC[h],`mh${h}`);
+        mat(gAttn,aiX,sTopY,SSw,SSh,nN,nN,HC[h],.92,h*19+7);
+        if(h===0){
+          const t=gAttn.append('text').attr('x',aiX+SSw/2).attr('y',sTopY-7)
+            .attr('text-anchor','middle').attr('font-family','Georgia,serif')
+            .attr('font-style','italic').attr('fill',HC[0]);
+          t.append('tspan').attr('font-size',10).attr('font-weight','700').text('A');
+          t.append('tspan').attr('font-size',7).attr('dy',2.5).text('i');
+          lbl(gAttn,aiX+SSw/2,121,'softmax',Cm,7,'middle');
+        }
       }
 
-      function label(g,x,y,txt,col,fs=11,anchor='middle',bold=false){
-        g.append('text').attr('x',x).attr('y',y).attr('text-anchor',anchor)
-          .attr('font-size',fs).attr('font-family','Georgia,serif')
-          .attr('font-style','italic').attr('font-weight',bold?'700':'400')
-          .attr('fill',col).text(txt);
+      // ─── Stage 7: head_i = A_i · V_i ─────────────────────────
+      const gHOut=svg.append('g').attr('opacity',0);
+      for(let h=0;h<nH;h++){
+        const hy=headY(h);
+        const sTopY=hy+sCenOff, qTopY=hy+qCenOff;
+        const aMidY=sTopY+SSh/2;
+        harrow(gHOut,aiX+SSw+2,aMidY,hoX-2,HC[h],`mh${h}`);
+        mat(gHOut,hoX,qTopY,QWw,QWh,nN,nDk,HC[h],.90,h*23+11);
+        if(h===0){
+          const t=gHOut.append('text').attr('x',hoX+QWw/2).attr('y',qTopY-7)
+            .attr('text-anchor','middle').attr('font-family','Georgia,serif')
+            .attr('font-style','italic').attr('fill',HC[0]);
+          t.append('tspan').attr('font-size',8).attr('font-weight','700').text('head');
+          t.append('tspan').attr('font-size',6).attr('dy',2).text('i');
+          lbl(gHOut,hoX+QWw/2,121,'A·Vᵢ',Cm,7,'middle');
+        }
       }
 
-      // Animation groups
-      const gX    = svg.append('g').attr('opacity',0);
-      const gProj = svg.append('g').attr('opacity',0);
-      const gQKV  = svg.append('g').attr('opacity',0);
-      const gSA   = svg.append('g').attr('opacity',0);
-      const gHout = svg.append('g').attr('opacity',0);
-      const gConc = svg.append('g').attr('opacity',0);
-      const gOut  = svg.append('g').attr('opacity',0);
-      const gAnn  = svg.append('g').attr('opacity',0);
-
-      // ── X matrix ──
-      mat(gX, PX.ox, PX.oy, D_W, N_H, 4, 4, CXC, {seed:1});
-      label(gX, PX.ox+D_W/2, PX.oy-7, 'X', CXC, 12);
-      // N and d dims
-      gX.append('text').attr('x',PX.ox-12).attr('y',PX.oy+N_H/2+4)
-        .attr('text-anchor','end').attr('font-size',10).attr('font-family','Georgia,serif')
-        .attr('font-style','italic').attr('fill',CXC).attr('opacity',0.75).text('N');
-      gX.append('text').attr('x',PX.ox+D_W/2).attr('y',PX.oy+N_H+14)
-        .attr('text-anchor','middle').attr('font-size',10).attr('font-family','Georgia,serif')
-        .attr('font-style','italic').attr('fill',CXC).attr('opacity',0.75).text('d');
-
-      // Arrow X → proj box (one arrow per head fanning out)
-      for(let i=0;i<H;i++){
-        const cy=headY(i)+N_H/2;
-        arrow(gX, PX.ox+D_W+3, PX.oy+N_H/2, pbX-3, cy, CXC,'mhx',true);
+      // ─── Stage 8: Concat + W_O + Output ──────────────────────
+      const gConcat=svg.append('g').attr('opacity',0);
+      const catMidY=catOy+XH/2;
+      // Bezier convergence lines: each head_i output → concat matrix
+      for(let h=0;h<nH;h++){
+        const hy=headY(h), qTopY=hy+qCenOff;
+        const srcX2=hoX+QWw+2, srcY2=qTopY+QWh/2;
+        const cpX2=(srcX2+catX)/2;
+        gConcat.append('path')
+          .attr('d',`M ${srcX2},${srcY2} C ${cpX2},${srcY2} ${cpX2},${catMidY} ${catX-2},${catMidY}`)
+          .attr('fill','none').attr('stroke',HC[h])
+          .attr('stroke-width',1.4).attr('stroke-opacity',.55)
+          .attr('marker-end',`url(#mh${h})`);
       }
+      // "Concat" label between convergence and matrix
+      lbl(gConcat,(hoX+QWw+catX)/2,headTopY-4,'Concat',Cm,8,'middle');
+      // Concat result (N×d)
+      mat(gConcat,catX,catOy,XW,XH,nN,nD,Cw,.70,77);
+      lbl(gConcat,catX+XW/2,catOy-9,'Z',Cw,13,'middle',true);
+      lbl(gConcat,catX+XW/2,catOy+XH+12,'N×d',Cm,7.5);
+      // Arrow concat → W_O
+      harrow(gConcat,catX+XW+3,catMidY,woX-3,Cw,'mw');
+      // W_O (d×d)
+      mat(gConcat,woX,woOy,WWOw,WWOh,nD,nD,CWo,.65,99);
+      lbl(gConcat,woX+WWOw/2,woOy-9,'Wᵒ',CWo,13,'middle',true);
+      lbl(gConcat,woX+WWOw/2,woOy+WWOh+12,'d×d',Cm,7.5);
+      // Arrow W_O → output
+      const woMidY=woOy+WWOh/2;
+      harrow(gConcat,woX+WWOw+3,woMidY,outX-3,Cw,'mw');
+      // Output (N×d)
+      mat(gConcat,outX,outOy,XW,XH,nN,nD,Cout,.82,55);
+      lbl(gConcat,outX+XW/2,outOy-9,'Output',Cout,11,'middle',true);
+      lbl(gConcat,outX+XW/2,outOy+XH+12,'N×d',Cm,7.5);
 
-      // ── Projection boxes + W chips (one per head) ──
-      const headCols=['#2a9fd6','#7b2fbe','#c86b00','#1a9e5a']; // tinted per head
-      for(let i=0;i<H;i++){
-        const hy=headY(i);
-        const hcol=headCols[i%4];
-        // proj box
-        gProj.append('rect').attr('x',pbX).attr('y',hy).attr('width',pbW).attr('height',N_H)
-          .attr('rx',6).attr('fill','rgba(110,135,165,0.08)')
-          .attr('stroke','rgba(175,200,228,0.45)').attr('stroke-width',1.4);
-        // head label
-        label(gProj, pbX+pbW/2, hy+10, `head ${i+1}`, 'rgba(195,212,232,0.55)', 8.5);
-        // W_Q W_K W_V chips (tiny)
-        const chipW2=22, chipH2=12, chipY=[hy+16, hy+N_H/2-6, hy+N_H-22];
-        [[CQ,'WQ'],[CK,'WK'],[CV,'WV']].forEach(([cc,wl],wi)=>{
-          const cx=pbX+(pbW-chipW2)/2;
-          mat(gProj, cx, chipY[wi], chipW2, chipH2, 2, 2, cc, {seed:wi+2+i, alpha:0.55});
-          label(gProj, cx+chipW2/2, chipY[wi]-3, wl, cc, 7.5);
-        });
-        // arrows from proj box → Q, K, V
-        [[hy+N_H*0.20,CQ,'mhq'],[hy+N_H*0.50,CK,'mhk'],[hy+N_H*0.80,CV,'mhv']].forEach(([yc,cc,mk])=>{
-          arrow(gProj, pbX+pbW+2, yc, qkvOx-2, yc, cc, mk, false);
-        });
-      }
+      // ─── Stage 9: Right-half labels + full formula ────────────
+      const gFinal=svg.append('g').attr('opacity',0);
+      lbl(gFinal,(siX+aiX+SSw)/2,22,'Scores & attn weights',Cm,8.5);
+      lbl(gFinal,hoX+QWw/2,22,'Head out',Cm,8.5);
+      lbl(gFinal,(woX+outX+XW)/2,22,'W_O  ·  output',Cm,8.5);
 
-      // ── Q K V per head ──
-      for(let i=0;i<H;i++){
-        const hy=headY(i);
-        [[hy+N_H*0.20-N_H*0.13,CQ,5+i],[hy+N_H*0.50-N_H*0.13,CK,9+i],[hy+N_H*0.80-N_H*0.13,CV,13+i]].forEach(([oy2,cc,sd])=>{
-          const clampedOy=Math.max(hy, Math.min(hy+N_H-Math.round(N_H*0.26), oy2));
-          mat(gQKV, qkvOx, clampedOy, DK_W, Math.round(N_H*0.26), 2, 2, cc, {seed:sd, alpha:0.80});
-        });
-        // Q label above head
-        label(gQKV, qkvOx+DK_W/2, headY(i)-5, 'Q,K,V', 'rgba(200,215,235,0.45)', 7.5);
-      }
+      // Full MultiHead formula
+      const fY=SVG_H-10;
+      const ft=gFinal.append('text').attr('x',SVG_W/2+50).attr('y',fY)
+        .attr('text-anchor','middle').attr('font-size',10)
+        .attr('font-family','Georgia,serif').attr('font-style','italic').attr('fill',Cw);
+      ft.append('tspan').text('MultiHead = Concat(head');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).text('1');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).text(',…,head');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).text('h');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).text(') W');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',CWo).text('O');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).attr('fill',Cm).text('    head');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',Cm).text('i');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).attr('fill',Cm).text(' = softmax(Q');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',Cm).text('i');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).attr('fill',Cm).text(' K');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',Cm).text('i');
+      ft.append('tspan').attr('font-size',6).attr('dy',-4).text('T');
+      ft.append('tspan').attr('font-size',10).attr('dy',4).attr('fill',Cm).text(' /√d');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',Cm).text('k');
+      ft.append('tspan').attr('font-size',10).attr('dy',-2).attr('fill',Cm).text(') V');
+      ft.append('tspan').attr('font-size',7).attr('dy',2).attr('fill',Cm).text('i');
 
-      // ── Score and Attention per head ──
-      const sH=Math.round(N_H*0.72);
-      for(let i=0;i<H;i++){
-        const hy=headY(i);
-        const sOy=hy+(N_H-sH)/2;
-        // scores Q·Kᵀ
-        mat(gSA, PSox, sOy, sH, sH, 4, 4, CAC, {heatmap:SCORES, alpha:0.88});
-        // attn weights
-        mat(gSA, PAox, sOy, sH, sH, 4, 4, CAC, {heatmap:SCORES, alpha:0.88});
-        // arrows
-        arrow(gSA, qkvOx+DK_W+2, hy+N_H*0.20, PSox-2, sOy+sH*0.25, CQ,'mhq',true);
-        arrow(gSA, qkvOx+DK_W+2, hy+N_H*0.50, PSox-2, sOy+sH*0.75, CK,'mhk',true);
-        arrow(gSA, PSox+sH+2, sOy+sH/2, PAox-2, sOy+sH/2, CAC,'mha',false);
-        // softmax label (only first head to avoid clutter)
-        if(i===0) label(gSA,(PSox+sH+PAox)/2, sOy-8,'softmax',Cm,7.5);
-      }
-
-      // ── Head outputs (N × dₖ) ──
-      for(let i=0;i<H;i++){
-        const hy=headY(i);
-        const sH2=Math.round(N_H*0.72);
-        const sOy=hy+(N_H-sH2)/2;
-        // V → head-out path (dashed)
-        const vOy=hy+N_H*0.80-Math.round(N_H*0.13);
-        gHout.append('path')
-          .attr('d',`M ${qkvOx+DK_W+2},${vOy+Math.round(N_H*0.13)} L ${PAox+sH2+10},${vOy+Math.round(N_H*0.13)} L ${PAox+sH2+10},${sOy+sH2/2} L ${PAox+sH2+2},${sOy+sH2/2}`)
-          .attr('stroke',CV).attr('stroke-width',1.2).attr('stroke-dasharray','4,3')
-          .attr('fill','none').attr('marker-end','url(#mhv)');
-        // head output matrix
-        mat(gHout, Hout_ox, hy, DK_W, N_H, 4, 2, CAC, {seed:20+i, alpha:0.88});
-        arrow(gHout, PAox+sH2+2, sOy+sH2/2, Hout_ox-2, hy+N_H/2, CAC,'mha',false);
-      }
-      // label head outputs
-      label(gHout, Hout_ox+DK_W/2, headY(0)-7, 'head outputs', 'rgba(200,215,235,0.50)', 7.5);
-      label(gHout, Hout_ox+DK_W/2, headY(0)-7+8, '(N × d/h each)', 'rgba(200,215,235,0.40)', 7);
-
-      // ── Concat box ──
-      const concatY=topY, concatH=totalH;
-      gConc.append('rect').attr('x',concatX).attr('y',concatY)
-        .attr('width',concatW).attr('height',concatH)
-        .attr('rx',4).attr('fill','rgba(224,64,251,0.10)')
-        .attr('stroke',CO).attr('stroke-width',1.4).attr('stroke-opacity',0.55);
-      // concat label rotated
-      gConc.append('text').attr('x',concatX+concatW/2).attr('y',concatY+concatH/2)
-        .attr('text-anchor','middle').attr('font-size',8.5)
-        .attr('font-family','Georgia,serif').attr('font-style','italic')
-        .attr('fill',CO).attr('opacity',0.75)
-        .attr('transform',`rotate(-90,${concatX+concatW/2},${concatY+concatH/2})`)
-        .text('Concat');
-      // arrows from head outputs into concat box
-      for(let i=0;i<H;i++){
-        arrow(gConc, Hout_ox+DK_W+2, headY(i)+N_H/2, concatX-2, headY(i)+N_H/2, CO,'mho',false);
-      }
-
-      // ── Concatenated matrix (N × d) then W_O ──
-      const concatMatX=concatX+concatW+6;
-      const concatMatY=concatY;
-      // show as a single tall matrix right of concat box
-      mat(gConc, concatMatX, concatMatY, DK_W*H/2, concatH, 4, 4, CO, {seed:30, alpha:0.72});
-
-      // W_O box
-      gOut.append('rect').attr('x',woX).attr('y',concatY+concatH/2-40)
-        .attr('width',woW).attr('height',80)
-        .attr('rx',7).attr('fill','rgba(224,64,251,0.08)')
-        .attr('stroke',CO).attr('stroke-width',1.3).attr('stroke-opacity',0.50);
-      mat(gOut, woX+8, concatY+concatH/2-24, woW-16, 48, 3, 3, CO, {seed:35, alpha:0.55});
-      label(gOut, woX+woW/2, concatY+concatH/2-44, 'W_O', CO, 11);
-      label(gOut, woX+woW/2, concatY+concatH/2+50, 'd×d', 'rgba(200,215,235,0.45)', 8);
-
-      // arrow concat → W_O
-      arrow(gOut, concatMatX+DK_W*H/2+2, concatY+concatH/2, woX-2, concatY+concatH/2, CO,'mho',false);
-      // arrow W_O → final output
-      arrow(gOut, woX+woW+2, concatY+concatH/2, outX-2, concatY+concatH/2, CO,'mho',false);
-
-      // ── Final output ──
-      const outY=concatY+concatH/2-N_H/2;
-      mat(gOut, outX, outY, outW, N_H, 4, 4, CAC, {seed:40, alpha:0.92});
-      label(gOut, outX+outW/2, outY-8, 'Output', CAC, 12, 'middle', true);
-      label(gOut, outX+outW/2, outY+N_H+14, 'N × d', CAC, 9);
-
-      // ── Annotations (formula + labels) ──
-      // Title annotation above each zone (first head row only)
-      [
-        [pbX+pbW/2,      topY-18, 'Projections',       'rgba(195,212,232,0.55)'],
-        [qkvOx+DK_W/2,   topY-18, 'Q, K, V',           'rgba(195,212,232,0.55)'],
-        [(PSox+PAox+sH)/2, topY-18, 'Score → Attn',    'rgba(195,212,232,0.55)'],
-        [Hout_ox+DK_W/2, topY-18, '',                  'rgba(195,212,232,0.55)'],
-      ].forEach(([x,y,t,c])=> t && label(gAnn,x,y,t,c,8.5));
-
-      // MHA formula bottom
-      const fY2=SVG_H-28;
-      const ftext2 = gAnn.append('text').attr('x',SVG_W/2).attr('y',fY2)
-        .attr('text-anchor','middle').attr('font-size',11)
-        .attr('font-family','Georgia,serif').attr('font-style','italic')
-        .attr('fill',Cw);
-      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text('MultiHead(');
-      ftext2.append('tspan').attr('fill',CQ).attr('font-weight','700').text('Q');
-      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(', ');
-      ftext2.append('tspan').attr('fill',CK).attr('font-weight','700').text('K');
-      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(', ');
-      ftext2.append('tspan').attr('fill',CV).attr('font-weight','700').text('V');
-      ftext2.append('tspan').attr('fill','rgba(200,215,235,0.70)').text(')  =  Concat(head');
-      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill','rgba(200,215,235,0.55)').text('1');
-      ftext2.append('tspan').attr('font-size',11).attr('dy','-3').attr('fill','rgba(200,215,235,0.70)').text(', … , head');
-      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill','rgba(200,215,235,0.55)').text('h');
-      ftext2.append('tspan').attr('font-size',11).attr('dy','-3').attr('fill','rgba(200,215,235,0.70)').text(')  W');
-      ftext2.append('tspan').attr('font-size',8).attr('dy','3').attr('fill',CO).text('O');
-
-      // dₖ = d/h note
-      label(gAnn, qkvOx+DK_W/2, SVG_H-28, 'dₖ=d/h', Cm, 8.5);
-
-      const delays=[200,600,1000,1500,2000,2500,3000,3400];
-      [gX,gProj,gQKV,gSA,gHout,gConc,gOut,gAnn].forEach((g,i)=>
-        g.transition().delay(delays[i]).duration(450).attr('opacity',1));
+      const delays=[0,550,1150,1900,2550,3200,3850,4500,5150,5800];
+      [gX,gFan,gW,gQKV,gAnn,gScore,gAttn,gHOut,gConcat,gFinal].forEach((g,i)=>
+        g.transition().delay(delays[i]).duration(500).attr('opacity',1));
     }
 
     function maybeInit(){
