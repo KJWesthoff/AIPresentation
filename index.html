@@ -2507,6 +2507,7 @@
 <section>
       <section id="pos-encoding-sinusoidal">
         <h2 style="margin-bottom:6px;">Positional Encoding: Sin &amp; Cos</h2>
+        <p style="margin:0 0 6px 0; font-size:0.85em; color:#aaa; font-style:italic;">Adding a position signal to the embedding</p>
         <div class="content" style="padding-top:2px;">
           <div id="pos-enc-sin-canvas" style="width:100%;height:490px;"></div>
         </div>
@@ -2514,6 +2515,7 @@
 
       <section id="pos-encoding-rope">
         <h2 style="margin-bottom:6px;">Rotary Position Embedding (RoPE)</h2>
+        <p style="margin:0 0 6px 0; font-size:0.85em; color:#aaa; font-style:italic;">Encoding position by rotating the Q and K vectors</p>
         <div class="content" style="padding-top:2px;">
           <div id="pos-enc-rope-canvas" style="width:100%;height:490px;"></div>
         </div>
@@ -2523,8 +2525,9 @@
 <section>
       <section id="ffn-layer">
         <h2 style="margin-bottom:6px;">Transformer Block: Feed-Forward Network (FFN)</h2>
+        <p style="margin:0 0 6px 0; font-size:0.85em; color:#aaa; font-style:italic;">Working on each token independently — where the model (maybe?) stores learned patterns</p>
         <div class="content" style="padding-top:2px;">
-          <div id="ffn-layer-canvas" style="width:100%;height:490px;"></div>
+          <div id="ffn-layer-canvas" style="width:100%;height:455px;"></div>
         </div>
       </section>
 
@@ -2542,6 +2545,40 @@
           <div id="ffn-glu-canvas" style="width:100%;height:470px;"></div>
         </div>
       </section>
+</section>
+
+<section id="transformer-3d-overview">
+  <h2 style="margin-bottom:4px;">The Transformer: Putting It All Together</h2>
+  <p style="margin:0 0 4px 0; font-size:0.8em; color:#aaa; font-style:italic;">Stacked blocks of Attention + FFN — applied to every token in parallel</p>
+  <div class="content" style="padding-top:4px; display:flex; flex-direction:row; gap:20px; align-items:stretch; overflow:hidden;">
+
+    <!-- Left: summary -->
+    <div style="flex:0 0 42%; overflow:hidden; display:flex; flex-direction:column; gap:8px; font-size:0.52em; line-height:1.35; color:#ccc;">
+
+      <div>
+        <div style="color:#00d9ff; font-weight:700; margin-bottom:4px; letter-spacing:0.05em; font-size:1.1em;">HOW IT WORKS</div>
+        <ul style="margin:0; padding:0; list-style:none;">
+          <li style="margin-bottom:3px;"><span style="color:#2de8a0; margin-right:5px;">▸</span>Input tokens → <strong>embedding matrix</strong> — each row is one token vector</li>
+          <li style="margin-bottom:3px;"><span style="color:#00d9ff; margin-right:5px;">▸</span><strong>Attention</strong> — every token reads all others via Q·Kᵀ → weighted sum of V</li>
+          <li style="margin-bottom:3px;"><span style="color:#9d4edd; margin-right:5px;">▸</span><strong>FFN</strong> — each token updated independently, applying learned patterns</li>
+          <li style="margin-bottom:3px;"><span style="color:#aaa; margin-right:5px;">▸</span>Stacked <em>N</em> times — each block builds richer context-aware representations
+            <div style="margin-top:3px; margin-left:14px; color:#888; font-size:0.92em;">
+              BERT-base: 12 &nbsp;·&nbsp; GPT-2: 12–48 &nbsp;·&nbsp; GPT-3: 96<br>
+              LLaMA-7B: 32 &nbsp;·&nbsp; LLaMA-70B: 80 &nbsp;·&nbsp; GPT-4: ~120
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+
+    <!-- Right: 3D animation -->
+    <div style="flex:1; min-width:0; min-height:0;">
+      <div id="transformer-3d-canvas" style="width:100%;height:100%;min-height:400px;"></div>
+    </div>
+
+  </div>
 </section>
 
 <section>
@@ -2701,7 +2738,6 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <!-- D3.js for neural network animations -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
   <script>
@@ -4783,12 +4819,12 @@
       // ── W1 fan lines ──
       const gW1=svg.append('g').attr('opacity',0);
       gW1.append('text').attr('x',(xIn+xH)/2).attr('y',24).attr('text-anchor','middle')
-        .attr('fill',C3).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
-        .text('W₁  ×4');
+        .attr('fill',C3).attr('font-size',15).attr('font-family','monospace').attr('font-weight','bold')
+        .text('[W₁]  ×4');
       yIn.forEach(yi=>{
         yH.forEach(yh=>{
           gW1.append('line').attr('x1',xIn+rIn).attr('y1',yi).attr('x2',xH-rH).attr('y2',yh)
-            .attr('stroke',C3+'1c').attr('stroke-width',0.55);
+            .attr('stroke',C3+'55').attr('stroke-width',0.7);
         });
       });
 
@@ -4819,12 +4855,12 @@
       // ── W2 fan lines ──
       const gW2=svg.append('g').attr('opacity',0);
       gW2.append('text').attr('x',(xH+xOut)/2).attr('y',24).attr('text-anchor','middle')
-        .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold')
-        .text('W₂  ÷4');
+        .attr('fill',C2).attr('font-size',15).attr('font-family','monospace').attr('font-weight','bold')
+        .text('[W₂]  ÷4');
       yH.forEach(yh=>{
         yOut.forEach(yo=>{
           gW2.append('line').attr('x1',xH+rH).attr('y1',yh).attr('x2',xOut-rOut).attr('y2',yo)
-            .attr('stroke',C2+'1c').attr('stroke-width',0.55);
+            .attr('stroke',C2+'55').attr('stroke-width',0.7);
         });
       });
 
@@ -4858,6 +4894,8 @@
         .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold').text('Layer');
       gLN.append('text').attr('x',lnX+lnW/2).attr('y',plusY+10).attr('text-anchor','middle')
         .attr('fill',C2).attr('font-size',11).attr('font-family','monospace').attr('font-weight','bold').text('Norm');
+      gLN.append('text').attr('x',lnX+lnW/2).attr('y',plusY+lnH/2+14).attr('text-anchor','middle')
+        .attr('fill',CM).attr('font-size',9).attr('font-family','monospace').text('zero mean, unit σ');
 
       // ── Final output arrow ──
       const gFinal=svg.append('g').attr('opacity',0);
@@ -10564,6 +10602,411 @@
         if(el) el._bertArchReady=false;
       }
       if(ev.currentSlide&&ev.currentSlide.id==='bert-architecture') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Transformer overview: 3D embedding journey -->
+  <script>
+  (function(){
+    'use strict';
+    const SLIDE_ID = 'transformer-3d-overview';
+
+    const N_BLOCKS=5, BLOCK_GAP=5.5, LAYER_SEP=1.8;
+    const TOKEN_N=8, TOKEN_SPC=0.52, SLAB_TH=0.12;
+    const FFN_W=3.2;
+    const EMB_X=-5.1;
+    const EMB_ROWS=8, EMB_COLS=10;
+    const CELL_W=0.23, CELL_H=0.21, CELL_D=0.04, CELL_GAP=0.022;
+
+    const HC={att:0x00d9ff,ffn:0x9d4edd,q:0xff6b6b,k:0x4da8ff,v:0xffa830,out:0x2de8a0,bg:0x080812,white:0xddeeff};
+
+    const tokenY=Array.from({length:TOKEN_N},(_,i)=>-(TOKEN_N-1)*TOKEN_SPC/2+i*TOKEN_SPC);
+    const SLAB_H=(TOKEN_N-1)*TOKEN_SPC+0.5;
+
+    function hash(x){const s=Math.sin(x*127.1+311.7)*43758.5453;return s-Math.floor(s);}
+    function lerp(a,b,t){return a+(b-a)*t;}
+    function smoothstep(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+
+    const C_LO=new THREE.Color(0x06031a),C_MD=new THREE.Color(0x6a1aaa),C_HI=new THREE.Color(0xffa830);
+    function embColor(v){
+      const t=(Math.max(-1,Math.min(1,v))+1)/2;
+      const c=new THREE.Color();
+      return t<0.5?c.lerpColors(C_LO,C_MD,t*2):c.lerpColors(C_MD,C_HI,(t-0.5)*2);
+    }
+
+    function makeSprite(text,hexCol,scale,cw,ch){
+      cw=cw||320; ch=ch||70; scale=scale||1.9;
+      const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+      const ctx=cv.getContext('2d');
+      ctx.clearRect(0,0,cw,ch);
+      ctx.fillStyle='#'+hexCol.toString(16).padStart(6,'0');
+      ctx.font='bold '+Math.round(ch*0.64)+'px monospace';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(text,cw/2,ch/2);
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));
+      sp.scale.set(scale,scale*ch/cw,1); return sp;
+    }
+
+    function makeSlab(w,h,col){
+      const geo=new THREE.BoxGeometry(w,h,SLAB_TH);
+      const m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0.045,side:THREE.DoubleSide}));
+      m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:col,transparent:true,opacity:0.42})));
+      return m;
+    }
+
+    let INIT_EMB=null;
+    function genInitEmb(){INIT_EMB=Array.from({length:EMB_ROWS},()=>Array.from({length:EMB_COLS},()=>Math.random()*2-1));}
+    function evolveEmb(stage){
+      const e=stage/6;
+      return Array.from({length:EMB_ROWS},(_,t)=>Array.from({length:EMB_COLS},(_,d)=>{
+        const base=INIT_EMB[t][d]*(1-e*0.6);
+        const ctx=e*Math.cos(t*1.9+d*1.4+stage*0.8)*0.55;
+        const det=e>0.4?(e-0.4)*Math.sin(t*3.1+d*2.3+stage*1.5)*0.5:0;
+        return Math.max(-1,Math.min(1,base+ctx+det));
+      }));
+    }
+
+    function buildScene(container){
+      const W=container.clientWidth||1100, Hpx=container.clientHeight||455;
+      const LS=LAYER_SEP/2;
+
+      const renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});
+      renderer.setSize(W,Hpx); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      renderer.setClearColor(HC.bg,1); container.appendChild(renderer.domElement);
+
+      const scene=new THREE.Scene();
+      scene.fog=new THREE.Fog(HC.bg,30,58);
+
+      const camera=new THREE.PerspectiveCamera(42,W/Hpx,0.1,90);
+      camera.position.set(3.5,5.5,14); camera.lookAt(-2.8,0.5,-9);
+
+      // Embedding panel
+      const embGroup=new THREE.Group(); embGroup.position.x=EMB_X; scene.add(embGroup);
+      const EW=EMB_COLS*(CELL_W+CELL_GAP)-CELL_GAP;
+      const EH=EMB_ROWS*(CELL_H+CELL_GAP)-CELL_GAP;
+
+      const bkGeo=new THREE.BoxGeometry(EW+0.28,EH+0.26,0.02);
+      const bkMesh=new THREE.Mesh(bkGeo,new THREE.MeshBasicMaterial({color:0x0a0520,transparent:true,opacity:0.9}));
+      bkMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(bkGeo),new THREE.LineBasicMaterial({color:HC.out,transparent:true,opacity:0.5})));
+      embGroup.add(bkMesh);
+
+      const embLbl=makeSprite('Embedding',HC.out,3.4,520,100); embLbl.position.set(0,EH/2+0.92,0.1); embGroup.add(embLbl);
+
+      const cellGeo=new THREE.BoxGeometry(CELL_W,CELL_H,CELL_D);
+      const embCells=[];
+      for(let t=0;t<EMB_ROWS;t++){
+        embCells[t]=[];
+        for(let d=0;d<EMB_COLS;d++){
+          const cx=-EW/2+d*(CELL_W+CELL_GAP)+CELL_W/2, cy=-EH/2+t*(CELL_H+CELL_GAP)+CELL_H/2;
+          const mesh=new THREE.Mesh(cellGeo,new THREE.MeshBasicMaterial({color:0x06031a}));
+          mesh.position.set(cx,cy,CELL_D/2+0.016); embGroup.add(mesh); embCells[t][d]=mesh;
+        }
+      }
+
+      // In-place quadratic Bezier sampler — avoids per-frame object allocation
+      function sampleQB(arr,x0,y0,z0,cx,cy,cz,x1,y1,z1,n){
+        for(let i=0;i<n;i++){const t=i/(n-1),mt=1-t;arr[i*3]=mt*mt*x0+2*mt*t*cx+t*t*x1;arr[i*3+1]=mt*mt*y0+2*mt*t*cy+t*t*y1;arr[i*3+2]=mt*mt*z0+2*mt*t*cz+t*t*z1;}
+      }
+
+      // Attention overlay: arcs between rows showing cross-token mixing
+      const attOverlayLines=[];
+      const attPairs=[[0,3],[1,5],[2,6],[3,7],[4,1],[5,2],[6,0],[0,5],[2,4],[3,6]];
+      attPairs.forEach(([ri,rj],idx)=>{
+        const yi=-EH/2+ri*(CELL_H+CELL_GAP)+CELL_H/2;
+        const yj=-EH/2+rj*(CELL_H+CELL_GAP)+CELL_H/2;
+        const baseArcD=0.72+idx*0.11;
+        const N=19; const posArr=new Float32Array(N*3);
+        sampleQB(posArr,-EW/2,yi,0.09,-EW/2-baseArcD,(yi+yj)/2,0.09,-EW/2,yj,0.09,N);
+        const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(posArr,3));
+        const mat=new THREE.LineBasicMaterial({color:0x40eeff,transparent:true,opacity:0});
+        const line=new THREE.Line(geo,mat);
+        embGroup.add(line);
+        attOverlayLines.push({line,posArr,phase:idx*Math.PI*0.62,dp:idx*Math.PI*0.41,yi,yj,baseArcD,N});
+      });
+
+      // FFN overlay: all-pairs arcs within each token row (horizontal plane), arch scales with span
+      const ffnOverlayLines=[];
+      for(let r=0;r<EMB_ROWS;r++){
+        const y=-EH/2+r*(CELL_H+CELL_GAP)+CELL_H/2;
+        for(let d0=0;d0<EMB_COLS;d0++){
+          for(let d1=d0+1;d1<EMB_COLS;d1++){
+            const x0=-EW/2+d0*(CELL_W+CELL_GAP)+CELL_W/2;
+            const x1=-EW/2+d1*(CELL_W+CELL_GAP)+CELL_W/2;
+            const baseArcD=0.14+(d1-d0)*0.09;
+            const N=11; const posArr=new Float32Array(N*3);
+            sampleQB(posArr,x0,y,0.09,(x0+x1)/2,y,0.09+baseArcD,x1,y,0.09,N);
+            const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(posArr,3));
+            const mat=new THREE.LineBasicMaterial({color:0xc060ff,transparent:true,opacity:0});
+            const line=new THREE.Line(geo,mat);
+            embGroup.add(line);
+            const phase=(d0*3+d1*7)*Math.PI*0.11+r*Math.PI*0.28;
+            const dp=(d0*5+d1*3+r*11)*Math.PI*0.09;
+            ffnOverlayLines.push({line,posArr,phase,dp,x0,x1,y,baseArcD,N});
+          }
+        }
+      }
+
+      function paintEmb(state,mask,pulse){
+        for(let t=0;t<EMB_ROWS;t++) for(let d=0;d<EMB_COLS;d++){
+          const m=mask?mask[t][d]:1.0;
+          const scale=mask?0.15+m*(0.85+0.55*pulse):0.9;
+          embCells[t][d].material.color.copy(embColor(state[t][d])).multiplyScalar(scale);
+        }
+      }
+
+      genInitEmb();
+      let EMB_STAGES=Array.from({length:7},(_,s)=>evolveEmb(s));
+
+      const ATTN_MASKS=Array.from({length:N_BLOCKS},(_,b)=>
+        Array.from({length:EMB_ROWS},(_,t)=>Array.from({length:EMB_COLS},()=>0.5+0.5*Math.sin(t*2.1+b*1.3)))
+      );
+      const FFN_MASKS=Array.from({length:N_BLOCKS},(_,b)=>
+        Array.from({length:EMB_ROWS},(_,t)=>Array.from({length:EMB_COLS},(_,d)=>0.5+0.5*Math.sin(d*1.9+b*0.8)))
+      );
+
+      // Transformer blocks: attention then FFN sequential along Z within each block
+      const blocks=[];
+      for(let b=0;b<N_BLOCKS;b++){
+        const bgGrp=new THREE.Group(); bgGrp.position.z=-b*BLOCK_GAP; scene.add(bgGrp);
+        const detail=(b===0||b===1), lbls=(b===0);
+        const pulseLines=[];
+
+        // Attention sub-layer: QKᵀ (square, smaller) + V (tall rectangle)
+        const gA=new THREE.Group(); gA.position.z=-LS; bgGrp.add(gA);
+        const SQ=0.72, VW=0.82, QGAP=0.16;
+        const ATOT=SQ+QGAP+VW;
+        const qktX=-(ATOT/2-SQ/2), vX=ATOT/2-VW/2;
+
+        // QKᵀ slab — square (dot-product result is N×N)
+        const gQKT=new THREE.Group(); gQKT.position.x=qktX; gA.add(gQKT);
+        const qktSlab=makeSlab(SQ,SQ,HC.q); gQKT.add(qktSlab);
+        {const nqk=5,cqw=SQ*0.78/nqk,cqh=SQ*0.78/nqk;
+        const cqgeo=new THREE.BoxGeometry(cqw*0.80,cqh*0.80,0.025);
+        for(let r=0;r<nqk;r++) for(let cc=0;cc<nqk;cc++){
+          const bright=hash(r*11+cc*7)*0.65+0.25;
+          const mm=new THREE.MeshBasicMaterial({color:new THREE.Color(HC.q).multiplyScalar(bright),transparent:true,opacity:0.55});
+          const cell=new THREE.Mesh(cqgeo,mm);
+          cell.position.set(-SQ*0.39+cc*cqw+cqw/2,-SQ*0.39+r*cqh+cqh/2,SLAB_TH/2+0.015);
+          gQKT.add(cell);
+        }}
+        if(lbls){
+          const ls=makeSprite('QKᵀ',HC.q,1.15,120,44);
+          ls.position.set(0,SQ/2+0.26,0.18); gQKT.add(ls);
+        }
+
+        // V slab — tall rectangle, unchanged shape
+        const gV=new THREE.Group(); gV.position.x=vX; gA.add(gV);
+        const vSlab=makeSlab(VW,SLAB_H,HC.v); gV.add(vSlab);
+        {const nx=4,ny=6,cw=VW*0.72/nx,ch=SLAB_H*0.78/ny;
+        const cgeo=new THREE.BoxGeometry(cw*0.78,ch*0.78,0.025);
+        for(let r=0;r<ny;r++) for(let cc=0;cc<nx;cc++){
+          const bright=hash(r*11+cc*7+10)*0.65+0.25;
+          const mm=new THREE.MeshBasicMaterial({color:new THREE.Color(HC.v).multiplyScalar(bright),transparent:true,opacity:0.55});
+          const cell=new THREE.Mesh(cgeo,mm);
+          cell.position.set(-VW*0.36+cc*cw+cw/2,-SLAB_H*0.39+r*ch+ch/2,SLAB_TH/2+0.015);
+          gV.add(cell);
+        }}
+        if(lbls){
+          const ls=makeSprite('V',HC.v,1.15,100,44);
+          ls.position.set(0,SLAB_H/2+0.26,0.18); gV.add(ls);
+        }
+
+        const attnSlabs=[qktSlab,vSlab];
+        const attnLbl=makeSprite('Attention',HC.att,lbls?5.0:3.8,lbls?560:440,lbls?110:88);
+        attnLbl.material.opacity=0;
+        attnLbl.position.set(0,SLAB_H/2+1.05,0.18); gA.add(attnLbl);
+
+        // FFN sub-layer: z=+LS (closer to camera, encountered second)
+        const gF=new THREE.Group(); gF.position.z=LS; bgGrp.add(gF);
+        const ffnSlab=makeSlab(FFN_W,SLAB_H,HC.ffn); gF.add(ffnSlab);
+        if(detail){
+          const xL=-(FFN_W/2-0.18), xM=0, xR=FFN_W/2-0.18, zF=SLAB_TH/2+0.02;
+          const hidN=14, hidSpc=(TOKEN_N-1)*TOKEN_SPC/(hidN-1);
+          const hidY=Array.from({length:hidN},(_,i)=>-(hidN-1)*hidSpc/2+i*hidSpc);
+          const sgSm=new THREE.SphereGeometry(0.055,7,5), sgLg=new THREE.SphereGeometry(0.075,8,6);
+          tokenY.forEach(y=>{
+            [xL,xR].forEach((x,xi)=>{
+              const n=new THREE.Mesh(sgLg,new THREE.MeshBasicMaterial({color:xi?HC.out:HC.att,transparent:true,opacity:0.85}));
+              n.position.set(x,y,zF); gF.add(n);
+            });
+          });
+          hidY.forEach((y,i)=>{
+            const act=Math.sin(i*1.37+2.1)>0.05;
+            const n=new THREE.Mesh(sgSm,new THREE.MeshBasicMaterial({color:act?HC.v:0x2a1040,transparent:true,opacity:act?0.88:0.35}));
+            n.position.set(xM,y,zF); gF.add(n);
+          });
+          tokenY.forEach((yi,i)=>hidY.forEach((yh,hi)=>{
+            if(hash(i*23+hi*11+b*7)<0.45) return;
+            const mat=new THREE.LineBasicMaterial({color:HC.ffn,transparent:true,opacity:0.1});
+            const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(xL+0.08,yi,zF),new THREE.Vector3(xM-0.06,yh,zF)]),mat);
+            gF.add(line); pulseLines.push({line,phase:hash(i*17+hi*11)*Math.PI*2,freq:2.1,layer:'ffn'});
+          }));
+          hidY.forEach((yh,hi)=>tokenY.forEach((yo,o)=>{
+            if(hash(hi*17+o*29+b*5+3)<0.45) return;
+            const mat=new THREE.LineBasicMaterial({color:HC.ffn,transparent:true,opacity:0.1});
+            const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(xM+0.06,yh,zF),new THREE.Vector3(xR-0.08,yo,zF)]),mat);
+            gF.add(line); pulseLines.push({line,phase:hash(hi*29+o*13)*Math.PI*2,freq:2.3,layer:'ffn'});
+          }));
+          if(lbls){
+            [['[W₁]',HC.v,-0.78],['[W₂]',HC.out,0.78]].forEach(([t,c,x])=>{
+              const ls=makeSprite(t,c,1.15,140,44); ls.position.set(x,SLAB_H/2+0.26,0.18); gF.add(ls);
+            });
+          }
+        }
+        const ffnLbl=makeSprite('FFN',HC.ffn,lbls?5.0:3.8,lbls?360:280,lbls?110:88);
+        ffnLbl.material.opacity=0;
+        ffnLbl.position.set(0,SLAB_H/2+1.05,0.18); gF.add(ffnLbl);
+        if(b===N_BLOCKS-1){const lb=makeSprite('Block 1',HC.white,1.3,210,50);lb.position.set(0,-SLAB_H/2-0.6,0.1);bgGrp.add(lb);}
+        if(b===0){const lb=makeSprite('Block N',HC.white,1.3,210,50);lb.position.set(0,-SLAB_H/2-0.6,0.1);bgGrp.add(lb);}
+        blocks.push({attnSlabs,ffnSlab,pulseLines,attnLbl,ffnLbl});
+      }
+
+      function highlightSlab(slab,on){
+        slab.material.opacity=on?0.14:0.045;
+        if(slab.children[0]) slab.children[0].material.opacity=on?0.75:0.42;
+      }
+
+      // Keyframes: embedding travels back-to-front (-z toward +z)
+      // Block 4 (z=-22) is encountered first; block 0 (z=0) last
+      // [t, embZ, bH(-1=none), attn, ffn, embStage]
+      const BG=BLOCK_GAP;
+      const KF=[
+        [0,     -4*BG-3,   -1, 0, 0, 0],
+        [1.0,   -4*BG-LS,   4, 1, 0, 0],
+        [2.6,   -4*BG-LS,   4, 1, 0, 1],
+        [3.4,   -4*BG+LS,   4, 0, 1, 1],
+        [4.8,   -4*BG+LS,   4, 0, 1, 2],
+        [5.5,   -3*BG-LS,   3, 1, 0, 2],
+        [6.2,   -3*BG+LS,   3, 0, 1, 3],
+        [6.9,   -2*BG-LS,   2, 1, 0, 3],
+        [7.6,   -2*BG+LS,   2, 0, 1, 4],
+        [8.3,   -1*BG-LS,   1, 1, 0, 4],
+        [9.0,   -1*BG+LS,   1, 0, 1, 5],
+        [9.7,        -LS,   0, 1, 0, 5],
+        [11.2,       -LS,   0, 1, 0, 5],
+        [12.0,        LS,   0, 0, 1, 6],
+        [13.4,        LS,   0, 0, 1, 6],
+        [14.2,       2.5,  -1, 0, 0, 6],
+      ];
+      const CYCLE=16.0;
+
+      function getState(ct){
+        let i=0;
+        for(let k=KF.length-1;k>=0;k--) if(ct>=KF[k][0]){i=k;break;}
+        const a=KF[i], b_=KF[(i+1)%KF.length];
+        const dur=(i+1<KF.length?b_[0]:CYCLE)-a[0];
+        const alpha=smoothstep((ct-a[0])/Math.max(0.001,dur));
+        return{embZ:lerp(a[1],b_[1],alpha),bH:a[2],attn:!!a[3],ffn:!!a[4],embS:a[5]};
+      }
+
+      let t_anim=0, lastT=null, raf=null, cycleDone=false, rotY=0;
+
+      function loop(){
+        raf=requestAnimationFrame(loop);
+        const now=Date.now()/1000;
+        const dt=lastT?Math.min(0.08,now-lastT):0; lastT=now;
+
+        if(!cycleDone){
+          t_anim+=dt;
+          if(t_anim>=KF[KF.length-1][0]){ t_anim=KF[KF.length-1][0]; cycleDone=true; }
+        }
+
+        if(cycleDone){
+          // Final state: last token row brightly pulsing, all others dimmed
+          embGroup.position.z=2.5;
+          const pulse=0.5+0.5*Math.sin(now*2.2);
+          for(let t=0;t<EMB_ROWS;t++) for(let d=0;d<EMB_COLS;d++){
+            const sc=(t===0)?(0.65+0.65*pulse):0.15;
+            embCells[t][d].material.color.copy(embColor(EMB_STAGES[6][t][d])).multiplyScalar(sc);
+          }
+          attOverlayLines.forEach(({line})=>{line.material.opacity=0;});
+          ffnOverlayLines.forEach(({line})=>{line.material.opacity=0;});
+          blocks.forEach(bl=>{
+            bl.attnSlabs.forEach(s=>highlightSlab(s,false)); highlightSlab(bl.ffnSlab,false);
+            bl.pulseLines.forEach(p=>{p.line.material.opacity=0.02;});
+            bl.attnLbl.material.opacity=0;
+            bl.ffnLbl.material.opacity=0;
+          });
+          rotY*=0.94;
+          scene.rotation.y=rotY;
+          renderer.render(scene,camera);
+          return;
+        }
+
+        const st=getState(t_anim);
+        embGroup.position.z=st.embZ;
+
+        const pulse=0.5+0.5*Math.sin(t_anim*3.1);
+        const mask=(st.attn&&st.bH>=0)?ATTN_MASKS[st.bH]:((st.ffn&&st.bH>=0)?FFN_MASKS[st.bH]:null);
+        paintEmb(EMB_STAGES[st.embS],mask,pulse);
+
+        attOverlayLines.forEach(({line,posArr,phase,dp,yi,yj,baseArcD,N})=>{
+          if(st.attn){
+            const arcD=baseArcD*(0.65+0.55*Math.sin(t_anim*1.2+phase));
+            const ctrlY=(yi+yj)/2+Math.abs(yi-yj)*0.35*Math.sin(t_anim*0.83+dp);
+            sampleQB(posArr,-EW/2,yi,0.09,-EW/2-arcD,ctrlY,0.09,-EW/2,yj,0.09,N);
+            line.geometry.attributes.position.needsUpdate=true;
+            line.material.opacity=0.35+0.65*(0.5+0.5*Math.sin(t_anim*2.3+phase));
+          } else { line.material.opacity=0; }
+        });
+        ffnOverlayLines.forEach(({line,posArr,phase,dp,x0,x1,y,baseArcD,N})=>{
+          if(st.ffn){
+            const arcD=baseArcD*(0.6+0.65*Math.sin(t_anim*1.5+phase));
+            const ctrlX=(x0+x1)/2+(x1-x0)*0.22*Math.sin(t_anim*1.0+dp);
+            sampleQB(posArr,x0,y,0.09,ctrlX,y,0.09+arcD,x1,y,0.09,N);
+            line.geometry.attributes.position.needsUpdate=true;
+            line.material.opacity=0.35+0.6*(0.5+0.5*Math.sin(t_anim*2.8+phase));
+          } else { line.material.opacity=0; }
+        });
+
+        blocks.forEach((bl,bi)=>{
+          const isB=bi===st.bH;
+          bl.attnSlabs.forEach(s=>highlightSlab(s,isB&&st.attn));
+          highlightSlab(bl.ffnSlab,isB&&st.ffn);
+          bl.attnLbl.material.opacity=(isB&&st.attn)?1.0:0;
+          bl.ffnLbl.material.opacity=(isB&&st.ffn)?1.0:0;
+          bl.pulseLines.forEach(p=>{
+            const active=isB&&((p.layer==='attn'&&st.attn)||(p.layer==='ffn'&&st.ffn));
+            p.line.material.opacity=active
+              ?0.18+0.28*(0.5+0.5*Math.sin(t_anim*p.freq+p.phase))
+              :0.04+0.04*(0.5+0.5*Math.sin(t_anim*p.freq*0.3+p.phase));
+          });
+        });
+
+        rotY=Math.sin(t_anim*0.055)*0.12;
+        scene.rotation.y=rotY;
+        renderer.render(scene,camera);
+      }
+
+      container._t3dStop=()=>{cancelAnimationFrame(raf);raf=null;lastT=null;};
+      container._t3dStart=()=>{
+        if(!raf){
+          t_anim=0; cycleDone=false; lastT=null; rotY=0;
+          genInitEmb();
+          EMB_STAGES=Array.from({length:7},(_,s)=>evolveEmb(s));
+          loop();
+        }
+      };
+      loop();
+
+      window.addEventListener('resize',()=>{
+        const nW=container.clientWidth,nH=container.clientHeight;
+        if(nW&&nH){renderer.setSize(nW,nH);camera.aspect=nW/nH;camera.updateProjectionMatrix();}
+      });
+    }
+
+    function maybeInit(){
+      var el=document.getElementById('transformer-3d-canvas');
+      if(el&&!el._t3dReady){el._t3dReady=true;buildScene(el);}
+    }
+
+    Reveal.on('ready',function(e){if(e.currentSlide&&e.currentSlide.id===SLIDE_ID)maybeInit();});
+    Reveal.on('slidechanged',function(e){
+      var el=document.getElementById('transformer-3d-canvas');
+      if(!el) return;
+      if(e.currentSlide&&e.currentSlide.id===SLIDE_ID){maybeInit();if(el._t3dStart)el._t3dStart();}
+      else{if(el._t3dStop)el._t3dStop();}
     });
   })();
   </script>
