@@ -2581,39 +2581,164 @@
   </div>
 </section>
 
+<section id="llm-arch-families">
+  <h2 style="margin-bottom:6px;">LLM Architecture Families</h2>
+  <div class="content" style="padding-top:2px;">
+    <div id="llm-arch-families-canvas" style="width:100%;height:490px;"></div>
+  </div>
+</section>
+
 <section>
-      <section id="bert-architecture">
-        <h2 style="margin-bottom:6px;">Transformer Architecture: Decoder / Language Model</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="bert-arch-canvas" style="width:100%;height:490px;"></div>
-        </div>
-      </section>
+  <section id="bert-architecture">
+    <h2 style="margin-bottom:6px;">Decoder / Generative Language Model</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="bert-arch-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
 
-      <section id="unembedding">
-        <h2 style="margin-bottom:6px;">Un-embedding Matrix: From Embedding to Next Token</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="unembedding-canvas" style="width:100%;height:490px;"></div>
-        </div>
-      </section>
+  <section id="unembedding">
+    <h2 style="margin-bottom:6px;">Un-embedding Matrix: From Embedding to Next Token</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="unembedding-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
 
-      <section id="attn-masking">
-        <h2 style="margin-bottom:6px;">Masking in Attention</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="attn-masking-canvas" style="width:100%;height:490px;"></div>
-        </div>
-      </section>
+  <section id="gen-llm-training">
+    <h2 style="margin-bottom:6px;">How Generative LLM's are Trained</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="gen-llm-training-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
 
-      <section id="llm-arch-families">
-        <h2 style="margin-bottom:6px;">LLM Architecture Families</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="llm-arch-families-canvas" style="width:100%;height:490px;"></div>
-        </div>
-      </section>
+  <section id="attn-masking">
+    <h2 style="margin-bottom:6px;">Masking in Decoder Attention</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="attn-masking-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+</section>
 
+<section>
+  <section id="encoder-only">
+    <h2 style="margin-bottom:6px;">Encoder-Only Models: Bidirectional Understanding</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="encoder-only-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
+  <section id="encoder-finetuning">
+    <h2 style="margin-bottom:6px;">Encoder-Only Fine-Tuning: Classification &amp; Embeddings</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="encoder-finetuning-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
+  <section id="cls-token">
+    <h2 style="margin-bottom:6px;">The [CLS] Token: Global Context Aggregator</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="cls-token-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
+  <section id="diy-modelling">
+    <h2 style="margin-bottom:6px;">DIY Modelling: TensorFlow &amp; PyTorch</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="diy-modelling-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
+  <section id="phishing-usecase">
+    <h2 style="margin-bottom:6px;">Use Case: Manipulation Detection in Phishing Emails</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="phishing-usecase-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+</section>
+
+<section id="vit-demo">
+  <h2 style="margin-bottom:6px;">Live Demo: ViT Sees the World</h2>
+  <div class="content" style="padding-top:4px;display:flex;flex-direction:row;gap:14px;height:468px;align-items:flex-start;">
+
+    <!-- COL 1: raw webcam -->
+    <div style="flex:0 0 330px;display:flex;flex-direction:column;gap:8px;">
+      <div style="border-radius:8px;overflow:hidden;border:1.5px solid #2a4060;background:#060c14;">
+        <video id="vit-webcam" autoplay playsinline muted
+          style="width:330px;height:247px;object-fit:cover;display:block;"></video>
+      </div>
+      <canvas id="vit-capture" width="224" height="224" style="display:none;"></canvas>
+
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button id="vit-btn"
+          style="background:#6a1aaa;color:#fff;border:none;border-radius:6px;padding:7px 18px;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;">
+          ▶ Start
+        </button>
+        <span id="vit-status" style="color:#9bb4d2;font-size:11px;flex:1;">Click to load model &amp; start</span>
+      </div>
+
+      <div style="background:rgba(15,22,35,0.8);border-radius:6px;padding:10px 12px;border:1px solid #1a2a3a;flex:1;">
+        <div style="color:#4da8ff;font-size:11px;font-weight:bold;margin-bottom:5px;">Xenova/vit-base-patch16-224</div>
+        <div style="color:#5a7090;font-size:10.5px;line-height:1.75;">
+          • 224×224 px → 196 patch tokens (16×16 px each)<br>
+          • CLS + 196 patches → 12 transformer blocks<br>
+          • 12 attention heads · 86M parameters<br>
+          • Runs in-browser via WebAssembly
+        </div>
+      </div>
+    </div>
+
+    <!-- COL 2: patch variance heatmap -->
+    <div style="flex:0 0 330px;display:flex;flex-direction:column;gap:8px;">
+      <div style="border-radius:8px;overflow:hidden;border:1.5px solid #1a3a28;background:#060c14;">
+        <canvas id="vit-heatmap" width="330" height="247"
+          style="display:block;width:330px;height:247px;"></canvas>
+      </div>
+
+      <div style="font-size:11.5px;font-weight:bold;color:#2de8a0;">CLS–Patch Similarity Heatmap</div>
+
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:10px;color:#5a7090;white-space:nowrap;">Low</span>
+        <canvas id="vit-scale" width="260" height="11"
+          style="display:block;border-radius:3px;flex:1;height:11px;"></canvas>
+        <span style="font-size:10px;color:#5a7090;white-space:nowrap;">High</span>
+      </div>
+
+      <div style="background:rgba(15,22,35,0.8);border-radius:6px;padding:10px 12px;border:1px solid #1a2a3a;flex:1;">
+        <div style="color:#5a7090;font-size:10.5px;line-height:1.75;">
+          Each cell = one 16×16 px patch token.<br>
+          Colour = cosine similarity between the<br>
+          <span style="color:#4da8ff;">[CLS] token</span> and each patch token in the<br>
+          final hidden layer (dim 768).<br>
+          <span style="color:#2de8a0;">Green</span> = patch most aligned with the class decision.
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:10px;color:#2a3a50;">1000 ImageNet classes · 1.5 s interval</div>
+        <div id="vit-timing" style="font-size:11px;color:#4a6080;">—</div>
+      </div>
+    </div>
+
+    <!-- COL 3: predictions -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px;height:100%;">
+      <div style="background:rgba(15,22,35,0.8);border-radius:8px;padding:14px;border:1px solid #1a2a3a;flex:1;overflow:hidden;">
+        <div style="font-size:13px;font-weight:bold;color:#9bb4d2;margin-bottom:12px;">Top-5 ImageNet Predictions</div>
+        <div id="vit-preds" style="color:#3a5068;font-size:13px;font-style:italic;">Waiting for webcam…</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
       <section id="cross-attention">
         <h2 style="margin-bottom:6px;">Cross-Attention: Encoder–Decoder Bridge</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="cross-attn-canvas" style="width:100%;height:490px;"></div>
+        <div class="content" style="padding-top:2px; display:flex; flex-direction:column; justify-content:center; align-items:center; height:470px;">
+          <img src="ReferenceMaterial/ChatGPT Image May 14, 2026, 11_32_19 PM.png"
+               style="max-width:100%; max-height:430px; object-fit:contain;"
+               alt="Cross-Attention in Encoder–Decoder Transformer">
+          <p style="margin-top:10px; font-size:0.85em; color:#9bb4d2; font-style:italic;">
+            Using the K's and V's from the encoder with the Q's in the decoder attention heads
+          </p>
         </div>
       </section>
 
@@ -2624,27 +2749,29 @@
         </div>
       </section>
 
-      <section id="llm-training">
-        <h2 style="margin-bottom:6px;">How LLMs Are Trained</h2>
+      <section id="multimodal-ar">
+        <h2 style="margin-bottom:6px;">Cutting-Edge: Multimodal Autoregressive Models</h2>
         <div class="content" style="padding-top:2px;">
-          <div id="llm-training-canvas" style="width:100%;height:490px;"></div>
+          <div id="multimodal-ar-canvas" style="width:100%;height:490px;"></div>
         </div>
       </section>
 
-      <section id="llm-params">
-        <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
-        <div class="content" style="padding-top:2px;">
-          <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
-        </div>
-      </section>
 </section>
 
-<section id="llm-architectures">
-  <h2 style="margin-bottom:6px;">LLM Building Blocks</h2>
+<section id="moe">
+  <h2 style="margin-bottom:6px;">Mixture of Experts (MoE)</h2>
   <div class="content" style="padding-top:2px;">
-    <div id="llm-arch-canvas" style="width:100%;height:490px;"></div>
+    <div id="moe-canvas" style="width:100%;height:490px;"></div>
   </div>
 </section>
+
+<section id="llm-params">
+  <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
+  <div class="content" style="padding-top:2px;">
+    <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
+  </div>
+</section>
+
 
 
 
@@ -7836,296 +7963,178 @@
   </script>
 
 
-  <!-- LLM Architecture Building Blocks animation -->
+  <!-- Mixture of Experts animation (moe slide) -->
   <script>
-  (function () {
-    const CE  = '#00d9ff';   // encoder  — cyan
-    const CD  = '#9d4edd';   // decoder  — purple
-    const CX  = '#ffa014';   // enc-dec  — amber
-    const CTok= '#00e676';   // tokenizer — green
-    const Cm  = 'rgba(155,175,200,0.60)';
-    const Ct  = 'rgba(225,238,255,0.88)';
+  (function(){
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830',CR='#e86040';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.90)';
+    const NE=8,K=2,W=1100,H=490,midY=H/2;
+    const IX=15,IW=170,GX=215,GW=155,EX=400,EW=190,SX=620,SW=145,OX=795,OW=285;
+    const eH=42,eGap=8,eTH=NE*eH+(NE-1)*eGap,eSY=(H-eTH)/2;
 
-    const W=1100, H=490;
+    function moeInit(container){
+      if(container._moeReady) return;
+      container._moeReady=true;
 
-    // Column geometry
-    const cols = [
-      { id:'enc',  title:'Encoder-Only',     sub:'Bidirectional context',
-        col:CE,  x:38,  w:298,
-        blockLabel:['Self-Attn  ↔','Self-Attn  ↔','Self-Attn  ↔'],
-        outputLabel:'[CLS] representation',
-        models:['BERT','RoBERTa','DistilBERT'],
-        usecase:'Classification · Embeddings · NER',
-        attnFull:true },
-      { id:'dec',  title:'Decoder-Only',      sub:'Causal / autoregressive',
-        col:CD,  x:401, w:298,
-        blockLabel:['Masked Attn  →','Masked Attn  →','Masked Attn  →'],
-        outputLabel:'Next-token prediction',
-        models:['GPT-4','Claude','Llama','Mistral'],
-        usecase:'Text Generation · Chat · Code',
-        attnFull:false },
-      { id:'encdec',title:'Encoder–Decoder',  sub:'Sequence-to-sequence',
-        col:CX,  x:764, w:298,
-        blockLabel:['Encoder','Cross-Attn','Decoder'],
-        outputLabel:'Generated sequence',
-        models:['T5','BART','mT5'],
-        usecase:'Translation · Summarization',
-        attnFull:null },
-    ];
-
-    const BH=52, BGAP=7;               // block height / gap
-    const ARCH_Y=100;                   // architecture area top
-    const BLK_Y0=ARCH_Y+38;            // first block top
-    const OUT_Y =BLK_Y0+3*(BH+BGAP)+6; // output label y
-    const ATTN_Y=OUT_Y+30;             // attention pattern y
-    const MOD_Y =ATTN_Y+70;            // model names y
-    const USE_Y =MOD_Y+22;             // use-case y
-
-    function draw(el) {
-      el.innerHTML = '';
-      const svg = d3.select(el).append('svg')
+      const svg=d3.select(container).append('svg')
         .attr('viewBox',`0 0 ${W} ${H}`)
         .style('width','100%').style('height','100%');
 
-      const defs = svg.append('defs');
+      const defs=svg.append('defs');
+      const f=defs.append('filter').attr('id','moe-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      f.append('feGaussianBlur').attr('stdDeviation','4').attr('result','blur');
+      const fm=f.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
 
-      // Arrow marker (tokenizer strip)
-      defs.append('marker').attr('id','arch-arr')
-        .attr('viewBox','0 0 8 8').attr('refX',6).attr('refY',4)
-        .attr('markerWidth',5).attr('markerHeight',5).attr('orient','auto')
-        .append('path').attr('d','M0,0 L8,4 L0,8 Z').attr('fill',Cm);
+      const mkArr=(id,color)=>defs.append('marker').attr('id',id)
+        .attr('markerWidth',7).attr('markerHeight',7)
+        .attr('refX',5).attr('refY',3).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,6 L7,3 Z').attr('fill',color);
+      mkArr('moe-arr-dim','#3a5068');
+      mkArr('moe-arr-act',C2);
+      mkArr('moe-arr-sum',CA);
+      mkArr('moe-arr-io','#7090b0');
 
-      // ── TOKENIZER STRIP ────────────────────────────────────────────────────
-      const tokG = svg.append('g').attr('opacity',0);
-      tokG.append('rect')
-        .attr('x',30).attr('y',8).attr('width',1040).attr('height',64)
-        .attr('rx',10)
-        .attr('fill','rgba(0,230,118,0.05)')
-        .attr('stroke',CTok+'66').attr('stroke-width',1.5);
+      svg.append('rect').attr('width',W).attr('height',H).attr('fill','#0d1117');
 
-      tokG.append('text').attr('x',52).attr('y',30)
-        .attr('fill',CTok).attr('font-size',11).attr('font-weight','700').attr('font-family','sans-serif').attr('letter-spacing','1')
-        .text('TOKENIZER  +  EMBEDDINGS');
+      svg.append('text').attr('x',EX+EW/2).attr('y',14).attr('text-anchor','middle')
+        .attr('fill','#5a7090').attr('font-size',11)
+        .text(`Sparse MoE Layer — ${NE} experts, top-${K} active per token`);
 
-      // Raw text
-      tokG.append('text').attr('x',52).attr('y',56)
-        .attr('fill',Ct).attr('font-size',12).attr('font-family','monospace')
-        .text('"Hello, world"');
+      // INPUT
+      const ibH=80,ibY=midY-ibH/2;
+      svg.append('rect').attr('x',IX).attr('y',ibY).attr('width',IW).attr('height',ibH)
+        .attr('rx',8).attr('fill',C1).attr('fill-opacity',0.22).attr('stroke',C1).attr('stroke-width',1.5);
+      svg.append('text').attr('x',IX+IW/2).attr('y',ibY+28).attr('text-anchor','middle')
+        .attr('fill',CW).attr('font-size',13).attr('font-weight','bold').text('Input Token');
+      svg.append('text').attr('x',IX+IW/2).attr('y',ibY+48).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',12).text('Embedding');
+      svg.append('text').attr('x',IX+IW/2).attr('y',ibY+65).attr('text-anchor','middle')
+        .attr('fill','#5a7090').attr('font-size',11).text('d_model = 4096');
 
-      // Arrow
-      tokG.append('line').attr('x1',150).attr('y1',48).attr('x2',172).attr('y2',48)
-        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
+      svg.append('line').attr('x1',IX+IW).attr('y1',midY).attr('x2',GX-4).attr('y2',midY)
+        .attr('stroke','#7090b0').attr('stroke-width',2).attr('marker-end','url(#moe-arr-io)');
 
-      // Token boxes
-      const toks = ['Hel','##lo',',','world'];
-      const tXs   = [176, 218, 260, 294];
-      toks.forEach((t, i) => {
-        const tw = t.length*7+12;
-        tokG.append('rect').attr('x',tXs[i]).attr('y',36).attr('width',tw).attr('height',24).attr('rx',4)
-          .attr('fill',CTok+'22').attr('stroke',CTok+'99').attr('stroke-width',1);
-        tokG.append('text').attr('x',tXs[i]+tw/2).attr('y',52)
-          .attr('text-anchor','middle').attr('fill',CTok).attr('font-size',10).attr('font-family','monospace')
-          .text(t);
+      // GATING NETWORK
+      const gbH=110,gbY=midY-gbH/2;
+      svg.append('rect').attr('x',GX).attr('y',gbY).attr('width',GW).attr('height',gbH)
+        .attr('rx',8).attr('fill',C3).attr('fill-opacity',0.18).attr('stroke',C3).attr('stroke-width',1.5);
+      svg.append('text').attr('x',GX+GW/2).attr('y',gbY+26).attr('text-anchor','middle')
+        .attr('fill',C3).attr('font-size',13).attr('font-weight','bold').text('Gating Network');
+      svg.append('text').attr('x',GX+GW/2).attr('y',gbY+47).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',11).text('Linear → Softmax');
+      svg.append('text').attr('x',GX+GW/2).attr('y',gbY+65).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',11).text('Score each expert');
+      svg.append('text').attr('x',GX+GW/2).attr('y',gbY+88).attr('text-anchor','middle')
+        .attr('fill',C3).attr('font-size',12).attr('font-weight','bold').text('Select Top-K');
+
+      // EXPERTS
+      const experts=[];
+      for(let i=0;i<NE;i++){
+        const ey=eSY+i*(eH+eGap),ecY=ey+eH/2;
+        const l1=svg.append('path')
+          .attr('d',`M${GX+GW},${midY} C${GX+GW+28},${midY} ${EX-28},${ecY} ${EX},${ecY}`)
+          .attr('fill','none').attr('stroke','#2a3848').attr('stroke-width',1.5);
+        const box=svg.append('rect')
+          .attr('x',EX).attr('y',ey).attr('width',EW).attr('height',eH)
+          .attr('rx',6).attr('fill',CM).attr('fill-opacity',0.15)
+          .attr('stroke','#3a4a5a').attr('stroke-width',1);
+        const lbl=svg.append('text')
+          .attr('x',EX+14).attr('y',ey+eH/2+5)
+          .attr('fill','#5a7080').attr('font-size',13)
+          .text(`FFN Expert ${i+1}`);
+        const badge=svg.append('text')
+          .attr('x',EX+EW-10).attr('y',ey+eH/2+5)
+          .attr('text-anchor','end').attr('fill','#3a4a5a').attr('font-size',10.5)
+          .text('inactive');
+        const l2=svg.append('path')
+          .attr('d',`M${EX+EW},${ecY} C${EX+EW+28},${ecY} ${SX-28},${midY} ${SX},${midY}`)
+          .attr('fill','none').attr('stroke','#2a3848').attr('stroke-width',1)
+          .attr('marker-end','url(#moe-arr-dim)');
+        experts.push({box,lbl,badge,l1,l2,ey,ecY});
+      }
+
+      // WEIGHTED SUM
+      const sbH=90,sbY=midY-sbH/2;
+      svg.append('rect').attr('x',SX).attr('y',sbY).attr('width',SW).attr('height',sbH)
+        .attr('rx',8).attr('fill',CA).attr('fill-opacity',0.18).attr('stroke',CA).attr('stroke-width',1.5);
+      svg.append('text').attr('x',SX+SW/2).attr('y',sbY+26).attr('text-anchor','middle')
+        .attr('fill',CA).attr('font-size',13).attr('font-weight','bold').text('Weighted Sum');
+      svg.append('text').attr('x',SX+SW/2).attr('y',sbY+48).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',12).text('Σ wᵢ · expertᵢ(x)');
+      svg.append('text').attr('x',SX+SW/2).attr('y',sbY+67).attr('text-anchor','middle')
+        .attr('fill','#7090b0').attr('font-size',11).text('gating weights');
+
+      svg.append('line').attr('x1',SX+SW).attr('y1',midY).attr('x2',OX-4).attr('y2',midY)
+        .attr('stroke','#7090b0').attr('stroke-width',2).attr('marker-end','url(#moe-arr-io)');
+
+      // OUTPUT
+      const obH=80,obY=midY-obH/2;
+      svg.append('rect').attr('x',OX).attr('y',obY).attr('width',OW).attr('height',obH)
+        .attr('rx',8).attr('fill',C1).attr('fill-opacity',0.22).attr('stroke',C1).attr('stroke-width',1.5);
+      svg.append('text').attr('x',OX+OW/2).attr('y',obY+28).attr('text-anchor','middle')
+        .attr('fill',CW).attr('font-size',13).attr('font-weight','bold').text('Output Token');
+      svg.append('text').attr('x',OX+OW/2).attr('y',obY+50).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',12).text('Updated Embedding');
+
+      // INFO BULLETS
+      const iy0=obY+obH+16;
+      [
+        [CW, `${NE} total expert FFNs per MoE layer`],
+        [C2, `Only ${K} experts activated per token`],
+        [C3, 'Each token routed independently'],
+        [CA, 'Sparse → more params, same FLOPs'],
+        [CR, 'Used in: Mixtral, GPT-4, Gemini, Grok'],
+      ].forEach(([col,txt],i)=>{
+        svg.append('text').attr('x',OX+8).attr('y',iy0+i*21)
+          .attr('fill',col).attr('font-size',11.5).text(`● ${txt}`);
       });
 
-      tokG.append('line').attr('x1',352).attr('y1',48).attr('x2',372).attr('y2',48)
-        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
-      tokG.append('text').attr('x',376).attr('y',52)
-        .attr('fill',Cm).attr('font-size',11).attr('font-family','monospace')
-        .text('[9906, 11, 995]');
-
-      tokG.append('line').attr('x1',498).attr('y1',48).attr('x2',518).attr('y2',48)
-        .attr('stroke',Cm).attr('stroke-width',1.2).attr('marker-end','url(#arch-arr)');
-      tokG.append('text').attr('x',522).attr('y',52)
-        .attr('fill',Cm).attr('font-size',11).attr('font-family','sans-serif')
-        .text('Embedding lookup  +  Positional Encoding  →  vectors  →  Architecture');
-
-      // ── THREE ARCHITECTURE COLUMNS ─────────────────────────────────────────
-      const colGs = cols.map(col => {
-        const g = svg.append('g').attr('opacity',0);
-        const cx = col.x + col.w/2;
-
-        // Column background
-        g.append('rect')
-          .attr('x',col.x).attr('y',ARCH_Y-4)
-          .attr('width',col.w).attr('height',H-ARCH_Y)
-          .attr('rx',10)
-          .attr('fill',col.col+'0a')
-          .attr('stroke',col.col+'44').attr('stroke-width',1.2);
-
-        // Title
-        g.append('text').attr('x',cx).attr('y',ARCH_Y+16)
-          .attr('text-anchor','middle').attr('fill',col.col)
-          .attr('font-size',15).attr('font-weight','700').attr('font-family','sans-serif')
-          .text(col.title);
-        g.append('text').attr('x',cx).attr('y',ARCH_Y+31)
-          .attr('text-anchor','middle').attr('fill',Cm)
-          .attr('font-size',10).attr('font-family','sans-serif')
-          .text(col.sub);
-
-        return g;
-      });
-
-      // ── TRANSFORMER BLOCKS (staggered per column then per block) ───────────
-      const blockGs = [];
-      cols.forEach((col, ci) => {
-        const cx = col.x + col.w/2;
-        const bw = col.w - 28;
-        const bx = col.x + 14;
-        blockGs.push([]);
-
-        col.blockLabel.forEach((label, bi) => {
-          const g = svg.append('g').attr('opacity',0);
-          const by = BLK_Y0 + bi*(BH+BGAP);
-
-          // Outer box
-          g.append('rect').attr('x',bx).attr('y',by).attr('width',bw).attr('height',BH).attr('rx',6)
-            .attr('fill',col.col+'18').attr('stroke',col.col).attr('stroke-width',1.6);
-
-          // Divider line at mid-height
-          g.append('line').attr('x1',bx+8).attr('y1',by+BH/2).attr('x2',bx+bw-8).attr('y2',by+BH/2)
-            .attr('stroke',col.col+'55').attr('stroke-width',0.8);
-
-          // Top label: attention type
-          g.append('text').attr('x',cx).attr('y',by+BH/2-5)
-            .attr('text-anchor','middle').attr('fill',col.col)
-            .attr('font-size',11).attr('font-weight','600').attr('font-family','sans-serif')
-            .text(label);
-
-          // Bottom label: FFN
-          g.append('text').attr('x',cx).attr('y',by+BH-8)
-            .attr('text-anchor','middle').attr('fill',Cm)
-            .attr('font-size',10).attr('font-family','sans-serif')
-            .text('Feed-Forward Network');
-
-          blockGs[ci].push(g);
+      // ANIMATION
+      function activate(activeSet){
+        experts.forEach((e,i)=>{
+          const on=activeSet.includes(i);
+          e.box.transition().duration(380)
+            .attr('fill',on?C2:CM).attr('fill-opacity',on?0.28:0.12)
+            .attr('stroke',on?C2:'#3a4a5a').attr('stroke-width',on?2:1);
+          e.lbl.transition().duration(380).attr('fill',on?CW:'#5a7080');
+          e.badge.transition().duration(380)
+            .attr('fill',on?CA:'#3a4a5a').text(on?'ACTIVE ●':'inactive');
+          e.l1.transition().duration(380)
+            .attr('stroke',on?C2:'#2a3848').attr('stroke-width',on?2:1.5);
+          e.l2.transition().duration(380)
+            .attr('stroke',on?CA:'#2a3848').attr('stroke-width',on?2:1)
+            .attr('marker-end',on?'url(#moe-arr-sum)':'url(#moe-arr-dim)');
         });
+      }
 
-        // ×N label between first and second block
-        const nG = svg.append('g').attr('opacity',0);
-        nG.append('text')
-          .attr('x', col.x + col.w - 18)
-          .attr('y', BLK_Y0 + BH/2 + 4)
-          .attr('text-anchor','middle').attr('fill',col.col+'bb')
-          .attr('font-size',11).attr('font-family','sans-serif')
-          .text('×N');
-        blockGs[ci].push(nG);
-      });
+      activate([1,5]);
 
-      // ── OUTPUT LABELS ──────────────────────────────────────────────────────
-      const outGs = cols.map((col, ci) => {
-        const g = svg.append('g').attr('opacity',0);
-        const cx = col.x + col.w/2;
-        g.append('text').attr('x',cx).attr('y',OUT_Y)
-          .attr('text-anchor','middle').attr('fill',col.col)
-          .attr('font-size',11).attr('font-weight','600').attr('font-family','sans-serif')
-          .text('↓  '+col.outputLabel);
-        return g;
-      });
-
-      // ── ATTENTION PATTERN MINI-DIAGRAMS ────────────────────────────────────
-      const attnGs = cols.map((col, ci) => {
-        const g = svg.append('g').attr('opacity',0);
-        const n=5, r=4, gap=11;
-        const totalW = (n-1)*gap;
-        const ox = col.x + col.w/2 - totalW/2;
-        const oy = ATTN_Y;
-
-        for (let row=0; row<n; row++) {
-          for (let c2=0; c2<n; c2++) {
-            let filled = false;
-            if (col.attnFull === true)  filled = true;
-            if (col.attnFull === false) filled = (c2 <= row);
-            if (col.attnFull === null)  filled = (c2 <= row) || (row < 2 && c2 < 3);
-
-            if (filled) {
-              g.append('circle')
-                .attr('cx', ox + c2*gap).attr('cy', oy + row*gap)
-                .attr('r', r)
-                .attr('fill', col.col+'99');
-            } else {
-              g.append('circle')
-                .attr('cx', ox + c2*gap).attr('cy', oy + row*gap)
-                .attr('r', r)
-                .attr('fill','none')
-                .attr('stroke', col.col+'33').attr('stroke-width',0.8);
-            }
-          }
+      const iv=setInterval(()=>{
+        const pool=[...Array(NE).keys()];
+        const chosen=[];
+        for(let k=0;k<K;k++){
+          const idx=Math.floor(Math.random()*pool.length);
+          chosen.push(pool.splice(idx,1)[0]);
         }
+        activate(chosen);
+      },2200);
 
-        // Legend text
-        const legendText = col.attnFull===true ? 'Full attention' : col.attnFull===false ? 'Causal mask' : 'Cross-attention';
-        g.append('text')
-          .attr('x', col.x+col.w/2).attr('y', oy + n*gap + 4)
-          .attr('text-anchor','middle').attr('fill',Cm)
-          .attr('font-size',9.5).attr('font-family','sans-serif')
-          .text(legendText);
-
-        return g;
-      });
-
-      // ── MODEL NAME BADGES ──────────────────────────────────────────────────
-      const modelGs = cols.map((col, ci) => {
-        const g = svg.append('g').attr('opacity',0);
-        const totalW = col.w - 20;
-        const badgeH = 18;
-        const badges = col.models;
-        const badgeW = Math.min(60, Math.floor((totalW - (badges.length-1)*6) / badges.length));
-        const totalBW = badges.length * badgeW + (badges.length-1)*6;
-        let bx = col.x + (col.w - totalBW)/2;
-
-        badges.forEach(m => {
-          g.append('rect').attr('x',bx).attr('y',MOD_Y-badgeH+2)
-            .attr('width',badgeW).attr('height',badgeH).attr('rx',9)
-            .attr('fill',col.col+'28').attr('stroke',col.col+'88').attr('stroke-width',1);
-          g.append('text').attr('x',bx+badgeW/2).attr('y',MOD_Y-2)
-            .attr('text-anchor','middle').attr('fill',col.col)
-            .attr('font-size',9.5).attr('font-weight','700').attr('font-family','sans-serif')
-            .text(m);
-          bx += badgeW + 6;
-        });
-
-        g.append('text').attr('x',col.x+col.w/2).attr('y',USE_Y)
-          .attr('text-anchor','middle').attr('fill',Cm)
-          .attr('font-size',9.5).attr('font-family','sans-serif')
-          .text(col.usecase);
-
-        return g;
-      });
-
-      // ── ANIMATION ──────────────────────────────────────────────────────────
-      // P0: Tokenizer strip
-      tokG.transition().delay(0).duration(400).attr('opacity',1);
-
-      // P1: Column backgrounds + titles
-      colGs.forEach((g,ci) => g.transition().delay(500+ci*200).duration(350).attr('opacity',1));
-
-      // P2: Transformer blocks (per column, per block)
-      cols.forEach((_,ci) => {
-        blockGs[ci].forEach((g, bi) => {
-          g.transition().delay(1100+ci*200+bi*120).duration(300).attr('opacity',1);
-        });
-      });
-
-      // P3: Output labels + attention patterns
-      outGs.forEach((g,ci) => g.transition().delay(1900+ci*150).duration(300).attr('opacity',1));
-      attnGs.forEach((g,ci) => g.transition().delay(2100+ci*150).duration(350).attr('opacity',1));
-
-      // P4: Model badges + use-case
-      modelGs.forEach((g,ci) => g.transition().delay(2600+ci*150).duration(350).attr('opacity',1));
+      container._moeInterval=iv;
     }
 
-    function maybeInit() {
-      const el = document.getElementById('llm-arch-canvas');
-      if (el && !el._llmArchReady) { el._llmArchReady = true; draw(el); }
-    }
-    Reveal.on('ready', maybeInit);
-    Reveal.on('slidechanged', ev => {
-      if (ev.currentSlide && ev.currentSlide.id === 'llm-architectures') maybeInit();
+    Reveal.on('ready',()=>{
+      const el=document.getElementById('moe-canvas');
+      if(el) moeInit(el);
+    });
+    Reveal.on('slidechanged',({currentSlide})=>{
+      const el=currentSlide.querySelector('#moe-canvas');
+      if(el) moeInit(el);
     });
   })();
   </script>
-
 
   <!-- LLM model landscape: parameters & architecture (llm-params slide) -->
   <script>
@@ -8301,265 +8310,6 @@
         if(el) el._llmParamsReady=false;
       }
       if(ev.currentSlide&&ev.currentSlide.id==='llm-params') maybeInit();
-    });
-  })();
-  </script>
-
-  <!-- LLM Training animation -->
-  <script>
-  (function(){
-    const W=1100, H=490;
-    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
-    const CI='#4da8ff';
-    const CM='rgba(155,180,210,0.55)';
-    const CW='rgba(220,238,255,0.88)';
-
-    // Three training phases
-    const PHASES=[
-      {
-        id:'pre',
-        title:'Pre-training',
-        sub:'Self-supervised  ·  next-token prediction',
-        col:C1,
-        scale:'~10²³ tokens',
-        data:'Web · books · code · Wikipedia',
-        loss:'Cross-entropy  L = −log P(xₜ | x₁…xₜ₋₁)',
-        detail:[
-          'Predict next token at every position',
-          'Labels are the input itself (shifted)',
-          'Gradient flows back through all layers',
-          'Learns grammar, facts, reasoning patterns',
-        ],
-        badge:'Unsupervised',
-      },
-      {
-        id:'sft',
-        title:'Fine-tuning  (SFT)',
-        sub:'Supervised  ·  instruction following',
-        col:C2,
-        scale:'10³ – 10⁶ examples',
-        data:'(prompt, ideal response) pairs',
-        loss:'Same cross-entropy on response tokens',
-        detail:[
-          'Human-written demonstration data',
-          'Model learns response format & style',
-          'Frozen backbone or full fine-tune',
-          'Much cheaper than pre-training',
-        ],
-        badge:'Supervised',
-      },
-      {
-        id:'rlhf',
-        title:'RLHF / DPO',
-        sub:'Alignment  ·  human preference',
-        col:C3,
-        scale:'10³ – 10⁵ comparisons',
-        data:'(prompt, chosen, rejected) triples',
-        loss:'Reward model  +  PPO / DPO objective',
-        detail:[
-          'Humans rank model outputs A vs B',
-          'Reward model learns what "better" means',
-          'Policy updated to maximise reward',
-          'Adds safety, helpfulness, honesty',
-        ],
-        badge:'Reinforcement',
-      },
-    ];
-
-    const NP=PHASES.length;
-    const PAD=18;
-    const COLW=(W-PAD*(NP+1))/NP;   // ~336px per column
-    const colX=function(i){ return PAD+(COLW+PAD)*i; };
-
-    // Row geometry inside each column
-    const COL_TOP=44;
-    const BADGE_H=18;
-    const SCALE_Y=COL_TOP+78;
-    const DATA_Y=SCALE_Y+20;
-    const LOSS_Y=DATA_Y+20;
-    const DIV_Y=LOSS_Y+26;
-    const DETAIL_Y=DIV_Y+8;
-    const DETAIL_SP=17;
-
-    function draw(el){
-      el.innerHTML='';
-      const svg=d3.select(el).append('svg')
-        .attr('viewBox',`0 0 ${W} ${H}`)
-        .style('width','100%').style('height','100%');
-
-      const defs=svg.append('defs');
-      const fl=defs.append('filter').attr('id','lt-glow')
-        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
-      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.2).attr('result','blur');
-      const fm=fl.append('feMerge');
-      fm.append('feMergeNode').attr('in','blur');
-      fm.append('feMergeNode').attr('in','SourceGraphic');
-
-      // Arrow marker between phases
-      defs.append('marker').attr('id','lt-arr')
-        .attr('markerWidth',8).attr('markerHeight',6)
-        .attr('refX',7).attr('refY',3).attr('orient','auto')
-        .append('polygon').attr('points','0 0,8 3,0 6')
-        .attr('fill',CM).attr('opacity',0.70);
-
-      // One group per column (animates in left-to-right)
-      const groups=PHASES.map(function(){ return svg.append('g').attr('opacity',0); });
-
-      // Phase arrows between columns (in a separate early group)
-      const gArrows=svg.append('g').attr('opacity',0);
-      for(var ai=0;ai<NP-1;ai++){
-        var ax1=colX(ai)+COLW+2;
-        var ax2=colX(ai+1)-4;
-        var ay=COL_TOP+50;
-        gArrows.append('line')
-          .attr('x1',ax1).attr('y1',ay)
-          .attr('x2',ax2).attr('y2',ay)
-          .attr('stroke',CM).attr('stroke-width',2).attr('marker-end','url(#lt-arr)');
-        gArrows.append('text')
-          .attr('x',(ax1+ax2)/2).attr('y',ay-6)
-          .attr('text-anchor','middle').attr('font-size',7.5)
-          .attr('font-family','monospace').attr('fill',CM)
-          .text('initialise ↓');
-      }
-
-      PHASES.forEach(function(ph,i){
-        var g=groups[i];
-        var gx=colX(i);
-        var cx=gx+COLW/2;
-        var c=ph.col;
-
-        // Column background card
-        g.append('rect')
-          .attr('x',gx).attr('y',COL_TOP-8)
-          .attr('width',COLW).attr('height',H-COL_TOP-10).attr('rx',7)
-          .attr('fill',c).attr('fill-opacity',0.05)
-          .attr('stroke',c).attr('stroke-opacity',0.22).attr('stroke-width',1.2);
-
-        // Phase number circle
-        g.append('circle')
-          .attr('cx',gx+22).attr('cy',COL_TOP+14)
-          .attr('r',12)
-          .attr('fill',c).attr('fill-opacity',0.18)
-          .attr('stroke',c).attr('stroke-opacity',0.55).attr('stroke-width',1.4)
-          .attr('filter','url(#lt-glow)');
-        g.append('text')
-          .attr('x',gx+22).attr('y',COL_TOP+19)
-          .attr('text-anchor','middle').attr('font-size',11)
-          .attr('font-family','monospace').attr('fill',c).attr('font-weight','700')
-          .text(i+1);
-
-        // Title
-        g.append('text')
-          .attr('x',gx+42).attr('y',COL_TOP+12)
-          .attr('font-size',12).attr('font-family','monospace')
-          .attr('fill',c).attr('font-weight','700')
-          .text(ph.title);
-        g.append('text')
-          .attr('x',gx+42).attr('y',COL_TOP+26)
-          .attr('font-size',7.5).attr('font-family','monospace')
-          .attr('fill',c).attr('fill-opacity',0.60)
-          .text(ph.sub);
-
-        // Badge pill
-        g.append('rect')
-          .attr('x',gx+COLW-82).attr('y',COL_TOP+2)
-          .attr('width',76).attr('height',BADGE_H).attr('rx',9)
-          .attr('fill',c).attr('fill-opacity',0.15)
-          .attr('stroke',c).attr('stroke-opacity',0.40).attr('stroke-width',0.8);
-        g.append('text')
-          .attr('x',gx+COLW-44).attr('y',COL_TOP+14)
-          .attr('text-anchor','middle').attr('font-size',7.5)
-          .attr('font-family','monospace').attr('fill',c).attr('fill-opacity',0.80)
-          .text(ph.badge);
-
-        // Scale / data / loss rows
-        [
-          {label:'Scale:',  val:ph.scale,  y:SCALE_Y},
-          {label:'Data:',   val:ph.data,   y:DATA_Y},
-          {label:'Loss:',   val:ph.loss,   y:LOSS_Y},
-        ].forEach(function(row){
-          g.append('text')
-            .attr('x',gx+10).attr('y',row.y)
-            .attr('font-size',8).attr('font-family','monospace')
-            .attr('fill',c).attr('fill-opacity',0.65).attr('font-weight','700')
-            .text(row.label);
-          g.append('text')
-            .attr('x',gx+10).attr('y',row.y+13)
-            .attr('font-size',8).attr('font-family','monospace')
-            .attr('fill',CW).attr('fill-opacity',0.55)
-            .text(row.val);
-        });
-
-        // Divider
-        g.append('line')
-          .attr('x1',gx+10).attr('y1',DIV_Y)
-          .attr('x2',gx+COLW-10).attr('y2',DIV_Y)
-          .attr('stroke',c).attr('stroke-opacity',0.20).attr('stroke-width',0.8);
-
-        // Detail bullets
-        ph.detail.forEach(function(line,li){
-          var dy=DETAIL_Y+li*DETAIL_SP;
-          g.append('text')
-            .attr('x',gx+14).attr('y',dy+11)
-            .attr('font-size',8.5).attr('font-family','monospace')
-            .attr('fill',c).attr('fill-opacity',0.55)
-            .text('▸');
-          g.append('text')
-            .attr('x',gx+26).attr('y',dy+11)
-            .attr('font-size',8.5).attr('font-family','monospace')
-            .attr('fill',CW).attr('fill-opacity',0.60)
-            .text(line);
-        });
-
-        // Mini loss-curve sparkline at bottom of card
-        var SPK_Y=H-46, SPK_H=28, SPK_W=COLW-28;
-        var SPK_X=gx+14;
-        // Generate a decaying curve path
-        var pts=[];
-        for(var si=0;si<=20;si++){
-          var sx=SPK_X+si*(SPK_W/20);
-          var sv;
-          if(ph.id==='pre')   sv=SPK_Y+SPK_H*(1-Math.exp(-si*0.15))*(si<18?1:0.98);
-          else if(ph.id==='sft') sv=SPK_Y+SPK_H*(0.45+0.45*(1-Math.exp(-(si)*0.20)));
-          else                sv=SPK_Y+SPK_H*(0.72+0.22*(1-Math.exp(-(si)*0.22)));
-          // flip: high loss=low y  →  invert
-          sv=SPK_Y+SPK_H-(sv-SPK_Y);
-          pts.push([sx,sv]);
-        }
-        var pathD='M '+pts.map(function(p){return p[0]+','+p[1];}).join(' L ');
-        g.append('path')
-          .attr('d',pathD).attr('fill','none')
-          .attr('stroke',c).attr('stroke-opacity',0.40).attr('stroke-width',1.5);
-        g.append('text')
-          .attr('x',SPK_X).attr('y',SPK_Y-4)
-          .attr('font-size',7).attr('font-family','monospace')
-          .attr('fill',c).attr('fill-opacity',0.38)
-          .text('loss ↓');
-        // x-axis
-        g.append('line')
-          .attr('x1',SPK_X).attr('y1',SPK_Y+SPK_H)
-          .attr('x2',SPK_X+SPK_W).attr('y2',SPK_Y+SPK_H)
-          .attr('stroke',c).attr('stroke-opacity',0.15).attr('stroke-width',0.7);
-      });
-
-      // Animate columns left-to-right, arrows after first column
-      gArrows.transition().delay(350).duration(400).attr('opacity',1);
-      groups.forEach(function(g,i){
-        g.transition().delay(i*480).duration(600).attr('opacity',1);
-      });
-    }
-
-    function maybeInit(){
-      const el=document.getElementById('llm-training-canvas');
-      if(el&&!el._ltReady){el._ltReady=true;draw(el);}
-    }
-    Reveal.on('ready',maybeInit);
-    Reveal.on('slidechanged',function(ev){
-      if(ev.previousSlide&&ev.previousSlide.id==='llm-training'){
-        const el=document.getElementById('llm-training-canvas');
-        if(el) el._ltReady=false;
-      }
-      if(ev.currentSlide&&ev.currentSlide.id==='llm-training') maybeInit();
     });
   })();
   </script>
@@ -8965,45 +8715,12 @@
   })();
   </script>
 
-  <!-- Cross-attention animation -->
+  <!-- Multimodal Autoregressive Models animation (multimodal-ar slide) -->
   <script>
   (function(){
     const W=1100, H=490;
-    const C1='#00d9ff', C2='#2de8a0', C3='#ffa830', CA='#9d4edd';
-    const CI='#4da8ff';
-    const CM='rgba(155,180,210,0.55)';
-    const CW='rgba(220,238,255,0.88)';
-
-    // English source (encoder) and French target (decoder)
-    const ENC_TOKS=['The','cat','sat','on','mat'];
-    const DEC_TOKS=['Le','chat',"s'est"];
-    const NE=5, ND=3;
-    const ENC_COLS=[CI, C3, C2, C1, CA]; // per encoder-token colour
-
-    // Cross-attention weights [decoder row][encoder col], each row sums to 1
-    const ATTN=[
-      [0.35, 0.25, 0.15, 0.15, 0.10],   // Le   → The(hi)
-      [0.08, 0.68, 0.10, 0.08, 0.06],   // chat → cat(hi)
-      [0.06, 0.10, 0.65, 0.12, 0.07],   // s'est→ sat(hi)
-    ];
-
-    const CELL_W=56, CELL_H=66, GAP=3;
-    const MATW=NE*(CELL_W+GAP)-GAP;   // 292
-    const MATH=ND*(CELL_H+GAP)-GAP;   // 204
-
-    const MAT_LEFT=185, MAT_TOP=96;
-    const MAT_RIGHT=MAT_LEFT+MATW;    // 477
-    const MAT_BOT=MAT_TOP+MATH;       // 300
-    const midY=(MAT_TOP+MAT_BOT)/2;   // 198
-
-    const ENC_Y=50, ENC_H=26;         // encoder boxes above matrix
-    const DEC_X=15, DEC_W=112;        // decoder boxes left of matrix
-
-    const OUT_X=MAT_RIGHT+44;         // 521
-    const OUT_W=88;
-    const OUT_RIGHT=OUT_X+OUT_W;      // 609
-
-    const NOTE_X=OUT_RIGHT+22;        // 631
+    const C1='#6a1aaa', C2='#4da8ff', CA='#2de8a0', C3='#ffa830', CR='#e86040';
+    const CM='rgba(155,180,210,0.55)', CW='rgba(220,238,255,0.90)';
 
     function draw(el){
       el.innerHTML='';
@@ -9012,254 +8729,235 @@
         .style('width','100%').style('height','100%');
 
       const defs=svg.append('defs');
-      const fl=defs.append('filter').attr('id','ca-glow')
+      const fl=defs.append('filter').attr('id','mm-glow')
         .attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
       fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.5).attr('result','blur');
       const fm=fl.append('feMerge');
       fm.append('feMergeNode').attr('in','blur');
       fm.append('feMergeNode').attr('in','SourceGraphic');
-      function addArrow(id,col){
-        defs.append('marker').attr('id',id)
-          .attr('markerWidth',7).attr('markerHeight',5)
-          .attr('refX',6).attr('refY',2.5).attr('orient','auto')
-          .append('polygon').attr('points','0 0,7 2.5,0 5')
-          .attr('fill',col).attr('opacity',0.75);
-      }
-      addArrow('ca-arr-enc',CI);
-      addArrow('ca-arr-dec',C3);
-      addArrow('ca-arr-out',C2);
+      defs.append('marker').attr('id','mm-arr')
+        .attr('markerWidth',7).attr('markerHeight',5)
+        .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+        .append('polygon').attr('points','0 0,7 2.5,0 5')
+        .attr('fill',CW).attr('opacity',0.55);
 
-      const gHead=svg.append('g').attr('opacity',0);
-      const gEnc =svg.append('g').attr('opacity',0);
-      const gDec =svg.append('g').attr('opacity',0);
-      const gMat =svg.append('g').attr('opacity',0);
-      const gHL  =svg.append('g').attr('opacity',0);
-      const gOut =svg.append('g').attr('opacity',0);
-      const gNote=svg.append('g').attr('opacity',0);
+      const gLeft  = svg.append('g').attr('opacity',0);
+      const gTable = svg.append('g').attr('opacity',0);
+      const gRight = svg.append('g').attr('opacity',0);
 
-      // ── Titles ──
-      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',18)
-        .attr('text-anchor','middle').attr('font-size',11)
-        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
-        .text('Cross-Attention Weight Matrix');
-      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',33)
-        .attr('text-anchor','middle').attr('font-size',8)
-        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
-        .text('Q (decoder) · K (encoder)^T / √d   —   each row sums to 1');
+      // ── LEFT: Token Unification (x=10..348) ──
+      const LX=10, LW=338, LCX=LX+LW/2;
 
-      // Column-axis label (encoder above)
-      gHead.append('text').attr('x',MAT_LEFT+MATW/2).attr('y',ENC_Y-4)
-        .attr('text-anchor','middle').attr('font-size',8.5)
-        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.55)
-        .text('Encoder output  →  Keys (K) and Values (V)');
+      gLeft.append('text').attr('x',LCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('One Token Stream');
 
-      // Decoder label (above decoder column)
-      gHead.append('text').attr('x',DEC_X+DEC_W/2).attr('y',ENC_Y+2)
-        .attr('text-anchor','middle').attr('font-size',8.5)
-        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.60)
-        .text('Decoder');
-      gHead.append('text').attr('x',DEC_X+DEC_W/2).attr('y',ENC_Y+14)
-        .attr('text-anchor','middle').attr('font-size',7.5)
-        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.42)
-        .text('(Q source)');
+      // Modality input strips
+      var MODS=[
+        {name:'Image',  col:C3},
+        {name:'Audio',  col:CA},
+        {name:'Text',   col:C2},
+        {name:'Video',  col:CR},
+      ];
+      var sH=22, sG=6, sY0=27, nToks=14;
+      var tokAreaX=LX+58, tokAreaW=LW-64;
+      var tokSz=tokAreaW/nToks-1.5;
 
-      // Output label
-      gHead.append('text').attr('x',OUT_X+OUT_W/2).attr('y',ENC_Y+2)
-        .attr('text-anchor','middle').attr('font-size',8.5)
-        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.60)
-        .text('Context');
-      gHead.append('text').attr('x',OUT_X+OUT_W/2).attr('y',ENC_Y+14)
-        .attr('text-anchor','middle').attr('font-size',7.5)
-        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.42)
-        .text('(Σ w·V)');
-
-      // ── Encoder token boxes (above matrix, aligned to columns) ──
-      ENC_TOKS.forEach(function(tok,ci){
-        var bx=MAT_LEFT+ci*(CELL_W+GAP);
-        var col=ENC_COLS[ci];
-        gEnc.append('rect')
-          .attr('x',bx).attr('y',ENC_Y)
-          .attr('width',CELL_W).attr('height',ENC_H).attr('rx',3)
-          .attr('fill',col).attr('fill-opacity',0.14)
-          .attr('stroke',col).attr('stroke-opacity',0.45).attr('stroke-width',1);
-        gEnc.append('text')
-          .attr('x',bx+CELL_W/2).attr('y',ENC_Y+ENC_H/2+4)
-          .attr('text-anchor','middle').attr('font-size',10)
-          .attr('font-family','monospace').attr('fill',col).attr('fill-opacity',0.92)
-          .attr('font-weight','700').text('"'+tok+'"');
-        // Arrow down into matrix
-        gEnc.append('line')
-          .attr('x1',bx+CELL_W/2).attr('y1',ENC_Y+ENC_H+3)
-          .attr('x2',bx+CELL_W/2).attr('y2',MAT_TOP-5)
-          .attr('stroke',col).attr('stroke-opacity',0.38).attr('stroke-width',1.2)
-          .attr('marker-end','url(#ca-arr-enc)');
-      });
-
-      // ── Decoder token boxes (left of matrix, aligned to rows) ──
-      DEC_TOKS.forEach(function(tok,ri){
-        var by=MAT_TOP+ri*(CELL_H+GAP);
-        var isHL=ri===1;
-        gDec.append('rect')
-          .attr('x',DEC_X).attr('y',by)
-          .attr('width',DEC_W).attr('height',CELL_H).attr('rx',3)
-          .attr('fill',C3).attr('fill-opacity',isHL?0.14:0.07)
-          .attr('stroke',C3).attr('stroke-opacity',isHL?0.50:0.24).attr('stroke-width',1);
-        gDec.append('text')
-          .attr('x',DEC_X+DEC_W/2).attr('y',by+CELL_H/2+4)
-          .attr('text-anchor','middle').attr('font-size',11)
-          .attr('font-family','monospace').attr('fill',C3)
-          .attr('fill-opacity',isHL?0.95:0.60).attr('font-weight',isHL?'700':'400')
-          .text('"'+tok+'"');
-        // Q arrow into matrix
-        gDec.append('line')
-          .attr('x1',DEC_X+DEC_W+3).attr('y1',by+CELL_H/2)
-          .attr('x2',MAT_LEFT-5).attr('y2',by+CELL_H/2)
-          .attr('stroke',C3).attr('stroke-opacity',0.38).attr('stroke-width',1.2)
-          .attr('marker-end','url(#ca-arr-dec)');
-        gDec.append('text')
-          .attr('x',DEC_X+DEC_W-2).attr('y',by+CELL_H/2-5)
-          .attr('text-anchor','end').attr('font-size',7)
-          .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.45)
-          .text('Q →');
-      });
-
-      // ── Cross-attention matrix ──
-      for(var ri=0;ri<ND;ri++){
-        for(var ci=0;ci<NE;ci++){
-          var v=ATTN[ri][ci];
-          var col=ENC_COLS[ci];
-          var cx=MAT_LEFT+ci*(CELL_W+GAP);
-          var cy=MAT_TOP+ri*(CELL_H+GAP);
-          gMat.append('rect')
-            .attr('x',cx).attr('y',cy)
-            .attr('width',CELL_W).attr('height',CELL_H).attr('rx',2)
-            .attr('fill',col).attr('fill-opacity',0.04+v*0.72);
-          if(v>0.12) gMat.append('text')
-            .attr('x',cx+CELL_W/2).attr('y',cy+CELL_H/2+4)
-            .attr('text-anchor','middle').attr('font-size',9.5)
-            .attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.65)
-            .text(v.toFixed(2));
+      MODS.forEach(function(m,i){
+        var sy=sY0+i*(sH+sG);
+        gLeft.append('text').attr('x',LX+2).attr('y',sy+sH/2+4)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',m.col).attr('font-weight','700').text(m.name);
+        for(var ti=0;ti<nToks;ti++){
+          var op=0.18+Math.abs(Math.sin(i*1.7+ti*0.9))*0.52;
+          gLeft.append('rect')
+            .attr('x',tokAreaX+ti*(tokSz+1.5)).attr('y',sy+2)
+            .attr('width',tokSz).attr('height',sH-4).attr('rx',1.5)
+            .attr('fill',m.col).attr('fill-opacity',op);
         }
-      }
-
-      // ── Highlight: "chat" row + "cat" peak cell ──
-      var HL_RI=1, HL_CI=1;
-      var hlcx=MAT_LEFT+HL_CI*(CELL_W+GAP);
-      var hlcy=MAT_TOP+HL_RI*(CELL_H+GAP);
-      // Row ring
-      gHL.append('rect')
-        .attr('x',MAT_LEFT-2).attr('y',hlcy-1)
-        .attr('width',MATW+4).attr('height',CELL_H+2).attr('rx',3)
-        .attr('fill','none').attr('stroke',C3).attr('stroke-opacity',0.60).attr('stroke-width',1.7)
-        .attr('filter','url(#ca-glow)');
-      // Peak cell ring
-      gHL.append('rect')
-        .attr('x',hlcx-1).attr('y',hlcy-1)
-        .attr('width',CELL_W+2).attr('height',CELL_H+2).attr('rx',3)
-        .attr('fill','none').attr('stroke',C3).attr('stroke-opacity',0.90).attr('stroke-width',2.3)
-        .attr('filter','url(#ca-glow)');
-      // Callout
-      gHL.append('text')
-        .attr('x',hlcx+CELL_W/2).attr('y',hlcy-6)
-        .attr('text-anchor','middle').attr('font-size',8)
-        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.90)
-        .text('"chat" → "cat"  0.68');
-
-      // ── Output context vectors (right panel) ──
-      // Arrow from matrix to output
-      gOut.append('line')
-        .attr('x1',MAT_RIGHT+5).attr('y1',midY)
-        .attr('x2',OUT_X-9).attr('y2',midY)
-        .attr('stroke',C2).attr('stroke-width',2.0).attr('marker-end','url(#ca-arr-out)');
-      gOut.append('text')
-        .attr('x',(MAT_RIGHT+OUT_X)/2).attr('y',midY-7)
-        .attr('text-anchor','middle').attr('font-size',8.5)
-        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.72)
-        .text('× V');
-
-      DEC_TOKS.forEach(function(tok,ri){
-        var oy=MAT_TOP+ri*(CELL_H+GAP);
-        var isHL=ri===1;
-        var oBox=gOut.append('rect')
-          .attr('x',OUT_X).attr('y',oy+5)
-          .attr('width',OUT_W).attr('height',CELL_H-10).attr('rx',4)
-          .attr('fill',C2).attr('fill-opacity',isHL?0.13:0.07)
-          .attr('stroke',C2).attr('stroke-opacity',isHL?0.50:0.22).attr('stroke-width',1);
-        if(isHL) oBox.attr('filter','url(#ca-glow)');
-
-        // Composition strip (weighted colour bar from each encoder token)
-        var STRIP_W=OUT_W-14, STRIP_H=10;
-        var sx=OUT_X+7;
-        ATTN[ri].forEach(function(w,ci){
-          var sw=STRIP_W*w;
-          gOut.append('rect')
-            .attr('x',sx).attr('y',oy+10)
-            .attr('width',Math.max(sw-1,0)).attr('height',STRIP_H).attr('rx',1)
-            .attr('fill',ENC_COLS[ci]).attr('fill-opacity',0.68);
-          sx+=sw;
-        });
-
-        gOut.append('text')
-          .attr('x',OUT_X+OUT_W/2).attr('y',oy+CELL_H-8)
-          .attr('text-anchor','middle').attr('font-size',8.5)
-          .attr('font-family','monospace')
-          .attr('fill',isHL?C3:CW).attr('fill-opacity',isHL?0.92:0.45)
-          .text('ctx_'+tok);
       });
 
-      // ── Right note ──
-      var NY=MAT_TOP;
-      function nline(txt,col,sz,bold){
-        if(!txt){NY+=7;return;}
-        gNote.append('text')
-          .attr('x',NOTE_X).attr('y',NY)
-          .attr('font-size',sz||9).attr('font-family','monospace')
-          .attr('fill',col||CM).attr('font-weight',bold?'700':'400')
-          .text(txt);
-        NY+=(sz||9)+(bold?8:5);
-      }
-      nline('Cross-Attention',CW,11,true);
-      nline('');
-      nline('Q  ←  decoder output',C3,9);
-      nline('K  ←  encoder output',CI,9);
-      nline('V  ←  encoder output',CI,9);
-      nline('');
-      nline('"chat" → "cat": 0.68',C3,9,true);
-      nline('French noun directly',CM,8.5);
-      nline('targets English noun',CM,8.5);
-      nline('');
-      nline('No causal mask —',CW,9);
-      nline('decoder sees ALL',CM,8.5);
-      nline('encoder positions',CM,8.5);
-      nline('');
-      nline('Used in:',CW,8.5);
-      nline('T5 · BART · Flan-T5',C2,8.5);
+      // Merge label + unified stream
+      var uniY=sY0+MODS.length*(sH+sG)+10;
+      gLeft.append('text').attr('x',LCX).attr('y',uniY-2)
+        .attr('text-anchor','middle').attr('font-size',7.5).attr('font-family','monospace')
+        .attr('fill',CM).text('↓  all modalities tokenized into one sequence');
 
-      // Bottom insight box
-      var IB_Y=MAT_BOT+18, IB_X=DEC_X, IB_W=OUT_RIGHT-DEC_X;
-      gNote.append('rect')
-        .attr('x',IB_X).attr('y',IB_Y).attr('width',IB_W).attr('height',54).attr('rx',6)
-        .attr('fill',CI).attr('fill-opacity',0.06)
-        .attr('stroke',CI).attr('stroke-opacity',0.26).attr('stroke-width',1.1);
-      gNote.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+17)
-        .attr('text-anchor','middle').attr('font-size',9.5)
-        .attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
-        .text('Key difference from self-attention:');
-      gNote.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+34)
-        .attr('text-anchor','middle').attr('font-size',9)
-        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.80)
-        .text('Q and K,V come from different sequences — decoder "reads" the full encoder at every step');
+      var UNI=[C3,C3,CA,C2,CR,C3,C2,CA,C2,C3,CR,C2,CA,C3,C2,CR];
+      var uniH=26, uSeqW=(LW-20)/UNI.length;
+      UNI.forEach(function(col,ti){
+        gLeft.append('rect')
+          .attr('x',LX+10+ti*uSeqW).attr('y',uniY+2)
+          .attr('width',uSeqW-1.5).attr('height',uniH).attr('rx',2)
+          .attr('fill',col).attr('fill-opacity',0.55+ti%3*0.10);
+      });
+
+      // Transformer box
+      var trY=uniY+uniH+16, trH=52;
+      gLeft.append('line')
+        .attr('x1',LCX).attr('y1',uniY+uniH+3)
+        .attr('x2',LCX).attr('y2',trY-3)
+        .attr('stroke',CW).attr('stroke-opacity',0.32).attr('stroke-width',1.5)
+        .attr('marker-end','url(#mm-arr)');
+      gLeft.append('rect').attr('x',LX).attr('y',trY).attr('width',LW).attr('height',trH).attr('rx',6)
+        .attr('fill',C1).attr('fill-opacity',0.15)
+        .attr('stroke',C1).attr('stroke-opacity',0.55).attr('stroke-width',1.4)
+        .attr('filter','url(#mm-glow)');
+      gLeft.append('text').attr('x',LCX).attr('y',trY+19)
+        .attr('text-anchor','middle').attr('font-size',10).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('Autoregressive Transformer');
+      gLeft.append('text').attr('x',LCX).attr('y',trY+35)
+        .attr('text-anchor','middle').attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',CM).text('causal attention  ·  predict next token from any modality');
+
+      // Output row
+      var outY=trY+trH+14;
+      gLeft.append('line')
+        .attr('x1',LCX).attr('y1',trY+trH+3)
+        .attr('x2',LCX).attr('y2',outY-3)
+        .attr('stroke',CW).attr('stroke-opacity',0.32).attr('stroke-width',1.5)
+        .attr('marker-end','url(#mm-arr)');
+      gLeft.append('text').attr('x',LCX).attr('y',outY+7)
+        .attr('text-anchor','middle').attr('font-size',7.5).attr('font-family','monospace')
+        .attr('fill',CM).text('next token  (any modality)');
+
+      var OUT_TOKS=[{col:C2,lbl:'word'},{col:C3,lbl:'img patch'},{col:CA,lbl:'audio'},{col:CR,lbl:'video'}];
+      var oBW=72, oBH=26, oBG=6;
+      var oBX=LCX-(OUT_TOKS.length*(oBW+oBG)-oBG)/2;
+      OUT_TOKS.forEach(function(t,i){
+        var ox=oBX+i*(oBW+oBG);
+        gLeft.append('rect').attr('x',ox).attr('y',outY+14).attr('width',oBW).attr('height',oBH).attr('rx',4)
+          .attr('fill',t.col).attr('fill-opacity',0.22).attr('stroke',t.col).attr('stroke-opacity',0.55).attr('stroke-width',1);
+        gLeft.append('text').attr('x',ox+oBW/2).attr('y',outY+14+oBH/2+4)
+          .attr('text-anchor','middle').attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',t.col).attr('font-weight','700').text(t.lbl);
+      });
+
+      // ── CENTER: Model Table (x=360..728) ──
+      const TX=360, TW=368, TCX=TX+TW/2;
+
+      gTable.append('text').attr('x',TCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('Model Landscape');
+
+      var COLS=[
+        {key:'text',  label:'Text', col:C2},
+        {key:'img',   label:'Img',  col:C3},
+        {key:'audio', label:'Audio',col:CA},
+        {key:'video', label:'Video',col:CR},
+        {key:'code',  label:'Code', col:C1},
+      ];
+      var MODELS=[
+        {name:'GPT-4o',     org:'OpenAI',    text:1, img:1, audio:1, video:0.5, code:1},
+        {name:'Gemini 2.0', org:'Google',    text:1, img:1, audio:1, video:1,   code:1},
+        {name:'Claude 4',   org:'Anthropic', text:1, img:1, audio:0, video:0,   code:1},
+        {name:'LLaMA 4',    org:'Meta',      text:1, img:1, audio:0, video:0,   code:1},
+        {name:'Qwen2.5-VL', org:'Alibaba',   text:1, img:1, audio:0, video:1,   code:1},
+        {name:'Chameleon',  org:'Meta',      text:1, img:1, audio:0, video:0,   code:0},
+      ];
+
+      var colNW=130, colCW=46, tblX=TX+8, hdrY=28;
+
+      // Header
+      gTable.append('text').attr('x',tblX).attr('y',hdrY+12)
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM).text('Model');
+      COLS.forEach(function(c,ci){
+        var cx=tblX+colNW+ci*colCW+colCW/2;
+        gTable.append('text').attr('x',cx).attr('y',hdrY+12)
+          .attr('text-anchor','middle').attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',c.col).attr('font-weight','700').text(c.label);
+      });
+      gTable.append('line')
+        .attr('x1',TX+4).attr('y1',hdrY+18).attr('x2',TX+TW-4).attr('y2',hdrY+18)
+        .attr('stroke',CM).attr('stroke-opacity',0.35).attr('stroke-width',0.8);
+
+      // Model rows
+      var rH=55, rY=hdrY+22;
+      MODELS.forEach(function(m,ri){
+        var ry=rY+ri*rH;
+        gTable.append('rect').attr('x',TX+4).attr('y',ry).attr('width',TW-8).attr('height',rH-2).attr('rx',3)
+          .attr('fill',ri%2===0?'rgba(30,30,55,0.18)':'rgba(10,10,30,0.08)');
+        gTable.append('text').attr('x',tblX).attr('y',ry+18)
+          .attr('font-size',9.5).attr('font-family','monospace').attr('fill',CW).attr('font-weight','700')
+          .text(m.name);
+        gTable.append('text').attr('x',tblX).attr('y',ry+32)
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM).text(m.org);
+        COLS.forEach(function(c,ci){
+          var cx=tblX+colNW+ci*colCW+colCW/2;
+          var val=m[c.key];
+          if(val===1){
+            gTable.append('circle').attr('cx',cx).attr('cy',ry+rH/2-2).attr('r',10)
+              .attr('fill',c.col).attr('fill-opacity',0.28)
+              .attr('stroke',c.col).attr('stroke-opacity',0.65).attr('stroke-width',1.2);
+            gTable.append('text').attr('x',cx).attr('y',ry+rH/2+2)
+              .attr('text-anchor','middle').attr('font-size',10).attr('font-family','monospace')
+              .attr('fill',c.col).attr('font-weight','700').text('✓');
+          } else if(val===0.5){
+            gTable.append('circle').attr('cx',cx).attr('cy',ry+rH/2-2).attr('r',10)
+              .attr('fill',c.col).attr('fill-opacity',0.10)
+              .attr('stroke',c.col).attr('stroke-opacity',0.38).attr('stroke-width',1);
+            gTable.append('text').attr('x',cx).attr('y',ry+rH/2+2)
+              .attr('text-anchor','middle').attr('font-size',9).attr('font-family','monospace')
+              .attr('fill',c.col).attr('fill-opacity',0.65).text('◑');
+          } else {
+            gTable.append('text').attr('x',cx).attr('y',ry+rH/2+2)
+              .attr('text-anchor','middle').attr('font-size',12).attr('font-family','monospace')
+              .attr('fill',CM).attr('fill-opacity',0.35).text('·');
+          }
+        });
+      });
+
+      var legY=rY+MODELS.length*rH+6;
+      gTable.append('text').attr('x',tblX).attr('y',legY+10)
+        .attr('font-size',7).attr('font-family','monospace').attr('fill',CM)
+        .text('✓ supported  ◑ partial / announced  · not yet');
+
+      // ── RIGHT: Key Concepts (x=740..1090) ──
+      const RX=740, RW=348, RCX=RX+RW/2;
+
+      gRight.append('text').attr('x',RCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('Key Concepts');
+
+      var CARDS=[
+        {title:'Unified Token Space', col:C2,
+         lines:['Image patches, audio frames & words are all',
+                'discrete tokens in one shared vocabulary.',
+                'Model learns joint distributions across all.']},
+        {title:'Native vs Pipeline', col:CA,
+         lines:['Native: one model end-to-end (GPT-4o, Gemini).',
+                'Pipeline: separate models chained together.',
+                'Native enables tighter cross-modal reasoning.']},
+        {title:'Interleaved Generation', col:C3,
+         lines:['Output can freely mix modalities:',
+                '"Here is the scene: [img] It shows a cat..."',
+                'Enables visual explanation, audio narration.']},
+        {title:'Architecture Approaches', col:CR,
+         lines:['Early-fusion: all modalities from layer 1 (Chameleon).',
+                'Adapter: frozen LLM + modality projectors (LLaVA).',
+                'MoE: expert routing per modality (Mixtral-style).']},
+      ];
+
+      var cH=92, cG=8, cY0=26;
+      CARDS.forEach(function(card,i){
+        var cy=cY0+i*(cH+cG);
+        gRight.append('rect').attr('x',RX).attr('y',cy).attr('width',RW).attr('height',cH).attr('rx',5)
+          .attr('fill',card.col).attr('fill-opacity',0.07)
+          .attr('stroke',card.col).attr('stroke-opacity',0.38).attr('stroke-width',1.2);
+        gRight.append('text').attr('x',RX+10).attr('y',cy+18)
+          .attr('font-size',9.5).attr('font-family','monospace')
+          .attr('fill',card.col).attr('font-weight','700').text(card.title);
+        card.lines.forEach(function(line,li){
+          gRight.append('text').attr('x',RX+10).attr('y',cy+36+li*18)
+            .attr('font-size',7.8).attr('font-family','monospace')
+            .attr('fill',CW).attr('fill-opacity',0.68).text(line);
+        });
+      });
 
       var seq=[
-        [gHead,    0,  400],
-        [gEnc,   400,  550],
-        [gDec,   900,  500],
-        [gMat,  1400,  650],
-        [gHL,   2100,  400],
-        [gOut,  2600,  550],
-        [gNote, 3200,  500],
+        [gLeft,    0,  600],
+        [gTable, 500,  600],
+        [gRight,1000,  600],
       ];
       seq.forEach(function(s){
         s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
@@ -9267,16 +8965,16 @@
     }
 
     function maybeInit(){
-      const el=document.getElementById('cross-attn-canvas');
-      if(el&&!el._crossReady){el._crossReady=true;draw(el);}
+      const el=document.getElementById('multimodal-ar-canvas');
+      if(el&&!el._mmReady){el._mmReady=true;draw(el);}
     }
     Reveal.on('ready',maybeInit);
     Reveal.on('slidechanged',function(ev){
-      if(ev.previousSlide&&ev.previousSlide.id==='cross-attention'){
-        const el=document.getElementById('cross-attn-canvas');
-        if(el) el._crossReady=false;
+      if(ev.previousSlide&&ev.previousSlide.id==='multimodal-ar'){
+        const el=document.getElementById('multimodal-ar-canvas');
+        if(el) el._mmReady=false;
       }
-      if(ev.currentSlide&&ev.currentSlide.id==='cross-attention') maybeInit();
+      if(ev.currentSlide&&ev.currentSlide.id==='multimodal-ar') maybeInit();
     });
   })();
   </script>
@@ -9291,10 +8989,14 @@
     const CW='rgba(220,238,255,0.88)';
 
     const ARCHS=[
-      {title:'Encoder-Only',       sub:'BERT · RoBERTa · DeBERTa',   col:C1, type:'enc'},
-      {title:'Decoder-Only',       sub:'GPT-4 · Llama · Claude',      col:C3, type:'dec'},
-      {title:'Encoder–Decoder',    sub:'T5 · BART · Flan-T5',         col:C2, type:'encdec'},
-      {title:'Mixture of Experts', sub:'Mixtral · Grok · Gemini',     col:CA, type:'moe'},
+      {title:'Decoder-Only',       sub:'GPT-4 · Llama · Claude',      col:C3, type:'dec',
+       purpose:['Generate — one token at a time.','Predicts left-to-right autoregressively;','the dominant paradigm for chat and code.']},
+      {title:'Encoder-Only',       sub:'BERT · RoBERTa · DeBERTa',   col:C1, type:'enc',
+       purpose:['Understand — don\'t generate.','Reads the full sequence at once; ideal for','classification, NER, and question answering.']},
+      {title:'Encoder–Decoder',    sub:'T5 · BART · Flan-T5',         col:C2, type:'encdec',
+       purpose:['Transform one sequence into another.','Encodes the full input, then decodes','a new target (translation, summarization).']},
+      {title:'Mixture of Experts', sub:'Mixtral · Grok · Gemini',     col:CA, type:'moe',
+       purpose:['Scale cheaply — stay sparse.','A router picks ~2 expert FFNs per token;','parameters grow without proportional cost.']},
     ];
     const FEATS={
       enc:   ['Bidirectional attention','Full context at every layer','Classification · NER · QA'],
@@ -9591,8 +9293,25 @@
         else if(arch.type==='encdec') drawEncDec(g,gx,cx,diagY,c);
         else if(arch.type==='moe')    drawMoE(g,gx,cx,diagY,c);
 
-        // Divider
+        // Purpose note box — sits above the feature bullets
         const divY=H-10-FEATS[arch.type].length*24-8;
+        const noteH=arch.purpose.length*14+10;
+        const noteY=divY-noteH-8;
+        g.append('rect')
+          .attr('x',gx+8).attr('y',noteY)
+          .attr('width',COLW-16).attr('height',noteH).attr('rx',4)
+          .attr('fill',c).attr('fill-opacity',0.07)
+          .attr('stroke',c).attr('stroke-opacity',0.28).attr('stroke-width',0.9);
+        arch.purpose.forEach(function(line,li){
+          g.append('text')
+            .attr('x',cx).attr('y',noteY+13+li*14)
+            .attr('text-anchor','middle').attr('font-size',7.5)
+            .attr('font-family','Georgia,serif').attr('font-style','italic')
+            .attr('fill',c).attr('fill-opacity',0.82)
+            .text(line);
+        });
+
+        // Divider
         g.append('line')
           .attr('x1',gx+14).attr('y1',divY).attr('x2',gx+COLW-14).attr('y2',divY)
           .attr('stroke',c).attr('stroke-opacity',0.15).attr('stroke-width',0.8);
@@ -9848,7 +9567,7 @@
       // ── Right annotation ──
       var NY=MAT_TOP;
       function nline(txt,col,sz,bold){
-        if(!txt){NY+=7;return;}
+        if(!txt){NY+=6;return;}
         gNote.append('text')
           .attr('x',NOTE_X).attr('y',NY)
           .attr('font-size',sz||9).attr('font-family','monospace')
@@ -9858,21 +9577,23 @@
       }
       nline('Why masking?',CW,11,true);
       nline('');
-      nline('Each token can only',CM,8.5);
-      nline('attend to itself and',CM,8.5);
-      nline('earlier tokens.',CM,8.5);
+      nline('Token i can only see',CM,8.5);
+      nline('tokens 0 … i−1.',CM,8.5);
+      nline('Future = invisible.',CM,8.5);
       nline('');
-      nline('−∞ before softmax',C1,8.5);
-      nline('→ exactly 0 after.',C1,8.5);
+      nline('The trick: add −∞',C1,8.5);
+      nline('before softmax, so',C1,8.5);
+      nline('e^(−∞) = 0 after.',C1,8.5);
+      nline('Future weight = 0.',C1,8.5);
       nline('');
       nline('Encoder: full attn',C2,8.5);
       nline('Decoder: causal only',C3,8.5);
       nline('');
       nline('"on" row (HL):',C3,8);
-      nline('sums to 1.00  ←',C3,8);
+      nline('weights sum to 1.00',C3,8);
 
       // ── Bottom legend: encoder vs decoder mini icons + insight ──
-      var lN=3,lC=18,lG=1,lW=lN*(lC+lG)-lG; // 3x3, 56px wide
+      var lN=3,lC=18,lG=1,lW=lN*(lC+lG)-lG; // 3×3, 56px wide
 
       function miniMat(lx,label,masked,col,caption){
         gLeg.append('text')
@@ -9897,29 +9618,57 @@
       }
 
       miniMat(100,'Encoder (BERT)',false,C2,'bidirectional');
-      miniMat(230,'Decoder (GPT)',true,C1,'lower tri only');
+      miniMat(230,'Decoder (GPT)',true,C1,'causal / lower-tri');
 
-      // Insight box
-      var IB_X=390,IB_W=510,IB_Y=LEGB_Y-10;
+      // Insight box — expanded with training vs inference explanation
+      var IB_X=390,IB_W=680,IB_Y=LEGB_Y-12,IB_H=108;
       gLeg.append('rect')
-        .attr('x',IB_X).attr('y',IB_Y).attr('width',IB_W).attr('height',62).attr('rx',6)
-        .attr('fill',C3).attr('fill-opacity',0.08)
-        .attr('stroke',C3).attr('stroke-opacity',0.38).attr('stroke-width',1.2);
+        .attr('x',IB_X).attr('y',IB_Y).attr('width',IB_W).attr('height',IB_H).attr('rx',6)
+        .attr('fill',C3).attr('fill-opacity',0.07)
+        .attr('stroke',C3).attr('stroke-opacity',0.35).attr('stroke-width',1.2);
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+18)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+17)
         .attr('text-anchor','middle').attr('font-size',10)
         .attr('font-family','monospace').attr('fill',C3).attr('font-weight','700')
-        .text('Causal masking → autoregressive generation');
+        .text('Causal masking enables both parallel training and sequential generation');
+      // separator
+      gLeg.append('line')
+        .attr('x1',IB_X+20).attr('y1',IB_Y+26).attr('x2',IB_X+IB_W-20).attr('y2',IB_Y+26)
+        .attr('stroke',C3).attr('stroke-opacity',0.20).attr('stroke-width',0.8);
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+35)
-        .attr('text-anchor','middle').attr('font-size',9)
-        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.80)
-        .text('token i attends only to tokens 0 … i−1  (no future leakage)');
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+41)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.85)
+        .text('Training:  the full sequence is fed in at once — each position i predicts token i+1 simultaneously (teacher forcing)');
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+51)
-        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+57)
+        .attr('text-anchor','middle').attr('font-size',8.5)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.85)
+        .text('Inference: tokens are generated one at a time — each new token is appended and the model runs again');
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+73)
+        .attr('text-anchor','middle').attr('font-size',8.5)
         .attr('font-family','monospace').attr('fill',CM)
-        .text('same architecture trains in parallel — each position predicts its next token simultaneously');
+        .text('The mask guarantees position i never sees the future — making both modes consistent with the same weights');
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+92)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',C3).attr('fill-opacity',0.60)
+        .text('Encoder (BERT) uses no mask → bidirectional context, but cannot generate autoregressively');
+
+      // Key insight callout
+      gLeg.append('rect')
+        .attr('x',80).attr('y',IB_Y+IB_H+8)
+        .attr('width',940).attr('height',26).attr('rx',4)
+        .attr('fill',C1).attr('fill-opacity',0.07)
+        .attr('stroke',C1).attr('stroke-opacity',0.30).attr('stroke-width',1);
+      gLeg.append('text')
+        .attr('x',550).attr('y',IB_Y+IB_H+25)
+        .attr('text-anchor','middle').attr('font-size',9)
+        .attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CW).attr('fill-opacity',0.75)
+        .text('"Masking forces the model to practice the same left-to-right prediction it must perform during generation."');
 
       // Animate
       var seq=[
@@ -10237,6 +9986,1545 @@
   })();
   </script>
 
+  <!-- How Generative LLMs are Trained animation (gen-llm-training slide) -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.90)';
+
+    const TOKENS_IN =['The','cat','sat','on','the','mat'];
+    const TOKENS_OUT=['cat','sat','on','the','mat','. '];
+    const N=6,TW=55,TH=24,TGAP=6,TOK_X0=72;
+    const ROW1_Y=92,ROW2_Y=152;
+    const RP_X=540,RP_W=542,RP_RX=5;
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      [{id:'glt-c2',col:C2},{id:'glt-ca',col:CA},{id:'glt-cm',col:CM},{id:'glt-c3',col:C3}]
+        .forEach(function(m){
+          defs.append('marker').attr('id',m.id)
+            .attr('markerWidth',7).attr('markerHeight',5)
+            .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+            .append('polygon').attr('points','0 0,7 2.5,0 5')
+            .attr('fill',m.col).attr('opacity',0.85);
+        });
+
+      // Vertical divider
+      svg.append('line')
+        .attr('x1',527).attr('y1',12).attr('x2',527).attr('y2',H-12)
+        .attr('stroke',CM).attr('stroke-width',0.5).attr('stroke-dasharray','4,3');
+
+      // ── Header ───────────────────────────────────────────────────────────
+      const gHdr=svg.append('g').attr('opacity',0);
+      gHdr.append('text')
+        .attr('x',20).attr('y',26).attr('font-size',11).attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW)
+        .text('Training Setup: Shift-by-One Prediction');
+      gHdr.append('text')
+        .attr('x',20).attr('y',42).attr('font-size',8.5).attr('font-family','monospace')
+        .attr('fill',CM)
+        .text('The same text is both input and label — no human annotation needed');
+
+      // ── Input token row ───────────────────────────────────────────────────
+      const gInput=svg.append('g').attr('opacity',0);
+      gInput.append('text')
+        .attr('x',64).attr('y',ROW1_Y+16).attr('text-anchor','end')
+        .attr('font-size',9.5).attr('font-family','monospace').attr('fill',C2)
+        .text('Input:');
+      TOKENS_IN.forEach(function(tok,i){
+        const tx=TOK_X0+i*(TW+TGAP);
+        gInput.append('rect')
+          .attr('x',tx).attr('y',ROW1_Y).attr('width',TW).attr('height',TH).attr('rx',4)
+          .attr('fill',C2+'1a').attr('stroke',C2).attr('stroke-width',0.9);
+        gInput.append('text')
+          .attr('x',tx+TW/2).attr('y',ROW1_Y+15.5).attr('text-anchor','middle')
+          .attr('font-size',10.5).attr('font-family','monospace').attr('fill',C2)
+          .text(tok);
+      });
+
+      // ── Target token row ──────────────────────────────────────────────────
+      const gTarget=svg.append('g').attr('opacity',0);
+      gTarget.append('text')
+        .attr('x',64).attr('y',ROW2_Y+16).attr('text-anchor','end')
+        .attr('font-size',9.5).attr('font-family','monospace').attr('fill',CA)
+        .text('Target:');
+      TOKENS_OUT.forEach(function(tok,i){
+        const tx=TOK_X0+i*(TW+TGAP);
+        gTarget.append('rect')
+          .attr('x',tx).attr('y',ROW2_Y).attr('width',TW).attr('height',TH).attr('rx',4)
+          .attr('fill',CA+'1a').attr('stroke',CA).attr('stroke-width',0.9);
+        gTarget.append('text')
+          .attr('x',tx+TW/2).attr('y',ROW2_Y+15.5).attr('text-anchor','middle')
+          .attr('font-size',10.5).attr('font-family','monospace').attr('fill',CA)
+          .text(tok.trim());
+        // dashed arrow from input to target
+        gTarget.append('line')
+          .attr('x1',tx+TW/2).attr('y1',ROW1_Y+TH+1)
+          .attr('x2',tx+TW/2).attr('y2',ROW2_Y-1)
+          .attr('stroke',CM).attr('stroke-width',0.8).attr('stroke-dasharray','3,2')
+          .attr('marker-end','url(#glt-cm)');
+      });
+
+      // ── Row note ──────────────────────────────────────────────────────────
+      const gNote=svg.append('g').attr('opacity',0);
+      gNote.append('text')
+        .attr('x',72).attr('y',192)
+        .attr('font-size',8.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CM)
+        .text('Position t predicts position t+1 — the next token in the sequence');
+
+      // ── Training loop steps ───────────────────────────────────────────────
+      const gStepsHdr=svg.append('g').attr('opacity',0);
+      gStepsHdr.append('text')
+        .attr('x',20).attr('y',212)
+        .attr('font-size',10).attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW).attr('fill-opacity',0.72)
+        .text('Pre-training Loop:');
+
+      const STEPS=[
+        {col:C2,  text:'Forward pass: tokens → transformer layers → logits per position'},
+        {col:C3,  text:'Loss: ℒ = −log P(target token), averaged across all positions'},
+        {col:C1,  text:'Backpropagation: gradients flow back through all transformer layers'},
+        {col:CA,  text:'Adam optimizer updates every weight by a tiny step'},
+        {col:CM,  text:'Repeat — billions of steps across trillions of tokens'},
+      ];
+      const STEP_Y0=226,STEP_SP=38;
+      const NUMS=['①','②','③','④','⑤'];
+      const gSteps=STEPS.map(function(s,i){
+        const g=svg.append('g').attr('opacity',0);
+        const sy=STEP_Y0+i*STEP_SP;
+        g.append('circle')
+          .attr('cx',30).attr('cy',sy+8).attr('r',10)
+          .attr('fill',s.col+'28').attr('stroke',s.col).attr('stroke-width',0.8);
+        g.append('text')
+          .attr('x',30).attr('y',sy+12).attr('text-anchor','middle')
+          .attr('font-size',10).attr('font-family','sans-serif').attr('fill',s.col)
+          .text(NUMS[i]);
+        g.append('text')
+          .attr('x',46).attr('y',sy+12)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.85)
+          .text(s.text);
+        if(i<STEPS.length-1){
+          g.append('line')
+            .attr('x1',30).attr('y1',sy+18).attr('x2',30).attr('y2',sy+STEP_SP-10)
+            .attr('stroke',CM).attr('stroke-width',0.6).attr('stroke-dasharray','2,2');
+        }
+        return g;
+      });
+
+      // ── Right panel: Teacher Forcing ──────────────────────────────────────
+      const gTF=svg.append('g').attr('opacity',0);
+      const TF_Y=28,TF_H=108;
+      gTF.append('rect')
+        .attr('x',RP_X).attr('y',TF_Y).attr('width',RP_W).attr('height',TF_H).attr('rx',RP_RX)
+        .attr('fill',C2+'10').attr('stroke',C2).attr('stroke-width',0.8);
+      gTF.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',TF_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C2)
+        .text('Teacher Forcing');
+      ['During training, the true previous tokens are always fed as input,',
+       'not the model\'s own predictions. This keeps gradients clean',
+       'and allows all sequence positions to train in a single forward pass.',
+       'The causal mask ensures position t only attends to t−1, t−2, …'
+      ].forEach(function(line,i){
+        gTF.append('text')
+          .attr('x',RP_X+10).attr('y',TF_Y+34+i*15)
+          .attr('font-size',8.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+          .attr('fill',CW).attr('fill-opacity',0.72)
+          .text(line);
+      });
+
+      // ── Right panel: What emerges ─────────────────────────────────────────
+      const gLearn=svg.append('g').attr('opacity',0);
+      const LR_Y=TF_Y+TF_H+14,LR_H=132;
+      gLearn.append('rect')
+        .attr('x',RP_X).attr('y',LR_Y).attr('width',RP_W).attr('height',LR_H).attr('rx',RP_RX)
+        .attr('fill',CA+'10').attr('stroke',CA).attr('stroke-width',0.8);
+      gLearn.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',LR_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',CA)
+        .text('What Emerges from This Objective');
+      ['Language grammar, syntax, and style',
+       'World knowledge and factual relationships',
+       'Causal and logical reasoning patterns',
+       'Code, mathematics, translation, summarisation',
+       'In-context learning and instruction following',
+      ].forEach(function(line,i){
+        gLearn.append('text')
+          .attr('x',RP_X+14).attr('y',LR_Y+36+i*17)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.75)
+          .text('· '+line);
+      });
+
+      // ── Right panel: Scale ────────────────────────────────────────────────
+      const gScale=svg.append('g').attr('opacity',0);
+      const SC_Y=LR_Y+LR_H+14,SC_H=112;
+      gScale.append('rect')
+        .attr('x',RP_X).attr('y',SC_Y).attr('width',RP_W).attr('height',SC_H).attr('rx',RP_RX)
+        .attr('fill',C3+'10').attr('stroke',C3).attr('stroke-width',0.8);
+      gScale.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',SC_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C3)
+        .text('Training at Scale');
+      ['10 – 100 trillion tokens per training run',
+       'Months on 10,000 – 100,000 GPUs / TPUs',
+       '$10M – $500M compute cost for frontier models',
+       'Billions of gradient steps before convergence',
+      ].forEach(function(line,i){
+        gScale.append('text')
+          .attr('x',RP_X+14).attr('y',SC_Y+34+i*17)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.75)
+          .text('· '+line);
+      });
+
+      // ── Bottom callout ────────────────────────────────────────────────────
+      const gFoot=svg.append('g').attr('opacity',0);
+      gFoot.append('rect')
+        .attr('x',20).attr('y',H-36).attr('width',W-40).attr('height',26).attr('rx',4)
+        .attr('fill',C1+'0a').attr('stroke',C1).attr('stroke-opacity',0.22).attr('stroke-width',0.8);
+      gFoot.append('text')
+        .attr('x',W/2).attr('y',H-18).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CW).attr('fill-opacity',0.68)
+        .text('"Predict the next token well enough, at scale, and everything else follows."');
+
+      // ── Animation sequence ────────────────────────────────────────────────
+      gHdr.transition().delay(0).duration(400).attr('opacity',1);
+      gInput.transition().delay(400).duration(350).attr('opacity',1);
+      gTarget.transition().delay(700).duration(350).attr('opacity',1);
+      gNote.transition().delay(950).duration(300).attr('opacity',1);
+      gStepsHdr.transition().delay(1050).duration(300).attr('opacity',1);
+      gSteps.forEach(function(g,i){
+        g.transition().delay(1150+i*170).duration(300).attr('opacity',1);
+      });
+      gTF.transition().delay(450).duration(400).attr('opacity',1);
+      gLearn.transition().delay(850).duration(400).attr('opacity',1);
+      gScale.transition().delay(1250).duration(400).attr('opacity',1);
+      gFoot.transition().delay(2200).duration(400).attr('opacity',1);
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('gen-llm-training-canvas');
+      if(el&&!el._gltReady){el._gltReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='gen-llm-training'){
+        const el=document.getElementById('gen-llm-training-canvas');
+        if(el) el._gltReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='gen-llm-training') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Encoder-Only Models animation (encoder-only slide) -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.90)';
+
+    const TOKS=['[CLS]','The','cat','sat','on','the','mat'];
+    const N=7,CELL=17,CGAP=1;
+    const GW=N*CELL+(N-1)*CGAP; // 125
+    const TW=44,TH=22,TGAP=4;
+    const TOT_W=N*TW+(N-1)*TGAP; // 332
+    const LP_CX=260;
+    const GRID_X0=LP_CX-Math.round(GW/2);  // 198
+    const TOK_X0 =LP_CX-Math.round(TOT_W/2); // 94
+    const RP_X=530,RP_W=555,RP_RX=5;
+
+    function attVal(r,c){
+      return Math.max(0.08,Math.min(0.93,(Math.sin(r*2.1+c*1.7+0.4)*0.4+0.52)));
+    }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      [{id:'eoa-c1',col:C1},{id:'eoa-c2',col:C2},{id:'eoa-ca',col:CA},{id:'eoa-c3',col:C3}]
+        .forEach(function(m){
+          defs.append('marker').attr('id',m.id)
+            .attr('markerWidth',7).attr('markerHeight',5)
+            .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+            .append('polygon').attr('points','0 0,7 2.5,0 5')
+            .attr('fill',m.col).attr('opacity',0.85);
+        });
+
+      // Panel divider
+      svg.append('line')
+        .attr('x1',518).attr('y1',12).attr('x2',518).attr('y2',H-12)
+        .attr('stroke',CM).attr('stroke-width',0.5).attr('stroke-dasharray','4,3');
+
+      // ── Phase 0: Left-panel header ──────────────────────────────────────
+      const gHdr=svg.append('g').attr('opacity',0);
+      gHdr.append('text')
+        .attr('x',20).attr('y',26).attr('font-size',11).attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW)
+        .text('Architecture: Bidirectional (Full) Attention');
+      gHdr.append('text')
+        .attr('x',20).attr('y',42).attr('font-size',8.5).attr('font-family','monospace')
+        .attr('fill',CM)
+        .text('Every token attends to every other — no left-to-right constraint');
+
+      // ── Phase 1: Input token row ────────────────────────────────────────
+      const gTok=svg.append('g').attr('opacity',0);
+      gTok.append('text')
+        .attr('x',TOK_X0-6).attr('y',67+14).attr('text-anchor','end')
+        .attr('font-size',9).attr('font-family','monospace').attr('fill',CM).text('Input:');
+      TOKS.forEach(function(tok,i){
+        const tx=TOK_X0+i*(TW+TGAP);
+        const col=i===0?C3:C2;
+        gTok.append('rect')
+          .attr('x',tx).attr('y',67).attr('width',TW).attr('height',TH).attr('rx',4)
+          .attr('fill',col+'1a').attr('stroke',col).attr('stroke-width',0.9);
+        gTok.append('text')
+          .attr('x',tx+TW/2).attr('y',67+14.5).attr('text-anchor','middle')
+          .attr('font-size',i===0?8:9.5).attr('font-family','monospace').attr('fill',col)
+          .text(tok);
+      });
+
+      // ── Phase 2: Attention grid ─────────────────────────────────────────
+      const gGrid=svg.append('g').attr('opacity',0);
+      const CLBL_Y=103, GRID_Y=109;
+      const GRID_BOT=GRID_Y+GW; // 109+125=234
+
+      // "Keys →" label above grid
+      gGrid.append('text')
+        .attr('x',GRID_X0+GW/2).attr('y',CLBL_Y-7)
+        .attr('text-anchor','middle').attr('font-size',7).attr('font-family','monospace')
+        .attr('fill',CM).text('Keys →');
+
+      // Column labels
+      TOKS.forEach(function(tok,i){
+        const cx2=GRID_X0+i*(CELL+CGAP)+CELL/2;
+        gGrid.append('text')
+          .attr('x',cx2).attr('y',CLBL_Y).attr('text-anchor','middle')
+          .attr('font-size',6.5).attr('font-family','monospace')
+          .attr('fill',i===0?C3:CM)
+          .text(tok==='[CLS]'?'CLS':tok);
+      });
+
+      // Row labels + cells
+      for(var r=0;r<N;r++){
+        gGrid.append('text')
+          .attr('x',GRID_X0-4).attr('y',GRID_Y+r*(CELL+CGAP)+CELL/2+3)
+          .attr('text-anchor','end').attr('font-size',6.5).attr('font-family','monospace')
+          .attr('fill',r===0?C3:CM)
+          .text(TOKS[r]==='[CLS]'?'CLS':TOKS[r]);
+        for(var c=0;c<N;c++){
+          gGrid.append('rect')
+            .attr('x',GRID_X0+c*(CELL+CGAP)).attr('y',GRID_Y+r*(CELL+CGAP))
+            .attr('width',CELL).attr('height',CELL).attr('rx',1)
+            .attr('fill',C1).attr('fill-opacity',attVal(r,c)*0.88)
+            .attr('stroke',C1).attr('stroke-opacity',0.12).attr('stroke-width',0.3);
+        }
+      }
+
+      // "Queries ↓" label left of grid
+      gGrid.append('text')
+        .attr('x',GRID_X0-14).attr('y',GRID_Y+GW/2)
+        .attr('text-anchor','middle').attr('font-size',7).attr('font-family','monospace')
+        .attr('fill',CM)
+        .attr('transform','rotate(-90,'+(GRID_X0-14)+','+(GRID_Y+GW/2)+')')
+        .text('Queries ↓');
+
+      // Grid note
+      gGrid.append('text')
+        .attr('x',LP_CX).attr('y',GRID_BOT+14)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic').attr('fill',CM)
+        .text('All cells active — full bidirectional attention (decoder would mask upper triangle)');
+
+      // ── Phase 3: Output token row ───────────────────────────────────────
+      const OUT_Y=GRID_BOT+28; // 262
+      const gOut=svg.append('g').attr('opacity',0);
+      gOut.append('text')
+        .attr('x',TOK_X0-6).attr('y',OUT_Y+14).attr('text-anchor','end')
+        .attr('font-size',9).attr('font-family','monospace').attr('fill',CM).text('Output:');
+      TOKS.forEach(function(tok,i){
+        const tx=TOK_X0+i*(TW+TGAP);
+        const col=i===0?C3:CA;
+        gOut.append('rect')
+          .attr('x',tx).attr('y',OUT_Y).attr('width',TW).attr('height',TH).attr('rx',4)
+          .attr('fill',col+'1a').attr('stroke',col).attr('stroke-width',0.9);
+        gOut.append('text')
+          .attr('x',tx+TW/2).attr('y',OUT_Y+14.5).attr('text-anchor','middle')
+          .attr('font-size',i===0?7.5:8).attr('font-family','monospace').attr('fill',col)
+          .text(i===0?'→ task':'embed.');
+      });
+      gOut.append('text')
+        .attr('x',LP_CX).attr('y',OUT_Y+TH+15)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','Georgia,serif').attr('font-style','italic').attr('fill',CM)
+        .text('[CLS] → classification head;  other positions → contextual token embeddings');
+
+      // ── Phase 4: Fine-tuning task boxes ────────────────────────────────
+      const FN_Y=OUT_Y+TH+34; // 318
+      const TASKS=[
+        {name:'Classification',sub:'Sentiment · Topic',col:C3},
+        {name:'NER',sub:'Label each token',col:C2},
+        {name:'Span QA',sub:'Extract answer span',col:C1},
+        {name:'Similarity',sub:'Cosine of [CLS]',col:CA},
+      ];
+      const FTW=109,FTH=48,FTGAP=6;
+      const FTOT=4*FTW+3*FTGAP; // 454
+      const FT_X0=LP_CX-Math.round(FTOT/2); // 33
+      const gFine=svg.append('g').attr('opacity',0);
+
+      // Arrow from [CLS] output down to task boxes
+      const CLS_MID_X=TOK_X0+TW/2; // 94+22=116
+      gFine.append('line')
+        .attr('x1',CLS_MID_X).attr('y1',OUT_Y+TH)
+        .attr('x2',CLS_MID_X).attr('y2',FN_Y+4)
+        .attr('stroke',C3).attr('stroke-width',0.8).attr('stroke-dasharray','3,2')
+        .attr('marker-end','url(#eoa-c3)');
+
+      gFine.append('text')
+        .attr('x',LP_CX).attr('y',FN_Y-3).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-weight','600').attr('font-family','sans-serif')
+        .attr('fill',CW).attr('fill-opacity',0.62)
+        .text('Fine-tune a small task head on [CLS] output:');
+
+      TASKS.forEach(function(task,i){
+        const tx=FT_X0+i*(FTW+FTGAP);
+        gFine.append('rect')
+          .attr('x',tx).attr('y',FN_Y+8).attr('width',FTW).attr('height',FTH).attr('rx',4)
+          .attr('fill',task.col+'14').attr('stroke',task.col).attr('stroke-opacity',0.55).attr('stroke-width',0.8);
+        gFine.append('text')
+          .attr('x',tx+FTW/2).attr('y',FN_Y+8+17).attr('text-anchor','middle')
+          .attr('font-size',8.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',task.col)
+          .text(task.name);
+        gFine.append('text')
+          .attr('x',tx+FTW/2).attr('y',FN_Y+8+31).attr('text-anchor','middle')
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM)
+          .text(task.sub);
+      });
+
+      // ── Right panel: MLM Training ──────────────────────────────────────
+      const gMLM=svg.append('g').attr('opacity',0);
+      const MLM_Y=28,MLM_H=127;
+      gMLM.append('rect')
+        .attr('x',RP_X).attr('y',MLM_Y).attr('width',RP_W).attr('height',MLM_H).attr('rx',RP_RX)
+        .attr('fill',C1+'10').attr('stroke',C1).attr('stroke-width',0.8);
+      gMLM.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',MLM_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C1)
+        .text('Training: Masked Language Modeling (MLM)');
+
+      // Masked input row
+      const MLM_TOKS_IN=['[CLS]','The','[MASK]','sat','on','the','[MASK]'];
+      const MLM_TOKS_OUT=['[CLS]','The','cat ✓','sat','on','the','mat ✓'];
+      const MTW=57,MTH=18,MTGAP=3;
+      const MTOT=N*MTW+(N-1)*MTGAP; // = 7*57+6*3=399+18=417
+      const MT_X0=RP_X+Math.round((RP_W-MTOT)/2); // = 530+69=599
+      const MR1Y=MLM_Y+28;
+
+      MLM_TOKS_IN.forEach(function(tok,i){
+        const tx=MT_X0+i*(MTW+MTGAP);
+        const col=tok==='[MASK]'?C3:(tok==='[CLS]'?C3:CM);
+        gMLM.append('rect')
+          .attr('x',tx).attr('y',MR1Y).attr('width',MTW).attr('height',MTH).attr('rx',3)
+          .attr('fill',col+'18').attr('stroke',col).attr('stroke-width',0.8);
+        gMLM.append('text')
+          .attr('x',tx+MTW/2).attr('y',MR1Y+12).attr('text-anchor','middle')
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',col).text(tok);
+      });
+
+      gMLM.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',MR1Y+MTH+12).attr('text-anchor','middle')
+        .attr('font-size',8).attr('font-family','monospace').attr('fill',CM)
+        .text('↓  full bidirectional transformer  ↓');
+
+      const MR2Y=MR1Y+MTH+24;
+      MLM_TOKS_OUT.forEach(function(tok,i){
+        const tx=MT_X0+i*(MTW+MTGAP);
+        const hit=tok.includes('✓');
+        const col=hit?CA:(tok==='[CLS]'?C3:CM);
+        gMLM.append('rect')
+          .attr('x',tx).attr('y',MR2Y).attr('width',MTW).attr('height',MTH).attr('rx',3)
+          .attr('fill',col+(hit?'28':'10')).attr('stroke',col).attr('stroke-width',hit?0.9:0.5);
+        gMLM.append('text')
+          .attr('x',tx+MTW/2).attr('y',MR2Y+12).attr('text-anchor','middle')
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',col).text(tok);
+      });
+
+      gMLM.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',MR2Y+MTH+12).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CM)
+        .text('~15% of tokens masked; loss on masked positions only; full context available');
+
+      // ── Right panel: Encoder vs. Decoder ──────────────────────────────
+      const gVs=svg.append('g').attr('opacity',0);
+      const VS_Y=MLM_Y+MLM_H+12,VS_H=70;
+      gVs.append('rect')
+        .attr('x',RP_X).attr('y',VS_Y).attr('width',RP_W).attr('height',VS_H).attr('rx',RP_RX)
+        .attr('fill',C2+'08').attr('stroke',C2).attr('stroke-width',0.7);
+      gVs.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',VS_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C2)
+        .text('Encoder vs. Decoder');
+      ['Encoder: bidirectional — rich context per token → stronger at understanding',
+       'Decoder: causal left-to-right — can generate, weaker at classification',
+       'Cannot produce sequences; designed for embedding, not autoregressive decode',
+      ].forEach(function(line,i){
+        gVs.append('text')
+          .attr('x',RP_X+10).attr('y',VS_Y+34+i*14)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.75).text('· '+line);
+      });
+
+      // ── Right panel: Use Cases ─────────────────────────────────────────
+      const gUse=svg.append('g').attr('opacity',0);
+      const UC_Y=VS_Y+VS_H+12,UC_H=105;
+      gUse.append('rect')
+        .attr('x',RP_X).attr('y',UC_Y).attr('width',RP_W).attr('height',UC_H).attr('rx',RP_RX)
+        .attr('fill',CA+'08').attr('stroke',CA).attr('stroke-width',0.7);
+      gUse.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',UC_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',CA)
+        .text('Best For: Understanding, Not Generation');
+      ['Text classification & sentiment analysis',
+       'Named entity recognition (NER)',
+       'Extractive question answering',
+       'Semantic search & sentence similarity',
+       'Models: BERT · RoBERTa · DeBERTa · DistilBERT',
+      ].forEach(function(line,i){
+        gUse.append('text')
+          .attr('x',RP_X+14).attr('y',UC_Y+34+i*14)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.75).text('· '+line);
+      });
+
+      // ── Right panel: Key properties ────────────────────────────────────
+      const gProp=svg.append('g').attr('opacity',0);
+      const PR_Y=UC_Y+UC_H+12,PR_H=72;
+      gProp.append('rect')
+        .attr('x',RP_X).attr('y',PR_Y).attr('width',RP_W).attr('height',PR_H).attr('rx',RP_RX)
+        .attr('fill',C3+'08').attr('stroke',C3).attr('stroke-width',0.7);
+      gProp.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',PR_Y+18).attr('text-anchor','middle')
+        .attr('font-size',10.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C3)
+        .text('Key Properties');
+      ['Bidirectional attention → richer contextual embeddings than decoders',
+       'Fine-tune with 10k–100k labeled examples to reach state of the art',
+       'Encoder output also feeds into encoder–decoder models as context',
+      ].forEach(function(line,i){
+        gProp.append('text')
+          .attr('x',RP_X+10).attr('y',PR_Y+34+i*14)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.75).text('· '+line);
+      });
+
+      // ── Bottom callout ────────────────────────────────────────────────
+      const gFoot=svg.append('g').attr('opacity',0);
+      gFoot.append('rect')
+        .attr('x',20).attr('y',H-36).attr('width',W-40).attr('height',26).attr('rx',4)
+        .attr('fill',C1+'0a').attr('stroke',C1).attr('stroke-opacity',0.22).attr('stroke-width',0.8);
+      gFoot.append('text')
+        .attr('x',W/2).attr('y',H-18).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CW).attr('fill-opacity',0.68)
+        .text('"BERT (2018): pre-train bidirectionally, fine-tune on any task — still the template for understanding-focused NLP."');
+
+      // ── Animation sequence ────────────────────────────────────────────
+      gHdr.transition().delay(0).duration(400).attr('opacity',1);
+      gTok.transition().delay(350).duration(350).attr('opacity',1);
+      gGrid.transition().delay(650).duration(500).attr('opacity',1);
+      gOut.transition().delay(1050).duration(400).attr('opacity',1);
+      gFine.transition().delay(1350).duration(400).attr('opacity',1);
+      gMLM.transition().delay(400).duration(400).attr('opacity',1);
+      gVs.transition().delay(850).duration(400).attr('opacity',1);
+      gUse.transition().delay(1250).duration(400).attr('opacity',1);
+      gProp.transition().delay(1650).duration(400).attr('opacity',1);
+      gFoot.transition().delay(2100).duration(400).attr('opacity',1);
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('encoder-only-canvas');
+      if(el&&!el._encReady){el._encReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='encoder-only'){
+        const el=document.getElementById('encoder-only-canvas');
+        if(el) el._encReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='encoder-only') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Encoder-Only Fine-Tuning animation (encoder-finetuning slide) -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830';
+    const CR='#e86040';
+    const CM='rgba(155,180,210,0.55)',CW='rgba(220,238,255,0.90)';
+
+    const LP_CX=260;
+    const RP_X=540,RP_W=548;
+
+    const TASKS=[
+      ['Text classification','phishing / not phishing'],
+      ['Sentiment analysis','positive / negative / neutral'],
+      ['Toxicity detection','abusive / non-abusive'],
+      ['NER','names, dates, organizations'],
+      ['Intent detection','"book flight", "cancel order"'],
+      ['Pair classification','are these sentences equivalent?'],
+      ['Ranking / reranking','which document matches query?'],
+    ];
+    const EMBS=[
+      ['Semantic search','find similar documents'],
+      ['RAG retrieval','retrieve chunks for an LLM'],
+      ['Clustering','group similar texts'],
+      ['Duplicate detection','find near-identical content'],
+      ['Recommendation','match users / items / content'],
+      ['Similarity scoring','compare two pieces of text'],
+    ];
+
+    function drawTable(parent,x,y,w,header,rows,rowH,c){
+      const cs=Math.round(w*0.45);
+      parent.append('rect')
+        .attr('x',x).attr('y',y).attr('width',w).attr('height',rowH).attr('rx',2)
+        .attr('fill',c+'28').attr('stroke',c).attr('stroke-opacity',0.3).attr('stroke-width',0.5);
+      header.forEach(function(h,ci){
+        parent.append('text')
+          .attr('x',ci===0?x+5:x+cs+5).attr('y',y+rowH-4)
+          .attr('font-size',7.5).attr('font-weight','700').attr('font-family','sans-serif')
+          .attr('fill',c).text(h);
+      });
+      rows.forEach(function(row,ri){
+        const ry=y+rowH*(ri+1);
+        parent.append('rect')
+          .attr('x',x).attr('y',ry).attr('width',w).attr('height',rowH)
+          .attr('fill',ri%2===0?c+'08':'none')
+          .attr('stroke',c).attr('stroke-opacity',0.06).attr('stroke-width',0.4);
+        row.forEach(function(cell,ci){
+          parent.append('text')
+            .attr('x',ci===0?x+5:x+cs+5).attr('y',ry+rowH-4)
+            .attr('font-size',7.5).attr('font-family','monospace')
+            .attr('fill',CW).attr('fill-opacity',0.80).text(cell);
+        });
+      });
+    }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      [{id:'eft-c1',col:C1},{id:'eft-c2',col:C2},{id:'eft-ca',col:CA},{id:'eft-c3',col:C3}]
+        .forEach(function(m){
+          defs.append('marker').attr('id',m.id)
+            .attr('markerWidth',7).attr('markerHeight',5)
+            .attr('refX',6).attr('refY',2.5).attr('orient','auto')
+            .append('polygon').attr('points','0 0,7 2.5,0 5')
+            .attr('fill',m.col).attr('opacity',0.85);
+        });
+
+      svg.append('line')
+        .attr('x1',528).attr('y1',12).attr('x2',528).attr('y2',H-12)
+        .attr('stroke',CM).attr('stroke-width',0.5).attr('stroke-dasharray','4,3');
+
+      // ═══ LEFT: Classification Fine-Tuning ═══════════════════════════════
+
+      const gHdrL=svg.append('g').attr('opacity',0);
+      gHdrL.append('text')
+        .attr('x',20).attr('y',20).attr('font-size',11).attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW)
+        .text('Pattern 1: Fine-Tune → Classifier');
+      gHdrL.append('text')
+        .attr('x',20).attr('y',34).attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',CM)
+        .text('Add a task head on top of the encoder; train end-to-end on labeled data');
+
+      // Input token strip
+      const gPipe=svg.append('g').attr('opacity',0);
+      const ITOKS=['[CLS]','This','email','···','details','[SEP]'];
+      const ITW=42,ITH=18,ITGAP=3;
+      const ITOT=ITOKS.length*ITW+(ITOKS.length-1)*ITGAP;
+      const IT_X0=LP_CX-Math.round(ITOT/2);
+
+      ITOKS.forEach(function(tok,i){
+        const tx=IT_X0+i*(ITW+ITGAP);
+        const col=i===0||i===ITOKS.length-1?C3:(i===3?CM:C2);
+        gPipe.append('rect')
+          .attr('x',tx).attr('y',48).attr('width',ITW).attr('height',ITH).attr('rx',3)
+          .attr('fill',col+'18').attr('stroke',col).attr('stroke-width',0.8);
+        gPipe.append('text')
+          .attr('x',tx+ITW/2).attr('y',48+12).attr('text-anchor','middle')
+          .attr('font-size',i===3?11:8).attr('font-family','monospace').attr('fill',col)
+          .text(tok);
+      });
+
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',81).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-family','monospace').attr('fill',CM)
+        .text('↓  Bidirectional Encoder (BERT)  ↓');
+
+      // Encoder box
+      const ENC_W=200,ENC_H=28,ENC_X=LP_CX-100,ENC_Y=88;
+      gPipe.append('rect')
+        .attr('x',ENC_X).attr('y',ENC_Y).attr('width',ENC_W).attr('height',ENC_H).attr('rx',5)
+        .attr('fill',C1+'22').attr('stroke',C1).attr('stroke-width',1.1);
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',ENC_Y+17).attr('text-anchor','middle')
+        .attr('font-size',10).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C1)
+        .text('Encoder (BERT)');
+
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',ENC_Y+ENC_H+14).attr('text-anchor','middle')
+        .attr('font-size',8).attr('font-family','monospace').attr('fill',CM)
+        .text('↓  [CLS] embedding  ↓');
+
+      // Task head box
+      const HEAD_W=160,HEAD_H=22,HEAD_Y=ENC_Y+ENC_H+22;
+      gPipe.append('rect')
+        .attr('x',LP_CX-80).attr('y',HEAD_Y).attr('width',HEAD_W).attr('height',HEAD_H).attr('rx',4)
+        .attr('fill',C3+'18').attr('stroke',C3).attr('stroke-width',0.9);
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',HEAD_Y+14).attr('text-anchor','middle')
+        .attr('font-size',9).attr('font-weight','600').attr('font-family','sans-serif').attr('fill',C3)
+        .text('Task Head (classifier)');
+
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',HEAD_Y+HEAD_H+12).attr('text-anchor','middle')
+        .attr('font-size',8).attr('font-family','monospace').attr('fill',CM)
+        .text('↓  prediction  ↓');
+
+      // Label box
+      const LBL_W=130,LBL_H=22,LBL_Y=HEAD_Y+HEAD_H+20;
+      gPipe.append('rect')
+        .attr('x',LP_CX-65).attr('y',LBL_Y).attr('width',LBL_W).attr('height',LBL_H).attr('rx',4)
+        .attr('fill',CA+'18').attr('stroke',CA).attr('stroke-width',0.9);
+      gPipe.append('text')
+        .attr('x',LP_CX).attr('y',LBL_Y+14).attr('text-anchor','middle')
+        .attr('font-size',9).attr('font-family','monospace').attr('fill',CA)
+        .text('phishing / safe');
+
+      // Task table
+      const gTaskTable=svg.append('g').attr('opacity',0);
+      const TBL_Y=LBL_Y+LBL_H+16;
+      gTaskTable.append('text')
+        .attr('x',20).attr('y',TBL_Y-3).attr('font-size',9).attr('font-weight','600')
+        .attr('font-family','sans-serif').attr('fill',CW).attr('fill-opacity',0.62)
+        .text('Common classification tasks:');
+      drawTable(gTaskTable,20,TBL_Y+5,500,['Task','Example'],TASKS,20,C3);
+
+      // Formula box
+      const gFormula=svg.append('g').attr('opacity',0);
+      const FORM_Y=TBL_Y+5+20*(TASKS.length+1)+12;
+      gFormula.append('rect')
+        .attr('x',20).attr('y',FORM_Y).attr('width',500).attr('height',42).attr('rx',4)
+        .attr('fill',C1+'0a').attr('stroke',C1).attr('stroke-opacity',0.28).attr('stroke-width',0.8);
+      gFormula.append('text')
+        .attr('x',270).attr('y',FORM_Y+16).attr('text-anchor','middle')
+        .attr('font-size',9.5).attr('font-family','monospace').attr('fill',CW).attr('fill-opacity',0.72)
+        .text('pretrained encoder  +  fine-tuning  =  task-specific model');
+      gFormula.append('text')
+        .attr('x',270).attr('y',FORM_Y+32).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CM)
+        .text('encoder weights start pre-trained; only the task head is initialized randomly');
+
+      // ═══ RIGHT: Embedding Model + Not for Generation ════════════════════
+
+      const gHdrR=svg.append('g').attr('opacity',0);
+      gHdrR.append('text')
+        .attr('x',RP_X+4).attr('y',20).attr('font-size',11).attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW)
+        .text('Pattern 2: Embedding Model');
+      gHdrR.append('text')
+        .attr('x',RP_X+4).attr('y',34).attr('font-size',8).attr('font-family','monospace')
+        .attr('fill',CM)
+        .text('No task head — output the [CLS] vector directly, or contrastively fine-tune');
+
+      // Text → vector horizontal diagram
+      const gEmb=svg.append('g').attr('opacity',0);
+      const EMB_Y=47;
+      const TXB_W=176,TXB_H=22;
+
+      gEmb.append('rect')
+        .attr('x',RP_X+4).attr('y',EMB_Y).attr('width',TXB_W).attr('height',TXB_H).attr('rx',4)
+        .attr('fill',C2+'18').attr('stroke',C2).attr('stroke-width',0.8);
+      gEmb.append('text')
+        .attr('x',RP_X+4+TXB_W/2).attr('y',EMB_Y+14).attr('text-anchor','middle')
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',C2)
+        .text('"reset your password now"');
+
+      const ARR1_X1=RP_X+4+TXB_W+3,ARR1_X2=RP_X+4+TXB_W+36;
+      gEmb.append('line')
+        .attr('x1',ARR1_X1).attr('y1',EMB_Y+TXB_H/2)
+        .attr('x2',ARR1_X2).attr('y2',EMB_Y+TXB_H/2)
+        .attr('stroke',CM).attr('stroke-width',1).attr('marker-end','url(#eft-c1)');
+
+      const MB_X=ARR1_X2+4,MB_W=50,MB_H=22;
+      gEmb.append('rect')
+        .attr('x',MB_X).attr('y',EMB_Y).attr('width',MB_W).attr('height',MB_H).attr('rx',3)
+        .attr('fill',C1+'22').attr('stroke',C1).attr('stroke-width',0.9);
+      gEmb.append('text')
+        .attr('x',MB_X+MB_W/2).attr('y',EMB_Y+14).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',C1)
+        .text('BERT');
+
+      const ARR2_X1=MB_X+MB_W+3,ARR2_X2=MB_X+MB_W+30;
+      gEmb.append('line')
+        .attr('x1',ARR2_X1).attr('y1',EMB_Y+MB_H/2)
+        .attr('x2',ARR2_X2).attr('y2',EMB_Y+MB_H/2)
+        .attr('stroke',CM).attr('stroke-width',1).attr('marker-end','url(#eft-ca)');
+
+      gEmb.append('text')
+        .attr('x',ARR2_X2+6).attr('y',EMB_Y+14)
+        .attr('font-size',8.5).attr('font-family','monospace').attr('fill',CA)
+        .text('[0.13, −0.44, 0.91, 0.07, …]');
+
+      // Embedding uses table
+      const gEmbTable=svg.append('g').attr('opacity',0);
+      const EMBT_Y=EMB_Y+TXB_H+14;
+      gEmbTable.append('text')
+        .attr('x',RP_X+4).attr('y',EMBT_Y-3).attr('font-size',9).attr('font-weight','600')
+        .attr('font-family','sans-serif').attr('fill',CW).attr('fill-opacity',0.62)
+        .text('Embedding uses:');
+      drawTable(gEmbTable,RP_X+4,EMBT_Y+5,RP_W-8,['Use','What it does'],EMBS,18,CA);
+
+      // "Not for generation" box
+      const gNotGen=svg.append('g').attr('opacity',0);
+      const EMBT_BOT=EMBT_Y+5+18*(EMBS.length+1); // top+header+6data rows
+      const NG_Y=EMBT_BOT+14;
+      const NG_H=H-36-NG_Y-8;
+
+      gNotGen.append('rect')
+        .attr('x',RP_X+4).attr('y',NG_Y).attr('width',RP_W-8).attr('height',NG_H).attr('rx',5)
+        .attr('fill',CR+'08').attr('stroke',CR).attr('stroke-opacity',0.42).attr('stroke-width',0.8);
+      gNotGen.append('text')
+        .attr('x',RP_X+RP_W/2).attr('y',NG_Y+17).attr('text-anchor','middle')
+        .attr('font-size',10).attr('font-weight','700').attr('font-family','sans-serif').attr('fill',CR)
+        .text('Not Well-Suited for Generation');
+      ['No causal mask → cannot decode token-by-token autoregressively',
+       'Best used when the full input is known upfront',
+      ].forEach(function(line,i){
+        gNotGen.append('text')
+          .attr('x',RP_X+14).attr('y',NG_Y+33+i*14)
+          .attr('font-size',8.5).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.70).text('· '+line);
+      });
+
+      // Separator
+      gNotGen.append('line')
+        .attr('x1',RP_X+14).attr('y1',NG_Y+66)
+        .attr('x2',RP_X+RP_W-14).attr('y2',NG_Y+66)
+        .attr('stroke',CR).attr('stroke-opacity',0.22).attr('stroke-width',0.6);
+
+      [{text:'Encoder → understand / classify / encode / search',col:C1},
+       {text:'Decoder → continue / generate / predict / chat',col:C3},
+      ].forEach(function(row,i){
+        gNotGen.append('text')
+          .attr('x',RP_X+14).attr('y',NG_Y+82+i*18)
+          .attr('font-size',9).attr('font-family','monospace')
+          .attr('fill',row.col).attr('fill-opacity',0.88).text(row.text);
+      });
+
+      // Separator
+      gNotGen.append('line')
+        .attr('x1',RP_X+14).attr('y1',NG_Y+122)
+        .attr('x2',RP_X+RP_W-14).attr('y2',NG_Y+122)
+        .attr('stroke',CR).attr('stroke-opacity',0.22).attr('stroke-width',0.6);
+
+      gNotGen.append('text')
+        .attr('x',RP_X+14).attr('y',NG_Y+138)
+        .attr('font-size',8.5).attr('font-weight','600').attr('font-family','sans-serif')
+        .attr('fill',CW).attr('fill-opacity',0.65)
+        .text('The clean distinction:');
+      ['encoder-only:  understanding tasks, classification, search, retrieval',
+       'decoder-only:  generation, completion, instruction-following, chat',
+       'encoder-decoder:  translation, summarization, seq-to-seq generation',
+      ].forEach(function(line,i){
+        gNotGen.append('text')
+          .attr('x',RP_X+14).attr('y',NG_Y+154+i*16)
+          .attr('font-size',8).attr('font-family','monospace')
+          .attr('fill',CW).attr('fill-opacity',0.68).text('· '+line);
+      });
+
+      // Bottom callout
+      const gFoot=svg.append('g').attr('opacity',0);
+      gFoot.append('rect')
+        .attr('x',20).attr('y',H-36).attr('width',W-40).attr('height',26).attr('rx',4)
+        .attr('fill',C1+'0a').attr('stroke',C1).attr('stroke-opacity',0.22).attr('stroke-width',0.8);
+      gFoot.append('text')
+        .attr('x',W/2).attr('y',H-18).attr('text-anchor','middle')
+        .attr('font-size',8.5).attr('font-family','Georgia,serif').attr('font-style','italic')
+        .attr('fill',CW).attr('fill-opacity',0.68)
+        .text('"Same pre-trained backbone → add a classifier head for tasks, or use [CLS] directly for search and retrieval."');
+
+      // Animation sequence
+      gHdrL.transition().delay(0).duration(400).attr('opacity',1);
+      gPipe.transition().delay(300).duration(500).attr('opacity',1);
+      gTaskTable.transition().delay(700).duration(400).attr('opacity',1);
+      gFormula.transition().delay(1000).duration(350).attr('opacity',1);
+      gHdrR.transition().delay(100).duration(400).attr('opacity',1);
+      gEmb.transition().delay(450).duration(400).attr('opacity',1);
+      gEmbTable.transition().delay(800).duration(400).attr('opacity',1);
+      gNotGen.transition().delay(1150).duration(400).attr('opacity',1);
+      gFoot.transition().delay(1700).duration(400).attr('opacity',1);
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('encoder-finetuning-canvas');
+      if(el&&!el._eftReady){el._eftReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='encoder-finetuning'){
+        const el=document.getElementById('encoder-finetuning-canvas');
+        if(el) el._eftReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='encoder-finetuning') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- CLS Token animation (cls-token slide) -->
+  <script>
+  (function(){
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830',CR='#e86040';
+    const CW='rgba(220,238,255,0.90)';
+    const W=1100,H=490,N_REG=5;
+
+    function clsInit(el){
+      if(el._clsReady) return;
+      el._clsReady=true;
+
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const f=defs.append('filter').attr('id','cls-glow')
+        .attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+      f.append('feGaussianBlur').attr('stdDeviation','4').attr('result','blur');
+      const fm=f.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+
+      const mkArr=(id,col)=>defs.append('marker').attr('id',id)
+        .attr('markerWidth',7).attr('markerHeight',7)
+        .attr('refX',6).attr('refY',3).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,6 L7,3 Z').attr('fill',col);
+      mkArr('cls-arr','#3a5068');
+      mkArr('cls-arr-act',CA);
+      mkArr('cls-arr-c1',C1);
+
+      svg.append('rect').attr('width',W).attr('height',H).attr('fill','#0d1117');
+
+      // ── LEFT PANEL (x=10, w=245) ──────────────────────────────────────────
+      const LX=10,LW=245;
+      svg.append('rect').attr('x',LX).attr('y',16).attr('width',LW).attr('height',72)
+        .attr('rx',10).attr('fill',C1).attr('fill-opacity',0.28)
+        .attr('stroke',C1).attr('stroke-width',2).attr('filter','url(#cls-glow)');
+      svg.append('text').attr('x',LX+LW/2).attr('y',54).attr('text-anchor','middle')
+        .attr('fill',CW).attr('font-size',26).attr('font-weight','bold').text('[CLS]');
+      svg.append('text').attr('x',LX+LW/2).attr('y',74).attr('text-anchor','middle')
+        .attr('fill','#9bb4d2').attr('font-size',11).text('Classification Token');
+
+      [[CA,'Learnable embedding vector'],
+       [CW,'Prepended to every input sequence'],
+       [CW,'Not tied to any word or image patch'],
+       [CW,'Attends to all tokens via self-attention'],
+       [CW,'Accumulates global context across blocks'],
+      ].forEach(([col,txt],i)=>{
+        svg.append('circle').attr('cx',LX+10).attr('cy',112+i*27).attr('r',3)
+          .attr('fill',col===CW?'#6a8090':col);
+        svg.append('text').attr('x',LX+22).attr('y',117+i*27)
+          .attr('fill',col===CW?'#9bb4d2':col).attr('font-size',12).text(txt);
+      });
+
+      svg.append('text').attr('x',LX+10).attr('y',265)
+        .attr('fill','#5a7090').attr('font-size',11.5).text('Used in:');
+      ['BERT, RoBERTa (NLP tasks)','ViT (image classification)',
+       'CLIP (text + image)','most encoder architectures'].forEach((t,i)=>{
+        svg.append('text').attr('x',LX+14).attr('y',283+i*20)
+          .attr('fill','#6a8090').attr('font-size',11).text(t);
+      });
+
+      // ── CENTER PANEL (x=265, w=575) ────────────────────────────────────────
+      const CX=265,CXW=575,midCX=CX+CXW/2;
+      const tW=74,tH=40,tGap=9;
+      const allTok=['[CLS]','T₁','T₂','T₃','T₄','T₅'];
+      const totTW=allTok.length*tW+(allTok.length-1)*tGap;
+      const tSX=midCX-totTW/2;
+      const INY=45;
+
+      svg.append('text').attr('x',CX+2).attr('y',INY+tH/2+5)
+        .attr('fill','#3a5068').attr('font-size',11).text('Input:');
+
+      const inBoxes=allTok.map((tok,i)=>{
+        const tx=tSX+i*(tW+tGap),isCLS=i===0;
+        const box=svg.append('rect').attr('x',tx).attr('y',INY).attr('width',tW).attr('height',tH)
+          .attr('rx',6).attr('fill',isCLS?C1:C2).attr('fill-opacity',isCLS?0.32:0.15)
+          .attr('stroke',isCLS?C1:'#3a6080').attr('stroke-width',isCLS?2:1);
+        if(isCLS) box.attr('filter','url(#cls-glow)');
+        svg.append('text').attr('x',tx+tW/2).attr('y',INY+tH/2+5).attr('text-anchor','middle')
+          .attr('fill',isCLS?CW:'#7090b0').attr('font-size',isCLS?13:12)
+          .attr('font-weight',isCLS?'bold':'normal').text(tok);
+        return {tx,box,cx:tx+tW/2,cy:INY+tH/2};
+      });
+
+      const TBY=165,TBH=70;
+      allTok.forEach((_,i)=>{
+        const cx=tSX+i*(tW+tGap)+tW/2;
+        svg.append('line').attr('x1',cx).attr('y1',INY+tH).attr('x2',cx).attr('y2',TBY)
+          .attr('stroke',i===0?C1+'60':'#2a3848').attr('stroke-width',i===0?1.5:1)
+          .attr('stroke-dasharray','3,3').attr('marker-end','url(#cls-arr)');
+      });
+
+      svg.append('rect').attr('x',CX+15).attr('y',TBY).attr('width',CXW-30).attr('height',TBH)
+        .attr('rx',8).attr('fill','rgba(50,70,110,0.12)').attr('stroke','#2a3850').attr('stroke-width',1.5);
+      svg.append('text').attr('x',midCX).attr('y',TBY+24).attr('text-anchor','middle')
+        .attr('fill','#5a7090').attr('font-size',12.5).text('12\xd7 Transformer Blocks');
+      svg.append('text').attr('x',midCX).attr('y',TBY+44).attr('text-anchor','middle')
+        .attr('fill','#3a5060').attr('font-size',11).text('Multi-Head Self-Attention — every token can attend to every other token');
+      svg.append('text').attr('x',midCX).attr('y',TBY+62).attr('text-anchor','middle')
+        .attr('fill','#3a5060').attr('font-size',11).text('Feed-Forward Network · LayerNorm · Residual connections');
+
+      const OUTY=315;
+      const outTok=['[CLS*]','T₁′','T₂′','T₃′','T₄′','T₅′'];
+      allTok.forEach((_,i)=>{
+        const cx=tSX+i*(tW+tGap)+tW/2;
+        svg.append('line').attr('x1',cx).attr('y1',TBY+TBH).attr('x2',cx).attr('y2',OUTY)
+          .attr('stroke',i===0?C1+'60':'#2a3848').attr('stroke-width',i===0?1.5:1)
+          .attr('stroke-dasharray','3,3').attr('marker-end','url(#cls-arr)');
+      });
+
+      svg.append('text').attr('x',CX+2).attr('y',OUTY+tH/2+5)
+        .attr('fill','#3a5068').attr('font-size',11).text('Output:');
+
+      outTok.forEach((tok,i)=>{
+        const tx=tSX+i*(tW+tGap),isCLS=i===0;
+        const box=svg.append('rect').attr('x',tx).attr('y',OUTY).attr('width',tW).attr('height',tH)
+          .attr('rx',6).attr('fill',isCLS?C1:'#0d1520').attr('fill-opacity',isCLS?0.5:0.35)
+          .attr('stroke',isCLS?C1:'#2a3848').attr('stroke-width',isCLS?2.5:1);
+        if(isCLS) box.attr('filter','url(#cls-glow)');
+        svg.append('text').attr('x',tx+tW/2).attr('y',OUTY+tH/2+5).attr('text-anchor','middle')
+          .attr('fill',isCLS?CW:'#3a5060').attr('font-size',isCLS?13:11)
+          .attr('font-weight',isCLS?'bold':'normal').text(tok);
+      });
+
+      const clsOutCX=tSX+tW/2;
+      svg.append('text').attr('x',clsOutCX).attr('y',OUTY+tH+18)
+        .attr('text-anchor','middle').attr('fill',CA).attr('font-size',11).text('global context summary');
+      svg.append('line').attr('x1',clsOutCX).attr('y1',OUTY+tH+22).attr('x2',clsOutCX).attr('y2',OUTY+tH+40)
+        .attr('stroke',C1).attr('stroke-width',1.5).attr('marker-end','url(#cls-arr-c1)');
+      svg.append('text').attr('x',clsOutCX).attr('y',OUTY+tH+58)
+        .attr('text-anchor','middle').attr('fill','#5a7090').attr('font-size',11)
+        .text('→ classify or embed →');
+
+      // Animated sag arcs: each Ti → [CLS] through the connector space
+      const sagArcs=[];
+      for(let i=1;i<=N_REG;i++){
+        const srcCX=tSX+i*(tW+tGap)+tW/2;
+        const srcY=INY+tH;
+        const dstX=tSX+tW-4;
+        const dstY=INY+tH;
+        const dist=Math.abs(srcCX-dstX);
+        const sag=Math.min(52,dist*0.28);
+        const mx=(srcCX+dstX)/2;
+        const arc=svg.append('path')
+          .attr('d',`M${srcCX},${srcY} Q${mx},${srcY+sag} ${dstX},${dstY}`)
+          .attr('fill','none').attr('stroke',CA).attr('stroke-width',0).attr('opacity',0)
+          .attr('marker-end','url(#cls-arr-act)');
+        sagArcs.push({arc,box:inBoxes[i].box});
+      }
+
+      let prev=-1,cur=0;
+      function step(){
+        if(prev>=0){
+          sagArcs[prev].arc.transition().duration(260).attr('stroke-width',0).attr('opacity',0);
+          sagArcs[prev].box.transition().duration(260).attr('fill-opacity',0.15).attr('stroke-width',1);
+        }
+        sagArcs[cur].arc.transition().duration(260).attr('stroke-width',2).attr('opacity',1);
+        sagArcs[cur].box.transition().duration(260).attr('fill-opacity',0.44).attr('stroke-width',2);
+        inBoxes[0].box.transition().duration(180).attr('fill-opacity',0.56)
+          .transition().duration(380).attr('fill-opacity',0.32);
+        prev=cur; cur=(cur+1)%N_REG;
+      }
+      step();
+      el._clsInterval=setInterval(step,950);
+
+      // ── RIGHT PANEL (x=852, w=238) ─────────────────────────────────────────
+      const RX=852,RW=238;
+
+      svg.append('rect').attr('x',RX).attr('y',16).attr('width',RW).attr('height',118)
+        .attr('rx',8).attr('fill',C3).attr('fill-opacity',0.1).attr('stroke',C3).attr('stroke-width',1.5);
+      svg.append('text').attr('x',RX+RW/2).attr('y',37).attr('text-anchor','middle')
+        .attr('fill',C3).attr('font-size',13).attr('font-weight','bold').text('Classification');
+      ['CLS* → Linear(d→K) → Softmax',
+       '→ [cat: 0.92, dog: 0.05, …]','',
+       'BERT-cls, ViT, distilBERT…'].forEach((l,i)=>{
+        svg.append('text').attr('x',RX+12).attr('y',56+i*20)
+          .attr('fill',i<2?'#9bb4d2':'#5a7090').attr('font-size',11).text(l);
+      });
+
+      svg.append('rect').attr('x',RX).attr('y',148).attr('width',RW).attr('height',140)
+        .attr('rx',8).attr('fill',CR).attr('fill-opacity',0.1).attr('stroke',CR).attr('stroke-width',1.5);
+      svg.append('text').attr('x',RX+RW/2).attr('y',170).attr('text-anchor','middle')
+        .attr('fill',CR).attr('font-size',13).attr('font-weight','bold').text('Sentence Embedding');
+      ['CLS* → d-dimensional vector',
+       '→ cosine similarity search',
+       '→ document retrieval & ranking',
+       '→ clustering & deduplication',
+       '→ foundation for fine-tuning'].forEach((l,i)=>{
+        svg.append('text').attr('x',RX+12).attr('y',190+i*20)
+          .attr('fill',i===0?'#9bb4d2':'#5a7090').attr('font-size',11).text(l);
+      });
+
+      svg.append('rect').attr('x',RX).attr('y',302).attr('width',RW).attr('height',88)
+        .attr('rx',8).attr('fill',C2).attr('fill-opacity',0.08).attr('stroke',C2).attr('stroke-width',1);
+      svg.append('text').attr('x',RX+RW/2).attr('y',323).attr('text-anchor','middle')
+        .attr('fill',C2).attr('font-size',11.5).attr('font-weight','bold').text('In the ViT Live Demo:');
+      ['Heatmap = cosine similarity between',
+       'CLS* and each patch token in',
+       'the final hidden layer (dim 768)'].forEach((l,i)=>{
+        svg.append('text').attr('x',RX+12).attr('y',340+i*18)
+          .attr('fill','#5a7090').attr('font-size',11).text(l);
+      });
+    }
+
+    Reveal.on('ready',()=>{
+      const el=document.getElementById('cls-token-canvas');
+      if(el) clsInit(el);
+    });
+    Reveal.on('slidechanged',({currentSlide})=>{
+      const el=currentSlide.querySelector('#cls-token-canvas');
+      if(el) clsInit(el);
+    });
+  })();
+  </script>
+
+  <!-- DIY Modelling animation (diy-modelling slide) -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#6a1aaa', C2='#4da8ff', CA='#2de8a0', C3='#ffa830';
+    const CTF='#ff8f00', CPT='#ee4c2c';
+    const CM='rgba(155,180,210,0.55)', CW='rgba(220,238,255,0.90)';
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      const fl=defs.append('filter').attr('id','diy-glow')
+        .attr('x','-40%').attr('y','-40%').attr('width','180%').attr('height','180%');
+      fl.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',2.5).attr('result','blur');
+      const fm=fl.append('feMerge');
+      fm.append('feMergeNode').attr('in','blur');
+      fm.append('feMergeNode').attr('in','SourceGraphic');
+
+      const gLeft =svg.append('g').attr('opacity',0);
+      const gMid  =svg.append('g').attr('opacity',0);
+      const gRight=svg.append('g').attr('opacity',0);
+
+      // ── LEFT: Frameworks (x=10..330) ──
+      const LX=10, LW=320, LCX=LX+LW/2;
+
+      gLeft.append('text').attr('x',LCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('ML Frameworks');
+
+      // TensorFlow / Keras box
+      var TFY=26, TFH=170;
+      gLeft.append('rect').attr('x',LX).attr('y',TFY).attr('width',LW).attr('height',TFH).attr('rx',6)
+        .attr('fill',CTF).attr('fill-opacity',0.08)
+        .attr('stroke',CTF).attr('stroke-opacity',0.50).attr('stroke-width',1.4);
+      gLeft.append('text').attr('x',LX+10).attr('y',TFY+18)
+        .attr('font-size',10.5).attr('font-family','monospace').attr('fill',CTF).attr('font-weight','700')
+        .text('TensorFlow / Keras');
+      gLeft.append('text').attr('x',LX+10).attr('y',TFY+32)
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CTF).attr('fill-opacity',0.55)
+        .text('Google  ·  production-ready  ·  Colab + TPU native');
+      ['• High-level Keras API  →  easy to learn & deploy',
+       '• TF Hub: 1000s of pre-trained models available',
+       '• TFLite export for mobile & edge devices',
+       '• TFX pipelines for production ML systems',
+      ].forEach(function(f,i){
+        gLeft.append('text').attr('x',LX+12).attr('y',TFY+52+i*26)
+          .attr('font-size',8.5).attr('font-family','monospace').attr('fill',CTF).attr('fill-opacity',0.80)
+          .text(f);
+      });
+
+      // PyTorch / HuggingFace box
+      var PTY=TFY+TFH+14, PTH=280;
+      gLeft.append('rect').attr('x',LX).attr('y',PTY).attr('width',LW).attr('height',PTH).attr('rx',6)
+        .attr('fill',CPT).attr('fill-opacity',0.08)
+        .attr('stroke',CPT).attr('stroke-opacity',0.50).attr('stroke-width',1.4);
+      gLeft.append('text').attr('x',LX+10).attr('y',PTY+18)
+        .attr('font-size',10.5).attr('font-family','monospace').attr('fill',CPT).attr('font-weight','700')
+        .text('PyTorch / HuggingFace');
+      gLeft.append('text').attr('x',LX+10).attr('y',PTY+32)
+        .attr('font-size',7.5).attr('font-family','monospace').attr('fill',CPT).attr('fill-opacity',0.55)
+        .text('Meta  ·  research-first  ·  most papers & tutorials use this');
+      ['• Dynamic graphs  →  debug like normal Python',
+       '• Most ML research papers publish PyTorch code',
+       '• HuggingFace Transformers: the industry standard lib',
+       '• PEFT / LoRA for parameter-efficient fine-tuning',
+       '• Trainer API handles the training loop for you',
+       '• torch.compile() for up to 2× speed on modern GPUs',
+      ].forEach(function(f,i){
+        gLeft.append('text').attr('x',LX+12).attr('y',PTY+52+i*36)
+          .attr('font-size',8.5).attr('font-family','monospace').attr('fill',CPT).attr('fill-opacity',0.80)
+          .text(f);
+      });
+
+      // ── CENTER: Fine-tuning steps (x=344..680) ──
+      const MX=344, MW=330, MCX=MX+MW/2;
+      const SBH=92, SBG=18, SBY=26;
+
+      gMid.append('text').attr('x',MCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('Fine-Tuning a BERT Model');
+
+      var STEPS=[
+        {label:'① Load Pre-trained BERT',
+         sub: 'BertForSequenceClassification.from_pretrained()',
+         sub2:'bert-base-uncased  ·  110 M params  ·  12 transformer layers',
+         col:C2},
+        {label:'② Freeze Base Layers',
+         sub: 'for param in model.bert.parameters():',
+         sub2:'    param.requires_grad = False   # all 12 layers frozen',
+         col:'#9bb4d2'},
+        {label:'③ Add / Configure Task Head',
+         sub: 'num_labels = 2  (binary classifier)',
+         sub2:'Linear(768 → 2) → Dropout(0.1) → log-Softmax',
+         col:C3},
+        {label:'④ Train & Optionally Unfreeze',
+         sub: 'AdamW  lr=2e-5  ·  weight_decay=0.01  ·  3–5 epochs',
+         sub2:'unfreeze top 2–4 layers for further accuracy gain',
+         col:CA},
+      ];
+
+      STEPS.forEach(function(s,i){
+        var sy=SBY+i*(SBH+SBG);
+        if(i>0){
+          gMid.append('text')
+            .attr('x',MCX).attr('y',sy-SBG/2+5)
+            .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+            .attr('fill',CA).attr('fill-opacity',0.65).text('▼');
+        }
+        gMid.append('rect').attr('x',MX).attr('y',sy).attr('width',MW).attr('height',SBH).attr('rx',6)
+          .attr('fill',s.col).attr('fill-opacity',0.10)
+          .attr('stroke',s.col).attr('stroke-opacity',0.50).attr('stroke-width',1.3);
+        gMid.append('text').attr('x',MX+10).attr('y',sy+22)
+          .attr('font-size',10).attr('font-family','monospace').attr('fill',s.col).attr('font-weight','700')
+          .text(s.label);
+        gMid.append('text').attr('x',MX+10).attr('y',sy+42)
+          .attr('font-size',8).attr('font-family','monospace').attr('fill',s.col).attr('fill-opacity',0.82)
+          .text(s.sub);
+        gMid.append('text').attr('x',MX+10).attr('y',sy+60)
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',s.col).attr('fill-opacity',0.58)
+          .text(s.sub2);
+      });
+
+      // ── RIGHT: Links (x=696..1088) ──
+      const RX=696, RW=390, RCX=RX+RW/2;
+      const LBH=64, LBG=7, LBY=26;
+
+      gRight.append('text').attr('x',RCX).attr('y',18)
+        .attr('text-anchor','middle').attr('font-size',11).attr('font-family','monospace')
+        .attr('fill',CW).attr('font-weight','700').text('Tutorials & Notebooks');
+
+      var LINKS=[
+        {label:'HuggingFace: Fine-tuning a Pre-trained Model',
+         sub: 'Official docs — PyTorch & TensorFlow, full examples',
+         url:'https://huggingface.co/docs/transformers/training',
+         disp:'huggingface.co/docs/transformers/training', col:C3},
+        {label:'HuggingFace NLP Course — Ch.3: Fine-tuning',
+         sub: 'Step-by-step: datasets → tokenize → Trainer API',
+         url:'https://huggingface.co/learn/nlp-course/chapter3/1',
+         disp:'huggingface.co/learn/nlp-course/chapter3/1', col:C3},
+        {label:'TensorFlow: Classify Text with BERT',
+         sub: 'Google tutorial — Keras, fine-tuning BERT on IMDB',
+         url:'https://www.tensorflow.org/text/tutorials/classify_text_with_bert',
+         disp:'tensorflow.org/text/tutorials/classify_text_with_bert', col:CTF},
+        {label:'PyTorch: Transfer Learning Tutorial',
+         sub: 'Official guide to feature extraction & fine-tuning',
+         url:'https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html',
+         disp:'pytorch.org/tutorials/beginner/transfer_learning_tutorial.html', col:CPT},
+        {label:'Colab Notebook: BERT Fine-tuning (Google Research)',
+         sub: 'Interactive — sentiment classification on movie reviews',
+         url:'https://colab.research.google.com/github/google-research/bert/blob/master/predicting_movie_reviews_with_bert_on_tf_hub.ipynb',
+         disp:'colab.research.google.com  (google-research/bert)', col:CA},
+        {label:'HuggingFace PEFT: LoRA & Efficient Fine-Tuning',
+         sub: 'Fine-tune billion-param models on a single consumer GPU',
+         url:'https://huggingface.co/docs/peft/index',
+         disp:'huggingface.co/docs/peft/index', col:C1},
+      ];
+
+      LINKS.forEach(function(lk,i){
+        var ly=LBY+i*(LBH+LBG);
+        gRight.append('rect').attr('x',RX).attr('y',ly).attr('width',RW).attr('height',LBH).attr('rx',5)
+          .attr('fill',lk.col).attr('fill-opacity',0.07)
+          .attr('stroke',lk.col).attr('stroke-opacity',0.32).attr('stroke-width',1);
+        var anch=gRight.append('a').attr('href',lk.url).attr('target','_blank');
+        anch.append('text').attr('x',RX+10).attr('y',ly+20)
+          .attr('font-size',8.5).attr('font-family','monospace').attr('fill',lk.col)
+          .attr('font-weight','700').attr('text-decoration','underline').text('→ '+lk.label);
+        anch.append('text').attr('x',RX+10).attr('y',ly+36)
+          .attr('font-size',7.5).attr('font-family','monospace').attr('fill',lk.col).attr('fill-opacity',0.70)
+          .text(lk.sub);
+        anch.append('text').attr('x',RX+10).attr('y',ly+51)
+          .attr('font-size',6.5).attr('font-family','monospace').attr('fill',lk.col).attr('fill-opacity',0.38)
+          .text(lk.disp);
+      });
+
+      var seq=[
+        [gLeft,    0,  600],
+        [gMid,   500,  600],
+        [gRight, 1000, 600],
+      ];
+      seq.forEach(function(s){
+        s[0].transition().delay(s[1]).duration(s[2]).attr('opacity',1);
+      });
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('diy-modelling-canvas');
+      if(el&&!el._diyReady){el._diyReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='diy-modelling'){
+        const el=document.getElementById('diy-modelling-canvas');
+        if(el) el._diyReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='diy-modelling') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Phishing Use-Case animation (phishing-usecase slide) -->
+  <script>
+  (function(){
+    const W=1100, H=490;
+    const C1='#6a1aaa', C2='#4da8ff', CA='#2de8a0', C3='#ffa830', CR='#e86040';
+    const CM='rgba(155,180,210,0.55)', CW='rgba(220,238,255,0.90)';
+
+    function draw(el){
+      el._puReady=true;
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`)
+        .attr('preserveAspectRatio','xMidYMid meet')
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      defs.append('marker').attr('id','arr-phish')
+        .attr('markerWidth',8).attr('markerHeight',8)
+        .attr('refX',6).attr('refY',3).attr('orient','auto')
+        .append('polygon').attr('points','0 0,8 3,0 6').attr('fill',CW);
+
+      // ── LEFT PANEL ────────────────────────────────────────
+      const LX=10, LW=510, LCX=LX+LW/2; // cx=265
+      svg.append('rect').attr('x',LX).attr('y',5).attr('width',LW).attr('height',H-10)
+        .attr('rx',6).attr('fill',CM);
+      svg.append('text').attr('x',LCX).attr('y',26).attr('text-anchor','middle')
+        .attr('fill',CW).style('font-size','13px').style('font-weight','bold')
+        .text('Manipulation Detection Pipeline');
+
+      const BW=224, BH=38;
+      const pipe=[
+        {label:'Phishing Email (LLM-crafted)', sub:'raw text input',                           col:CR, y:38},
+        {label:'RoBERTa',                       sub:'LoRA fine-tuned · layers 6–11 unfrozen',  col:C1, y:105},
+        {label:'[CLS] Embedding',               sub:'768-dimensional contextual vector',        col:C2, y:172},
+        {label:'Classification Head',           sub:'linear → sigmoid → binary label',          col:C3, y:239},
+      ];
+      pipe.forEach((b,i)=>{
+        svg.append('rect').attr('x',LCX-BW/2).attr('y',b.y).attr('width',BW).attr('height',BH)
+          .attr('rx',5).attr('fill',b.col).attr('opacity',0.85);
+        svg.append('text').attr('x',LCX).attr('y',b.y+15).attr('text-anchor','middle')
+          .attr('fill','#fff').style('font-size','12px').style('font-weight','bold').text(b.label);
+        svg.append('text').attr('x',LCX).attr('y',b.y+29).attr('text-anchor','middle')
+          .attr('fill','rgba(255,255,255,0.82)').style('font-size','9.5px').text(b.sub);
+        if(i<pipe.length-1){
+          svg.append('line')
+            .attr('x1',LCX).attr('y1',b.y+BH).attr('x2',LCX).attr('y2',pipe[i+1].y-2)
+            .attr('stroke',CW).attr('stroke-width',1.5).attr('marker-end','url(#arr-phish)');
+        }
+      });
+
+      // Output fork
+      const forkY=298;
+      svg.append('line')
+        .attr('x1',LCX).attr('y1',pipe[3].y+BH).attr('x2',LCX).attr('y2',forkY-2)
+        .attr('stroke',CW).attr('stroke-width',1.5).attr('marker-end','url(#arr-phish)');
+      svg.append('line').attr('x1',LCX-72).attr('y1',forkY).attr('x2',LCX+72).attr('y2',forkY)
+        .attr('stroke',CW).attr('stroke-width',1.5);
+      [{t:'Manipulative',c:CR,x:LCX-72},{t:'Non-manipulative',c:CA,x:LCX+72}].forEach(o=>{
+        svg.append('line').attr('x1',o.x).attr('y1',forkY).attr('x2',o.x).attr('y2',forkY+12)
+          .attr('stroke',CW).attr('stroke-width',1.5).attr('marker-end','url(#arr-phish)');
+        svg.append('rect').attr('x',o.x-52).attr('y',forkY+14).attr('width',104).attr('height',26)
+          .attr('rx',13).attr('fill',o.c).attr('opacity',0.88);
+        svg.append('text').attr('x',o.x).attr('y',forkY+31).attr('text-anchor','middle')
+          .attr('fill','#fff').style('font-size','10.5px').style('font-weight','bold').text(o.t);
+      });
+
+      // Dataset box
+      const dsY=356;
+      svg.append('rect').attr('x',LX+8).attr('y',dsY).attr('width',LW-16).attr('height',116)
+        .attr('rx',4).attr('fill','rgba(74,30,120,0.45)').attr('stroke',C1).attr('stroke-width',1);
+      svg.append('text').attr('x',LCX).attr('y',dsY+16).attr('text-anchor','middle')
+        .attr('fill',CA).style('font-size','11px').style('font-weight','bold')
+        .text('MentalManip_maj Training Data');
+      [
+        '4,000 dialogue samples · Cornell Movie Dialogs corpus',
+        '3-dimension labels: presence / technique / vulnerability',
+        'Binary classification: manipulative vs. non-manipulative',
+        '2.4× class imbalance → weighted cross-entropy loss',
+      ].forEach((t,i)=>{
+        svg.append('text').attr('x',LX+18).attr('y',dsY+34+i*19)
+          .attr('fill',CW).style('font-size','10px').text('• '+t);
+      });
+
+      // ── RIGHT PANEL ───────────────────────────────────────
+      const RX=530, RW=560;
+      const TBX=RX+10, TBW=RW-20;
+      svg.append('rect').attr('x',RX).attr('y',5).attr('width',RW).attr('height',H-10)
+        .attr('rx',6).attr('fill',CM);
+      svg.append('text').attr('x',RX+RW/2).attr('y',26).attr('text-anchor','middle')
+        .attr('fill',CW).style('font-size','13px').style('font-weight','bold')
+        .text('Results & Findings');
+
+      // Model benchmark
+      svg.append('text').attr('x',TBX).attr('y',44)
+        .attr('fill',C3).style('font-size','10.5px').style('font-weight','bold')
+        .text('Encoder Benchmark — F1 on manipulative class (MentalManip_maj)');
+
+      const models=[
+        ['EmotionBERT','0.74',CA],
+        ['RoBERTa',    '0.73',C2],
+        ['deBERTa v3', '0.72',C2],
+        ['DistilBERT', '0.72',C2],
+        ['BERT',       '0.70','#888'],
+      ];
+      const RH=20, BARX=TBX+110, BARW=170;
+      models.forEach((m,i)=>{
+        const ry=52+i*RH;
+        svg.append('rect').attr('x',TBX).attr('y',ry).attr('width',TBW).attr('height',RH-1)
+          .attr('fill', i%2===0?'rgba(80,50,120,0.5)':'rgba(60,40,100,0.3)').attr('rx',2);
+        svg.append('text').attr('x',TBX+4).attr('y',ry+13)
+          .attr('fill',CW).style('font-size','10px').text(m[0]);
+        const bw=BARW*(parseFloat(m[1])-0.65)/0.35;
+        svg.append('rect').attr('x',BARX).attr('y',ry+3).attr('width',bw).attr('height',RH-7)
+          .attr('rx',2).attr('fill',m[2]).attr('opacity',0.85);
+        svg.append('text').attr('x',BARX+bw+4).attr('y',ry+13)
+          .attr('fill',CW).style('font-size','10px').text(m[1]);
+      });
+
+      // Fine-tuned highlight
+      const ftY=52+models.length*RH+4; // =176
+      svg.append('rect').attr('x',TBX).attr('y',ftY).attr('width',TBW).attr('height',28)
+        .attr('rx',3).attr('fill','rgba(45,232,160,0.2)').attr('stroke',CA).attr('stroke-width',1);
+      svg.append('text').attr('x',TBX+6).attr('y',ftY+11)
+        .attr('fill',CA).style('font-size','10px').style('font-weight','bold')
+        .text('Best fine-tuned: RoBERTa + LoRA (unfrozen layers 6–11)');
+      svg.append('text').attr('x',TBX+6).attr('y',ftY+24)
+        .attr('fill',CW).style('font-size','10px')
+        .text('Prec 0.74 · Recall 0.91 · F1 0.82 · Accuracy 0.71');
+
+      // Zero-shot phishing section
+      const rpY=ftY+36; // =212
+      svg.append('text').attr('x',TBX).attr('y',rpY)
+        .attr('fill',C3).style('font-size','10.5px').style('font-weight','bold')
+        .text('Zero-Shot Transfer to Real Phishing Emails');
+      // Column headers
+      const cols=[{h:'Dataset',x:0},{h:'n',x:100},{h:'Prec',x:152},{h:'Recall',x:200},{h:'F1',x:258}];
+      cols.forEach(c=>{
+        svg.append('text').attr('x',TBX+c.x).attr('y',rpY+20)
+          .attr('fill',C3).style('font-size','9.5px').style('font-weight','bold').text(c.h);
+      });
+      // Data rows
+      const phish=[
+        {name:'Ling.csv',      n:'2,859', prec:'0.18', rec:'0.96', f1:'0.30'},
+        {name:'SpamAssassin',  n:'5,809', prec:'0.33', rec:'0.92', f1:'0.49'},
+      ];
+      phish.forEach((r,ri)=>{
+        const ry=rpY+22+ri*21;
+        svg.append('rect').attr('x',TBX).attr('y',ry).attr('width',TBW).attr('height',20)
+          .attr('fill', ri%2===0?'rgba(80,50,120,0.5)':'rgba(60,40,100,0.3)').attr('rx',2);
+        svg.append('text').attr('x',TBX+4).attr('y',ry+14).attr('fill',CW).style('font-size','10px').text(r.name);
+        svg.append('text').attr('x',TBX+100).attr('y',ry+14).attr('fill',CW).style('font-size','10px').text(r.n);
+        svg.append('text').attr('x',TBX+152).attr('y',ry+14).attr('fill',CR).style('font-size','10px').style('font-weight','bold').text(r.prec);
+        svg.append('text').attr('x',TBX+200).attr('y',ry+14).attr('fill',CA).style('font-size','10px').style('font-weight','bold').text(r.rec);
+        svg.append('text').attr('x',TBX+258).attr('y',ry+14).attr('fill',C3).style('font-size','10px').text(r.f1);
+      });
+      const noteY=rpY+22+phish.length*21+4; // =290
+      svg.append('text').attr('x',TBX+4).attr('y',noteY+10)
+        .attr('fill','rgba(220,238,255,0.65)').style('font-size','9.5px').style('font-style','italic')
+        .text('→ High recall (catches phishing) but low precision — many false positives');
+
+      // Challenges box
+      const chY=noteY+22; // =312
+      svg.append('rect').attr('x',TBX).attr('y',chY).attr('width',TBW).attr('height',80)
+        .attr('rx',3).attr('fill','rgba(232,96,64,0.15)').attr('stroke',CR).attr('stroke-width',1);
+      svg.append('text').attr('x',TBX+6).attr('y',chY+15)
+        .attr('fill',CR).style('font-size','10.5px').style('font-weight','bold').text('Key Challenges');
+      [
+        'Class imbalance (2.4×): weighted loss needed for minority class recall',
+        'Domain shift: movie dialogues ≠ standalone phishing email text',
+        'Proposed fix: two-stage pipeline (phishing first, then manipulation)',
+      ].forEach((t,i)=>{
+        svg.append('text').attr('x',TBX+6).attr('y',chY+31+i*17)
+          .attr('fill',CW).style('font-size','10px').text('• '+t);
+      });
+
+      // Paper attribution + link
+      const lnkY=chY+86; // =398
+      svg.append('text').attr('x',TBX).attr('y',lnkY)
+        .attr('fill','rgba(77,168,255,0.75)').style('font-size','9.5px')
+        .text('Westhoff & Dhage · Manipulative Language Detection in LLM-Crafted Phishing Attacks');
+      svg.append('text').attr('x',TBX).attr('y',lnkY+14)
+        .attr('fill','rgba(77,168,255,0.75)').style('font-size','9.5px')
+        .text('UC Berkeley MIDS 266 · Summer 2025');
+      svg.append('a')
+        .attr('href','https://github.com/KJWesthoff/266FinalProject/blob/main/Proposal/266_FinalProject.pdf')
+        .attr('target','_blank')
+        .append('text').attr('x',TBX).attr('y',lnkY+28)
+        .attr('fill',C2).style('font-size','9.5px').style('text-decoration','underline')
+        .text('→ 266_FinalProject.pdf on GitHub');
+    }
+
+    function maybeInit(){
+      const el=document.getElementById('phishing-usecase-canvas');
+      if(el&&!el._puReady) draw(el);
+    }
+    Reveal.on('ready', maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='phishing-usecase'){
+        const el=document.getElementById('phishing-usecase-canvas');
+        if(el) el._puReady=false;
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='phishing-usecase') maybeInit();
+    });
+  })();
+  </script>
+
   <!-- Decoder transformer flow animation (bert-architecture slide) -->
   <script>
   (function(){
@@ -10283,10 +11571,27 @@
     // Right panel
     const RX=580, RPW=460;
 
-    // ── Matrix block: brackets + dot grid + token labels ──
+    // Color gradient matching the 3D animation: dark-navy → purple → amber
+    function embColor(v){
+      const t=(Math.max(-1,Math.min(1,v))+1)/2;
+      let r,g,b;
+      if(t<0.5){const s=t*2;r=Math.round(6+100*s);g=Math.round(3+23*s);b=Math.round(26+144*s);}
+      else{const s=(t-0.5)*2;r=Math.round(106+149*s);g=Math.round(26+142*s);b=Math.round(170-122*s);}
+      return `rgb(${r},${g},${b})`;
+    }
+
+    // ── Matrix block: brackets + cell grid + token labels ──
     function drawMatrix(g, by, ri){
       const col=RCOL[ri], alpha=RALPHA[ri];
       const top=by, bot=by+BLOCK_H;
+      const CELL_W=20, CELL_H=9;
+
+      // Dark background panel (matching 3D animation aesthetic)
+      g.append('rect')
+        .attr('x',DOTS_X0-6).attr('y',top+1)
+        .attr('width',DOTS_W+12).attr('height',BLOCK_H-2).attr('rx',3)
+        .attr('fill','#06031a').attr('fill-opacity',0.88)
+        .attr('stroke',col).attr('stroke-opacity',Math.min(1,alpha*0.45)).attr('stroke-width',0.9);
 
       // Left bracket  [
       g.append('path')
@@ -10302,7 +11607,7 @@
         .attr('stroke-opacity',Math.min(1,alpha+0.1)).attr('stroke-width',2.2)
         .attr('stroke-linejoin','miter');
 
-      // Dots and token row labels
+      // Cell rows and token labels
       for(let ti=0;ti<N_TOK;ti++){
         const dotY=by+PAD+ti*V_SP+V_SP/2;
 
@@ -10317,13 +11622,14 @@
           .attr('font-weight',ri===0?'700':'400')
           .text(TOKENS[ti]);
 
-        // Dot row
+        // Cell row — rectangular cells colored with dark-navy→purple→amber gradient
         for(let ci=0;ci<N_COLS;ci++){
           const dotX=DOTS_X0+ci*H_SP;
-          const v=(Math.sin(ti*3.7+ci*2.1+ri*1.8)*0.5+0.5);
-          g.append('circle')
-            .attr('cx',dotX).attr('cy',dotY).attr('r',DOT_R)
-            .attr('fill',col).attr('fill-opacity',alpha*(0.12+v*0.78));
+          const v=Math.sin(ti*3.7+ci*2.1+ri*1.8);  // [-1,1]
+          g.append('rect')
+            .attr('x',dotX-CELL_W/2).attr('y',dotY-CELL_H/2)
+            .attr('width',CELL_W).attr('height',CELL_H).attr('rx',1)
+            .attr('fill',embColor(v)).attr('fill-opacity',0.92);
         }
       }
 
@@ -10515,6 +11821,18 @@
         .attr('text-anchor','middle').attr('font-size',7)
         .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.78)
         .text('last token\'s augmented embedding → Linear → Softmax');
+
+      // Note: only last token used for prediction
+      gOut.append('rect')
+        .attr('x',10).attr('y',outTop+63)
+        .attr('width',545).attr('height',19).attr('rx',3)
+        .attr('fill','#06031a').attr('fill-opacity',0.80)
+        .attr('stroke',C3).attr('stroke-opacity',0.35).attr('stroke-width',0.8);
+      gOut.append('text')
+        .attr('x',283).attr('y',outTop+76)
+        .attr('text-anchor','middle').attr('font-size',7.5)
+        .attr('font-family','monospace').attr('fill',C3).attr('fill-opacity',0.75)
+        .text('Note: only the last token\'s output is used for prediction — all other rows are discarded');
 
       // ── Right panel: Decoder architecture diagram ──
       const rbx=RX+15, rbw=RPW-30;
@@ -11009,6 +12327,262 @@
       else{if(el._t3dStop)el._t3dStop();}
     });
   })();
+  </script>
+
+  <!-- ViT live demo (vit-demo slide) — ES module, does not conflict with other scripts -->
+  <script type="module">
+  import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3';
+  env.allowLocalModels = false;
+
+  const COLORS = ['#4da8ff','#2de8a0','#ffa830','#e86040','#9bb4d2'];
+
+  const videoEl    = document.getElementById('vit-webcam');
+  const heatmapEl  = document.getElementById('vit-heatmap');
+  const scaleEl    = document.getElementById('vit-scale');
+  const captureEl  = document.getElementById('vit-capture');
+  const statusEl   = document.getElementById('vit-status');
+  const btnEl      = document.getElementById('vit-btn');
+  const predsEl    = document.getElementById('vit-preds');
+  const timingEl   = document.getElementById('vit-timing');
+
+  // Heatmap colour ramp: dark navy → blue → cyan-green
+  function heatColor(v) {
+    const stops = [[8,14,26],[18,48,98],[50,120,200],[40,210,180],[45,232,160]];
+    const t = v * (stops.length - 1);
+    const i = Math.min(Math.floor(t), stops.length - 2);
+    const f = t - i;
+    const a = stops[i], b = stops[i + 1];
+    return `rgb(${Math.round(a[0]+(b[0]-a[0])*f)},${Math.round(a[1]+(b[1]-a[1])*f)},${Math.round(a[2]+(b[2]-a[2])*f)})`;
+  }
+
+  function drawColorScale() {
+    const ctx = scaleEl.getContext('2d');
+    const W = scaleEl.width, H = scaleEl.height;
+    const grad = ctx.createLinearGradient(0, 0, W, 0);
+    grad.addColorStop(0,    'rgb(8,14,26)');
+    grad.addColorStop(0.25, 'rgb(18,48,98)');
+    grad.addColorStop(0.5,  'rgb(50,120,200)');
+    grad.addColorStop(0.75, 'rgb(40,210,180)');
+    grad.addColorStop(1,    'rgb(45,232,160)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  }
+  drawColorScale();
+
+  let classifier  = null;
+  let extractor   = null;  // feature-extraction pipeline for CLS–patch similarity
+  let camStream   = null;
+  let running     = false;
+  let rafId       = null;
+  let lastAt      = 0;
+  let modelState  = 'idle'; // idle | loading | ready
+
+  async function loadModel() {
+    if (modelState !== 'idle') return;
+    modelState = 'loading';
+    btnEl.disabled = true;
+    statusEl.textContent = 'Loading models (cached after first download)…';
+    try {
+      // Load classifier + feature-extractor in parallel
+      [classifier, extractor] = await Promise.all([
+        pipeline('image-classification', 'Xenova/vit-base-patch16-224'),
+        pipeline('feature-extraction',   'Xenova/vit-base-patch16-224')
+      ]);
+      modelState = 'ready';
+      btnEl.disabled = false;
+      btnEl.textContent = '▶ Start';
+      statusEl.textContent = 'Models ready — click to start webcam';
+    } catch (_) {
+      // Feature-extraction ONNX not available for this model — fall back to classifier only
+      try {
+        statusEl.textContent = 'Downloading classification model…';
+        classifier = await pipeline('image-classification', 'Xenova/vit-base-patch16-224', {
+          progress_callback(p) {
+            if (p.status === 'downloading' && p.total)
+              statusEl.textContent = `Downloading: ${Math.round(p.loaded / p.total * 100)}%`;
+          }
+        });
+        modelState = 'ready';
+        btnEl.disabled = false;
+        btnEl.textContent = '▶ Start';
+        statusEl.textContent = 'Ready (heatmap: pixel variance fallback)';
+      } catch (e2) {
+        modelState = 'idle';
+        btnEl.disabled = false;
+        statusEl.textContent = 'Load error: ' + e2.message;
+      }
+    }
+  }
+
+  async function startCam() {
+    try {
+      camStream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 640 }, height: { ideal: 480 } }
+      });
+      videoEl.srcObject = camStream;
+      await videoEl.play();
+      running = true;
+      btnEl.textContent = '⏹ Stop';
+      statusEl.textContent = 'Running…';
+      tick();
+    } catch (e) {
+      statusEl.textContent = 'Camera error: ' + e.message;
+    }
+  }
+
+  function stopCam() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    if (camStream) { camStream.getTracks().forEach(t => t.stop()); camStream = null; }
+    videoEl.srcObject = null;
+    btnEl.textContent = '▶ Start';
+    statusEl.textContent = 'Stopped.';
+    heatmapEl.getContext('2d').clearRect(0, 0, heatmapEl.width, heatmapEl.height);
+  }
+
+  function tick() {
+    if (!running) return;
+    rafId = requestAnimationFrame(async () => {
+      const now = Date.now();
+      if (now - lastAt >= 1500) { lastAt = now; await runFrame(); }
+      tick();
+    });
+  }
+
+  async function runFrame() {
+    if (!videoEl.videoWidth || !classifier) return;
+    const ctx = captureEl.getContext('2d');
+    ctx.drawImage(videoEl, 0, 0, 224, 224);
+    try {
+      const t0 = performance.now();
+      // Run classifier and (if available) feature extractor in parallel
+      const jobs = [
+        classifier(captureEl, { topk: 5 }),
+        extractor ? extractor(captureEl, { pooling: 'none', normalize: false }) : Promise.resolve(null)
+      ];
+      const [clsRes, featRes] = await Promise.all(jobs);
+      timingEl.textContent = `Inference: ${(performance.now() - t0).toFixed(0)} ms`;
+      renderPreds(clsRes);
+      drawHeatmap(featRes ? clsPatchSim(featRes) : patchVariances(ctx.getImageData(0, 0, 224, 224)));
+    } catch (e) {
+      statusEl.textContent = 'Inference error';
+      console.error(e);
+      drawHeatmap(patchVariances(ctx.getImageData(0, 0, 224, 224)));
+    }
+  }
+
+  function patchVariances(imgData) {
+    const d = imgData.data;
+    const v = new Float32Array(196);
+    for (let r = 0; r < 14; r++) {
+      for (let c = 0; c < 14; c++) {
+        let s = 0, s2 = 0;
+        for (let y = r * 16; y < r * 16 + 16; y++) {
+          for (let x = c * 16; x < c * 16 + 16; x++) {
+            const i = (y * 224 + x) * 4;
+            const g = (d[i] * 0.299 + d[i+1] * 0.587 + d[i+2] * 0.114) / 255;
+            s += g; s2 += g * g;
+          }
+        }
+        const m = s / 256;
+        v[r * 14 + c] = s2 / 256 - m * m;
+      }
+    }
+    const mx = Math.max(...v), mn = Math.min(...v), rng = mx - mn;
+    if (rng > 0) for (let i = 0; i < 196; i++) v[i] = (v[i] - mn) / rng;
+    return v;
+  }
+
+  // Cosine similarity between the CLS token and each of the 196 patch tokens
+  // in the final hidden layer — a real learned-representation heatmap.
+  function clsPatchSim(feat) {
+    const D = 768;
+    // feat is a Tensor: dims [1, 197, 768], data is a flat Float32Array
+    const data = feat.data;
+    const cls = data.subarray(0, D);
+
+    // Pre-compute CLS norm once
+    let clsNorm = 0;
+    for (let d = 0; d < D; d++) clsNorm += cls[d] * cls[d];
+    clsNorm = Math.sqrt(clsNorm);
+
+    const sims = new Float32Array(196);
+    for (let i = 0; i < 196; i++) {
+      const off = (i + 1) * D;
+      let dot = 0, pNorm = 0;
+      for (let d = 0; d < D; d++) {
+        const p = data[off + d];
+        dot   += cls[d] * p;
+        pNorm += p * p;
+      }
+      sims[i] = dot / (clsNorm * Math.sqrt(pNorm));
+    }
+
+    // Normalise to [0, 1] — absolute cosine values are high and close together,
+    // so min-max stretching makes the relative differences visible.
+    const mx = Math.max(...sims), mn = Math.min(...sims), rng = mx - mn;
+    if (rng > 0) for (let i = 0; i < 196; i++) sims[i] = (sims[i] - mn) / rng;
+    return sims;
+  }
+
+  function drawHeatmap(imp) {
+    const ctx = heatmapEl.getContext('2d');
+    const W = heatmapEl.width, H = heatmapEl.height;
+    const pw = W / 14, ph = H / 14;
+    for (let r = 0; r < 14; r++) {
+      for (let c = 0; c < 14; c++) {
+        const val = imp[r * 14 + c];
+        const x = c * pw, y = r * ph;
+        ctx.fillStyle = heatColor(val);
+        ctx.fillRect(x, y, pw, ph);
+        ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+        ctx.lineWidth = 0.5;
+        ctx.strokeRect(x, y, pw, ph);
+      }
+    }
+  }
+
+  function renderPreds(res) {
+    if (!res?.length) return;
+    predsEl.innerHTML = res.map((r, i) => {
+      const pct = (r.score * 100).toFixed(1);
+      const lbl = r.label.replace(/_/g, ' ').replace(/,.*$/, '').trim();
+      const col = COLORS[i];
+      return `<div style="margin-bottom:11px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
+          <span style="color:#ccd;font-size:12.5px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:8px;">${lbl}</span>
+          <span style="color:${col};font-size:12px;font-weight:bold;">${pct}%</span>
+        </div>
+        <div style="height:5px;background:#0a1420;border-radius:3px;overflow:hidden;">
+          <div style="width:${pct}%;height:100%;background:${col};border-radius:3px;transition:width .45s ease;"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  btnEl.addEventListener('click', async () => {
+    if (modelState === 'idle') {
+      await loadModel();
+      if (modelState === 'ready') await startCam();
+      return;
+    }
+    if (modelState === 'loading') return;
+    if (running) stopCam(); else await startCam();
+  });
+
+  // Reveal.js integration — start loading when slide becomes active, stop cam when leaving
+  const onEnter = () => { if (modelState === 'idle') loadModel(); };
+  const onLeave = () => { if (running) stopCam(); };
+
+  if (window.Reveal) {
+    Reveal.on('slidechanged', ({ currentSlide, previousSlide }) => {
+      if (currentSlide.id === 'vit-demo') onEnter();
+      else if (previousSlide?.id === 'vit-demo') onLeave();
+    });
+    Reveal.on('ready', () => {
+      if (Reveal.getCurrentSlide()?.id === 'vit-demo') onEnter();
+    });
+  }
   </script>
 </body>
 </html>
