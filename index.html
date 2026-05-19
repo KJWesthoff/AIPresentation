@@ -13858,13 +13858,14 @@
 
     var currentDeck=null;
     var customDone=false;
+    var goActive=false;
     function isGoMode(){ return currentDeck!==null&&(currentDeck!=='custom'||customDone); }
 
     var LS_KEY='ai-pres-deck-v1';
     function saveDeckState(){
       try{
         if(!currentDeck){localStorage.removeItem(LS_KEY);return;}
-        var obj={deck:currentDeck,done:customDone,customIds:currentDeck==='custom'?[...DECKS.custom.ids]:[]};
+        var obj={deck:currentDeck,done:customDone,go:goActive,customIds:currentDeck==='custom'?[...DECKS.custom.ids]:[]};
         localStorage.setItem(LS_KEY,JSON.stringify(obj));
       }catch(e){}
     }
@@ -13876,42 +13877,50 @@
         if(!obj||!obj.deck||!DECKS[obj.deck]) return;
         currentDeck=obj.deck;
         customDone=!!obj.done;
+        goActive=!!obj.go;
         if(currentDeck==='custom'&&Array.isArray(obj.customIds)){
           DECKS.custom.ids=new Set(obj.customIds);
         }
       }catch(e){}
     }
 
-    function createDimOverlay(){
-      if(document.getElementById('deck-dim-overlay')) return;
-      var ov=document.createElement('div');
-      ov.id='deck-dim-overlay';
-      Object.assign(ov.style,{
-        position:'fixed',top:'0',left:'0',width:'100%',height:'100%',
-        zIndex:'998',pointerEvents:'none',
-        background:'rgba(4,6,18,0.62)',display:'none'
-      });
-      var lbl=document.createElement('div');
-      Object.assign(lbl.style,{
-        position:'absolute',bottom:'28px',right:'32px',
-        background:'rgba(20,28,55,0.9)',
-        border:'1px solid rgba(120,140,180,0.3)',
-        color:'rgba(160,180,210,0.75)',
-        fontSize:'12px',padding:'6px 14px',borderRadius:'6px',
-        fontFamily:'sans-serif',letterSpacing:'0.03em'
-      });
-      lbl.textContent='⬡ Not in current deck';
-      ov.appendChild(lbl);
-      document.body.appendChild(ov);
+    function deactivateDeckNav(){
+      goActive=false;
+      if(window._deckKeyHandler){
+        document.removeEventListener('keydown',window._deckKeyHandler,true);
+        window._deckKeyHandler=null;
+      }
     }
 
-    function updateDimOverlay(slideId){
-      var ov=document.getElementById('deck-dim-overlay');
-      if(!ov||!currentDeck) return;
-      if(currentDeck==='custom'&&!customDone){ov.style.display='none';return;}
-      var deck=DECKS[currentDeck];
-      if(!deck.ids||slideId==='slide-map'){ov.style.display='none';return;}
-      ov.style.display=deck.ids.has(slideId)?'none':'block';
+    function activateDeckNav(){
+      if(window._deckKeyHandler){
+        document.removeEventListener('keydown',window._deckKeyHandler,true);
+        window._deckKeyHandler=null;
+      }
+      if(!currentDeck) return;
+      goActive=true;
+      var ids=DECKS[currentDeck].ids;
+      var deckOrder=['slide-map'];
+      nodes.forEach(function(n){
+        if(n.slideId==='slide-map') return;
+        if(!ids||ids.has(n.slideId)) deckOrder.push(n.slideId);
+      });
+      function navigate(fwd){
+        var cur=Reveal.getCurrentSlide();
+        var curId=cur?cur.id:'';
+        var pos=deckOrder.indexOf(curId);
+        if(pos===-1) pos=fwd?-1:deckOrder.length;
+        var nextId=fwd?deckOrder[pos+1]:deckOrder[pos-1];
+        if(nextId){var t=document.getElementById(nextId);if(t){var i=Reveal.getIndices(t);Reveal.slide(i.h,i.v);}}
+      }
+      window._deckKeyHandler=function(e){
+        if(e.keyCode===39||e.keyCode===40||e.keyCode===32){
+          e.preventDefault();e.stopImmediatePropagation();navigate(true);
+        } else if(e.keyCode===37||e.keyCode===38){
+          e.preventDefault();e.stopImmediatePropagation();navigate(false);
+        }
+      };
+      document.addEventListener('keydown',window._deckKeyHandler,true);
     }
 
     function applyCustomEditView(el){
@@ -13955,49 +13964,18 @@
       });
     }
 
-    var deckNavActive=false;
-
-    function deactivateDeckNav(){
-      if(!deckNavActive) return;
-      deckNavActive=false;
-      if(window._deckKeyHandler){
-        document.removeEventListener('keydown',window._deckKeyHandler,true);
-        window._deckKeyHandler=null;
-      }
-    }
-
-    function activateDeckNav(){
-      deactivateDeckNav();
-      if(!currentDeck) return;
-      deckNavActive=true;
-      var ids=DECKS[currentDeck].ids;
-
-      // Build deck slide order from nodes (chronological); always include slide-map first
-      var deckOrder=['slide-map'];
-      nodes.forEach(function(n){
-        if(n.slideId==='slide-map') return;
-        if(!ids||ids.has(n.slideId)) deckOrder.push(n.slideId);
-      });
-
-      function navigate(fwd){
-        var cur=Reveal.getCurrentSlide();
-        var curId=cur?cur.id:'';
-        var pos=deckOrder.indexOf(curId);
-        if(pos===-1) pos=fwd?-1:deckOrder.length;
-        var nextId=fwd?deckOrder[pos+1]:deckOrder[pos-1];
-        if(nextId){var t=document.getElementById(nextId);if(t){var i=Reveal.getIndices(t);Reveal.slide(i.h,i.v);}}
-      }
-
-      // Capture phase — fires before Reveal's bubble-phase handler
-      window._deckKeyHandler=function(e){
-        if(!deckNavActive) return;
-        if(e.keyCode===39||e.keyCode===40||e.keyCode===32){
-          e.preventDefault();e.stopImmediatePropagation();navigate(true);
-        } else if(e.keyCode===37||e.keyCode===38){
-          e.preventDefault();e.stopImmediatePropagation();navigate(false);
+    function applyDeckVisibility(){
+      var deck=currentDeck?DECKS[currentDeck]:null;
+      var restrict=deck&&isGoMode();
+      document.querySelectorAll('.slides section[id]').forEach(function(sec){
+        if(sec.id==='slide-map'){sec.removeAttribute('data-visibility');return;}
+        if(restrict&&deck.ids&&!deck.ids.has(sec.id)){
+          sec.setAttribute('data-visibility','hidden');
+        } else {
+          sec.removeAttribute('data-visibility');
         }
-      };
-      document.addEventListener('keydown',window._deckKeyHandler,true);
+      });
+      try{Reveal.sync();}catch(e){}
     }
 
     function selectDeck(key){
@@ -14030,8 +14008,8 @@
         }
         updateRadioVisuals();
         applyDeckDimming(el);
+        applyDeckVisibility();
       }
-      updateDimOverlay('slide-map');
       saveDeckState();
     }
 
@@ -14209,15 +14187,17 @@
             el._nodeSel.select('rect').transition().duration(300).attr('stroke-width',1.2);
           }
           applyDeckDimming(el);
+          applyDeckVisibility();
         } else {
-          // "Go" — activate deck navigation then jump to first deck slide after map
+          // "Go" — activate nav intercept then jump to first deck slide
           if(!currentDeck) return;
           var ids=DECKS[currentDeck].ids;
           if(ids&&!ids.size) return;
           activateDeckNav();
+          saveDeckState();
           for(var ni=0;ni<nodes.length;ni++){
             var sid=nodes[ni].slideId;
-            if(sid==='slide-map') continue; // already on map — jump to first content slide
+            if(sid==='slide-map') continue;
             if(!ids||ids.has(sid)){
               var tgt=document.getElementById(sid);
               if(tgt){var idx2=Reveal.getIndices(tgt);Reveal.slide(idx2.h,idx2.v);return;}
@@ -14256,8 +14236,6 @@
       });
       resetBtn.addEventListener('click',function(){resetDeck(el);});
       el.appendChild(resetBtn);
-
-      createDimOverlay();
     }
 
     function resetDeck(el){
@@ -14266,6 +14244,7 @@
       customDone=false;
       DECKS.custom.ids=new Set();
       saveDeckState();
+      applyDeckVisibility();
       var hint=document.getElementById('sm-custom-hint');
       var doneBtn=document.getElementById('sm-done-btn');
       var resetBtn=document.getElementById('sm-reset-btn');
@@ -14279,8 +14258,6 @@
       }
       if(el&&el._linkSel) el._linkSel.transition().duration(350).style('opacity',1);
       updateEraHeaderVisuals(el);
-      var ov=document.getElementById('deck-dim-overlay');
-      if(ov) ov.style.display='none';
     }
 
     function updateEraHeaderVisuals(el){
@@ -14290,7 +14267,7 @@
       el._eraGroups.forEach(function(eg,i){
         var eraNum=i+1;
         var eraNodes=nodes.filter(function(n){return n.era===eraNum;});
-        eg.style('cursor',deckNavActive?'default':'pointer');
+        eg.style('cursor','pointer');
         if(inCustom){
           var count=eraNodes.filter(function(n){return ids.has(n.slideId);}).length;
           var allIn=count===eraNodes.length;
@@ -14359,7 +14336,6 @@
             .attr('font-family','sans-serif').text(line);
         });
         eg.on('mouseenter',function(){
-          if(deckNavActive) return;
           if(currentDeck==='custom'&&!customDone){
             var eraNodes=nodes.filter(function(n){return n.era===eraNum;});
             var allIn=eraNodes.every(function(n){return DECKS.custom.ids.has(n.slideId);});
@@ -14374,14 +14350,12 @@
           var canv=document.getElementById('slide-map-canvas');
           updateEraHeaderVisuals(canv);
         }).on('click',function(){
-          if(deckNavActive) return;
           var canv=document.getElementById('slide-map-canvas');
           var hint=document.getElementById('sm-custom-hint');
           var doneBtn=document.getElementById('sm-done-btn');
           // Switch to custom mode if not already in edit state
           var resetBtn2=document.getElementById('sm-reset-btn');
           if(currentDeck!=='custom'||customDone){
-            deactivateDeckNav();
             // Only reset ids when switching from a different deck type
             if(currentDeck!=='custom') DECKS.custom.ids=new Set();
             currentDeck='custom';
@@ -14520,7 +14494,12 @@
 
     function maybeInit(){
       var el=document.getElementById('slide-map-canvas');
-      if(el&&!el._smReady){restoreDeckState();el._smReady=true;draw(el);}
+      if(el&&!el._smReady){
+        restoreDeckState();
+        el._smReady=true;
+        draw(el);
+        if(goActive){activateDeckNav();applyDeckVisibility();}
+      }
     }
     Reveal.on('ready',maybeInit);
     Reveal.on('slidechanged',function(ev){
@@ -14529,7 +14508,6 @@
         if(el){if(el._smSim)el._smSim.stop();el._smReady=false;}
       }
       if(ev.currentSlide&&ev.currentSlide.id==='slide-map') maybeInit();
-      if(ev.currentSlide) updateDimOverlay(ev.currentSlide.id||'');
     });
   })();
   </script>
