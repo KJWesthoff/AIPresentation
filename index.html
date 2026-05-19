@@ -13076,10 +13076,18 @@
         desc:'Every slide, nothing skipped',
         bullets:['Full mathematical depth','All implementations','Code & details','The whole journey'],
         ids:null
+      },
+      custom:{
+        name:'My Deck',icon:'✏️',color:'#00d9ff',
+        desc:'Click nodes to include or exclude',
+        bullets:['All slides start included','Click a node to exclude it','Click again to re-include','Your personal path'],
+        ids:new Set()
       }
     };
 
     var currentDeck=null;
+    var customDone=false;
+    function isGoMode(){ return currentDeck!==null&&(currentDeck!=='custom'||customDone); }
 
     function createDimOverlay(){
       if(document.getElementById('deck-dim-overlay')) return;
@@ -13107,9 +13115,21 @@
     function updateDimOverlay(slideId){
       var ov=document.getElementById('deck-dim-overlay');
       if(!ov||!currentDeck) return;
+      if(currentDeck==='custom'&&!customDone){ov.style.display='none';return;}
       var deck=DECKS[currentDeck];
       if(!deck.ids||slideId==='slide-map'){ov.style.display='none';return;}
       ov.style.display=deck.ids.has(slideId)?'none':'block';
+    }
+
+    function applyCustomEditView(el){
+      if(!el||!el._nodeSel||!el._linkSel) return;
+      var ids=DECKS.custom.ids;
+      // All nodes stay fully lit; selected ones get glow + thick stroke
+      el._nodeSel.transition().duration(350).style('opacity',1)
+        .attr('filter',function(d){return ids.has(d.slideId)?'url(#sm-glow)':null;});
+      el._nodeSel.select('rect').transition().duration(350)
+        .attr('stroke-width',function(d){return ids.has(d.slideId)?3:1.8;});
+      el._linkSel.transition().duration(350).style('opacity',0.35);
     }
 
     function applyDeckDimming(el){
@@ -13140,10 +13160,78 @@
       });
     }
 
+    var deckNavActive=false;
+
+    function deactivateDeckNav(){
+      if(!deckNavActive) return;
+      deckNavActive=false;
+      if(window._deckKeyHandler){
+        document.removeEventListener('keydown',window._deckKeyHandler,true);
+        window._deckKeyHandler=null;
+      }
+    }
+
+    function activateDeckNav(){
+      deactivateDeckNav();
+      if(!currentDeck) return;
+      deckNavActive=true;
+      var ids=DECKS[currentDeck].ids;
+
+      // Build deck slide order from nodes (chronological); always include slide-map first
+      var deckOrder=['slide-map'];
+      nodes.forEach(function(n){
+        if(n.slideId==='slide-map') return;
+        if(!ids||ids.has(n.slideId)) deckOrder.push(n.slideId);
+      });
+
+      function navigate(fwd){
+        var cur=Reveal.getCurrentSlide();
+        var curId=cur?cur.id:'';
+        var pos=deckOrder.indexOf(curId);
+        if(pos===-1) pos=fwd?-1:deckOrder.length;
+        var nextId=fwd?deckOrder[pos+1]:deckOrder[pos-1];
+        if(nextId){var t=document.getElementById(nextId);if(t){var i=Reveal.getIndices(t);Reveal.slide(i.h,i.v);}}
+      }
+
+      // Capture phase — fires before Reveal's bubble-phase handler
+      window._deckKeyHandler=function(e){
+        if(!deckNavActive) return;
+        if(e.keyCode===39||e.keyCode===40||e.keyCode===32){
+          e.preventDefault();e.stopImmediatePropagation();navigate(true);
+        } else if(e.keyCode===37||e.keyCode===38){
+          e.preventDefault();e.stopImmediatePropagation();navigate(false);
+        }
+      };
+      document.addEventListener('keydown',window._deckKeyHandler,true);
+    }
+
     function selectDeck(key){
+      deactivateDeckNav();
       currentDeck=key;
-      updateRadioVisuals();
-      applyDeckDimming(document.getElementById('slide-map-canvas'));
+      customDone=false;
+      var el=document.getElementById('slide-map-canvas');
+      var hint=document.getElementById('sm-custom-hint');
+      var doneBtn=document.getElementById('sm-done-btn');
+      if(key==='custom'){
+        DECKS.custom.ids=new Set();  // start empty — user picks
+        if(hint) hint.style.display='block';
+        if(doneBtn){
+          doneBtn.style.display='flex';
+          doneBtn.textContent='Done';
+          Object.assign(doneBtn.style,{borderColor:'#00d9ff',color:'#00d9ff',background:'rgba(0,217,255,0.10)'});
+        }
+        updateRadioVisuals();
+        applyCustomEditView(el);
+      } else {
+        if(hint) hint.style.display='none';
+        if(doneBtn){
+          doneBtn.style.display='flex';
+          doneBtn.textContent='Go';
+          Object.assign(doneBtn.style,{borderColor:'#2de8a0',color:'#2de8a0',background:'rgba(45,232,160,0.12)'});
+        }
+        updateRadioVisuals();
+        applyDeckDimming(el);
+      }
       updateDimOverlay('slide-map');
     }
 
@@ -13184,7 +13272,7 @@
       lbl.textContent='Choose path';
       panel.appendChild(lbl);
 
-      ['flashy','qnd','deepdive'].forEach(function(key){
+      ['flashy','qnd','deepdive','custom'].forEach(function(key){
         var d=DECKS[key];
         var sel=currentDeck===key;
 
@@ -13259,6 +13347,75 @@
       });
 
       el.appendChild(panel);
+
+      // Hint bar — editing instructions
+      var hint=document.createElement('div');
+      hint.id='sm-custom-hint';
+      Object.assign(hint.style,{
+        position:'absolute',bottom:'28px',left:'0',right:'70px',
+        textAlign:'center',color:'rgba(0,217,255,0.40)',
+        fontSize:'8px',fontFamily:'sans-serif',
+        pointerEvents:'none',letterSpacing:'0.05em',zIndex:'9',
+        display:(currentDeck==='custom'&&!customDone)?'block':'none'
+      });
+      hint.textContent='click nodes to add to your deck';
+      el.appendChild(hint);
+
+      // Go / Done round button — lower-right, shown whenever a deck is selected
+      var doneBtn=document.createElement('div');
+      doneBtn.id='sm-done-btn';
+      var _isGo=isGoMode();
+      Object.assign(doneBtn.style,{
+        position:'absolute',bottom:'10px',right:'12px',
+        width:'46px',height:'46px',borderRadius:'50%',
+        display:currentDeck?'flex':'none',
+        alignItems:'center',justifyContent:'center',
+        cursor:'pointer',zIndex:'12',userSelect:'none',
+        fontFamily:'sans-serif',fontSize:'10px',fontWeight:'700',letterSpacing:'0.04em',
+        transition:'background 0.18s,border-color 0.18s,color 0.18s',
+        border:'2px solid '+(_isGo?'#2de8a0':'#00d9ff'),
+        color:_isGo?'#2de8a0':'#00d9ff',
+        background:_isGo?'rgba(45,232,160,0.12)':'rgba(0,217,255,0.10)'
+      });
+      doneBtn.textContent=_isGo?'Go':'Done';
+
+      doneBtn.addEventListener('mouseenter',function(){
+        doneBtn.style.background=isGoMode()?'rgba(45,232,160,0.25)':'rgba(0,217,255,0.22)';
+      });
+      doneBtn.addEventListener('mouseleave',function(){
+        doneBtn.style.background=isGoMode()?'rgba(45,232,160,0.12)':'rgba(0,217,255,0.10)';
+      });
+      doneBtn.addEventListener('click',function(){
+        if(!isGoMode()){
+          // "Done" — commit custom selection, switch to standard deck view
+          customDone=true;
+          doneBtn.textContent='Go';
+          Object.assign(doneBtn.style,{borderColor:'#2de8a0',color:'#2de8a0',background:'rgba(45,232,160,0.12)'});
+          var hint2=document.getElementById('sm-custom-hint');
+          if(hint2) hint2.style.display='none';
+          if(el._nodeSel){
+            el._nodeSel.attr('filter',null);
+            el._nodeSel.select('rect').transition().duration(300).attr('stroke-width',1.8);
+          }
+          applyDeckDimming(el);
+        } else {
+          // "Go" — activate deck navigation then jump to first deck slide after map
+          if(!currentDeck) return;
+          var ids=DECKS[currentDeck].ids;
+          if(ids&&!ids.size) return;
+          activateDeckNav();
+          for(var ni=0;ni<nodes.length;ni++){
+            var sid=nodes[ni].slideId;
+            if(sid==='slide-map') continue; // already on map — jump to first content slide
+            if(!ids||ids.has(sid)){
+              var tgt=document.getElementById(sid);
+              if(tgt){var idx2=Reveal.getIndices(tgt);Reveal.slide(idx2.h,idx2.v);return;}
+            }
+          }
+        }
+      });
+      el.appendChild(doneBtn);
+
       createDimOverlay();
     }
 
@@ -13274,6 +13431,14 @@
         .attr('refX',5).attr('refY',3).attr('orient','auto')
         .append('path').attr('d','M0,0 L0,6 L6,3 Z')
         .attr('fill','rgba(140,170,200,0.85)');
+      var glowF=defs.append('filter').attr('id','sm-glow')
+        .attr('x','-50%').attr('y','-50%').attr('width','200%').attr('height','200%');
+      glowF.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',6).attr('result','blur');
+      glowF.append('feColorMatrix').attr('in','blur').attr('type','matrix')
+        .attr('values','1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 10 0').attr('result','glow');
+      var merge=glowF.append('feMerge');
+      merge.append('feMergeNode').attr('in','glow');
+      merge.append('feMergeNode').attr('in','SourceGraphic');
 
       // Era dividers
       for(var i=0;i<eraX.length-1;i++){
@@ -13352,15 +13517,27 @@
         .style('cursor','pointer')
         .on('mouseover',function(event,d){
           d3.select(this).select('rect')
-            .attr('stroke-width',3)
+            .attr('stroke-width',currentDeck==='custom'&&!customDone&&DECKS.custom.ids.has(d.slideId)?3:3)
             .attr('fill','rgba(20,28,55,0.99)');
         })
         .on('mouseout',function(event,d){
-          d3.select(this).select('rect')
-            .attr('stroke-width',1.8)
-            .attr('fill','rgba(8,12,28,0.97)');
+          d3.select(this).select('rect').attr('fill','rgba(8,12,28,0.97)');
+          // Restore stroke — keep thick for selected custom nodes
+          var keepThick=currentDeck==='custom'&&!customDone&&DECKS.custom.ids.has(d.slideId);
+          d3.select(this).select('rect').attr('stroke-width',keepThick?3:1.8);
         })
         .on('click',function(event,d){
+          if(currentDeck==='custom'&&!customDone){
+            if(!d.slideId) return;
+            var ids=DECKS.custom.ids;
+            var adding=!ids.has(d.slideId);
+            if(adding) ids.add(d.slideId); else ids.delete(d.slideId);
+            d3.select(this)
+              .attr('filter',adding?'url(#sm-glow)':null);
+            d3.select(this).select('rect').transition().duration(160)
+              .attr('stroke-width',adding?3:1.8);
+            return;
+          }
           if(!d.slideId) return;
           var target=document.getElementById(d.slideId);
           if(!target) return;
@@ -13388,7 +13565,8 @@
       el._linkSel=linkSel;
 
       setupDeckUI(el);
-      if(currentDeck) applyDeckDimming(el);
+      if(currentDeck==='custom'&&!customDone) applyCustomEditView(el);
+      else if(currentDeck) applyDeckDimming(el);
     }
 
     function maybeInit(){
