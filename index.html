@@ -163,6 +163,74 @@
             </div>
           </div>
         </section>
+
+        <!-- ── Model Evaluation Metrics ── -->
+        <section id="model-evaluation">
+          <h2>Model Evaluation — Accuracy, Precision, Recall &amp; F1</h2>
+          <div class="content" style="padding-top: 10px; gap: 0;">
+
+            <!-- TP / TN / FP / FN legend -->
+            <div style="display: flex; gap: 28px; margin-bottom: 14px; font-family: monospace; font-size: 11pt; flex-wrap: wrap;">
+              <span><strong style="color:#2de8a0;">TP</strong> <span style="color:var(--muted-color);">= True Positive</span></span>
+              <span><strong style="color:#2de8a0;">TN</strong> <span style="color:var(--muted-color);">= True Negative</span></span>
+              <span><strong style="color:#ff6b6b;">FP</strong> <span style="color:var(--muted-color);">= False Positive</span></span>
+              <span><strong style="color:#ff6b6b;">FN</strong> <span style="color:var(--muted-color);">= False Negative</span></span>
+            </div>
+
+            <!-- 2 × 2 metric grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1;">
+
+              <!-- Accuracy -->
+              <div style="background: rgba(0,217,255,0.07); border: 1px solid rgba(0,217,255,0.28); border-radius: var(--box-radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: var(--primary-color); font-weight: 700; font-size: 15pt;">Accuracy</div>
+                <div style="color: var(--muted-color); font-size: 11pt; font-style: italic;">"Out of all predictions, how many were correct?"</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; font-family: monospace; font-size: 13pt; margin-top: 4px;">
+                  <span style="color: var(--text-color);">TP + TN</span>
+                  <span style="display: block; border-top: 1.5px solid var(--primary-color); width: 100%; margin: 3px 0;"></span>
+                  <span style="color: var(--muted-color);">TP + TN + FP + FN</span>
+                </div>
+                <p style="font-size: 11pt; color: var(--muted-color); margin: 0;">Simple but can be misleading on imbalanced datasets — a model predicting "no cancer" always has high accuracy if only 1% of patients have cancer.</p>
+              </div>
+
+              <!-- Precision -->
+              <div style="background: rgba(157,78,221,0.07); border: 1px solid rgba(157,78,221,0.28); border-radius: var(--box-radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: var(--secondary-color); font-weight: 700; font-size: 15pt;">Precision</div>
+                <div style="color: var(--muted-color); font-size: 11pt; font-style: italic;">"Out of all positive predictions, how many were correct?"</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; font-family: monospace; font-size: 13pt; margin-top: 4px;">
+                  <span style="color: var(--text-color);">TP</span>
+                  <span style="display: block; border-top: 1.5px solid var(--secondary-color); width: 100%; margin: 3px 0;"></span>
+                  <span style="color: var(--muted-color);">TP + FP</span>
+                </div>
+                <p style="font-size: 11pt; color: var(--muted-color); margin: 0;">High precision = few false alarms. Matters when false positives are costly (e.g. spam filter wrongly blocking real email).</p>
+              </div>
+
+              <!-- Recall -->
+              <div style="background: rgba(255,0,110,0.07); border: 1px solid rgba(255,0,110,0.28); border-radius: var(--box-radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: var(--accent-tertiary); font-weight: 700; font-size: 15pt;">Recall <span style="font-size: 11pt; font-weight: 400; color: var(--muted-color);">(True Positive Rate)</span></div>
+                <div style="color: var(--muted-color); font-size: 11pt; font-style: italic;">"Out of all actual positives, how many did we find?"</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; font-family: monospace; font-size: 13pt; margin-top: 4px;">
+                  <span style="color: var(--text-color);">TP</span>
+                  <span style="display: block; border-top: 1.5px solid var(--accent-tertiary); width: 100%; margin: 3px 0;"></span>
+                  <span style="color: var(--muted-color);">TP + FN</span>
+                </div>
+                <p style="font-size: 11pt; color: var(--muted-color); margin: 0;">High recall = few misses. Matters when false negatives are costly (e.g. missing a cancer diagnosis).</p>
+              </div>
+
+              <!-- F1 Score -->
+              <div style="background: rgba(255,168,48,0.07); border: 1px solid rgba(255,168,48,0.28); border-radius: var(--box-radius); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="color: #ffa830; font-weight: 700; font-size: 15pt;">F1 Score</div>
+                <div style="color: var(--muted-color); font-size: 11pt; font-style: italic;">"How well does the model balance precision and recall?"</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start; font-family: monospace; font-size: 13pt; margin-top: 4px;">
+                  <span style="color: var(--text-color);">2 × Precision × Recall</span>
+                  <span style="display: block; border-top: 1.5px solid #ffa830; width: 100%; margin: 3px 0;"></span>
+                  <span style="color: var(--muted-color);">Precision + Recall</span>
+                </div>
+                <p style="font-size: 11pt; color: var(--muted-color); margin: 0;">Harmonic mean of precision and recall. Drops to zero if either component is zero — penalises extreme imbalance.</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
       </section>
 
       <!-- Neural Network Animations -->
@@ -314,7 +382,8 @@
         <section id="mnist-to-vector">
           <h2>From Pixels to Input Vector</h2>
           <div class="content" style="padding: 8px 20px 0;">
-            <div id="mnist-to-vector-canvas" style="width:100%;height:510px;"></div>
+            <div id="mnist-to-vector-canvas" style="width:100%;height:488px;"></div>
+            <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
           </div>
         </section>
 
@@ -752,7 +821,8 @@
         <section id="training-network">
           <h2>Training the Network — Weight Evolution</h2>
           <div class="content" style="padding: 6px 20px 0;">
-            <div id="training-network-canvas" style="width:100%;height:505px;"></div>
+            <div id="training-network-canvas" style="width:100%;height:483px;"></div>
+            <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
           </div>
         </section>
 
@@ -760,7 +830,8 @@
         <section id="output-layer">
           <h2>Output Layer — Digit Classification</h2>
           <div class="content" style="padding: 8px 20px 0;">
-            <div id="output-layer-canvas" style="width:100%;height:490px;"></div>
+            <div id="output-layer-canvas" style="width:100%;height:468px;"></div>
+            <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
           </div>
         </section>
 
@@ -1356,28 +1427,32 @@
         <section id="conv-filters">
         <h2>Convolutional Filters — Sliding Masks Across an Image</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="conv-filters-canvas" style="width:100%;height:505px;"></div>
+          <div id="conv-filters-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
 
       <section id="conv-details">
         <h2>Sliding &amp; Summing — Convolution and Pooling</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="conv-details-canvas" style="width:100%;height:505px;"></div>
+          <div id="conv-details-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
 
       <section id="conv-full-digit">
         <h2>Full Digit — Convolution &amp; Max Pooling</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="conv-full-digit-canvas" style="width:100%;height:505px;"></div>
+          <div id="conv-full-digit-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
 
       <section id="cnn-architecture">
         <h2>CNN Architecture — 3D Network View</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-architecture-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-architecture-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
       <section id="cnn-params">
@@ -1389,32 +1464,37 @@
       <section id="cnn-slabs-c1">
         <h2>CNN — Conv2D (1) Activations</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-slabs-c1-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-slabs-c1-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
       <section id="cnn-slabs-p1">
         <h2>CNN — MaxPool (1) Activations</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-slabs-p1-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-slabs-p1-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
       <section id="cnn-slabs-c2">
         <h2>CNN — Conv2D (2) Activations</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-slabs-c2-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-slabs-c2-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
       <section id="cnn-slabs-p2">
         <h2>CNN — MaxPool (2) Activations</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-slabs-p2-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-slabs-p2-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
 
       <section id="cnn-eval">
         <h2>CNN — Digit Classification</h2>
         <div class="content" style="padding: 6px 20px 0;">
-          <div id="cnn-eval-canvas" style="width:100%;height:505px;"></div>
+          <div id="cnn-eval-canvas" style="width:100%;height:483px;"></div>
+          <div style="text-align:right;font-size:10pt;color:var(--muted-color);margin-top:6px;font-family:sans-serif;">Press <strong style="color:var(--primary-color);">F4</strong> to load a new MNIST sample</div>
         </div>
       </section>
 
@@ -2943,6 +3023,21 @@
     }
     Reveal.on('slidechanged', event => updateTimeline(event.indexh));
     Reveal.on('ready', () => updateTimeline(Reveal.getIndices().h));
+
+    // ── F4: pick a new MNIST sample and reload (Reveal.js restores slide via hash) ──
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'F4') return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var samples = window.MNIST_SAMPLES;
+      if (!samples || !samples.length) return;
+      var cur = window.MNIST_SAMPLE;
+      var newIdx;
+      do { newIdx = Math.floor(Math.random() * samples.length); }
+      while (samples.length > 1 && samples[newIdx].index === (cur && cur.index));
+      try { localStorage.setItem('ai-pres-mnist-idx', String(samples[newIdx].index)); } catch(e) {}
+      location.reload();
+    }, true);
 
     // ── Tips & Tricks accordion + modal ──
     (function () {
@@ -6335,6 +6430,19 @@
 
   <!-- MNIST sample data (generated by mnist-sample.js script, works on file://) -->
   <script src="mnist-sample.js"></script>
+  <!-- If F4 was pressed, override MNIST_SAMPLE from localStorage before neural-network-d3.js reads it -->
+  <script>
+  (function(){
+    try{
+      var idx=localStorage.getItem('ai-pres-mnist-idx');
+      if(idx!==null&&window.MNIST_SAMPLES){
+        var n=parseInt(idx,10);
+        var s=window.MNIST_SAMPLES.find(function(s){return s.index===n;});
+        if(s) window.MNIST_SAMPLE=s;
+      }
+    }catch(e){}
+  })();
+  </script>
   <!-- CNN trained weights and feature maps (generated by train_cnn.py) -->
   <script src="cnn-weights.js"></script>
   <!-- Neural network D3 animations -->
@@ -13025,6 +13133,7 @@
       {id:'n02',era:1,color:'#7a8fa8',label:['MNIST','Preprocessing'],     slideId:'mnist-preprocessing'},
       {id:'n03',era:1,color:'#7a8fa8',label:['Naive Bayes','Models'],      slideId:'mnist-nb-models'},
       {id:'n04',era:1,color:'#7a8fa8',label:['Neural Net','Intro'],        slideId:'nn-intro'},
+      {id:'n04b',era:1,color:'#7a8fa8',label:['Model','Evaluation'],       slideId:'model-evaluation'},
       {id:'n05',era:1,color:'#7a8fa8',label:['MNIST','to Vector'],         slideId:'mnist-to-vector'},
       // Era 2 — Neural Nets & MLP
       {id:'n06',era:2,color:'#4da8ff',label:['MLP &','Perceptron'],        slideId:'perceptron'},
@@ -13115,7 +13224,7 @@
 
     const rawLinks=[
       // Era 1 chain
-      ['n01','n02'],['n02','n03'],['n03','n04'],['n04','n05'],
+      ['n01','n02'],['n02','n03'],['n03','n04b'],['n04b','n04'],['n04','n05'],
       // Era 2 chain
       ['n06','n07'],['n07','n08'],['n08','n09'],['n09','n10'],
       // Era 3 chain
@@ -13194,6 +13303,28 @@
     var currentDeck=null;
     var customDone=false;
     function isGoMode(){ return currentDeck!==null&&(currentDeck!=='custom'||customDone); }
+
+    var LS_KEY='ai-pres-deck-v1';
+    function saveDeckState(){
+      try{
+        if(!currentDeck){localStorage.removeItem(LS_KEY);return;}
+        var obj={deck:currentDeck,done:customDone,customIds:currentDeck==='custom'?[...DECKS.custom.ids]:[]};
+        localStorage.setItem(LS_KEY,JSON.stringify(obj));
+      }catch(e){}
+    }
+    function restoreDeckState(){
+      try{
+        var raw=localStorage.getItem(LS_KEY);
+        if(!raw) return;
+        var obj=JSON.parse(raw);
+        if(!obj||!obj.deck||!DECKS[obj.deck]) return;
+        currentDeck=obj.deck;
+        customDone=!!obj.done;
+        if(currentDeck==='custom'&&Array.isArray(obj.customIds)){
+          DECKS.custom.ids=new Set(obj.customIds);
+        }
+      }catch(e){}
+    }
 
     function createDimOverlay(){
       if(document.getElementById('deck-dim-overlay')) return;
@@ -13345,6 +13476,7 @@
         applyDeckDimming(el);
       }
       updateDimOverlay('slide-map');
+      saveDeckState();
     }
 
     function setupDeckUI(el){
@@ -13510,6 +13642,7 @@
         if(!isGoMode()){
           // "Done" — commit custom selection, switch to standard deck view
           customDone=true;
+          saveDeckState();
           doneBtn.textContent='Go';
           Object.assign(doneBtn.style,{borderColor:'#2de8a0',color:'#2de8a0',background:'rgba(45,232,160,0.12)'});
           doneBtn.classList.add('sm-go-pulse');
@@ -13576,6 +13709,7 @@
       currentDeck=null;
       customDone=false;
       DECKS.custom.ids=new Set();
+      saveDeckState();
       var hint=document.getElementById('sm-custom-hint');
       var doneBtn=document.getElementById('sm-done-btn');
       var resetBtn=document.getElementById('sm-reset-btn');
@@ -13710,6 +13844,7 @@
           var ids=DECKS.custom.ids;
           var allIn=eraNodes.every(function(n){return ids.has(n.slideId);});
           eraNodes.forEach(function(n){if(allIn)ids.delete(n.slideId);else ids.add(n.slideId);});
+          saveDeckState();
           applyCustomEditView(canv);
           updateEraHeaderVisuals(canv);
         });
@@ -13788,6 +13923,7 @@
             var ids=DECKS.custom.ids;
             var adding=!ids.has(d.slideId);
             if(adding) ids.add(d.slideId); else ids.delete(d.slideId);
+            saveDeckState();
             d3.select(this)
               .attr('filter',adding?'url(#sm-glow)':null);
             d3.select(this).select('rect').transition().duration(160)
@@ -13828,7 +13964,7 @@
 
     function maybeInit(){
       var el=document.getElementById('slide-map-canvas');
-      if(el&&!el._smReady){el._smReady=true;draw(el);}
+      if(el&&!el._smReady){restoreDeckState();el._smReady=true;draw(el);}
     }
     Reveal.on('ready',maybeInit);
     Reveal.on('slidechanged',function(ev){
