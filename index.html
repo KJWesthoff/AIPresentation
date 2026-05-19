@@ -35,16 +35,16 @@
         <section id="early-ml">
           <h2>Early Machine Learning <span style="color: var(--muted-color); font-weight: 400;">(1989-1998)</span></h2>
           <div class="content">
-            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px;">
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px;">
               <div>
                 <h3 style="color: var(--primary-color); margin-bottom: 15px;">Pattern Recognition Breakthroughs</h3>
-                <ul class="text-lg">
+                <ul>
                   <li><strong>Postal Address Recognition</strong> - Early neural networks deployed for real-world automation</li>
                   <li><strong>MNIST Dataset (1998)</strong> - 70,000 handwritten digits (28×28 pixels)</li>
                   <li><strong>Simple Neural Networks</strong> - Multilayer perceptrons with backpropagation</li>
                 </ul>
-                <h3 style="color: var(--secondary-color); margin-top: 30px; margin-bottom: 15px;">MNIST Dataset Structure</h3>
-                <ul class="text-lg">
+                <h3 style="color: var(--secondary-color); margin-top: 15px; margin-bottom: 10px;">MNIST Dataset Structure</h3>
+                <ul>
                   <li>60,000 training images</li>
                   <li>10,000 test images</li>
                   <li>784 features per image (28×28)</li>
@@ -60,7 +60,7 @@
                   <p class="text-lg" style="margin-bottom: 10px;">The model learns <strong>probability distributions</strong> P(pixel=1|digit) for each of 784 pixels per digit class.</p>
 
                   <div style="text-align: center; margin-top: 10px;">
-                    <img src="presentation_images/mnist_naive_bayes_grid.png" style="width: 100%; max-width: 500px; border-radius: 4px; border: 1px solid var(--primary-color);" alt="Naive Bayes generative model - 10x10 grid showing model's learned probabilities (left column) vs generated samples">
+                    <img src="presentation_images/mnist_naive_bayes_grid.png" style="width: 100%; max-width: 500px; max-height: 200px; object-fit: contain; border-radius: 4px; border: 1px solid var(--primary-color);" alt="Naive Bayes generative model - 10x10 grid showing model's learned probabilities (left column) vs generated samples">
                   </div>
 
                   <div style="margin-top: 10px;">
@@ -85,15 +85,15 @@
           <h2>MNIST: Preprocessing Tricks</h2>
           <div class="content">
             <h3 style="color: var(--primary-color); margin-bottom: 20px;">Gaussian Blur for Robustness</h3>
-            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;">
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
               <div>
-                <p class="text-lg" style="margin-bottom: 15px;">Applying blur filtering smooths "human noise" - removing individual writing quirks while preserving overall digit shape.</p>
-                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                <p class="text-lg" style="margin-bottom: 10px;">Applying blur filtering smooths "human noise" - removing individual writing quirks while preserving overall digit shape.</p>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 12px; border-radius: var(--box-radius); margin-bottom: 12px;">
                   <p class="text-lg"><strong style="color: var(--primary-color);">Blur Formula (8-neighbor window):</strong></p>
-                  <p class="text-xl" style="font-family: monospace; margin-top: 10px;">f[i,j] = pixel[i,j] + Σ(neighbors) / w</p>
-                  <p class="text-lg" style="margin-top: 10px; color: var(--muted-color);">w = weight parameter (optimal: 0.3-0.5)</p>
+                  <p class="text-xl" style="font-family: monospace; margin-top: 6px;">f[i,j] = pixel[i,j] + Σ(neighbors) / w</p>
+                  <p class="text-lg" style="margin-top: 6px; color: var(--muted-color);">w = weight parameter (optimal: 0.3-0.5)</p>
                 </div>
-                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">Experimental Results (k-NN, k=1)</h3>
+                <h3 style="color: var(--secondary-color); margin-bottom: 10px;">Experimental Results (k-NN, k=1)</h3>
                 <ul class="text-lg">
                   <li><strong>No blur:</strong> 88% accuracy</li>
                   <li><strong>Blur training only:</strong> ~90% accuracy</li>
@@ -101,10 +101,10 @@
                 </ul>
               </div>
               <div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Why Blurring Works</h3>
-                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Why Blurring Works</h3>
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 12px; border-radius: var(--box-radius);">
                   <p class="text-lg"><strong>Character recognition depends on overall shape:</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Curves and loops matter</li>
                     <li>Small bumps and nudges don't</li>
                     <li>Handwriting "flair" creates noise</li>
@@ -122,21 +122,21 @@
         <section id="mnist-nb-models">
           <h2>MNIST: Naive Bayes Classifiers</h2>
           <div class="content">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
               <div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Model Comparison</h3>
-                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Model Comparison</h3>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 12px; border-radius: var(--box-radius); margin-bottom: 12px;">
                   <p class="text-xl"><strong>Bernoulli NB (Binary features)</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Binarize pixels: threshold 0.1</li>
                     <li>P(pixel=1|digit) for each pixel</li>
                     <li>Accuracy: ~83%</li>
                     <li>Optimal α (Laplace smoothing): 0.001</li>
                   </ul>
                 </div>
-                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 12px; border-radius: var(--box-radius);">
                   <p class="text-xl"><strong>Multinomial NB (3 levels)</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Trinarize: {white, gray, black}</li>
                     <li>Thresholds: 0.1 and 0.9</li>
                     <li>Accuracy: ~82% (slightly worse)</li>
@@ -144,12 +144,12 @@
                 </div>
               </div>
               <div>
-                <h3 style="color: var(--secondary-color); margin-bottom: 15px;">Key Insights</h3>
-                <div style="background: rgba(255, 0, 110, 0.1); padding: 20px; border-radius: var(--box-radius); border-left: 4px solid var(--accent-tertiary); margin-bottom: 20px;">
+                <h3 style="color: var(--secondary-color); margin-bottom: 10px;">Key Insights</h3>
+                <div style="background: rgba(255, 0, 110, 0.1); padding: 12px; border-radius: var(--box-radius); border-left: 4px solid var(--accent-tertiary); margin-bottom: 12px;">
                   <p class="text-lg"><strong>Why Binary Works Better:</strong></p>
-                  <p class="text-lg" style="margin-top: 10px;">When recognizing symbols like digits, we remove as much information as possible to see shape clearly. <strong>Colors don't matter, shape does.</strong> Binary representation captures this better than gradients.</p>
+                  <p class="text-lg" style="margin-top: 6px;">When recognizing symbols like digits, we remove as much information as possible to see shape clearly. <strong>Colors don't matter, shape does.</strong> Binary representation captures this better than gradients.</p>
                 </div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Gaussian NB Challenge</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Gaussian NB Challenge</h3>
                 <ul class="text-lg">
                   <li>Initially: ~55% accuracy</li>
                   <li>Issue: Variance estimation problems</li>
@@ -171,20 +171,20 @@
         <section id="paradigms">
           <h2>Learning Paradigms</h2>
           <div class="content">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
               <div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Supervised vs Unsupervised</h3>
-                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Supervised vs Unsupervised</h3>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 12px; border-radius: var(--box-radius); margin-bottom: 12px;">
                   <p class="text-lg"><strong style="color: var(--primary-color);">Supervised Learning</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Learns from labeled examples</li>
                     <li>Input → Output mapping</li>
                     <li>Examples: Image classification, spam detection</li>
                   </ul>
                 </div>
-                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 12px; border-radius: var(--box-radius);">
                   <p class="text-lg"><strong style="color: var(--secondary-color);">Unsupervised Learning</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Discovers patterns without labels</li>
                     <li>Clustering, dimensionality reduction</li>
                     <li>Examples: Customer segmentation, anomaly detection</li>
@@ -192,19 +192,19 @@
                 </div>
               </div>
               <div>
-                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Generative vs Discriminative</h3>
-                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                <h3 style="color: var(--primary-color); margin-bottom: 10px;">Generative vs Discriminative</h3>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 12px; border-radius: var(--box-radius); margin-bottom: 12px;">
                   <p class="text-lg"><strong style="color: var(--primary-color);">Generative Models</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Learn to create new data</li>
                     <li>Model the full distribution P(X)</li>
                     <li>Examples: GANs, VAEs, language models</li>
                     <li>Can generate images, text, audio</li>
                   </ul>
                 </div>
-                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 12px; border-radius: var(--box-radius);">
                   <p class="text-lg"><strong style="color: var(--secondary-color);">Discriminative Models</strong></p>
-                  <ul class="text-lg" style="margin-top: 10px;">
+                  <ul class="text-lg" style="margin-top: 8px;">
                     <li>Learn to classify or predict</li>
                     <li>Model conditional P(Y|X)</li>
                     <li>Examples: Classifiers, regressors</li>
@@ -213,9 +213,9 @@
                 </div>
               </div>
             </div>
-            <div style="margin-top:18px;background:rgba(45,232,160,0.07);border-left:2px solid #2de8a0;padding:10px 16px;border-radius:0 6px 6px 0;">
+            <div style="margin-top:10px;background:rgba(45,232,160,0.07);border-left:2px solid #2de8a0;padding:8px 14px;border-radius:0 6px 6px 0;font-size:13pt;">
               <strong style="color:#2de8a0;">Self-Supervised Learning</strong>
-              <span style="color:var(--muted-color);font-size:0.92em;"> — labels are derived from the data itself (e.g. next-token prediction). LLM pretraining is self-supervised, not simply unsupervised: the supervision signal is built into the structure of the input.</span>
+              <span style="color:var(--muted-color);"> — labels are derived from the data itself (e.g. next-token prediction). LLM pretraining is self-supervised, not simply unsupervised: the supervision signal is built into the structure of the input.</span>
             </div>
           </div>
         </section>
@@ -2992,12 +2992,331 @@
   </section>
 </section>
 
-<section id="ai-agents">
+<section>
+<section id="ai-agents-overview">
   <h2 style="margin-bottom:4px;">AI Agents</h2>
-  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">It's all text instructions</p>
-  <div class="content" style="padding-top:2px;">
-    <div id="pha-canvas" style="width:100%;height:472px;"></div>
+  <p style="margin:0 0 28px;font-size:0.75em;color:#5a7090;font-style:italic;">A chatbot responds — an agent plans, acts, observes, and loops</p>
+
+  <!-- Loop row -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px;">
+    <div style="background:rgba(100,180,255,0.10);border-radius:8px;padding:12px 20px;text-align:center;min-width:110px;">
+      <div style="font-weight:700;color:var(--primary-color);font-size:9.5pt;">Perceive</div>
+      <div style="font-size:7.5pt;color:#aaa;margin-top:3px;">read input &amp; memory</div>
+    </div>
+    <div style="color:#444;font-size:18pt;padding:0 8px;">→</div>
+    <div style="background:rgba(167,139,250,0.12);border-radius:8px;padding:12px 20px;text-align:center;min-width:110px;border:2px solid rgba(167,139,250,0.35);">
+      <div style="font-weight:700;color:#a78bfa;font-size:9.5pt;">Reason</div>
+      <div style="font-size:7.5pt;color:#aaa;margin-top:3px;">LLM decides next step</div>
+    </div>
+    <div style="color:#444;font-size:18pt;padding:0 8px;">→</div>
+    <div style="background:rgba(45,232,160,0.10);border-radius:8px;padding:12px 20px;text-align:center;min-width:110px;">
+      <div style="font-weight:700;color:#2de8a0;font-size:9.5pt;">Act</div>
+      <div style="font-size:7.5pt;color:#aaa;margin-top:3px;">call a tool or respond</div>
+    </div>
+    <div style="color:#444;font-size:18pt;padding:0 8px;">→</div>
+    <div style="background:rgba(255,160,60,0.10);border-radius:8px;padding:12px 20px;text-align:center;min-width:110px;">
+      <div style="font-weight:700;color:#ffa830;font-size:9.5pt;">Observe</div>
+      <div style="font-size:7.5pt;color:#aaa;margin-top:3px;">read result, loop or stop</div>
+    </div>
+    <div style="color:#444;font-size:18pt;padding:0 12px;">↻</div>
   </div>
+
+  <!-- Four pillars row -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;font-size:8.5pt;color:var(--text-color);">
+
+    <div style="border-top:2px solid #a78bfa;padding-top:10px;">
+      <div style="font-weight:700;color:#a78bfa;margin-bottom:5px;">Model</div>
+      <div style="color:var(--muted-color);font-size:8pt;">The LLM that reasons over whatever is in the context window. Everything else is scaffolding.</div>
+    </div>
+
+    <div style="border-top:2px solid #2de8a0;padding-top:10px;">
+      <div style="font-weight:700;color:#2de8a0;margin-bottom:5px;">Tools</div>
+      <div style="color:var(--muted-color);font-size:8pt;">Functions the model can call — web search, code execution, file access, APIs. What makes an agent more than a chatbot.</div>
+    </div>
+
+    <div style="border-top:2px solid var(--primary-color);padding-top:10px;">
+      <div style="font-weight:700;color:var(--primary-color);margin-bottom:5px;">Memory</div>
+      <div style="color:var(--muted-color);font-size:8pt;">Context window for now; files, databases, and vector stores for later. Retrieval bridges the two.</div>
+    </div>
+
+    <div style="border-top:2px solid #ffa830;padding-top:10px;">
+      <div style="font-weight:700;color:#ffa830;margin-bottom:5px;">Orchestration</div>
+      <div style="color:var(--muted-color);font-size:8pt;">The harness that drives the loop, manages budget, and decides when the task is done.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="ai-agents">
+  <h2 style="margin-bottom:4px;">AI Agents — Building Blocks</h2>
+  <p style="margin:0 0 14px;font-size:0.75em;color:#5a7090;font-style:italic;">Four layers of structure — from a single message to a fully packaged capability</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;font-size:8.5pt;line-height:1.5;color:var(--text-color);">
+
+    <!-- Prompts -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(100,180,255,0.08);border-radius:8px;padding:14px 14px 12px;border-top:3px solid var(--primary-color);">
+        <div style="font-size:22px;margin-bottom:8px;">💬</div>
+        <div style="font-weight:700;font-size:10pt;color:var(--primary-color);margin-bottom:6px;">Prompts</div>
+        <div style="color:var(--muted-color);font-size:8pt;margin-bottom:10px;">A single natural-language message telling the agent what to do right now.</div>
+        <div style="font-size:7.5pt;color:#aaa;font-style:italic;margin-bottom:8px;">The most basic unit — no tooling required.</div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:5px;padding:8px 10px;font-family:monospace;font-size:7.5pt;color:#7ec8f7;line-height:1.6;">
+          "Summarise this document<br>in three bullet points."<br><br>
+          "Find all TODO comments<br>in this repo."<br><br>
+          "Reply in the user's language."
+        </div>
+      </div>
+      <div style="background:rgba(100,180,255,0.05);border-radius:6px;padding:8px 10px;font-size:7.5pt;color:#aaa;">
+        <span style="color:var(--primary-color);font-weight:700;">Scope:</span> one call · no persistence · immediate intent
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(45,232,160,0.08);border-radius:8px;padding:14px 14px 12px;border-top:3px solid #2de8a0;">
+        <div style="font-size:22px;margin-bottom:8px;">⚡</div>
+        <div style="font-weight:700;font-size:10pt;color:#2de8a0;margin-bottom:6px;">Skills</div>
+        <div style="color:var(--muted-color);font-size:8pt;margin-bottom:10px;">Named, reusable prompt templates that enforce consistent agent behavior across many calls.</div>
+        <div style="font-size:7.5pt;color:#aaa;font-style:italic;margin-bottom:8px;">Invoked by name — no need to re-explain every time.</div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:5px;padding:8px 10px;font-family:monospace;font-size:7.5pt;color:#2de8a0;line-height:1.6;">
+          /review &nbsp;→ code review<br>
+          /summarise → doc summary<br>
+          /translate → multilingual<br>
+          /plan &nbsp;&nbsp;&nbsp;&nbsp;→ task planning
+        </div>
+      </div>
+      <div style="background:rgba(45,232,160,0.05);border-radius:6px;padding:8px 10px;font-size:7.5pt;color:#aaa;">
+        <span style="color:#2de8a0;font-weight:700;">Scope:</span> repeatable · versioned · sharable across agents
+      </div>
+    </div>
+
+    <!-- Plugins -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(167,139,250,0.08);border-radius:8px;padding:14px 14px 12px;border-top:3px solid #a78bfa;">
+        <div style="font-size:22px;margin-bottom:8px;">📦</div>
+        <div style="font-weight:700;font-size:10pt;color:#a78bfa;margin-bottom:6px;">Plugins</div>
+        <div style="color:var(--muted-color);font-size:8pt;margin-bottom:10px;">Self-contained bundles — system prompt, skills, tools, and config — shipped together as one consistent unit.</div>
+        <div style="font-size:7.5pt;color:#aaa;font-style:italic;margin-bottom:8px;">Install once; the agent behaves consistently by default.</div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:5px;padding:8px 10px;font-size:7.5pt;color:#a78bfa;line-height:1.6;">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:2px 8px;">
+            <span>📄</span><span style="color:#ddd;">system prompt</span>
+            <span>⚡</span><span style="color:#ddd;">bundled skills</span>
+            <span>🔧</span><span style="color:#ddd;">tool definitions</span>
+            <span>⚙️</span><span style="color:#ddd;">default config</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(167,139,250,0.05);border-radius:6px;padding:8px 10px;font-size:7.5pt;color:#aaa;">
+        <span style="color:#a78bfa;font-weight:700;">Scope:</span> turn-key · portable · consistent persona &amp; capability
+      </div>
+    </div>
+
+    <!-- MCP Servers -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="background:rgba(255,160,60,0.08);border-radius:8px;padding:14px 14px 12px;border-top:3px solid #ffa830;">
+        <div style="font-size:22px;margin-bottom:8px;">🗄️</div>
+        <div style="font-weight:700;font-size:10pt;color:#ffa830;margin-bottom:6px;">MCP Servers</div>
+        <div style="color:var(--muted-color);font-size:8pt;margin-bottom:10px;">Structured knowledge endpoints the agent queries at runtime — databases, APIs, file trees, documentation.</div>
+        <div style="font-size:7.5pt;color:#aaa;font-style:italic;margin-bottom:8px;">Organised retrieval — the agent asks, the server answers.</div>
+        <div style="background:rgba(0,0,0,0.3);border-radius:5px;padding:8px 10px;font-size:7.5pt;color:#ffa830;line-height:1.6;">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:2px 8px;">
+            <span>🗃️</span><span style="color:#ddd;">company knowledge base</span>
+            <span>🔍</span><span style="color:#ddd;">web / doc search</span>
+            <span>🛠️</span><span style="color:#ddd;">internal tooling APIs</span>
+            <span>📁</span><span style="color:#ddd;">file system access</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:rgba(255,160,60,0.05);border-radius:6px;padding:8px 10px;font-size:7.5pt;color:#aaa;">
+        <span style="color:#ffa830;font-weight:700;">Scope:</span> live data · typed schema · results loaded into context
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="agent-memory-1">
+  <h2 style="margin-bottom:4px;">Agent Memory</h2>
+  <p style="margin:0 0 10px;font-size:0.75em;color:#5a7090;font-style:italic;">The context window limits how much of that saved information the model can use at one time.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;font-size:8.5pt;line-height:1.55;color:var(--text-color);">
+
+    <!-- LEFT: Definitions -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+
+      <div style="background:rgba(100,180,255,0.07);border-radius:7px;padding:12px 14px;border-left:3px solid var(--primary-color);">
+        <div style="font-weight:700;font-size:9.5pt;color:var(--primary-color);margin-bottom:5px;">Context Window &mdash; Working Memory</div>
+        <div style="color:var(--muted-color);margin-bottom:6px;">Everything the model can <em>see right now</em> — in one call.</div>
+        <div style="font-size:8pt;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-family:monospace;background:rgba(0,0,0,0.25);border-radius:4px;padding:8px 10px;">
+          <span style="color:#7ec8f7;">2 k</span><span style="color:#aaa;">system instructions</span>
+          <span style="color:#7ec8f7;">10 k</span><span style="color:#aaa;">conversation history</span>
+          <span style="color:#7ec8f7;">40 k</span><span style="color:#aaa;">retrieved documents</span>
+          <span style="color:#7ec8f7;">20 k</span><span style="color:#aaa;">tool results</span>
+          <span style="color:#7ec8f7;"> 5 k</span><span style="color:#aaa;">agent scratchpad</span>
+          <span style="color:#ffa830;">51 k</span><span style="color:#ffa830;">remaining ← query + answer</span>
+        </div>
+        <div style="margin-top:6px;color:#aaa;font-size:7.5pt;">Total cap example: 128 k tokens</div>
+      </div>
+
+      <div style="background:rgba(45,232,160,0.07);border-radius:7px;padding:12px 14px;border-left:3px solid #2de8a0;">
+        <div style="font-weight:700;font-size:9.5pt;color:#2de8a0;margin-bottom:5px;">Saved Storage &mdash; Long-Term Memory</div>
+        <div style="color:var(--muted-color);margin-bottom:6px;">Everything the agent has written <em>outside</em> the model — no size limit.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">files &amp; docs</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">database rows</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">vector embeddings</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">summaries</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">task history</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">tool logs</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">plans</span>
+          <span style="background:rgba(45,232,160,0.12);border-radius:4px;padding:2px 8px;font-size:7.5pt;">user preferences</span>
+        </div>
+        <div style="margin-top:8px;color:#aaa;font-size:7.5pt;">Could be 10 GB of docs, 50 past conversations, vector DB …</div>
+      </div>
+
+      <div style="background:rgba(255,160,60,0.08);border-radius:7px;padding:10px 14px;border-left:3px solid #ffa830;">
+        <span style="color:#ffa830;font-weight:700;">Key insight: </span>
+        <span style="color:var(--text-color);">The agent can save far more than fits in the context window — but the model can only reason over whatever is <em>loaded right now</em>.</span>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Architecture flow -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;">
+
+      <div style="font-size:8pt;color:#aaa;text-align:center;margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase;">Agent architecture</div>
+
+      <!-- Flow diagram -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;width:100%;max-width:320px;">
+
+        <div style="background:rgba(45,232,160,0.10);border:1px solid rgba(45,232,160,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
+          <div style="font-weight:700;color:#2de8a0;font-size:9pt;">Persistent Storage</div>
+          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">files · DB · vector store · logs</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;color:#5a7090;font-size:8pt;padding:3px 0;">
+          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
+          <div style="font-style:italic;color:#5a7090;">retrieve relevant pieces</div>
+          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
+          <div style="color:#5a7090;font-size:10pt;">↓</div>
+        </div>
+
+        <div style="background:rgba(100,180,255,0.10);border:1px solid rgba(100,180,255,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
+          <div style="font-weight:700;color:var(--primary-color);font-size:9pt;">Context Window</div>
+          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">working memory — what the model sees</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;padding:3px 0;">
+          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
+          <div style="color:#5a7090;font-size:10pt;">↓</div>
+        </div>
+
+        <div style="background:rgba(167,139,250,0.10);border:1px solid rgba(167,139,250,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
+          <div style="font-weight:700;color:#a78bfa;font-size:9pt;">LLM Reasoning</div>
+          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">next action or answer</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;align-items:center;padding:3px 0;">
+          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
+          <div style="font-size:8pt;font-style:italic;color:#5a7090;">save observations / results</div>
+          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
+          <div style="color:#5a7090;font-size:10pt;">↓</div>
+        </div>
+
+        <div style="background:rgba(45,232,160,0.10);border:1px dashed rgba(45,232,160,0.35);border-radius:8px;padding:8px 18px;text-align:center;width:80%;">
+          <div style="color:#2de8a0;font-size:8pt;">Back to Persistent Storage</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="agent-security">
+  <h2 style="margin-bottom:4px;">Agent Security</h2>
+  <p style="margin:0 0 14px;font-size:0.75em;color:#5a7090;font-style:italic;">The attack surface is huge and emergent!</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;font-size:8pt;line-height:1.5;color:var(--text-color);">
+
+    <!-- Column 1: The exposed surface -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="font-weight:700;font-size:8.5pt;color:#e86040;text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:2px solid #e86040;">Attack Surface</div>
+
+      <div>
+        <div style="font-weight:700;color:#e86040;margin-bottom:3px;">Host access</div>
+        <div style="color:var(--muted-color);">An agent with a shell tool can read files, write files, run processes, and modify system state. One bad instruction — or one injected one — can be destructive and hard to reverse.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#e86040;margin-bottom:3px;">MCP opens the outside in</div>
+        <div style="color:var(--muted-color);">MCP servers connect the agent to external APIs, databases, and services. A compromised or malicious MCP server can feed false data or trigger unintended actions in external systems.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#e86040;margin-bottom:3px;">Prompt injection</div>
+        <div style="color:var(--muted-color);">Malicious instructions hidden in retrieved documents, web pages, or tool results can hijack the agent mid-task — making it act for an attacker rather than the user.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#e86040;margin-bottom:3px;">Credential &amp; secret exposure</div>
+        <div style="color:var(--muted-color);">Agents often need API keys, tokens, or database credentials. These can be leaked through logs, tool outputs, or an injected instruction that asks the agent to relay them.</div>
+      </div>
+    </div>
+
+    <!-- Column 2: Key risks -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="font-weight:700;font-size:8.5pt;color:#ffa830;text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:2px solid #ffa830;">Key Risks</div>
+
+      <div>
+        <div style="font-weight:700;color:#ffa830;margin-bottom:3px;">Excessive permissions</div>
+        <div style="color:var(--muted-color);">Agents are often given broad access for convenience. If the task only needs read access, write access is an unnecessary risk — and an unnecessary opportunity for an attacker.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#ffa830;margin-bottom:3px;">Data exfiltration</div>
+        <div style="color:var(--muted-color);">An agent with both file access and network access could read sensitive data and send it outward — either by mistake or via prompt injection.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#ffa830;margin-bottom:3px;">Unaudited actions</div>
+        <div style="color:var(--muted-color);">Without logging, it is impossible to know what the agent did, why, or in what order. Investigations and rollbacks both require a trail.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#ffa830;margin-bottom:3px;">Runaway agents</div>
+        <div style="color:var(--muted-color);">Without budget limits or stop conditions, an agent in a loop can exhaust API quotas, fill storage, or rack up cost before anyone notices.</div>
+      </div>
+    </div>
+
+    <!-- Column 3: Mitigations -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="font-weight:700;font-size:8.5pt;color:#2de8a0;text-transform:uppercase;letter-spacing:.06em;padding-bottom:6px;border-bottom:2px solid #2de8a0;">Mitigations</div>
+
+      <div>
+        <div style="font-weight:700;color:#2de8a0;margin-bottom:3px;">Least privilege</div>
+        <div style="color:var(--muted-color);">Give the agent only the tools and permissions the task actually requires. Separate read and write access. Scope MCP servers to specific resources.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#2de8a0;margin-bottom:3px;">Human-in-the-loop for irreversible actions</div>
+        <div style="color:var(--muted-color);">Deletions, sends, publishes, and deployments should require explicit human confirmation. Reversible actions can run freely; destructive ones should pause and ask.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#2de8a0;margin-bottom:3px;">Sandbox tool execution</div>
+        <div style="color:var(--muted-color);">Run code and shell commands in isolated containers. Limit network egress. Treat all tool output as untrusted input before the model reads it.</div>
+      </div>
+
+      <div>
+        <div style="font-weight:700;color:#2de8a0;margin-bottom:3px;">Audit logging &amp; budget limits</div>
+        <div style="color:var(--muted-color);">Log every tool call with inputs and outputs. Set hard limits on iterations, cost, and time. Alert on anomalies — agents acting outside their normal pattern.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 </section>
 
 <section id="references">
@@ -13450,6 +13769,10 @@
       {id:'n77',era:10,color:'#e86040',label:['Mixture of','Experts'],     slideId:'moe'},
       {id:'n78',era:10,color:'#e86040',label:['LLM Scale','& Landscape'],  slideId:'llm-params'},
       {id:'n79',era:10,color:'#2de8a0',label:['Prompts &','Agents'],       slideId:'prompts-harnesses-agents'},
+      {id:'n82',era:10,color:'#2de8a0',label:['AI Agents','Overview'],     slideId:'ai-agents-overview'},
+      {id:'n83',era:10,color:'#2de8a0',label:['Agent','Building Blocks'],  slideId:'ai-agents'},
+      {id:'n84',era:10,color:'#7ec8f7',label:['Agent','Memory'],           slideId:'agent-memory-1'},
+      {id:'n85',era:10,color:'#e86040',label:['Agent','Security'],         slideId:'agent-security'},
       {id:'n80',era:10,color:'#ffa830',label:['Phishing','Use Case'],      slideId:'phishing-usecase'},
       {id:'n81',era:10,color:'#ffa830',label:['Learning','Paradigms'],     slideId:'paradigms'},
     ];
@@ -13479,7 +13802,7 @@
       ['n63','n64'],['n64','n65'],['n65','n66'],['n66','n67'],['n67','n68'],
       ['n68','n69'],['n69','n70'],['n70','n71'],['n71','n72'],['n72','n73'],
       // Era 10 chain
-      ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n80'],['n80','n81'],
+      ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n85'],['n85','n80'],['n80','n81'],
       // Cross-era conceptual bridges
       ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
       ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
@@ -13494,7 +13817,8 @@
       ['n63','n74'],['n38','n74'],                 // era 9/4 → era 10
       ['n66','n77'],['n63','n78'],                 // era 9 → era 10
       ['n66','n79'],['n67','n79'],['n78','n79'],   // era 9/10 → prompts
-      ['n63','n81'],['n79','n81'],                 // → paradigms
+      ['n79','n82'],['n82','n84'],                 // prompts → agent overview → memory
+      ['n63','n81'],['n85','n81'],                 // → paradigms
     ];
 
     var DECKS={
@@ -13505,7 +13829,7 @@
         ids:new Set(['slide-map','early-ml','mnist-to-vector','perceptron','output-layer','training-network',
           'gradient-landscape','conv-full-digit','cnn-slabs-c1','webcam-demo','word-vector-demo',
           'rnn-animation','lstm-animation','qkv-attention','multi-head-attn','transformer-3d-overview',
-          'vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents'])
+          'vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents','ai-agents-overview'])
       },
       qnd:{
         name:'Quick & Dirty',icon:'⚡',color:'#ffa830',
@@ -13516,7 +13840,7 @@
           'cnn-intro','webcam-demo','no-more-mnist','embeddings','word-vector-demo','word-order-intro',
           'rnn-animation','lstm-use-cases','transformers','transformer-3d-overview','llm-arch-families',
           'gen-llm-training','human-annotation','vit-demo','cross-attention','moe','llm-params',
-          'prompts-harnesses-agents','paradigms'])
+          'prompts-harnesses-agents','ai-agents-overview','ai-agents','agent-memory-1','agent-security','paradigms'])
       },
       deepdive:{
         name:'Deep Dive',icon:'🔬',color:'#9a5aff',

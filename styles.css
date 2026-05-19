@@ -40,9 +40,9 @@
 
   /* Layout */
   --slide-padding: 60px;
-  --slide-padding-top: 40px;
+  --slide-padding-top: 28px;
   --slide-padding-bottom: 80px; /* Extra space for timeline */
-  --content-gap: 30px;
+  --content-gap: 18px;
 
   /* Border radius for custom components */
   --box-radius: 8px;           /* Set to 0 for sharp corners */
@@ -91,10 +91,19 @@
 .reveal h3 { font-size: var(--h3-size); }
 
 .reveal p,
-.reveal li,
 .reveal td,
 .reveal th,
 .reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+}
+
+/* li uses a direct size rule so text-lg/xl on a parent ul does not cascade down
+   and accidentally inflate bullets on content-heavy slides.
+   Slides that need smaller bullets override via an ID rule (see below). */
+.reveal li {
   font-size: var(--text-size);
   color: var(--text-color);
   line-height: 1.5;
@@ -107,13 +116,13 @@
 .reveal ul {
   list-style: none;
   padding-left: 0;
-  margin: 15px 0;
+  margin: 8px 0;
 }
 
 .reveal ul li {
   position: relative;
   padding-left: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .reveal ul li::before {
@@ -138,7 +147,7 @@
   font-size: inherit;
 }
 
-/* References slide — override global li size and remove auto-bullet dots */
+/* Dense info slides — explicit small size wins over the direct .reveal li rule via ID specificity */
 #references li {
   font-size: 8.5pt;
   margin-bottom: 3px;
@@ -147,6 +156,10 @@
 
 #references ul li::before {
   display: none;
+}
+
+#about-deck li {
+  font-size: 8pt;
 }
 
 /* ===========================================
@@ -554,4 +567,25 @@ details[open] > summary .opt-chevron { transform: rotate(90deg); }
 #llm-embeddings table td,
 #llm-embeddings table th {
   font-size: 8pt !important;
+}
+
+/* ── Dense early-ML slides — scale down to prevent overflow ── */
+#early-ml h3,
+#mnist-preprocessing h3,
+#mnist-nb-models h3,
+#paradigms h3,
+#embeddings h3 {
+  font-size: 18pt;
+}
+#early-ml p,
+#early-ml li,
+#mnist-preprocessing p,
+#mnist-preprocessing li,
+#mnist-nb-models p,
+#mnist-nb-models li,
+#paradigms p,
+#paradigms li,
+#embeddings p,
+#embeddings li {
+  font-size: 13pt !important;
 }
