@@ -23,10 +23,10 @@
     <div class="slides">
 
       <section id="slide-map">
-  <h2 style="margin-bottom:4px;">The Evolution of Artificial Intelligence</h2>
-  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Left → right: chronological order · colour = theme · edges = conceptual dependencies</p>
-  <div class="content" style="padding-top:2px;">
-    <div id="slide-map-canvas" style="width:100%;height:472px;"></div>
+  <h2 style="margin-top:4px;margin-bottom:2px;font-size:1.1em;">The Evolution of Artificial Intelligence</h2>
+  <p style="margin:0 0 2px;font-size:0.65em;color:#5a7090;font-style:italic;">Left → right: chronological order · colour = theme · edges = conceptual dependencies</p>
+  <div class="content" style="padding-top:0;">
+    <div id="slide-map-canvas" style="width:100%;height:630px;"></div>
   </div>
 </section>
 
@@ -1622,8 +1622,8 @@
             <div style="display:flex;flex-direction:column;gap:10px;">
 
               <div style="background:rgba(157,78,221,0.08);border:1px solid rgba(157,78,221,0.24);border-radius:8px;padding:9px 12px;">
-                <p style="color:var(--secondary-color);font-weight:bold;margin:0 0 4px;">Encoder = "what". Decoder = "where".</p>
-                <p style="margin:0;color:var(--text-color);">All <strong>object recognition</strong> (feature learning) happens in the encoder. The decoder does not learn new semantic concepts — it recovers the <strong>spatial arrangement</strong> of those concepts by reversing the pooling compression. Recognition is complete at the bottleneck.</p>
+                <p style="color:var(--secondary-color);font-weight:bold;margin:0 0 4px;">Encoder ≈ "what". Decoder ≈ "where".</p>
+                <p style="margin:0;color:var(--text-color);">Most <strong>semantic feature learning</strong> happens in the encoder. The decoder primarily recovers the <strong>spatial arrangement</strong> by reversing the pooling compression — though in modern architectures decoder heads can also contribute to classification, object queries, and masks.</p>
               </div>
 
               <div style="background:rgba(157,78,221,0.08);border:1px solid rgba(157,78,221,0.24);border-radius:8px;padding:9px 12px;">
@@ -1747,7 +1747,7 @@
 
 </section>
       <section id="no-more-mnist">
-        <h2>No More MNIST Numbers !</h2>
+        <h2>No More MNIST Numbers!</h2>
       </section>
 
       <section>
@@ -2034,7 +2034,7 @@
                 </tr>
                 <tr style="border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(255,0,110,0.05);">
                   <td style="padding:3px 6px;color:#fff;font-weight:700;">DeepSeek-V3 <span style="color:var(--accent-tertiary);font-size:0.8em;">new</span></td>
-                  <td style="padding:3px 6px;text-align:right;color:#fff;">102 400</td>
+                  <td style="padding:3px 6px;text-align:right;color:#fff;">129 280</td>
                   <td style="padding:3px 6px;text-align:right;color:var(--primary-color);font-weight:700;">7 168</td>
                   <td style="padding:3px 6px;text-align:right;color:#fff;">734 M</td>
                 </tr>
@@ -2059,7 +2059,7 @@
               </div>
               <div style="background:rgba(6,214,160,0.07);border-left:2px solid #06d6a0;padding:5px 10px;border-radius:0 5px 5px 0;font-size:0.56em;">
                 <strong style="color:#06d6a0;">Positional encoding</strong>
-                <span style="color:var(--muted-color);"> — a RoPE/ALiBi vector is <em>added</em> to each embedding so the model knows token order.</span>
+                <span style="color:var(--muted-color);"> — RoPE rotates the Q and K vectors; ALiBi adds a position bias directly to attention scores. Both encode token order without modifying embeddings.</span>
               </div>
             </div>
           </div>
@@ -2447,7 +2447,7 @@
                 <p class="text-lg" style="color: var(--muted-color); margin-bottom: 18px; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11pt;">Scaled Dot-Product Attention</p>
                 <div style="text-align: center; margin: 18px 0 24px; padding: 18px 12px; background: rgba(0,0,0,0.35); border-radius: 10px; box-shadow: 0 0 24px rgba(0, 217, 255, 0.10);">
                   <span style="font-family: 'Georgia', serif; font-size: 22pt; color: rgba(175,190,210,0.85); letter-spacing: 0.02em; line-height: 1.5;">
-                    Attention(<span style="color:#00d9ff;font-weight:700;">Q</span>, <span style="color:#9d4edd;font-weight:700;">K</span>, <span style="color:#ffa014;font-weight:700;">V</span>) = softmax<span style="font-size:26pt;">(</span><span style="display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin: 0 4px; line-height:1.15;"><span style="font-size:18pt; border-bottom: 2px solid rgba(200,215,235,0.35); padding-bottom:2px;"><span style="color:#00d9ff;font-weight:700;">Q</span><span style="color:#9d4edd;font-weight:700;">K</span><sup style="font-size:13pt;">T</sup></span><span style="font-size:18pt; padding-top:2px;">√d<sub style="font-size:13pt;">k</sub></span></span><span style="font-size:26pt;">)</span> <span style="color:#ffa014;font-weight:700;">V</span>
+                    Attention(<span style="color:#00d9ff;font-weight:700;">Q</span>, <span style="color:#9d4edd;font-weight:700;">K</span>, <span style="color:#ffa014;font-weight:700;">V</span>) = softmax<span style="font-size:26pt;">(</span><span style="color:#00d9ff;font-weight:700;">Q</span><span style="color:#9d4edd;font-weight:700;">K</span><sup style="font-size:13pt;">T</sup> / √d<sub style="font-size:13pt;">k</sub><span style="font-size:26pt;">)</span>&thinsp;<span style="color:#ffa014;font-weight:700;">V</span>
                   </span>
                 </div>
                 <ul class="text-lg" style="margin-top: 10px; column-count: 2; column-gap: 20px;">
@@ -2567,7 +2567,7 @@
           <li style="margin-bottom:3px;"><span style="color:#aaa; margin-right:5px;">▸</span>Stacked <em>N</em> times — each block builds richer context-aware representations
             <div style="margin-top:3px; margin-left:14px; color:#888; font-size:0.92em;">
               BERT-base: 12 &nbsp;·&nbsp; GPT-2: 12–48 &nbsp;·&nbsp; GPT-3: 96<br>
-              LLaMA-7B: 32 &nbsp;·&nbsp; LLaMA-70B: 80 &nbsp;·&nbsp; GPT-4: ~120
+              LLaMA-7B: 32 &nbsp;·&nbsp; LLaMA-70B: 80 &nbsp;·&nbsp; GPT-4: undisclosed
             </div>
           </li>
         </ul>
@@ -2607,7 +2607,7 @@
   </section>
 
   <section id="gen-llm-training">
-    <h2 style="margin-bottom:6px;">How Generative LLM's are Trained</h2>
+    <h2 style="margin-bottom:6px;">How Generative LLMs are Trained</h2>
     <div class="content" style="padding-top:2px;">
       <div id="gen-llm-training-canvas" style="width:100%;height:490px;"></div>
     </div>
@@ -2747,7 +2747,7 @@
                style="max-width:100%; max-height:430px; object-fit:contain;"
                alt="Cross-Attention in Encoder–Decoder Transformer">
           <p style="margin-top:10px; font-size:0.85em; color:#9bb4d2; font-style:italic;">
-            Using the K's and V's from the encoder with the Q's in the decoder attention heads
+            Using the keys and values from the encoder with the queries in the decoder attention heads
           </p>
         </div>
       </section>
@@ -2760,7 +2760,7 @@
       </section>
 
       <section id="multimodal-ar">
-        <h2 style="margin-bottom:6px;">Cutting-Edge: Multimodal Autoregressive Models <span style="font-size:0.5em;color:#5a7090;font-style:italic;font-weight:normal;">— it gets proprietary from here on..</span></h2>
+        <h2 style="margin-bottom:6px;">Cutting-Edge: Multimodal Autoregressive Models <span style="font-size:0.5em;color:#5a7090;font-style:italic;font-weight:normal;">— many details become proprietary from here on</span></h2>
         <div class="content" style="padding-top:2px;">
           <div id="multimodal-ar-canvas" style="width:100%;height:490px;"></div>
         </div>
@@ -2770,7 +2770,7 @@
 
 <section id="moe">
   <h2 style="margin-bottom:4px;">Mixture of Experts (MoE)</h2>
-  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Avoid using the parts of the model that are not needed</p>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Route each token through only the experts it needs</p>
   <div class="content" style="padding-top:2px;">
     <div id="moe-canvas" style="width:100%;height:472px;"></div>
   </div>
@@ -2822,7 +2822,7 @@
               </div>
             </div>
             <div>
-              <h3 style="color: var(--primary-color); margin-bottom: 15px;">Generative vs Inference</h3>
+              <h3 style="color: var(--primary-color); margin-bottom: 15px;">Generative vs Discriminative</h3>
               <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
                 <p class="text-lg"><strong style="color: var(--primary-color);">Generative Models</strong></p>
                 <ul class="text-lg" style="margin-top: 10px;">
@@ -2833,7 +2833,7 @@
                 </ul>
               </div>
               <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
-                <p class="text-lg"><strong style="color: var(--secondary-color);">Inference/Discriminative Models</strong></p>
+                <p class="text-lg"><strong style="color: var(--secondary-color);">Discriminative Models</strong></p>
                 <ul class="text-lg" style="margin-top: 10px;">
                   <li>Learn to classify or predict</li>
                   <li>Model conditional P(Y|X)</li>
@@ -2842,6 +2842,10 @@
                 </ul>
               </div>
             </div>
+          </div>
+          <div style="margin-top:18px;background:rgba(45,232,160,0.07);border-left:2px solid #2de8a0;padding:10px 16px;border-radius:0 6px 6px 0;">
+            <strong style="color:#2de8a0;">Self-Supervised Learning</strong>
+            <span style="color:var(--muted-color);font-size:0.92em;"> — labels are derived from the data itself (e.g. next-token prediction). LLM pretraining is self-supervised, not simply unsupervised: the supervision signal is built into the structure of the input.</span>
           </div>
         </div>
       </section>
@@ -2853,29 +2857,49 @@
   <!-- Timeline -->
   <div class="timeline">
     <div class="timeline-line"></div>
-    <div class="timeline-marker" data-slide="1" style="left: 0%;">
+    <div class="timeline-marker" data-slide="0" style="left: 0%;">
+      <div class="dot"></div>
+      <div class="label">Map</div>
+    </div>
+    <div class="timeline-marker" data-slide="1" style="left: 5%;">
       <div class="dot"></div>
       <div class="label">1989</div>
     </div>
-    <div class="timeline-marker" data-slide="2" style="left: 20%;">
+    <div class="timeline-marker" data-slide="2" style="left: 11%;">
       <div class="dot"></div>
-      <div class="label">1998</div>
+      <div class="label">~2000</div>
     </div>
-    <div class="timeline-marker" data-slide="3" style="left: 40%;">
+    <div class="timeline-marker" data-slide="3" style="left: 21%;">
       <div class="dot"></div>
       <div class="label">2012</div>
     </div>
-    <div class="timeline-marker" data-slide="4" style="left: 55%;">
+    <div class="timeline-marker" data-slide="5" style="left: 37%;">
       <div class="dot"></div>
-      <div class="label">2013-15</div>
+      <div class="label">2013</div>
     </div>
-    <div class="timeline-marker" data-slide="5" style="left: 70%;">
+    <div class="timeline-marker" data-slide="6" style="left: 44%;">
       <div class="dot"></div>
-      <div class="label">2014-17</div>
+      <div class="label">2014</div>
     </div>
-    <div class="timeline-marker" data-slide="6" style="left: 100%;">
+    <div class="timeline-marker" data-slide="7" style="left: 52%;">
+      <div class="dot"></div>
+      <div class="label">2015</div>
+    </div>
+    <div class="timeline-marker" data-slide="9" style="left: 63%;">
       <div class="dot"></div>
       <div class="label">2017</div>
+    </div>
+    <div class="timeline-marker" data-slide="11" style="left: 74%;">
+      <div class="dot"></div>
+      <div class="label">2018</div>
+    </div>
+    <div class="timeline-marker" data-slide="15" style="left: 89%;">
+      <div class="dot"></div>
+      <div class="label">2024</div>
+    </div>
+    <div class="timeline-marker" data-slide="19" style="left: 100%;">
+      <div class="dot"></div>
+      <div class="label">now</div>
     </div>
   </div>
 
@@ -2907,25 +2931,18 @@
       }
     });
 
-    // Timeline update on slide change
-    Reveal.on('slidechanged', event => {
-      const slideIndex = event.indexh;
-      document.querySelectorAll('.timeline-marker').forEach(marker => {
-        marker.classList.remove('active');
+    // Timeline — activate the last marker whose data-slide <= current indexh
+    function updateTimeline(h) {
+      const markers = Array.from(document.querySelectorAll('.timeline-marker'));
+      markers.forEach(m => m.classList.remove('active'));
+      let best = null;
+      markers.forEach(m => {
+        if (parseInt(m.dataset.slide) <= h) best = m;
       });
-      const activeMarker = document.querySelector(`.timeline-marker[data-slide="${slideIndex}"]`);
-      if (activeMarker) {
-        activeMarker.classList.add('active');
-      }
-    });
-
-    // Set initial active state
-    Reveal.on('ready', () => {
-      const initialMarker = document.querySelector('.timeline-marker[data-slide="0"]');
-      if (initialMarker) {
-        initialMarker.classList.add('active');
-      }
-    });
+      if (best) best.classList.add('active');
+    }
+    Reveal.on('slidechanged', event => updateTimeline(event.indexh));
+    Reveal.on('ready', () => updateTimeline(Reveal.getIndices().h));
 
     // ── Tips & Tricks accordion + modal ──
     (function () {
@@ -12986,7 +13003,7 @@
   <!-- Concept-map network (slide-map slide) — D3 force simulation -->
   <script>
   (function(){
-    const W=1100,H=490;
+    const W=1100,H=630;
 
     const eraX=[62,172,282,392,496,600,706,810,924,1038];
     const eraLabels=[
@@ -13003,51 +13020,140 @@
     ];
 
     const nodes=[
-      {id:'n01',era:1,color:'#7a8fa8',label:['Early ML','1989–98'],           slideId:'early-ml'},
-      {id:'n02',era:1,color:'#7a8fa8',label:['MNIST &','Naive Bayes'],         slideId:'mnist-preprocessing'},
-      {id:'n03',era:2,color:'#4da8ff',label:['MLP &','Perceptron'],            slideId:'perceptron'},
-      {id:'n04',era:2,color:'#4da8ff',label:['Activation','Functions'],        slideId:'activation-functions'},
-      {id:'n05',era:3,color:'#8a5aff',label:['Backprop &','Gradient Descent'], slideId:'backprop-simple'},
-      {id:'n06',era:3,color:'#8a5aff',label:['Optimizers &','Regularization'], slideId:'optimization-algorithms'},
-      {id:'n07',era:4,color:'#2de8a0',label:['Convolutional','Nets (CNN)'],    slideId:'conv-filters'},
-      {id:'n08',era:4,color:'#2de8a0',label:['Encoder-Decoder','Architecture'],slideId:'enc-dec-concepts'},
-      {id:'n09',era:4,color:'#2de8a0',label:['Vision Live','Demo'],            slideId:'webcam-demo'},
-      {id:'n10',era:5,color:'#ffa830',label:['Word Embeddings','Word2Vec 2013'],slideId:'embeddings'},
-      {id:'n11',era:5,color:'#ffa830',label:['Vector Space','& Similarity'],   slideId:'vector-space-3d'},
-      {id:'n12',era:6,color:'#e86040',label:['RNNs','2014'],                   slideId:'rnn-animation'},
-      {id:'n13',era:6,color:'#e86040',label:['LSTMs','& Gates'],               slideId:'lstm-animation'},
-      {id:'n14',era:7,color:'#00d9ff',label:['Attention &','QKV Matrices'],    slideId:'qkv-attention'},
-      {id:'n15',era:7,color:'#00d9ff',label:['Multi-Head','Attention'],        slideId:'multi-head-attn'},
-      {id:'n16',era:7,color:'#00d9ff',label:['Positional','Encoding'],         slideId:'pos-encoding-sinusoidal'},
-      {id:'n17',era:8,color:'#4da8ff',label:['FFN &','GLU Layers'],            slideId:'ffn-layer'},
-      {id:'n18',era:8,color:'#4da8ff',label:['Full Transformer','Block 2017'], slideId:'transformers'},
-      {id:'n19',era:9,color:'#9a5aff',label:['LLM Families &','Architectures'],slideId:'llm-arch-families'},
-      {id:'n20',era:9,color:'#9a5aff',label:['Generative','Pre-training'],     slideId:'gen-llm-training'},
-      {id:'n21',era:9,color:'#9a5aff',label:['Human Annotation','& Alignment'],slideId:'human-annotation'},
-      {id:'n22',era:9,color:'#9a5aff',label:['Encoder-Only','BERT & CLS'],     slideId:'encoder-only'},
-      {id:'n23',era:9,color:'#9a5aff',label:['ViT Live','Demo'],               slideId:'vit-demo'},
-      {id:'n24',era:10,color:'#e86040',label:['Cross-Attention','& Multimodal'],slideId:'cross-attention'},
-      {id:'n25',era:10,color:'#e86040',label:['Mixture of','Experts (MoE)'],   slideId:'moe'},
-      {id:'n26',era:10,color:'#e86040',label:['LLM Scale &','Landscape'],      slideId:'llm-params'},
-      {id:'n27',era:10,color:'#2de8a0',label:['Prompts,','Harnesses & Agents'],slideId:'prompts-harnesses-agents'},
-      {id:'n28',era:10,color:'#ffa830',label:['Learning','Paradigms'],          slideId:'paradigms'},
+      // Era 1 — Classical ML 1989–98
+      {id:'n01',era:1,color:'#7a8fa8',label:['Early ML','1989–98'],        slideId:'early-ml'},
+      {id:'n02',era:1,color:'#7a8fa8',label:['MNIST','Preprocessing'],     slideId:'mnist-preprocessing'},
+      {id:'n03',era:1,color:'#7a8fa8',label:['Naive Bayes','Models'],      slideId:'mnist-nb-models'},
+      {id:'n04',era:1,color:'#7a8fa8',label:['Neural Net','Intro'],        slideId:'nn-intro'},
+      {id:'n05',era:1,color:'#7a8fa8',label:['MNIST','to Vector'],         slideId:'mnist-to-vector'},
+      // Era 2 — Neural Nets & MLP
+      {id:'n06',era:2,color:'#4da8ff',label:['MLP &','Perceptron'],        slideId:'perceptron'},
+      {id:'n07',era:2,color:'#4da8ff',label:['Matrix','Equation'],         slideId:'matrix-equation'},
+      {id:'n08',era:2,color:'#4da8ff',label:['Activation','Intro'],        slideId:'activation-functions-intro'},
+      {id:'n09',era:2,color:'#4da8ff',label:['Activation','Functions'],    slideId:'activation-functions'},
+      {id:'n10',era:2,color:'#4da8ff',label:['MLP','Architecture'],        slideId:'mlp-architecture'},
+      // Era 3 — Backprop & Training
+      {id:'n11',era:3,color:'#8a5aff',label:['MLP','Backprop'],            slideId:'mlp-backprop'},
+      {id:'n12',era:3,color:'#8a5aff',label:['Gradient','Landscape'],      slideId:'gradient-landscape'},
+      {id:'n13',era:3,color:'#8a5aff',label:['Backprop','Simple'],         slideId:'backprop-simple'},
+      {id:'n14',era:3,color:'#8a5aff',label:['Bias','Backprop'],           slideId:'bias-backprop'},
+      {id:'n15',era:3,color:'#8a5aff',label:['Backprop','Network'],        slideId:'backprop-network'},
+      {id:'n16',era:3,color:'#8a5aff',label:['Backprop','Tensor'],         slideId:'backprop-tensor'},
+      {id:'n17',era:3,color:'#8a5aff',label:['Batch &','Epochs'],          slideId:'batch-epochs'},
+      {id:'n18',era:3,color:'#8a5aff',label:['Training','Network'],        slideId:'training-network'},
+      {id:'n19',era:3,color:'#8a5aff',label:['Output','Layer'],            slideId:'output-layer'},
+      {id:'n20',era:3,color:'#8a5aff',label:['Hyperparameter','Tuning'],   slideId:'training-hyperparameters'},
+      {id:'n21',era:3,color:'#8a5aff',label:['Optimizers &','Regulariz.'], slideId:'optimization-algorithms'},
+      {id:'n22',era:3,color:'#8a5aff',label:['Bias–Variance','Tradeoff'],  slideId:'bias-variance'},
+      {id:'n23',era:3,color:'#8a5aff',label:['Overfitting','& Epochs'],    slideId:'overfitting-epochs'},
+      {id:'n24',era:3,color:'#8a5aff',label:['Training','Tips'],           slideId:'training-tips'},
+      // Era 4 — CNNs 2012+
+      {id:'n25',era:4,color:'#2de8a0',label:['CNNs','Overview'],           slideId:'cnns'},
+      {id:'n26',era:4,color:'#2de8a0',label:['Conv','Filters'],            slideId:'conv-filters'},
+      {id:'n27',era:4,color:'#2de8a0',label:['Conv','Details'],            slideId:'conv-details'},
+      {id:'n28',era:4,color:'#2de8a0',label:['Full Digit','Conv'],         slideId:'conv-full-digit'},
+      {id:'n29',era:4,color:'#2de8a0',label:['CNN','Architecture'],        slideId:'cnn-architecture'},
+      {id:'n30',era:4,color:'#2de8a0',label:['CNN','Parameters'],          slideId:'cnn-params'},
+      {id:'n31',era:4,color:'#2de8a0',label:['CNN Slab','Conv 1'],         slideId:'cnn-slabs-c1'},
+      {id:'n32',era:4,color:'#2de8a0',label:['CNN Slab','Pool 1'],         slideId:'cnn-slabs-p1'},
+      {id:'n33',era:4,color:'#2de8a0',label:['CNN Slab','Conv 2'],         slideId:'cnn-slabs-c2'},
+      {id:'n34',era:4,color:'#2de8a0',label:['CNN Slab','Pool 2'],         slideId:'cnn-slabs-p2'},
+      {id:'n35',era:4,color:'#2de8a0',label:['CNN','Evaluation'],          slideId:'cnn-eval'},
+      {id:'n36',era:4,color:'#2de8a0',label:['CNN','Training'],            slideId:'cnn-training'},
+      {id:'n37',era:4,color:'#2de8a0',label:['FCN','Animation'],           slideId:'cnn-fcn-anim'},
+      {id:'n38',era:4,color:'#2de8a0',label:['Enc–Dec','Architecture'],    slideId:'enc-dec-concepts'},
+      {id:'n39',era:4,color:'#2de8a0',label:['CNN','Intro'],               slideId:'cnn-intro'},
+      {id:'n40',era:4,color:'#2de8a0',label:['Vision Live','Demo'],        slideId:'webcam-demo'},
+      {id:'n41',era:4,color:'#2de8a0',label:['No More','MNIST'],           slideId:'no-more-mnist'},
+      // Era 5 — Embeddings 2013
+      {id:'n42',era:5,color:'#ffa830',label:['Word','Embeddings'],         slideId:'embeddings'},
+      {id:'n43',era:5,color:'#ffa830',label:['Vector Space','3D'],         slideId:'vector-space-3d'},
+      {id:'n44',era:5,color:'#ffa830',label:['Word Vector','Demo'],        slideId:'word-vector-demo'},
+      {id:'n45',era:5,color:'#ffa830',label:['LLM','Embeddings'],          slideId:'llm-embeddings'},
+      {id:'n46',era:5,color:'#ffa830',label:['Word Order','Intro'],        slideId:'word-order-intro'},
+      // Era 6 — RNNs & LSTMs
+      {id:'n47',era:6,color:'#e86040',label:['RNNs','2014'],               slideId:'rnn-animation'},
+      {id:'n48',era:6,color:'#e86040',label:['RNN','Limits'],              slideId:'rnn-limits'},
+      {id:'n49',era:6,color:'#e86040',label:['LSTMs','& Gates'],           slideId:'lstm-animation'},
+      {id:'n50',era:6,color:'#e86040',label:['LSTM','Use Cases'],          slideId:'lstm-use-cases'},
+      // Era 7 — Attention 2015–17
+      {id:'n51',era:7,color:'#00d9ff',label:['Embed &','Context'],         slideId:'embed-context'},
+      {id:'n52',era:7,color:'#00d9ff',label:['Attention &','QKV'],         slideId:'qkv-attention'},
+      {id:'n53',era:7,color:'#00d9ff',label:['V Matrix'],                  slideId:'v-matrix'},
+      {id:'n54',era:7,color:'#00d9ff',label:['Attention','Head'],          slideId:'attn-head'},
+      {id:'n55',era:7,color:'#00d9ff',label:['Multi-Head','Attention'],    slideId:'multi-head-attn'},
+      {id:'n56',era:7,color:'#00d9ff',label:['Positional','Encoding'],     slideId:'pos-encoding-sinusoidal'},
+      {id:'n57',era:7,color:'#00d9ff',label:['RoPE','Encoding'],           slideId:'pos-encoding-rope'},
+      // Era 8 — Transformer 2017
+      {id:'n58',era:8,color:'#4da8ff',label:['FFN &','GLU Layers'],        slideId:'ffn-layer'},
+      {id:'n59',era:8,color:'#4da8ff',label:['FFN','Activations'],         slideId:'ffn-activations'},
+      {id:'n60',era:8,color:'#4da8ff',label:['GLU','Layers'],              slideId:'ffn-glu'},
+      {id:'n61',era:8,color:'#4da8ff',label:['Full Transformer','2017'],   slideId:'transformers'},
+      {id:'n62',era:8,color:'#4da8ff',label:['Transformer','3D View'],     slideId:'transformer-3d-overview'},
+      // Era 9 — LLMs 2018–22
+      {id:'n63',era:9,color:'#9a5aff',label:['LLM Families','& Arch'],     slideId:'llm-arch-families'},
+      {id:'n64',era:9,color:'#9a5aff',label:['BERT','Architecture'],       slideId:'bert-architecture'},
+      {id:'n65',era:9,color:'#9a5aff',label:['Unembedding','Layer'],       slideId:'unembedding'},
+      {id:'n66',era:9,color:'#9a5aff',label:['Generative','Pre-training'], slideId:'gen-llm-training'},
+      {id:'n67',era:9,color:'#9a5aff',label:['Human','Annotation'],        slideId:'human-annotation'},
+      {id:'n68',era:9,color:'#9a5aff',label:['Attention','Masking'],       slideId:'attn-masking'},
+      {id:'n69',era:9,color:'#9a5aff',label:['Encoder-Only','BERT & CLS'], slideId:'encoder-only'},
+      {id:'n70',era:9,color:'#9a5aff',label:['Encoder','Finetuning'],      slideId:'encoder-finetuning'},
+      {id:'n71',era:9,color:'#9a5aff',label:['CLS','Token'],               slideId:'cls-token'},
+      {id:'n72',era:9,color:'#9a5aff',label:['DIY','Modelling'],           slideId:'diy-modelling'},
+      {id:'n73',era:9,color:'#9a5aff',label:['ViT Live','Demo'],           slideId:'vit-demo'},
+      // Era 10 — Advanced & Apps
+      {id:'n74',era:10,color:'#e86040',label:['Cross-Attention','Multimodal'],slideId:'cross-attention'},
+      {id:'n75',era:10,color:'#e86040',label:['Diffusion','Cross-Attn'],   slideId:'cross-attn-diffusion'},
+      {id:'n76',era:10,color:'#e86040',label:['Multimodal','Autoregress.'],slideId:'multimodal-ar'},
+      {id:'n77',era:10,color:'#e86040',label:['Mixture of','Experts'],     slideId:'moe'},
+      {id:'n78',era:10,color:'#e86040',label:['LLM Scale','& Landscape'],  slideId:'llm-params'},
+      {id:'n79',era:10,color:'#2de8a0',label:['Prompts &','Agents'],       slideId:'prompts-harnesses-agents'},
+      {id:'n80',era:10,color:'#ffa830',label:['Phishing','Use Case'],      slideId:'phishing-usecase'},
+      {id:'n81',era:10,color:'#ffa830',label:['Learning','Paradigms'],     slideId:'paradigms'},
     ];
 
     const rawLinks=[
-      ['n01','n02'],['n01','n03'],['n02','n03'],
-      ['n03','n04'],['n03','n05'],['n04','n05'],
-      ['n05','n06'],['n05','n07'],['n06','n07'],
-      ['n07','n08'],['n07','n09'],['n07','n10'],
-      ['n10','n11'],['n10','n12'],['n12','n13'],
-      ['n08','n14'],['n12','n14'],['n13','n14'],
-      ['n14','n15'],['n14','n16'],
-      ['n15','n17'],['n15','n18'],['n16','n18'],['n17','n18'],
-      ['n18','n19'],['n18','n22'],
-      ['n19','n20'],['n20','n21'],
-      ['n22','n23'],['n08','n24'],['n19','n24'],
-      ['n20','n25'],['n19','n26'],
-      ['n20','n27'],['n21','n27'],['n26','n27'],
-      ['n19','n28'],['n27','n28'],
+      // Era 1 chain
+      ['n01','n02'],['n02','n03'],['n03','n04'],['n04','n05'],
+      // Era 2 chain
+      ['n06','n07'],['n07','n08'],['n08','n09'],['n09','n10'],
+      // Era 3 chain
+      ['n11','n12'],['n12','n13'],['n13','n14'],['n14','n15'],['n15','n16'],
+      ['n16','n17'],['n17','n18'],['n18','n19'],['n19','n20'],['n20','n21'],
+      ['n21','n22'],['n22','n23'],['n23','n24'],
+      // Era 4 chain
+      ['n25','n26'],['n26','n27'],['n27','n28'],['n28','n29'],['n29','n30'],
+      ['n30','n31'],['n31','n32'],['n32','n33'],['n33','n34'],['n34','n35'],
+      ['n35','n36'],['n36','n37'],['n37','n38'],['n38','n39'],['n39','n40'],['n40','n41'],
+      // Era 5 chain
+      ['n42','n43'],['n43','n44'],['n44','n45'],['n45','n46'],
+      // Era 6 chain
+      ['n47','n48'],['n48','n49'],['n49','n50'],
+      // Era 7 chain
+      ['n51','n52'],['n52','n53'],['n53','n54'],['n54','n55'],['n55','n56'],['n56','n57'],
+      // Era 8 chain
+      ['n58','n59'],['n59','n60'],['n60','n61'],['n61','n62'],
+      // Era 9 chain
+      ['n63','n64'],['n64','n65'],['n65','n66'],['n66','n67'],['n67','n68'],
+      ['n68','n69'],['n69','n70'],['n70','n71'],['n71','n72'],['n72','n73'],
+      // Era 10 chain
+      ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n80'],['n80','n81'],
+      // Cross-era conceptual bridges
+      ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
+      ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
+      ['n24','n25'],['n21','n26'],['n13','n26'],   // era 3 → era 4
+      ['n41','n42'],['n26','n42'],                 // era 4 → era 5
+      ['n46','n47'],['n42','n47'],                 // era 5 → era 6
+      ['n50','n51'],['n49','n52'],['n47','n52'],   // era 6 → era 7
+      ['n55','n58'],['n55','n61'],['n56','n61'],['n57','n61'],['n58','n61'], // era 7 → era 8
+      ['n38','n52'],                               // enc-dec → attention (era 4 → era 7)
+      ['n61','n63'],['n61','n69'],['n62','n63'],   // era 8 → era 9
+      ['n63','n66'],['n66','n67'],['n69','n73'],   // era 9 internal
+      ['n63','n74'],['n38','n74'],                 // era 9/4 → era 10
+      ['n66','n77'],['n63','n78'],                 // era 9 → era 10
+      ['n66','n79'],['n67','n79'],['n78','n79'],   // era 9/10 → prompts
+      ['n63','n81'],['n79','n81'],                 // → paradigms
     ];
 
     var DECKS={
@@ -13128,8 +13234,9 @@
       el._nodeSel.transition().duration(350).style('opacity',1)
         .attr('filter',function(d){return ids.has(d.slideId)?'url(#sm-glow)':null;});
       el._nodeSel.select('rect').transition().duration(350)
-        .attr('stroke-width',function(d){return ids.has(d.slideId)?3:1.8;});
+        .attr('stroke-width',function(d){return ids.has(d.slideId)?2.4:1.2;});
       el._linkSel.transition().duration(350).style('opacity',0.35);
+      updateEraHeaderVisuals(el);
     }
 
     function applyDeckDimming(el){
@@ -13144,6 +13251,7 @@
           if(!deck.ids) return 1;
           return (deck.ids.has(d.source.slideId)&&deck.ids.has(d.target.slideId))?1:0.06;
         });
+      updateEraHeaderVisuals(el);
     }
 
     function updateRadioVisuals(){
@@ -13212,12 +13320,15 @@
       var el=document.getElementById('slide-map-canvas');
       var hint=document.getElementById('sm-custom-hint');
       var doneBtn=document.getElementById('sm-done-btn');
+      var resetBtn=document.getElementById('sm-reset-btn');
+      if(resetBtn) resetBtn.style.display='flex';
       if(key==='custom'){
         DECKS.custom.ids=new Set();  // start empty — user picks
         if(hint) hint.style.display='block';
         if(doneBtn){
           doneBtn.style.display='flex';
           doneBtn.textContent='Done';
+          doneBtn.classList.remove('sm-go-pulse');
           Object.assign(doneBtn.style,{borderColor:'#00d9ff',color:'#00d9ff',background:'rgba(0,217,255,0.10)'});
         }
         updateRadioVisuals();
@@ -13227,6 +13338,7 @@
         if(doneBtn){
           doneBtn.style.display='flex';
           doneBtn.textContent='Go';
+          doneBtn.classList.add('sm-go-pulse');
           Object.assign(doneBtn.style,{borderColor:'#2de8a0',color:'#2de8a0',background:'rgba(45,232,160,0.12)'});
         }
         updateRadioVisuals();
@@ -13352,7 +13464,7 @@
       var hint=document.createElement('div');
       hint.id='sm-custom-hint';
       Object.assign(hint.style,{
-        position:'absolute',bottom:'28px',left:'0',right:'70px',
+        position:'absolute',bottom:'88px',left:'0',right:'70px',
         textAlign:'center',color:'rgba(0,217,255,0.40)',
         fontSize:'8px',fontFamily:'sans-serif',
         pointerEvents:'none',letterSpacing:'0.05em',zIndex:'9',
@@ -13361,12 +13473,20 @@
       hint.textContent='click nodes to add to your deck';
       el.appendChild(hint);
 
+      // Inject pulse keyframes once
+      if(!document.getElementById('sm-pulse-style')){
+        var pst=document.createElement('style');
+        pst.id='sm-pulse-style';
+        pst.textContent='@keyframes sm-go-pulse{0%,100%{box-shadow:0 0 6px 0 rgba(45,232,160,0.25)}50%{box-shadow:0 0 24px 10px rgba(45,232,160,0.65)}}.sm-go-pulse{animation:sm-go-pulse 1.5s ease-in-out infinite}';
+        document.head.appendChild(pst);
+      }
+
       // Go / Done round button — lower-right, shown whenever a deck is selected
       var doneBtn=document.createElement('div');
       doneBtn.id='sm-done-btn';
       var _isGo=isGoMode();
       Object.assign(doneBtn.style,{
-        position:'absolute',bottom:'10px',right:'12px',
+        position:'absolute',bottom:'84px',right:'12px',
         width:'46px',height:'46px',borderRadius:'50%',
         display:currentDeck?'flex':'none',
         alignItems:'center',justifyContent:'center',
@@ -13378,6 +13498,7 @@
         background:_isGo?'rgba(45,232,160,0.12)':'rgba(0,217,255,0.10)'
       });
       doneBtn.textContent=_isGo?'Go':'Done';
+      if(_isGo) doneBtn.classList.add('sm-go-pulse');
 
       doneBtn.addEventListener('mouseenter',function(){
         doneBtn.style.background=isGoMode()?'rgba(45,232,160,0.25)':'rgba(0,217,255,0.22)';
@@ -13391,11 +13512,12 @@
           customDone=true;
           doneBtn.textContent='Go';
           Object.assign(doneBtn.style,{borderColor:'#2de8a0',color:'#2de8a0',background:'rgba(45,232,160,0.12)'});
+          doneBtn.classList.add('sm-go-pulse');
           var hint2=document.getElementById('sm-custom-hint');
           if(hint2) hint2.style.display='none';
           if(el._nodeSel){
             el._nodeSel.attr('filter',null);
-            el._nodeSel.select('rect').transition().duration(300).attr('stroke-width',1.8);
+            el._nodeSel.select('rect').transition().duration(300).attr('stroke-width',1.2);
           }
           applyDeckDimming(el);
         } else {
@@ -13416,7 +13538,87 @@
       });
       el.appendChild(doneBtn);
 
+      // Reset button — upper right corner
+      var resetBtn=document.createElement('div');
+      resetBtn.id='sm-reset-btn';
+      Object.assign(resetBtn.style,{
+        position:'absolute',top:'8px',right:'8px',
+        width:'22px',height:'22px',borderRadius:'50%',
+        display:currentDeck?'flex':'none',
+        alignItems:'center',justifyContent:'center',
+        cursor:'pointer',zIndex:'12',userSelect:'none',
+        fontFamily:'sans-serif',fontSize:'14px',lineHeight:'1',
+        color:'rgba(120,140,160,0.45)',
+        border:'1px solid rgba(100,120,150,0.18)',
+        background:'rgba(4,8,20,0.55)',
+        transition:'color 0.15s,border-color 0.15s,background 0.15s'
+      });
+      resetBtn.textContent='↺';
+      resetBtn.title='Reset deck selection';
+      resetBtn.addEventListener('mouseenter',function(){
+        resetBtn.style.color='#ff6060';
+        resetBtn.style.borderColor='rgba(255,80,80,0.45)';
+        resetBtn.style.background='rgba(255,50,50,0.10)';
+      });
+      resetBtn.addEventListener('mouseleave',function(){
+        resetBtn.style.color='rgba(120,140,160,0.45)';
+        resetBtn.style.borderColor='rgba(100,120,150,0.18)';
+        resetBtn.style.background='rgba(4,8,20,0.55)';
+      });
+      resetBtn.addEventListener('click',function(){resetDeck(el);});
+      el.appendChild(resetBtn);
+
       createDimOverlay();
+    }
+
+    function resetDeck(el){
+      deactivateDeckNav();
+      currentDeck=null;
+      customDone=false;
+      DECKS.custom.ids=new Set();
+      var hint=document.getElementById('sm-custom-hint');
+      var doneBtn=document.getElementById('sm-done-btn');
+      var resetBtn=document.getElementById('sm-reset-btn');
+      if(hint) hint.style.display='none';
+      if(doneBtn){doneBtn.style.display='none';doneBtn.classList.remove('sm-go-pulse');}
+      if(resetBtn) resetBtn.style.display='none';
+      updateRadioVisuals();
+      if(el&&el._nodeSel){
+        el._nodeSel.transition().duration(350).style('opacity',1).attr('filter',null);
+        el._nodeSel.select('rect').transition().duration(350).attr('stroke-width',1.2);
+      }
+      if(el&&el._linkSel) el._linkSel.transition().duration(350).style('opacity',1);
+      updateEraHeaderVisuals(el);
+      var ov=document.getElementById('deck-dim-overlay');
+      if(ov) ov.style.display='none';
+    }
+
+    function updateEraHeaderVisuals(el){
+      if(!el||!el._eraGroups) return;
+      var inCustom=currentDeck==='custom';
+      var ids=DECKS.custom.ids;
+      el._eraGroups.forEach(function(eg,i){
+        var eraNum=i+1;
+        var eraNodes=nodes.filter(function(n){return n.era===eraNum;});
+        eg.style('cursor',deckNavActive?'default':'pointer');
+        if(inCustom){
+          var count=eraNodes.filter(function(n){return ids.has(n.slideId);}).length;
+          var allIn=count===eraNodes.length;
+          var anyIn=count>0;
+          eg.select('rect')
+            .attr('fill',allIn?'rgba(45,232,160,0.14)':anyIn?'rgba(255,168,48,0.09)':'rgba(255,255,255,0.02)')
+            .attr('stroke',allIn?'#2de8a0':anyIn?'#ffa830':'rgba(100,120,140,0.2)')
+            .attr('stroke-width',0.8);
+          eg.selectAll('text').attr('fill',function(d,ti){
+            return allIn?'#2de8a0':anyIn?'#ffa830':(ti===0?'#5a7090':'#3d5060');
+          });
+        } else {
+          eg.select('rect').attr('fill','transparent').attr('stroke','none');
+          eg.selectAll('text').attr('fill',function(d,ti){
+            return ti===0?'#364858':'#253040';
+          });
+        }
+      });
     }
 
     function draw(el){
@@ -13427,10 +13629,10 @@
 
       const defs=svg.append('defs');
       defs.append('marker').attr('id','sm-arr')
-        .attr('markerWidth',6).attr('markerHeight',6)
-        .attr('refX',5).attr('refY',3).attr('orient','auto')
-        .append('path').attr('d','M0,0 L0,6 L6,3 Z')
-        .attr('fill','rgba(140,170,200,0.85)');
+        .attr('markerWidth',4).attr('markerHeight',4)
+        .attr('refX',4).attr('refY',2).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,4 L4,2 Z')
+        .attr('fill','rgba(140,170,200,0.65)');
       var glowF=defs.append('filter').attr('id','sm-glow')
         .attr('x','-50%').attr('y','-50%').attr('width','200%').attr('height','200%');
       glowF.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',6).attr('result','blur');
@@ -13448,52 +13650,107 @@
           .attr('stroke-dasharray','3,5');
       }
 
-      // Era labels
+      // Era labels — clickable in My Deck mode to toggle whole topic
+      var eraGroups=[];
       eraLabels.forEach(function(lines,i){
+        var eraNum=i+1;
+        var eg=svg.append('g').style('cursor','default');
+        eg.append('rect')
+          .attr('x',eraX[i]-46).attr('y',0)
+          .attr('width',92).attr('height',24)
+          .attr('rx',4)
+          .attr('fill','transparent').attr('stroke','none').attr('stroke-width',0.8);
         lines.forEach(function(line,li){
-          svg.append('text').attr('x',eraX[i]).attr('y',10+li*10)
+          eg.append('text').attr('x',eraX[i]).attr('y',10+li*10)
             .attr('text-anchor','middle')
             .attr('fill',li===0?'#364858':'#253040')
             .attr('font-size',li===0?'8.5px':'7.5px')
             .attr('font-weight',li===0?'700':'400')
             .attr('font-family','sans-serif').text(line);
         });
+        eg.on('mouseenter',function(){
+          if(deckNavActive) return;
+          if(currentDeck==='custom'&&!customDone){
+            var eraNodes=nodes.filter(function(n){return n.era===eraNum;});
+            var allIn=eraNodes.every(function(n){return DECKS.custom.ids.has(n.slideId);});
+            if(!allIn) eg.select('rect').attr('fill','rgba(255,255,255,0.06)');
+          } else {
+            // Hint: clicking will start/switch to topic selection
+            eg.select('rect')
+              .attr('fill','rgba(0,217,255,0.07)')
+              .attr('stroke','rgba(0,217,255,0.3)').attr('stroke-width',0.8);
+          }
+        }).on('mouseleave',function(){
+          var canv=document.getElementById('slide-map-canvas');
+          updateEraHeaderVisuals(canv);
+        }).on('click',function(){
+          if(deckNavActive) return;
+          var canv=document.getElementById('slide-map-canvas');
+          var hint=document.getElementById('sm-custom-hint');
+          var doneBtn=document.getElementById('sm-done-btn');
+          // Switch to custom mode if not already in edit state
+          var resetBtn2=document.getElementById('sm-reset-btn');
+          if(currentDeck!=='custom'||customDone){
+            deactivateDeckNav();
+            // Only reset ids when switching from a different deck type
+            if(currentDeck!=='custom') DECKS.custom.ids=new Set();
+            currentDeck='custom';
+            customDone=false;
+            if(hint) hint.style.display='block';
+            if(doneBtn){
+              doneBtn.style.display='flex';doneBtn.textContent='Done';
+              doneBtn.classList.remove('sm-go-pulse');
+              Object.assign(doneBtn.style,{borderColor:'#00d9ff',color:'#00d9ff',background:'rgba(0,217,255,0.10)'});
+            }
+            if(resetBtn2) resetBtn2.style.display='flex';
+            updateRadioVisuals();
+          }
+          // Toggle the era
+          var eraNodes=nodes.filter(function(n){return n.era===eraNum;});
+          var ids=DECKS.custom.ids;
+          var allIn=eraNodes.every(function(n){return ids.has(n.slideId);});
+          eraNodes.forEach(function(n){if(allIn)ids.delete(n.slideId);else ids.add(n.slideId);});
+          applyCustomEditView(canv);
+          updateEraHeaderVisuals(canv);
+        });
+        eraGroups.push(eg);
       });
+      el._eraGroups=eraGroups;
 
       nodes.forEach(function(n){
-        n.x=eraX[n.era-1]+(Math.random()-0.5)*30;
-        n.y=80+Math.random()*330;
+        n.x=eraX[n.era-1]+(Math.random()-0.5)*20;
+        n.y=40+Math.random()*550;
       });
 
       var linkData=rawLinks.map(function(d){return{source:d[0],target:d[1]};});
 
       var sim=d3.forceSimulation(nodes)
-        .force('link',d3.forceLink(linkData).id(function(d){return d.id;}).distance(70).strength(0.04))
-        .force('x',d3.forceX(function(d){return eraX[d.era-1];}).strength(0.5))
-        .force('y',d3.forceY(H*0.52).strength(0.06))
-        .force('collide',d3.forceCollide(52))
-        .alphaDecay(0.035);
+        .force('link',d3.forceLink(linkData).id(function(d){return d.id;}).distance(40).strength(0.03))
+        .force('x',d3.forceX(function(d){return eraX[d.era-1];}).strength(0.6))
+        .force('y',d3.forceY(H*0.5).strength(0.03))
+        .force('collide',d3.forceCollide(20))
+        .alphaDecay(0.028);
       el._smSim=sim;
 
       // Links — drawn BEFORE nodes so nodes render on top
       var linkSel=svg.append('g').selectAll('path')
         .data(linkData).join('path')
         .attr('fill','none')
-        .attr('stroke',function(d){return d.source.color+'aa';})
-        .attr('stroke-width',2)
+        .attr('stroke',function(d){return d.source.color+'66';})
+        .attr('stroke-width',1)
         .attr('marker-end','url(#sm-arr)');
 
-      var NW=100,NH=36;
+      var NW=58,NH=16;
       var nodeSel=svg.append('g').selectAll('g')
         .data(nodes).join('g');
 
       // Solid dark rect prevents edges from bleeding through labels
       nodeSel.append('rect')
         .attr('x',-NW/2).attr('y',-NH/2)
-        .attr('width',NW).attr('height',NH).attr('rx',5)
+        .attr('width',NW).attr('height',NH).attr('rx',3)
         .attr('fill','rgba(8,12,28,0.97)')
         .attr('stroke',function(d){return d.color;})
-        .attr('stroke-width',1.8);
+        .attr('stroke-width',1.2);
 
       nodeSel.each(function(d){
         var g=d3.select(this);
@@ -13501,13 +13758,13 @@
         if(d.label.length===1){
           g.append('text').attr('y',1)
             .attr('text-anchor','middle').attr('dominant-baseline','middle')
-            .attr('fill',d.color).attr('font-size','8px').attr('font-weight','700')
+            .attr('fill',d.color).attr('font-size','7px').attr('font-weight','700')
             .attr('font-family','sans-serif').text(d.label[0]);
         } else {
           d.label.forEach(function(line,li){
-            g.append('text').attr('y',-7+li*13)
+            g.append('text').attr('y',-4+li*8)
               .attr('text-anchor','middle').attr('dominant-baseline','middle')
-              .attr('fill',d.color).attr('font-size','8px').attr('font-weight','600')
+              .attr('fill',d.color).attr('font-size','7px').attr('font-weight','600')
               .attr('font-family','sans-serif').text(line);
           });
         }
@@ -13517,14 +13774,13 @@
         .style('cursor','pointer')
         .on('mouseover',function(event,d){
           d3.select(this).select('rect')
-            .attr('stroke-width',currentDeck==='custom'&&!customDone&&DECKS.custom.ids.has(d.slideId)?3:3)
+            .attr('stroke-width',2.4)
             .attr('fill','rgba(20,28,55,0.99)');
         })
         .on('mouseout',function(event,d){
           d3.select(this).select('rect').attr('fill','rgba(8,12,28,0.97)');
-          // Restore stroke — keep thick for selected custom nodes
           var keepThick=currentDeck==='custom'&&!customDone&&DECKS.custom.ids.has(d.slideId);
-          d3.select(this).select('rect').attr('stroke-width',keepThick?3:1.8);
+          d3.select(this).select('rect').attr('stroke-width',keepThick?2.4:1.2);
         })
         .on('click',function(event,d){
           if(currentDeck==='custom'&&!customDone){
@@ -13535,7 +13791,8 @@
             d3.select(this)
               .attr('filter',adding?'url(#sm-glow)':null);
             d3.select(this).select('rect').transition().duration(160)
-              .attr('stroke-width',adding?3:1.8);
+              .attr('stroke-width',adding?2.4:1.2);
+            updateEraHeaderVisuals(document.getElementById('slide-map-canvas'));
             return;
           }
           if(!d.slideId) return;

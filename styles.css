@@ -293,10 +293,10 @@
 
 .timeline {
   position: fixed;
-  bottom: 20px;
+  bottom: 18px;
   left: 60px;
   right: 60px;
-  height: 40px;
+  height: 36px;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -307,7 +307,7 @@
   top: 50%;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 2px;
   background: var(--line-color);
   transform: translateY(-50%);
 }
@@ -323,30 +323,34 @@
 }
 
 .timeline-marker .dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--muted-color);
-  border: 2px solid var(--background-color);
-  margin-bottom: 5px;
+  border: 1.5px solid var(--background-color);
+  margin-bottom: 4px;
+  transition: width 0.2s, height 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .timeline-marker .label {
-  font-size: 10pt;
+  font-size: 8px;
   color: var(--muted-color);
   white-space: nowrap;
+  opacity: 0.7;
+  transition: color 0.2s, opacity 0.2s;
 }
 
 .timeline-marker.active .dot {
   background: var(--primary-color);
-  width: 14px;
-  height: 14px;
-  box-shadow: 0 0 10px var(--primary-color);
+  width: 11px;
+  height: 11px;
+  box-shadow: 0 0 8px var(--primary-color);
 }
 
 .timeline-marker.active .label {
   color: var(--primary-color);
   font-weight: 600;
+  opacity: 1;
 }
 
 /* ── Tips & Tricks Animation ── */
