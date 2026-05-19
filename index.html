@@ -22,10 +22,13 @@
   <div class="reveal">
     <div class="slides">
 
-      <section id="title" class="section-divider" data-state="is-section-divider">
-        <h1>The Evolution of Artificial Intelligence</h1>
-        <p class="text-xl" style="margin-top: 20px;">From Pattern Recognition to Transformers</p>
-      </section>
+      <section id="slide-map">
+  <h2 style="margin-bottom:4px;">The Evolution of Artificial Intelligence</h2>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Left → right: chronological order · colour = theme · edges = conceptual dependencies</p>
+  <div class="content" style="padding-top:2px;">
+    <div id="slide-map-canvas" style="width:100%;height:472px;"></div>
+  </div>
+</section>
 
       <!-- Early ML -->
       <section>
@@ -2610,6 +2613,13 @@
     </div>
   </section>
 
+  <section id="human-annotation">
+    <h2 style="margin-bottom:6px;">Human Annotation in LLM Training</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="human-annotation-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
   <section id="attn-masking">
     <h2 style="margin-bottom:6px;">Masking in Decoder Attention</h2>
     <div class="content" style="padding-top:2px;">
@@ -2750,7 +2760,7 @@
       </section>
 
       <section id="multimodal-ar">
-        <h2 style="margin-bottom:6px;">Cutting-Edge: Multimodal Autoregressive Models</h2>
+        <h2 style="margin-bottom:6px;">Cutting-Edge: Multimodal Autoregressive Models <span style="font-size:0.5em;color:#5a7090;font-style:italic;font-weight:normal;">— it gets proprietary from here on..</span></h2>
         <div class="content" style="padding-top:2px;">
           <div id="multimodal-ar-canvas" style="width:100%;height:490px;"></div>
         </div>
@@ -2759,9 +2769,10 @@
 </section>
 
 <section id="moe">
-  <h2 style="margin-bottom:6px;">Mixture of Experts (MoE)</h2>
+  <h2 style="margin-bottom:4px;">Mixture of Experts (MoE)</h2>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Avoid using the parts of the model that are not needed</p>
   <div class="content" style="padding-top:2px;">
-    <div id="moe-canvas" style="width:100%;height:490px;"></div>
+    <div id="moe-canvas" style="width:100%;height:472px;"></div>
   </div>
 </section>
 
@@ -2769,6 +2780,14 @@
   <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
   <div class="content" style="padding-top:2px;">
     <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
+  </div>
+</section>
+
+<section id="prompts-harnesses-agents">
+  <h2 style="margin-bottom:4px;">AI Prompts, Harnesses and Agents</h2>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">It's all text instructions</p>
+  <div class="content" style="padding-top:2px;">
+    <div id="pha-canvas" style="width:100%;height:472px;"></div>
   </div>
 </section>
 
@@ -8314,6 +8333,172 @@
   })();
   </script>
 
+  <!-- AI Prompts, Harnesses and Agents animation (prompts-harnesses-agents slide) -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830';
+    const CW='rgba(220,238,255,0.90)';
+
+    const cols=[
+      {
+        x:10,w:346,color:C1,
+        title:'Prompts',
+        sub:'The fundamental unit: text in, text out',
+        chips:['System prompt','User message','Assistant reply'],
+        exLabel:'Direct interaction',
+        exLines:[
+          'System: You are a helpful assistant.',
+          'User:   Summarize this in 3 bullets.',
+          'Model:  • Finding 1  • Finding 2  • Finding 3'
+        ],
+        bullets:['One-shot, few-shot, chain-of-thought','Temperature, max_tokens, stop sequences','Any task that can be described in text'],
+      },
+      {
+        x:376,w:346,color:C2,
+        title:'Harnesses & Frameworks',
+        sub:'Programmatic orchestration of prompts',
+        chips:['System template','Retrieved context','Conversation history','User message','Output schema'],
+        exLabel:'LangChain / LlamaIndex',
+        exLines:[
+          'chain = prompt | llm | output_parser',
+          'result = chain.invoke({"topic": "AI"})',
+          '# Routing, RAG, chaining — still just text'
+        ],
+        bullets:['RAG: retrieved docs injected as context','Structured output: JSON / typed schemas','Routing: pick prompt template per intent'],
+      },
+      {
+        x:742,w:348,color:CA,
+        title:'Agents',
+        sub:'LLMs that reason, act, and loop autonomously',
+        chips:['Task prompt','Tool schemas (text)','Tool results (text)','Memory','Plan → Act → Observe'],
+        exLabel:'ReAct / Function Calling loop',
+        exLines:[
+          'Thought: I should search for this first.',
+          'Action:  search("AI market leaders 2024")',
+          'Observation: [results] → loop until done…'
+        ],
+        bullets:['Tools: web search, code exec, APIs, files','ReAct: Reason → Act → Observe → repeat','Multi-agent: agents calling other agents'],
+      },
+    ];
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      // Column backgrounds
+      const bgRects=cols.map(function(c){
+        return svg.append('rect').attr('x',c.x).attr('y',2)
+          .attr('width',c.w).attr('height',398)
+          .attr('rx',10).attr('fill','rgba(10,14,30,0.95)')
+          .attr('stroke',c.color).attr('stroke-width',1.5);
+      });
+
+      cols.forEach(function(c){
+        const p=12,ix=c.x+p;
+        const cW=(c.w-2*p-8)/2,cH=20,cGap=6;
+
+        // Title
+        svg.append('text').attr('x',c.x+c.w/2).attr('y',23)
+          .attr('text-anchor','middle').attr('fill',c.color)
+          .attr('font-size','14px').attr('font-weight','700')
+          .attr('font-family','sans-serif').text(c.title);
+
+        // Sub
+        svg.append('text').attr('x',c.x+c.w/2).attr('y',38)
+          .attr('text-anchor','middle').attr('fill','#4a6070')
+          .attr('font-size','9.5px').attr('font-family','sans-serif').text(c.sub);
+
+        // Divider
+        svg.append('line').attr('x1',ix).attr('y1',46).attr('x2',c.x+c.w-p).attr('y2',46)
+          .attr('stroke','#1a2535').attr('stroke-width',1);
+
+        // Component chips
+        c.chips.forEach(function(chip,ci){
+          const col=ci%2,row=Math.floor(ci/2);
+          const cx=ix+col*(cW+8),cy=52+row*(cH+cGap);
+          svg.append('rect').attr('x',cx).attr('y',cy)
+            .attr('width',cW).attr('height',cH).attr('rx',4)
+            .attr('fill',c.color+'14').attr('stroke',c.color+'55').attr('stroke-width',1);
+          svg.append('text').attr('x',cx+cW/2).attr('y',cy+cH/2+1)
+            .attr('text-anchor','middle').attr('dominant-baseline','middle')
+            .attr('fill',c.color).attr('font-size','8.5px').attr('font-family','sans-serif')
+            .text(chip);
+        });
+
+        // Example block
+        const exY=162;
+        svg.append('text').attr('x',ix).attr('y',exY-4)
+          .attr('fill',CA).attr('font-size','8.5px').attr('font-weight','700')
+          .attr('font-family','sans-serif').text(c.exLabel+':');
+        svg.append('rect').attr('x',ix).attr('y',exY+2)
+          .attr('width',c.w-2*p).attr('height',74).attr('rx',5)
+          .attr('fill','rgba(4,6,18,0.95)').attr('stroke','#1a2535').attr('stroke-width',1);
+        c.exLines.forEach(function(line,li){
+          svg.append('text').attr('x',ix+6).attr('y',exY+18+li*20)
+            .attr('fill','#7a9abb').attr('font-size','9.5px').attr('font-family','monospace')
+            .text(line.length>48?line.slice(0,46)+'…':line);
+        });
+
+        // Bullets
+        const bullY=250;
+        svg.append('line').attr('x1',ix).attr('y1',bullY-8).attr('x2',c.x+c.w-p).attr('y2',bullY-8)
+          .attr('stroke','#1a2535').attr('stroke-width',1).attr('stroke-dasharray','3,3');
+        c.bullets.forEach(function(b,bi){
+          svg.append('text').attr('x',ix+6).attr('y',bullY+bi*17)
+            .attr('fill','#4a6070').attr('font-size','10px').attr('font-family','sans-serif')
+            .text('• '+b);
+        });
+      });
+
+      // Bottom bar
+      const barY=408;
+      svg.append('rect').attr('x',0).attr('y',barY).attr('width',W).attr('height',H-barY)
+        .attr('fill','rgba(255,168,48,0.06)').attr('stroke',C3+'66')
+        .attr('stroke-width',1).attr('stroke-dasharray','5,4');
+      svg.append('text').attr('x',W/2).attr('y',barY+22)
+        .attr('text-anchor','middle').attr('fill',C3)
+        .attr('font-size','13px').attr('font-weight','700').attr('font-family','sans-serif')
+        .text('At every level the model only ever reads and produces plain text.');
+      svg.append('text').attr('x',W/2).attr('y',barY+42)
+        .attr('text-anchor','middle').attr('fill','#705a20')
+        .attr('font-size','10.5px').attr('font-family','sans-serif')
+        .text('Tool schemas, retrieved docs, tool results, agent plans, chat history — all assembled into one text prompt before the model reads it.');
+      svg.append('text').attr('x',W/2).attr('y',barY+60)
+        .attr('text-anchor','middle').attr('fill','#504830')
+        .attr('font-size','10px').attr('font-family','sans-serif')
+        .text('The intelligence is in the model. Harnesses and agents just structure the text it sees.');
+
+      // Animation: cycle active column highlight
+      var active=0;
+      function tick(){
+        bgRects.forEach(function(r,i){
+          r.attr('stroke-width',i===active?3:1.5)
+            .attr('fill',i===active?'rgba(16,22,44,0.98)':'rgba(10,14,30,0.95)');
+        });
+        active=(active+1)%3;
+      }
+      tick();
+      el._phaInterval=setInterval(tick,2800);
+    }
+
+    function maybeInit(){
+      var el=document.getElementById('pha-canvas');
+      if(el&&!el._phaReady){el._phaReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='prompts-harnesses-agents'){
+        var el=document.getElementById('pha-canvas');
+        if(el){clearInterval(el._phaInterval);el._phaReady=false;}
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='prompts-harnesses-agents') maybeInit();
+    });
+  })();
+  </script>
+
   <!-- Cross-attention diffusion animation -->
   <script>
   (function(){
@@ -10223,6 +10408,219 @@
         if(el) el._gltReady=false;
       }
       if(ev.currentSlide&&ev.currentSlide.id==='gen-llm-training') maybeInit();
+    });
+  })();
+  </script>
+
+  <!-- Human Annotation in LLM Training animation (human-annotation slide) -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+    const C1='#6a1aaa',C2='#4da8ff',CA='#2de8a0',C3='#ffa830',CR='#e86040';
+    const CW='rgba(220,238,255,0.90)';
+    const mColors=[C2,C3,C3,CR,C1,CA];
+
+    const stages=[
+      {id:'pretrain',lines:['Self-Supervised','Pre-Training'],human:false,color:C2,
+       badge:'🤖  Automated — no human labels needed',
+       what:['Next-token prediction on massive text and code corpora.',
+             'The next word in the text IS already the label — no one needs',
+             'to annotate every sentence. The data labels itself.'],
+       task:['"The cat sat on the ___"   →   model predicts "mat"',
+             '"Paris is the capital of ___"   →   "France"',
+             'Teaches language, facts, code structure, and reasoning.']},
+      {id:'instruct',lines:['Instruction','Tuning'],human:true,color:C3,
+       badge:'🧑  Humans write (prompt → ideal response) example pairs',
+       what:['A raw pretrained model is a text completion engine.',
+             'It may just continue the prompt instead of answering helpfully.',
+             'Instruction tuning teaches it to follow commands properly.'],
+       task:['User:    Explain backpropagation simply.',
+             'Assist:  "Backprop traces errors backwards through layers,',
+             '          adjusting weights to reduce the mistake."']},
+      {id:'rlhf',lines:['Preference Training','(RLHF / DPO)'],human:true,color:C3,
+       badge:'🧑  Humans rank which model output is better',
+       what:['Annotators compare several model responses and rank them.',
+             '"Answer A > Answer C > Answer B" trains a reward model',
+             'that steers the policy toward preferred outputs.'],
+       task:['Prompt:   "How do I reset my router?"',
+             'Answer A: clear step-by-step guide              ★  BEST',
+             'Answer B: vague and partly wrong                 ✗  WORST']},
+      {id:'safety',lines:['Safety','Training'],human:true,color:CR,
+       badge:'🧑  Humans label allowed / disallowed / sensitive content',
+       what:['Annotators teach the model when to refuse, redirect,',
+             'or handle a request carefully. This is why modern chat',
+             'models behave very differently from raw pretrained models.'],
+       task:['Input:  [request for malware code]',
+             'Label:  REFUSE — offer cybersecurity framing instead',
+             'Input:  [medical advice request]   →   ANSWER CAREFULLY']},
+      {id:'quality',lines:['Data Quality','& Filtering'],human:true,color:C1,
+       badge:'🧑  Humans classify training data quality, toxicity, and PII',
+       what:['The raw internet is noisy. Annotators decide what to include,',
+             'exclude, or down-weight: spam, toxic content, duplicates,',
+             'personally identifiable information, and copyright content.'],
+       task:['Page A: high-quality technical article            ✓  include',
+             'Page B: spam / low-quality scrape                 ✗  exclude',
+             'Page C: contains names and email addresses (PII)   ✗  filter']},
+      {id:'eval',lines:['Evaluation &','Red-teaming'],human:true,color:CA,
+       badge:'🧑  Humans build test sets and probe for failures before release',
+       what:['Annotators build benchmarks and red-teamers actively try',
+             'to make the model fail: hallucinate, produce unsafe content,',
+             'or reveal harmful info through clever rephrasing.'],
+       task:['Q:  Does this answer hallucinate a citation?',
+             'A:  Yes — model invented "Smith et al., 2019"   → flag',
+             'Red-team: harmful output elicited via fiction framing']},
+    ];
+
+    const miniLabels=['Pre-Train','Instruct','RLHF','Safety','Quality','Eval'];
+    const NOTES=[
+      'Annotators mostly judge higher-level signals — not labeling every word:',
+      '"Which answer is better?"   "Is this safe?"   "Is this high quality?"   "What should the model do here?"'
+    ];
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      defs.append('marker').attr('id','ha-arr')
+        .attr('markerWidth',6).attr('markerHeight',6)
+        .attr('refX',5).attr('refY',3).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,6 L6,3 Z').attr('fill','#1a2535');
+
+      // ── Left pipeline ────────────────────────────────────────────────
+      const PX=10,PW=310,sH=62,sGap=9;
+      const totalH=stages.length*sH+(stages.length-1)*sGap;
+      const sY0=Math.round((H-totalH)/2);
+
+      stages.forEach(function(_,i){
+        if(!i) return;
+        const cx=PX+PW/2,y1=sY0+(i-1)*(sH+sGap)+sH+1,y2=sY0+i*(sH+sGap)-1;
+        svg.append('line').attr('x1',cx).attr('y1',y1).attr('x2',cx).attr('y2',y2)
+          .attr('stroke','#1a2535').attr('stroke-width',2).attr('marker-end','url(#ha-arr)');
+      });
+
+      const boxRects=[],miniBoxRects=[];
+      stages.forEach(function(s,i){
+        const y=sY0+i*(sH+sGap),g=svg.append('g');
+        const rect=g.append('rect').attr('x',PX).attr('y',y)
+          .attr('width',PW).attr('height',sH).attr('rx',7)
+          .attr('fill','rgba(10,14,28,0.95)').attr('stroke',s.color).attr('stroke-width',1.5);
+        boxRects.push(rect);
+        g.append('circle').attr('cx',PX+13).attr('cy',y+sH/2).attr('r',5)
+          .attr('fill',s.human?C3:C2);
+        var midY=y+sH/2,offs=(s.lines.length-1)*9;
+        s.lines.forEach(function(line,li){
+          g.append('text')
+            .attr('x',PX+PW/2+8).attr('y',midY-offs+li*18)
+            .attr('text-anchor','middle').attr('dominant-baseline','middle')
+            .attr('fill',s.color).attr('font-size','12px').attr('font-weight','700')
+            .attr('font-family','sans-serif').text(line);
+        });
+      });
+
+      // ── Right panel ──────────────────────────────────────────────────
+      const RX=PX+PW+18,RW=W-RX-10;
+      svg.append('circle').attr('cx',RX+7).attr('cy',13).attr('r',5).attr('fill',C2);
+      svg.append('text').attr('x',RX+16).attr('y',17).attr('fill','#4a6070')
+        .attr('font-size','10px').attr('font-family','sans-serif').text('Automated (self-supervised)');
+      svg.append('circle').attr('cx',RX+215).attr('cy',13).attr('r',5).attr('fill',C3);
+      svg.append('text').attr('x',RX+224).attr('y',17).attr('fill','#4a6070')
+        .attr('font-size','10px').attr('font-family','sans-serif').text('Human annotation required');
+
+      var DX=RX,DY=24,DW=RW,DH=H-DY-8,p=16,ix=DX+p;
+      var detailBg=svg.append('rect').attr('x',DX).attr('y',DY).attr('width',DW).attr('height',DH)
+        .attr('rx',10).attr('fill','rgba(10,14,30,0.95)').attr('stroke',C2).attr('stroke-width',1.5);
+
+      function hs(y,dash){
+        var l=svg.append('line').attr('x1',ix).attr('y1',DY+y).attr('x2',DX+DW-p).attr('y2',DY+y)
+          .attr('stroke','#1e2a3a').attr('stroke-width',1);
+        if(dash) l.attr('stroke-dasharray','3,3');
+      }
+
+      var elBadge=svg.append('text').attr('x',ix).attr('y',DY+28)
+        .attr('font-size','11px').attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',C2);
+      var elTitle=svg.append('text').attr('x',ix).attr('y',DY+52)
+        .attr('font-size','16px').attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CW);
+      hs(67);
+      var elWhat=[0,1,2].map(function(li){
+        return svg.append('text').attr('x',ix).attr('y',DY+87+li*17)
+          .attr('font-size','12px').attr('font-family','sans-serif').attr('fill','#6a8099');
+      });
+      hs(140);
+      svg.append('text').attr('x',ix).attr('y',DY+156)
+        .attr('font-size','10.5px').attr('font-weight','700')
+        .attr('font-family','sans-serif').attr('fill',CA).text('Example annotation task:');
+      svg.append('rect').attr('x',ix).attr('y',DY+163)
+        .attr('width',DW-2*p).attr('height',70)
+        .attr('rx',5).attr('fill','rgba(4,6,16,0.95)')
+        .attr('stroke','#1a2535').attr('stroke-width',1);
+      var elTask=[0,1,2].map(function(li){
+        return svg.append('text').attr('x',ix+8).attr('y',DY+179+li*19)
+          .attr('font-size','11.5px').attr('font-family','monospace').attr('fill','#8899bb');
+      });
+      hs(248,true);
+      NOTES.forEach(function(n,li){
+        svg.append('text').attr('x',ix).attr('y',DY+266+li*17)
+          .attr('font-size','11px').attr('font-family','sans-serif')
+          .attr('fill','#3d4e60').attr('font-style','italic').text(n);
+      });
+
+      // Mini pipeline summary
+      var mY=DY+320,mW=94,mH=22,mGap=10;
+      svg.append('text').attr('x',ix).attr('y',mY-6)
+        .attr('font-size','9.5px').attr('fill','#3d4e60')
+        .attr('font-family','sans-serif').text('Full training pipeline:');
+      miniLabels.forEach(function(label,i){
+        var mx=ix+i*(mW+mGap);
+        var mr=svg.append('rect').attr('x',mx).attr('y',mY)
+          .attr('width',mW).attr('height',mH).attr('rx',4)
+          .attr('fill','rgba(10,14,28,0.9)').attr('stroke',mColors[i]).attr('stroke-width',1);
+        miniBoxRects.push(mr);
+        svg.append('text').attr('x',mx+mW/2).attr('y',mY+mH/2+1)
+          .attr('text-anchor','middle').attr('dominant-baseline','middle')
+          .attr('font-size','9.5px').attr('fill',mColors[i]).attr('font-weight','600')
+          .attr('font-family','sans-serif').text(label);
+        if(i<miniLabels.length-1){
+          svg.append('text').attr('x',mx+mW+mGap/2).attr('y',mY+mH/2+1)
+            .attr('text-anchor','middle').attr('dominant-baseline','middle')
+            .attr('font-size','9px').attr('fill','#1e2a38').text('→');
+        }
+      });
+
+      // ── Animation ────────────────────────────────────────────────────
+      var idx=0;
+      function showStage(si){
+        var s=stages[si];
+        boxRects.forEach(function(r){r.attr('fill','rgba(10,14,28,0.95)').attr('stroke-width',1.5);});
+        boxRects[si].attr('fill',s.color+'18').attr('stroke-width',2.5);
+        miniBoxRects.forEach(function(r){r.attr('fill','rgba(10,14,28,0.9)').attr('stroke-width',1);});
+        miniBoxRects[si].attr('fill',mColors[si]+'22').attr('stroke-width',2);
+        detailBg.attr('stroke',s.color);
+        elBadge.attr('fill',s.color).text(s.badge);
+        elTitle.attr('fill',s.color).text(s.lines.join(' '));
+        elWhat.forEach(function(el,li){el.text(s.what[li]||'');});
+        elTask.forEach(function(el,li){el.text(s.task[li]||'');});
+      }
+      function tick(){showStage(idx%stages.length);idx++;}
+      tick();
+      el._haInterval=setInterval(tick,3200);
+    }
+
+    function maybeInit(){
+      var el=document.getElementById('human-annotation-canvas');
+      if(el&&!el._haReady){el._haReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='human-annotation'){
+        var el=document.getElementById('human-annotation-canvas');
+        if(el){clearInterval(el._haInterval);el._haReady=false;}
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='human-annotation') maybeInit();
     });
   })();
   </script>
@@ -12583,6 +12981,430 @@
       if (Reveal.getCurrentSlide()?.id === 'vit-demo') onEnter();
     });
   }
+  </script>
+
+  <!-- Concept-map network (slide-map slide) — D3 force simulation -->
+  <script>
+  (function(){
+    const W=1100,H=490;
+
+    const eraX=[62,172,282,392,496,600,706,810,924,1038];
+    const eraLabels=[
+      ['Classical ML','1989–98'],
+      ['Neural Nets','& MLP'],
+      ['Backprop &','Training'],
+      ['CNNs','2012+'],
+      ['Embeddings','2013'],
+      ['RNNs &','LSTMs'],
+      ['Attention','2015–17'],
+      ['Transformer','2017'],
+      ['LLMs','2018–22'],
+      ['Advanced','& Apps'],
+    ];
+
+    const nodes=[
+      {id:'n01',era:1,color:'#7a8fa8',label:['Early ML','1989–98'],           slideId:'early-ml'},
+      {id:'n02',era:1,color:'#7a8fa8',label:['MNIST &','Naive Bayes'],         slideId:'mnist-preprocessing'},
+      {id:'n03',era:2,color:'#4da8ff',label:['MLP &','Perceptron'],            slideId:'perceptron'},
+      {id:'n04',era:2,color:'#4da8ff',label:['Activation','Functions'],        slideId:'activation-functions'},
+      {id:'n05',era:3,color:'#8a5aff',label:['Backprop &','Gradient Descent'], slideId:'backprop-simple'},
+      {id:'n06',era:3,color:'#8a5aff',label:['Optimizers &','Regularization'], slideId:'optimization-algorithms'},
+      {id:'n07',era:4,color:'#2de8a0',label:['Convolutional','Nets (CNN)'],    slideId:'conv-filters'},
+      {id:'n08',era:4,color:'#2de8a0',label:['Encoder-Decoder','Architecture'],slideId:'enc-dec-concepts'},
+      {id:'n09',era:4,color:'#2de8a0',label:['Vision Live','Demo'],            slideId:'webcam-demo'},
+      {id:'n10',era:5,color:'#ffa830',label:['Word Embeddings','Word2Vec 2013'],slideId:'embeddings'},
+      {id:'n11',era:5,color:'#ffa830',label:['Vector Space','& Similarity'],   slideId:'vector-space-3d'},
+      {id:'n12',era:6,color:'#e86040',label:['RNNs','2014'],                   slideId:'rnn-animation'},
+      {id:'n13',era:6,color:'#e86040',label:['LSTMs','& Gates'],               slideId:'lstm-animation'},
+      {id:'n14',era:7,color:'#00d9ff',label:['Attention &','QKV Matrices'],    slideId:'qkv-attention'},
+      {id:'n15',era:7,color:'#00d9ff',label:['Multi-Head','Attention'],        slideId:'multi-head-attn'},
+      {id:'n16',era:7,color:'#00d9ff',label:['Positional','Encoding'],         slideId:'pos-encoding-sinusoidal'},
+      {id:'n17',era:8,color:'#4da8ff',label:['FFN &','GLU Layers'],            slideId:'ffn-layer'},
+      {id:'n18',era:8,color:'#4da8ff',label:['Full Transformer','Block 2017'], slideId:'transformers'},
+      {id:'n19',era:9,color:'#9a5aff',label:['LLM Families &','Architectures'],slideId:'llm-arch-families'},
+      {id:'n20',era:9,color:'#9a5aff',label:['Generative','Pre-training'],     slideId:'gen-llm-training'},
+      {id:'n21',era:9,color:'#9a5aff',label:['Human Annotation','& Alignment'],slideId:'human-annotation'},
+      {id:'n22',era:9,color:'#9a5aff',label:['Encoder-Only','BERT & CLS'],     slideId:'encoder-only'},
+      {id:'n23',era:9,color:'#9a5aff',label:['ViT Live','Demo'],               slideId:'vit-demo'},
+      {id:'n24',era:10,color:'#e86040',label:['Cross-Attention','& Multimodal'],slideId:'cross-attention'},
+      {id:'n25',era:10,color:'#e86040',label:['Mixture of','Experts (MoE)'],   slideId:'moe'},
+      {id:'n26',era:10,color:'#e86040',label:['LLM Scale &','Landscape'],      slideId:'llm-params'},
+      {id:'n27',era:10,color:'#2de8a0',label:['Prompts,','Harnesses & Agents'],slideId:'prompts-harnesses-agents'},
+      {id:'n28',era:10,color:'#ffa830',label:['Learning','Paradigms'],          slideId:'paradigms'},
+    ];
+
+    const rawLinks=[
+      ['n01','n02'],['n01','n03'],['n02','n03'],
+      ['n03','n04'],['n03','n05'],['n04','n05'],
+      ['n05','n06'],['n05','n07'],['n06','n07'],
+      ['n07','n08'],['n07','n09'],['n07','n10'],
+      ['n10','n11'],['n10','n12'],['n12','n13'],
+      ['n08','n14'],['n12','n14'],['n13','n14'],
+      ['n14','n15'],['n14','n16'],
+      ['n15','n17'],['n15','n18'],['n16','n18'],['n17','n18'],
+      ['n18','n19'],['n18','n22'],
+      ['n19','n20'],['n20','n21'],
+      ['n22','n23'],['n08','n24'],['n19','n24'],
+      ['n20','n25'],['n19','n26'],
+      ['n20','n27'],['n21','n27'],['n26','n27'],
+      ['n19','n28'],['n27','n28'],
+    ];
+
+    var DECKS={
+      flashy:{
+        name:'The Flashy Tour',icon:'✨',color:'#2de8a0',
+        desc:'Interactive demos & animations',
+        bullets:['Live webcam CNN demo','3D word vector explorer','Animated attention','All the eye candy'],
+        ids:new Set(['slide-map','early-ml','mnist-to-vector','perceptron','output-layer','training-network',
+          'gradient-landscape','conv-full-digit','cnn-slabs-c1','webcam-demo','word-vector-demo',
+          'rnn-animation','lstm-animation','qkv-attention','multi-head-attn','transformer-3d-overview',
+          'vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents'])
+      },
+      qnd:{
+        name:'Quick & Dirty',icon:'⚡',color:'#ffa830',
+        desc:'Non-technical overview',
+        bullets:['Core concepts only','No heavy math','Big-picture story','~30 slides'],
+        ids:new Set(['slide-map','early-ml','nn-intro','mlp-architecture','gradient-landscape',
+          'bias-variance','overfitting-epochs','conv-filters','cnn-architecture','enc-dec-concepts',
+          'cnn-intro','webcam-demo','no-more-mnist','embeddings','word-vector-demo','word-order-intro',
+          'rnn-animation','lstm-use-cases','transformers','transformer-3d-overview','llm-arch-families',
+          'gen-llm-training','human-annotation','vit-demo','cross-attention','moe','llm-params',
+          'prompts-harnesses-agents','paradigms'])
+      },
+      deepdive:{
+        name:'Deep Dive',icon:'🔬',color:'#9a5aff',
+        desc:'Every slide, nothing skipped',
+        bullets:['Full mathematical depth','All implementations','Code & details','The whole journey'],
+        ids:null
+      }
+    };
+
+    var currentDeck=null;
+
+    function createDimOverlay(){
+      if(document.getElementById('deck-dim-overlay')) return;
+      var ov=document.createElement('div');
+      ov.id='deck-dim-overlay';
+      Object.assign(ov.style,{
+        position:'fixed',top:'0',left:'0',width:'100%',height:'100%',
+        zIndex:'998',pointerEvents:'none',
+        background:'rgba(4,6,18,0.62)',display:'none'
+      });
+      var lbl=document.createElement('div');
+      Object.assign(lbl.style,{
+        position:'absolute',bottom:'28px',right:'32px',
+        background:'rgba(20,28,55,0.9)',
+        border:'1px solid rgba(120,140,180,0.3)',
+        color:'rgba(160,180,210,0.75)',
+        fontSize:'12px',padding:'6px 14px',borderRadius:'6px',
+        fontFamily:'sans-serif',letterSpacing:'0.03em'
+      });
+      lbl.textContent='⬡ Not in current deck';
+      ov.appendChild(lbl);
+      document.body.appendChild(ov);
+    }
+
+    function updateDimOverlay(slideId){
+      var ov=document.getElementById('deck-dim-overlay');
+      if(!ov||!currentDeck) return;
+      var deck=DECKS[currentDeck];
+      if(!deck.ids||slideId==='slide-map'){ov.style.display='none';return;}
+      ov.style.display=deck.ids.has(slideId)?'none':'block';
+    }
+
+    function applyDeckDimming(el){
+      if(!el||!el._nodeSel||!el._linkSel) return;
+      var deck=DECKS[currentDeck];
+      el._nodeSel.transition().duration(500)
+        .style('opacity',function(d){
+          return (!deck.ids||deck.ids.has(d.slideId))?1:0.14;
+        });
+      el._linkSel.transition().duration(500)
+        .style('opacity',function(d){
+          if(!deck.ids) return 1;
+          return (deck.ids.has(d.source.slideId)&&deck.ids.has(d.target.slideId))?1:0.06;
+        });
+    }
+
+    function updateRadioVisuals(){
+      document.querySelectorAll('.sm-deck-row').forEach(function(row){
+        var k=row.dataset.key;
+        var d=DECKS[k];
+        var sel=currentDeck===k;
+        row.style.border='1px solid '+(sel?d.color+'55':'transparent');
+        row.style.background=sel?d.color+'12':'transparent';
+        var radio=row.querySelector('.sm-radio');
+        if(radio){radio.style.borderColor=sel?d.color:'rgba(80,100,140,0.35)';radio.style.background=sel?d.color:'transparent';}
+        var name=row.querySelector('.sm-name');
+        if(name){name.style.color=sel?d.color:'rgba(140,160,185,0.55)';name.style.fontWeight=sel?'700':'400';}
+      });
+    }
+
+    function selectDeck(key){
+      currentDeck=key;
+      updateRadioVisuals();
+      applyDeckDimming(document.getElementById('slide-map-canvas'));
+      updateDimOverlay('slide-map');
+    }
+
+    function setupDeckUI(el){
+      el.style.position='relative';
+
+      // Tooltip — appended directly to canvas so it isn't clipped by the panel
+      var tooltip=document.createElement('div');
+      tooltip.id='sm-tooltip';
+      Object.assign(tooltip.style,{
+        position:'absolute',zIndex:'20',display:'none',
+        width:'140px',padding:'7px 10px',
+        background:'rgba(3,5,16,0.97)',
+        border:'1px solid rgba(60,80,120,0.45)',
+        borderRadius:'6px',pointerEvents:'none',
+        fontFamily:'sans-serif',
+        boxShadow:'0 4px 18px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.5)'
+      });
+      el.appendChild(tooltip);
+
+      // Compact radio-button panel — top-left corner
+      var panel=document.createElement('div');
+      panel.id='sm-chooser';
+      Object.assign(panel.style,{
+        position:'absolute',top:'8px',left:'8px',zIndex:'10',
+        display:'flex',flexDirection:'column',gap:'2px',
+        padding:'6px 8px',
+        background:'rgba(4,8,20,0.80)',
+        border:'1px solid rgba(60,80,120,0.22)',
+        borderRadius:'7px',fontFamily:'sans-serif'
+      });
+
+      var lbl=document.createElement('div');
+      Object.assign(lbl.style,{
+        color:'rgba(80,100,130,0.7)',fontSize:'8px',fontWeight:'700',
+        letterSpacing:'0.09em',textTransform:'uppercase',marginBottom:'3px'
+      });
+      lbl.textContent='Choose path';
+      panel.appendChild(lbl);
+
+      ['flashy','qnd','deepdive'].forEach(function(key){
+        var d=DECKS[key];
+        var sel=currentDeck===key;
+
+        var row=document.createElement('div');
+        row.className='sm-deck-row';
+        row.dataset.key=key;
+        Object.assign(row.style,{
+          display:'flex',alignItems:'center',gap:'6px',
+          padding:'4px 6px',borderRadius:'5px',cursor:'pointer',
+          border:'1px solid '+(sel?d.color+'55':'transparent'),
+          background:sel?d.color+'12':'transparent',
+          transition:'background 0.15s,border-color 0.15s'
+        });
+
+        var radio=document.createElement('div');
+        radio.className='sm-radio';
+        Object.assign(radio.style,{
+          width:'9px',height:'9px',borderRadius:'50%',flexShrink:'0',
+          border:'1.8px solid '+(sel?d.color:'rgba(80,100,140,0.35)'),
+          background:sel?d.color:'transparent',
+          transition:'border-color 0.15s,background 0.15s'
+        });
+        row.appendChild(radio);
+
+        var icon=document.createElement('span');
+        icon.style.fontSize='11px';
+        icon.textContent=d.icon;
+        row.appendChild(icon);
+
+        var name=document.createElement('span');
+        name.className='sm-name';
+        Object.assign(name.style,{
+          fontSize:'10px',whiteSpace:'nowrap',
+          color:sel?d.color:'rgba(140,160,185,0.55)',
+          fontWeight:sel?'700':'400',
+          transition:'color 0.15s'
+        });
+        name.textContent=d.name;
+        row.appendChild(name);
+
+        row.addEventListener('mouseenter',function(){
+          if(currentDeck!==key) row.style.background=d.color+'0e';
+          // Build and position tooltip
+          tooltip.innerHTML='';
+          var th=document.createElement('div');
+          Object.assign(th.style,{color:d.color,fontSize:'9.5px',fontWeight:'700',marginBottom:'2px',letterSpacing:'0.02em'});
+          th.textContent=d.name;
+          tooltip.appendChild(th);
+          var td=document.createElement('div');
+          Object.assign(td.style,{color:'#6a8090',fontSize:'8px',marginBottom:'4px',lineHeight:'1.35'});
+          td.textContent=d.desc;
+          tooltip.appendChild(td);
+          var ul=document.createElement('div');
+          Object.assign(ul.style,{margin:'0',padding:'0',color:'#3a5060',fontSize:'9.5px',lineHeight:'1.7'});
+          d.bullets.forEach(function(b){
+            var li=document.createElement('div');
+            li.style.cssText='font-size:9.5px;line-height:1.7;';
+            li.textContent='· '+b;
+            ul.appendChild(li);
+          });
+          tooltip.appendChild(ul);
+          tooltip.style.left=(panel.offsetLeft+panel.offsetWidth+8)+'px';
+          tooltip.style.top=(panel.offsetTop+row.offsetTop)+'px';
+          tooltip.style.display='block';
+        });
+        row.addEventListener('mouseleave',function(){
+          if(currentDeck!==key) row.style.background='transparent';
+          tooltip.style.display='none';
+        });
+        row.addEventListener('click',function(){selectDeck(key);});
+        panel.appendChild(row);
+      });
+
+      el.appendChild(panel);
+      createDimOverlay();
+    }
+
+    function draw(el){
+      el.innerHTML='';
+      const svg=d3.select(el).append('svg')
+        .attr('viewBox','0 0 '+W+' '+H)
+        .style('width','100%').style('height','100%');
+
+      const defs=svg.append('defs');
+      defs.append('marker').attr('id','sm-arr')
+        .attr('markerWidth',6).attr('markerHeight',6)
+        .attr('refX',5).attr('refY',3).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,6 L6,3 Z')
+        .attr('fill','rgba(140,170,200,0.85)');
+
+      // Era dividers
+      for(var i=0;i<eraX.length-1;i++){
+        var mx=(eraX[i]+eraX[i+1])/2;
+        svg.append('line').attr('x1',mx).attr('y1',26).attr('x2',mx).attr('y2',H)
+          .attr('stroke','#141e2c').attr('stroke-width',1)
+          .attr('stroke-dasharray','3,5');
+      }
+
+      // Era labels
+      eraLabels.forEach(function(lines,i){
+        lines.forEach(function(line,li){
+          svg.append('text').attr('x',eraX[i]).attr('y',10+li*10)
+            .attr('text-anchor','middle')
+            .attr('fill',li===0?'#364858':'#253040')
+            .attr('font-size',li===0?'8.5px':'7.5px')
+            .attr('font-weight',li===0?'700':'400')
+            .attr('font-family','sans-serif').text(line);
+        });
+      });
+
+      nodes.forEach(function(n){
+        n.x=eraX[n.era-1]+(Math.random()-0.5)*30;
+        n.y=80+Math.random()*330;
+      });
+
+      var linkData=rawLinks.map(function(d){return{source:d[0],target:d[1]};});
+
+      var sim=d3.forceSimulation(nodes)
+        .force('link',d3.forceLink(linkData).id(function(d){return d.id;}).distance(70).strength(0.04))
+        .force('x',d3.forceX(function(d){return eraX[d.era-1];}).strength(0.5))
+        .force('y',d3.forceY(H*0.52).strength(0.06))
+        .force('collide',d3.forceCollide(52))
+        .alphaDecay(0.035);
+      el._smSim=sim;
+
+      // Links — drawn BEFORE nodes so nodes render on top
+      var linkSel=svg.append('g').selectAll('path')
+        .data(linkData).join('path')
+        .attr('fill','none')
+        .attr('stroke',function(d){return d.source.color+'aa';})
+        .attr('stroke-width',2)
+        .attr('marker-end','url(#sm-arr)');
+
+      var NW=100,NH=36;
+      var nodeSel=svg.append('g').selectAll('g')
+        .data(nodes).join('g');
+
+      // Solid dark rect prevents edges from bleeding through labels
+      nodeSel.append('rect')
+        .attr('x',-NW/2).attr('y',-NH/2)
+        .attr('width',NW).attr('height',NH).attr('rx',5)
+        .attr('fill','rgba(8,12,28,0.97)')
+        .attr('stroke',function(d){return d.color;})
+        .attr('stroke-width',1.8);
+
+      nodeSel.each(function(d){
+        var g=d3.select(this);
+        g.append('title').text('→ '+d.label.join(' '));
+        if(d.label.length===1){
+          g.append('text').attr('y',1)
+            .attr('text-anchor','middle').attr('dominant-baseline','middle')
+            .attr('fill',d.color).attr('font-size','8px').attr('font-weight','700')
+            .attr('font-family','sans-serif').text(d.label[0]);
+        } else {
+          d.label.forEach(function(line,li){
+            g.append('text').attr('y',-7+li*13)
+              .attr('text-anchor','middle').attr('dominant-baseline','middle')
+              .attr('fill',d.color).attr('font-size','8px').attr('font-weight','600')
+              .attr('font-family','sans-serif').text(line);
+          });
+        }
+      });
+
+      nodeSel
+        .style('cursor','pointer')
+        .on('mouseover',function(event,d){
+          d3.select(this).select('rect')
+            .attr('stroke-width',3)
+            .attr('fill','rgba(20,28,55,0.99)');
+        })
+        .on('mouseout',function(event,d){
+          d3.select(this).select('rect')
+            .attr('stroke-width',1.8)
+            .attr('fill','rgba(8,12,28,0.97)');
+        })
+        .on('click',function(event,d){
+          if(!d.slideId) return;
+          var target=document.getElementById(d.slideId);
+          if(!target) return;
+          var idx=Reveal.getIndices(target);
+          Reveal.slide(idx.h,idx.v);
+        });
+
+      sim.on('tick',function(){
+        nodes.forEach(function(n){
+          n.x=Math.max(NW/2+2,Math.min(W-NW/2-2,n.x));
+          n.y=Math.max(NH/2+26,Math.min(H-NH/2-4,n.y));
+        });
+        linkSel.attr('d',function(d){
+          var cpx=(d.target.x-d.source.x)*0.38;
+          return 'M'+d.source.x+','+d.source.y
+            +' C'+(d.source.x+cpx)+','+d.source.y
+            +' '+(d.target.x-cpx)+','+d.target.y
+            +' '+d.target.x+','+d.target.y;
+        });
+        nodeSel.attr('transform',function(d){return'translate('+d.x+','+d.y+')';});
+      });
+
+      // Store selections for deck dimming
+      el._nodeSel=nodeSel;
+      el._linkSel=linkSel;
+
+      setupDeckUI(el);
+      if(currentDeck) applyDeckDimming(el);
+    }
+
+    function maybeInit(){
+      var el=document.getElementById('slide-map-canvas');
+      if(el&&!el._smReady){el._smReady=true;draw(el);}
+    }
+    Reveal.on('ready',maybeInit);
+    Reveal.on('slidechanged',function(ev){
+      if(ev.previousSlide&&ev.previousSlide.id==='slide-map'){
+        var el=document.getElementById('slide-map-canvas');
+        if(el){if(el._smSim)el._smSim.stop();el._smReady=false;}
+      }
+      if(ev.currentSlide&&ev.currentSlide.id==='slide-map') maybeInit();
+      if(ev.currentSlide) updateDimOverlay(ev.currentSlide.id||'');
+    });
+  })();
   </script>
 </body>
 </html>
