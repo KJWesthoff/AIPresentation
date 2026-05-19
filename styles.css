@@ -138,6 +138,17 @@
   font-size: inherit;
 }
 
+/* References slide — override global li size and remove auto-bullet dots */
+#references li {
+  font-size: 8.5pt;
+  margin-bottom: 3px;
+  padding-left: 0;
+}
+
+#references ul li::before {
+  display: none;
+}
+
 /* ===========================================
    SLIDE LAYOUT
    =========================================== */

@@ -164,6 +164,62 @@
           </div>
         </section>
 
+      </section>
+
+      <!-- Learning Paradigms + Model Evaluation stack -->
+      <section>
+        <section id="paradigms">
+          <h2>Learning Paradigms</h2>
+          <div class="content">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+              <div>
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Supervised vs Unsupervised</h3>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                  <p class="text-lg"><strong style="color: var(--primary-color);">Supervised Learning</strong></p>
+                  <ul class="text-lg" style="margin-top: 10px;">
+                    <li>Learns from labeled examples</li>
+                    <li>Input → Output mapping</li>
+                    <li>Examples: Image classification, spam detection</li>
+                  </ul>
+                </div>
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                  <p class="text-lg"><strong style="color: var(--secondary-color);">Unsupervised Learning</strong></p>
+                  <ul class="text-lg" style="margin-top: 10px;">
+                    <li>Discovers patterns without labels</li>
+                    <li>Clustering, dimensionality reduction</li>
+                    <li>Examples: Customer segmentation, anomaly detection</li>
+                  </ul>
+                </div>
+              </div>
+              <div>
+                <h3 style="color: var(--primary-color); margin-bottom: 15px;">Generative vs Discriminative</h3>
+                <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
+                  <p class="text-lg"><strong style="color: var(--primary-color);">Generative Models</strong></p>
+                  <ul class="text-lg" style="margin-top: 10px;">
+                    <li>Learn to create new data</li>
+                    <li>Model the full distribution P(X)</li>
+                    <li>Examples: GANs, VAEs, language models</li>
+                    <li>Can generate images, text, audio</li>
+                  </ul>
+                </div>
+                <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
+                  <p class="text-lg"><strong style="color: var(--secondary-color);">Discriminative Models</strong></p>
+                  <ul class="text-lg" style="margin-top: 10px;">
+                    <li>Learn to classify or predict</li>
+                    <li>Model conditional P(Y|X)</li>
+                    <li>Examples: Classifiers, regressors</li>
+                    <li>Focus on decision boundaries</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:18px;background:rgba(45,232,160,0.07);border-left:2px solid #2de8a0;padding:10px 16px;border-radius:0 6px 6px 0;">
+              <strong style="color:#2de8a0;">Self-Supervised Learning</strong>
+              <span style="color:var(--muted-color);font-size:0.92em;"> — labels are derived from the data itself (e.g. next-token prediction). LLM pretraining is self-supervised, not simply unsupervised: the supervision signal is built into the structure of the input.</span>
+            </div>
+          </div>
+        </section>
+
         <!-- ── Model Evaluation Metrics ── -->
         <section id="model-evaluation">
           <h2>Model Evaluation — Accuracy, Precision, Recall &amp; F1</h2>
@@ -2856,79 +2912,178 @@
   </div>
 </section>
 
-<section id="llm-params">
-  <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
-  <div class="content" style="padding-top:2px;">
-    <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
-  </div>
+<section>
+  <section id="llm-params">
+    <h2 style="margin-bottom:6px;">LLM Model Landscape: Scale &amp; Architecture</h2>
+    <div class="content" style="padding-top:2px;">
+      <div id="llm-params-canvas" style="width:100%;height:490px;"></div>
+    </div>
+  </section>
+
+  <section id="prompts-harnesses-agents">
+    <h2 style="margin-bottom:6px;">Context Windows — How Much Can a Model Read at Once?</h2>
+    <div class="content" style="padding-top:4px; gap:0;">
+      <p style="margin:0 0 8px;font-size:10pt;color:var(--muted-color);">Max tokens per API call · log scale · 1 token ≈ ¾ word · as of mid-2025</p>
+
+      <!-- Column chart — bars grow upward, baseline at bottom -->
+      <div style="display:flex;align-items:flex-end;gap:10px;height:365px;border-bottom:2px solid rgba(255,255,255,0.15);padding:0 4px;">
+
+        <!-- Gemini 1.5 Pro · 2M · 100% → 365px -->
+        <div style="flex:1;height:365px;background:#4285f4;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(255,255,255,0.8);font-family:monospace;font-weight:700;">2M</span>
+        </div>
+        <!-- Gemini 1.5 Flash · 1M · 83% → 303px -->
+        <div style="flex:1;height:303px;background:#4285f4;opacity:0.65;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(255,255,255,0.85);font-family:monospace;font-weight:700;">1M</span>
+        </div>
+        <!-- GPT-4.1 · 1M · 83% → 303px -->
+        <div style="flex:1;height:303px;background:#4ade80;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(0,0,0,0.55);font-family:monospace;font-weight:700;">1M</span>
+        </div>
+        <!-- Claude 3.7 Sonnet · 200K · 44% → 161px -->
+        <div style="flex:1;height:161px;background:#c084fc;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(255,255,255,0.85);font-family:monospace;font-weight:700;">200K</span>
+        </div>
+        <!-- o3 · 200K · 44% → 161px -->
+        <div style="flex:1;height:161px;background:#4ade80;opacity:0.7;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(0,0,0,0.55);font-family:monospace;font-weight:700;">200K</span>
+        </div>
+        <!-- Grok 2 · 131K · 34% → 124px -->
+        <div style="flex:1;height:124px;background:#ff7aad;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(255,255,255,0.85);font-family:monospace;font-weight:700;">131K</span>
+        </div>
+        <!-- GPT-4o · 128K · 33% → 120px -->
+        <div style="flex:1;height:120px;background:#4ade80;opacity:0.5;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(0,0,0,0.55);font-family:monospace;font-weight:700;">128K</span>
+        </div>
+        <!-- LLaMA 3.1 · 128K · 33% → 120px -->
+        <div style="flex:1;height:120px;background:#ffa830;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(0,0,0,0.55);font-family:monospace;font-weight:700;">128K</span>
+        </div>
+        <!-- Mistral Large 2 · 128K · 33% → 120px -->
+        <div style="flex:1;height:120px;background:#e86040;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(255,255,255,0.85);font-family:monospace;font-weight:700;">128K</span>
+        </div>
+        <!-- DeepSeek-V3 · 128K · 33% → 120px -->
+        <div style="flex:1;height:120px;background:#00d9ff;border-radius:4px 4px 0 0;position:relative;min-width:0;">
+          <span style="position:absolute;top:7px;left:0;right:0;text-align:center;font-size:7.5pt;color:rgba(0,0,0,0.55);font-family:monospace;font-weight:700;">128K</span>
+        </div>
+
+      </div>
+
+      <!-- Model name labels below x-axis -->
+      <div style="display:flex;gap:10px;padding:7px 4px 0;font-family:sans-serif;font-size:7.5pt;text-align:center;line-height:1.3;">
+        <div style="flex:1;min-width:0;color:#4285f4;">Gemini<br>1.5 Pro</div>
+        <div style="flex:1;min-width:0;color:#4285f4;opacity:0.8;">Gemini<br>1.5 Flash</div>
+        <div style="flex:1;min-width:0;color:#4ade80;">GPT-4.1</div>
+        <div style="flex:1;min-width:0;color:#c084fc;">Claude<br>3.7</div>
+        <div style="flex:1;min-width:0;color:#4ade80;opacity:0.8;">o3</div>
+        <div style="flex:1;min-width:0;color:#ff7aad;">Grok 2</div>
+        <div style="flex:1;min-width:0;color:#4ade80;opacity:0.65;">GPT-4o</div>
+        <div style="flex:1;min-width:0;color:#ffa830;">LLaMA<br>3.1</div>
+        <div style="flex:1;min-width:0;color:#e86040;">Mistral<br>L. 2</div>
+        <div style="flex:1;min-width:0;color:#00d9ff;">Deep-<br>Seek V3</div>
+      </div>
+
+      <p style="margin:8px 0 0;font-size:9pt;color:var(--muted-color);font-family:monospace;">
+        128K ≈ 350 pages &nbsp;·&nbsp; 200K ≈ 550 pages &nbsp;·&nbsp; 1M ≈ 2,700 pages &nbsp;·&nbsp; 2M ≈ 5,500 pages of text
+      </p>
+    </div>
+  </section>
 </section>
 
-<section id="prompts-harnesses-agents">
-  <h2 style="margin-bottom:4px;">AI Prompts, Harnesses and Agents</h2>
+<section id="ai-agents">
+  <h2 style="margin-bottom:4px;">AI Agents</h2>
   <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">It's all text instructions</p>
   <div class="content" style="padding-top:2px;">
     <div id="pha-canvas" style="width:100%;height:472px;"></div>
   </div>
 </section>
 
+<section id="references">
+  <h2 style="margin-bottom:8px;">References &amp; Awesome Resources</h2>
 
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;height:580px;font-size:8.5pt;line-height:1.5;">
 
+    <!-- LEFT: References -->
+    <div style="overflow-y:auto;padding-right:8px;">
+      <h3 style="font-size:10pt;color:var(--primary-color);margin:0 0 8px;text-transform:uppercase;letter-spacing:.07em;">References</h3>
 
+      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Datasets &amp; Foundational Work</p>
+      <ul style="list-style:none;padding:0;margin:0 0 10px;">
+        <li style="margin-bottom:4px;">LeCun, Y., Cortes, C. &amp; Burges, C. — <em>The MNIST Database of Handwritten Digits</em> (1998) <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" style="color:var(--primary-color);">yann.lecun.com/exdb/mnist</a></li>
+        <li style="margin-bottom:4px;">Pennington, J., Socher, R. &amp; Manning, C. — <em>GloVe: Global Vectors for Word Representation</em>, Stanford NLP (2014). Data: Wikipedia 2014 + Gigaword 5</li>
+        <li style="margin-bottom:4px;">Mikolov, T. et al. — <em>Efficient Estimation of Word Representations in Vector Space</em> (Word2Vec), Google (2013)</li>
+        <li style="margin-bottom:4px;">Hochreiter, S. &amp; Schmidhuber, J. — <em>Long Short-Term Memory</em>, Neural Computation (1997)</li>
+      </ul>
 
+      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Computer Vision</p>
+      <ul style="list-style:none;padding:0;margin:0 0 10px;">
+        <li style="margin-bottom:4px;">Krizhevsky, Sutskever &amp; Hinton — <a href="https://proceedings.neurips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" style="color:var(--primary-color);">AlexNet</a>, NeurIPS (2012)</li>
+        <li style="margin-bottom:4px;">Simonyan &amp; Zisserman — <a href="https://arxiv.org/abs/1409.1556" target="_blank" style="color:var(--primary-color);">VGGNet</a>, arXiv 1409.1556 (2014)</li>
+        <li style="margin-bottom:4px;">Szegedy et al. — <a href="https://arxiv.org/abs/1409.4842" target="_blank" style="color:var(--primary-color);">GoogLeNet / Inception</a>, arXiv 1409.4842 (2014)</li>
+        <li style="margin-bottom:4px;">He et al. — <a href="https://arxiv.org/abs/1512.03385" target="_blank" style="color:var(--primary-color);">ResNet</a>, arXiv 1512.03385 (2015)</li>
+        <li style="margin-bottom:4px;">Huang et al. — <a href="https://arxiv.org/abs/1608.06993" target="_blank" style="color:var(--primary-color);">DenseNet</a>, arXiv 1608.06993 (2017)</li>
+        <li style="margin-bottom:4px;">Tan &amp; Le — <a href="https://arxiv.org/abs/1905.11946" target="_blank" style="color:var(--primary-color);">EfficientNet</a>, arXiv 1905.11946 (2019)</li>
+        <li style="margin-bottom:4px;">Dosovitskiy et al. — <a href="https://arxiv.org/abs/2010.11929" target="_blank" style="color:var(--primary-color);">Vision Transformer (ViT)</a>, arXiv 2010.11929 (2020)</li>
+      </ul>
 
+      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Transformers &amp; LLMs</p>
+      <ul style="list-style:none;padding:0;margin:0 0 10px;">
+        <li style="margin-bottom:4px;">Vaswani et al. — <a href="https://arxiv.org/abs/1706.03762" target="_blank" style="color:var(--primary-color);">"Attention is All You Need"</a>, arXiv 1706.03762 (2017)</li>
+        <li style="margin-bottom:4px;">Devlin et al. — <em>BERT: Pre-training of Deep Bidirectional Transformers</em>, Google (2018)</li>
+        <li style="margin-bottom:4px;">Brown et al. — <em>Language Models are Few-Shot Learners</em> (GPT-3), OpenAI (2020)</li>
+        <li style="margin-bottom:4px;">Jiang et al. — <em>Mistral 7B</em>, Mistral AI (2023)</li>
+        <li style="margin-bottom:4px;">Jiang et al. — <em>Mixtral of Experts</em> (MoE), Mistral AI (2024)</li>
+      </ul>
 
+      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Tools &amp; Libraries</p>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <li style="margin-bottom:3px;"><a href="https://revealjs.com" target="_blank" style="color:var(--primary-color);">Reveal.js</a> — Presentation framework</li>
+        <li style="margin-bottom:3px;"><a href="https://d3js.org" target="_blank" style="color:var(--primary-color);">D3.js</a> — Data-driven animations</li>
+        <li style="margin-bottom:3px;"><a href="https://threejs.org" target="_blank" style="color:var(--primary-color);">Three.js</a> — 3D vector space visualization</li>
+        <li style="margin-bottom:3px;"><a href="https://www.tensorflow.org/js" target="_blank" style="color:var(--primary-color);">TensorFlow.js</a> — In-browser webcam demo</li>
+        <li style="margin-bottom:3px;"><a href="https://huggingface.co" target="_blank" style="color:var(--primary-color);">Hugging Face</a> — Model hub &amp; fine-tuning resources</li>
+      </ul>
+    </div>
 
- <section id="paradigms">
-        <h2>Learning Paradigms</h2>
-        <div class="content">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-            <div>
-              <h3 style="color: var(--primary-color); margin-bottom: 15px;">Supervised vs Unsupervised</h3>
-              <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
-                <p class="text-lg"><strong style="color: var(--primary-color);">Supervised Learning</strong></p>
-                <ul class="text-lg" style="margin-top: 10px;">
-                  <li>Learns from labeled examples</li>
-                  <li>Input → Output mapping</li>
-                  <li>Examples: Image classification, spam detection</li>
-                </ul>
-              </div>
-              <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
-                <p class="text-lg"><strong style="color: var(--secondary-color);">Unsupervised Learning</strong></p>
-                <ul class="text-lg" style="margin-top: 10px;">
-                  <li>Discovers patterns without labels</li>
-                  <li>Clustering, dimensionality reduction</li>
-                  <li>Examples: Customer segmentation, anomaly detection</li>
-                </ul>
-              </div>
-            </div>
-            <div>
-              <h3 style="color: var(--primary-color); margin-bottom: 15px;">Generative vs Discriminative</h3>
-              <div style="background: rgba(0, 217, 255, 0.1); padding: 20px; border-radius: var(--box-radius); margin-bottom: 20px;">
-                <p class="text-lg"><strong style="color: var(--primary-color);">Generative Models</strong></p>
-                <ul class="text-lg" style="margin-top: 10px;">
-                  <li>Learn to create new data</li>
-                  <li>Model the full distribution P(X)</li>
-                  <li>Examples: GANs, VAEs, language models</li>
-                  <li>Can generate images, text, audio</li>
-                </ul>
-              </div>
-              <div style="background: rgba(157, 78, 221, 0.1); padding: 20px; border-radius: var(--box-radius);">
-                <p class="text-lg"><strong style="color: var(--secondary-color);">Discriminative Models</strong></p>
-                <ul class="text-lg" style="margin-top: 10px;">
-                  <li>Learn to classify or predict</li>
-                  <li>Model conditional P(Y|X)</li>
-                  <li>Examples: Classifiers, regressors</li>
-                  <li>Focus on decision boundaries</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div style="margin-top:18px;background:rgba(45,232,160,0.07);border-left:2px solid #2de8a0;padding:10px 16px;border-radius:0 6px 6px 0;">
-            <strong style="color:#2de8a0;">Self-Supervised Learning</strong>
-            <span style="color:var(--muted-color);font-size:0.92em;"> — labels are derived from the data itself (e.g. next-token prediction). LLM pretraining is self-supervised, not simply unsupervised: the supervision signal is built into the structure of the input.</span>
-          </div>
+    <!-- RIGHT: Awesome Resources -->
+    <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:16px;">
+      <h3 style="font-size:10pt;color:var(--secondary-color);margin:0 0 12px;text-transform:uppercase;letter-spacing:.07em;">Awesome Resources</h3>
+
+      <div style="display:flex;flex-direction:column;gap:18px;">
+
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid var(--primary-color);">
+          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">3Blue1Brown</div>
+          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Grant Sanderson's visually stunning explanations of neural networks, linear algebra, and calculus — the best intuition-building content on the internet.</div>
+          <a href="https://www.3blue1brown.com/" target="_blank" style="color:var(--primary-color);font-family:monospace;">www.3blue1brown.com</a>
         </div>
-      </section>
+
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid var(--secondary-color);">
+          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">Jia-Bin Huang — Transformer Playlist</div>
+          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Comprehensive lecture series on transformers and modern vision/language models. Clear, rigorous, and up to date.</div>
+          <a href="https://www.youtube.com/@jbhuang0604" target="_blank" style="color:var(--secondary-color);font-family:monospace;">youtube.com/@jbhuang0604</a>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid #a78bfa;">
+          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">Nate B Jones</div>
+          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Excellent visual breakdowns of machine learning and AI concepts — great for building strong intuitions alongside the math.</div>
+          <a href="https://www.youtube.com/@NateBJones" target="_blank" style="color:#a78bfa;font-family:monospace;">youtube.com/@NateBJones</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
 
 
     </div>
