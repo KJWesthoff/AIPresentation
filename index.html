@@ -14633,7 +14633,7 @@
           d3.select(this).select('rect')
             .attr('stroke-width',2.4)
             .attr('fill','rgba(20,28,55,0.99)');
-          if(!d.slideId) return;
+          if(!d.slideId||el._dragging) return;
           var thumb=document.getElementById('sm-thumb');
           if(!thumb) return;
           var img=thumb.querySelector('img');
@@ -14679,6 +14679,58 @@
           var idx=Reveal.getIndices(target);
           Reveal.slide(idx.h,idx.v);
         });
+
+      // Drag behaviour
+      var linkedTo=function(d){
+        var s=new Set([d.id]);
+        linkData.forEach(function(l){
+          if(l.source.id===d.id) s.add(l.target.id);
+          if(l.target.id===d.id) s.add(l.source.id);
+        });
+        return s;
+      };
+      var drag=d3.drag()
+        .on('start',function(event,d){
+          el._dragging=true;
+          document.getElementById('sm-thumb')&&(document.getElementById('sm-thumb').style.display='none');
+          if(!event.active) sim.alphaTarget(0.35).restart();
+          // Boost link force so neighbours physically follow
+          sim.force('link').strength(0.18);
+          d.fx=d.x; d.fy=d.y;
+          // Highlight direct neighbours, dim everything else
+          var conn=linkedTo(d);
+          nodeSel.transition().duration(120)
+            .style('opacity',function(n){return conn.has(n.id)?1:0.12;});
+          linkSel.transition().duration(120)
+            .style('opacity',function(l){
+              return (l.source.id===d.id||l.target.id===d.id)?0.85:0.03;
+            }).attr('stroke-width',function(l){
+              return (l.source.id===d.id||l.target.id===d.id)?2:1;
+            });
+        })
+        .on('drag',function(event,d){
+          d.fx=Math.max(NW/2+2,Math.min(W-NW/2-2,event.x));
+          d.fy=Math.max(NH/2+26,Math.min(H-NH/2-4,event.y));
+        })
+        .on('end',function(event,d){
+          d.fx=null; d.fy=null;
+          // Restore link strength and let physics spring everything back
+          sim.force('link').strength(0.03);
+          if(!event.active) sim.alphaTarget(0.12);
+          // After spring-back settles, restore normal appearance
+          setTimeout(function(){
+            sim.alphaTarget(0);
+            el._dragging=false;
+            if(currentDeck&&currentDeck!=='custom') applyDeckDimming(el);
+            else if(currentDeck==='custom'&&!customDone) applyCustomEditView(el);
+            else{
+              nodeSel.transition().duration(350).style('opacity',1);
+              linkSel.transition().duration(350).style('opacity',1)
+                .attr('stroke-width',1);
+            }
+          },600);
+        });
+      nodeSel.call(drag);
 
       sim.on('tick',function(){
         nodes.forEach(function(n){
