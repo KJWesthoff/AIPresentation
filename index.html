@@ -2801,6 +2801,132 @@
   </section>
 </section>
 
+<section>
+<section id="vision-transformers">
+  <h2 style="margin-bottom:4px; font-size:28pt;">Transformers for Vision &amp; Image Generation</h2>
+  <div class="content" style="padding-top:4px; display:grid; grid-template-columns:1fr 1fr; gap:24px; height:468px; align-items:start;">
+
+    <!-- LEFT: Vision Transformer -->
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <h3 style="color:var(--primary-color); margin:0 0 2px; font-size:18pt;">Vision Transformer (ViT)</h3>
+
+      <!-- Patch tokenization diagram -->
+      <div style="background:rgba(0,217,255,0.06); border:1px solid rgba(0,217,255,0.25); border-radius:8px; padding:7px 10px;">
+        <svg width="100%" viewBox="0 0 320 82" style="max-height:70px; display:block;">
+          <!-- Source image with 4×4 patch grid -->
+          <rect x="4" y="4" width="64" height="64" fill="rgba(0,150,200,0.18)" stroke="#00d9ff" stroke-width="1.2" rx="3"/>
+          <line x1="20" y1="4"  x2="20" y2="68"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <line x1="36" y1="4"  x2="36" y2="68"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <line x1="52" y1="4"  x2="52" y2="68"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <line x1="4"  y1="20" x2="68" y2="20"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <line x1="4"  y1="36" x2="68" y2="36"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <line x1="4"  y1="52" x2="68" y2="52"  stroke="#00d9ff" stroke-width="0.5" opacity="0.55"/>
+          <text x="36" y="78" font-size="8" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">Image</text>
+          <!-- Arrow -->
+          <text x="82" y="40" font-size="18" fill="#00d9ff" text-anchor="middle">→</text>
+          <!-- Patch tokens (stacked) -->
+          <rect x="95"  y="8"  width="22" height="13" fill="rgba(0,217,255,0.22)" stroke="#00d9ff" stroke-width="0.8" rx="2"/>
+          <rect x="95"  y="23" width="22" height="13" fill="rgba(0,217,255,0.22)" stroke="#00d9ff" stroke-width="0.8" rx="2"/>
+          <rect x="95"  y="38" width="22" height="13" fill="rgba(0,217,255,0.22)" stroke="#00d9ff" stroke-width="0.8" rx="2"/>
+          <rect x="95"  y="53" width="22" height="13" fill="rgba(255,168,48,0.45)" stroke="#ffa830"  stroke-width="1.2" rx="2"/>
+          <text x="106" y="61" font-size="6.5" fill="#ffa830" text-anchor="middle" font-family="sans-serif" font-weight="bold">CLS</text>
+          <text x="106" y="78" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">Tokens</text>
+          <!-- Arrow -->
+          <text x="132" y="40" font-size="18" fill="#00d9ff" text-anchor="middle">→</text>
+          <!-- Transformer block -->
+          <rect x="145" y="4" width="52" height="64" fill="rgba(157,78,221,0.13)" stroke="#9d4edd" stroke-width="1.2" rx="5"/>
+          <text x="171" y="25" font-size="8"   fill="#9d4edd" text-anchor="middle" font-family="sans-serif" font-weight="bold">Self-Attn</text>
+          <text x="171" y="37" font-size="7.5" fill="#c084fc" text-anchor="middle" font-family="sans-serif">+ FFN</text>
+          <text x="171" y="49" font-size="7"   fill="#adb5bd" text-anchor="middle" font-family="sans-serif">×N layers</text>
+          <text x="171" y="78" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">Transformer</text>
+          <!-- Arrow -->
+          <text x="212" y="40" font-size="18" fill="#00d9ff" text-anchor="middle">→</text>
+          <!-- CLS output -->
+          <rect x="224" y="16" width="44" height="36" fill="rgba(255,168,48,0.2)" stroke="#ffa830" stroke-width="1.5" rx="5"/>
+          <text x="246" y="33" font-size="8"   fill="#ffa830" text-anchor="middle" font-family="sans-serif" font-weight="bold">[CLS]</text>
+          <text x="246" y="44" font-size="7"   fill="#adb5bd" text-anchor="middle" font-family="sans-serif">→ class</text>
+          <text x="246" y="78" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">Output</text>
+          <!-- Pos embed label -->
+          <text x="171" y="63" font-size="6.5" fill="#5a7090" text-anchor="middle" font-family="sans-serif">+ pos. embed.</text>
+        </svg>
+      </div>
+
+      <ul style="margin:0; padding-left:16px; font-size:14pt; line-height:1.5; color:var(--text-color);">
+        <li>Split image into fixed 16×16 patches, linearly embed each patch as a token</li>
+        <li>Prepend a learnable <strong style="color:#ffa830;">[CLS]</strong> token — read out for classification</li>
+        <li>Standard transformer encoder; no convolutions, no locality bias</li>
+        <li>Requires large-scale pretraining (JFT-300M) to beat CNN baselines</li>
+      </ul>
+
+      <div style="display:flex; flex-direction:column; gap:2px; font-size:11pt;">
+        <div style="color:var(--muted-color); font-weight:600; margin-bottom:1px; font-size:10pt; text-transform:uppercase; letter-spacing:0.04em;">Key Papers</div>
+        <div>&#x2022; Dosovitskiy et al. — <a href="https://arxiv.org/abs/2010.11929" target="_blank" style="color:var(--primary-color);">ViT: An Image is Worth 16×16 Words</a> <span style="color:var(--muted-color);">2010.11929 (2020)</span></div>
+        <div>&#x2022; Touvron et al. — <a href="https://arxiv.org/abs/2012.12877" target="_blank" style="color:var(--primary-color);">DeiT: Data-efficient Image Transformers</a> <span style="color:var(--muted-color);">2012.12877 (2020)</span></div>
+        <div>&#x2022; Liu et al. — <a href="https://arxiv.org/abs/2103.14030" target="_blank" style="color:var(--primary-color);">Swin Transformer</a> <span style="color:var(--muted-color);">2103.14030 (2021)</span></div>
+        <div>&#x2022; Radford et al. — <a href="https://arxiv.org/abs/2103.00020" target="_blank" style="color:var(--primary-color);">CLIP: Learning Transferable Visual Models</a> <span style="color:var(--muted-color);">2103.00020 (2021)</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Image Diffusion Transformers -->
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <h3 style="color:var(--secondary-color); margin:0 0 2px; font-size:18pt;">Image Diffusion Transformers (DiT)</h3>
+
+      <!-- Diffusion process diagram -->
+      <div style="background:rgba(157,78,221,0.07); border:1px solid rgba(157,78,221,0.28); border-radius:8px; padding:7px 10px;">
+        <svg width="100%" viewBox="0 0 320 82" style="max-height:70px; display:block;">
+          <!-- Clean image x₀ -->
+          <rect x="4" y="10" width="48" height="48" rx="4" fill="rgba(157,78,221,0.32)" stroke="#9d4edd" stroke-width="1.5"/>
+          <text x="28" y="32" font-size="10" fill="#f8f9fa" text-anchor="middle" font-family="sans-serif" font-weight="bold">x₀</text>
+          <text x="28" y="44" font-size="7.5" fill="#c084fc" text-anchor="middle" font-family="sans-serif">clean</text>
+          <text x="28" y="74" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">image</text>
+          <!-- Forward noise arrows -->
+          <text x="64" y="38" font-size="13" fill="#5a7090" text-anchor="middle">→</text>
+          <!-- Noisy x_t -->
+          <rect x="76" y="10" width="48" height="48" rx="4" fill="rgba(157,78,221,0.14)" stroke="#9d4edd" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="100" y="32" font-size="10" fill="#c084fc" text-anchor="middle" font-family="sans-serif">x_t</text>
+          <text x="100" y="44" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">noisy</text>
+          <text x="100" y="74" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">step t</text>
+          <text x="64" y="8" font-size="7" fill="#5a7090" text-anchor="middle" font-family="sans-serif">+noise →</text>
+          <!-- Arrow to DiT -->
+          <text x="137" y="38" font-size="13" fill="#5a7090" text-anchor="middle">→</text>
+          <!-- DiT block -->
+          <rect x="150" y="4" width="70" height="60" rx="5" fill="rgba(157,78,221,0.16)" stroke="#9d4edd" stroke-width="1.5"/>
+          <text x="185" y="21" font-size="8.5" fill="#9d4edd" text-anchor="middle" font-family="sans-serif" font-weight="bold">DiT Block</text>
+          <text x="185" y="33" font-size="7.5" fill="#c084fc" text-anchor="middle" font-family="sans-serif">Self-Attn + FFN</text>
+          <text x="185" y="44" font-size="7"   fill="#adb5bd" text-anchor="middle" font-family="sans-serif">adaLN-Zero</text>
+          <text x="185" y="55" font-size="7"   fill="#adb5bd" text-anchor="middle" font-family="sans-serif">cond. on t, class/text</text>
+          <text x="185" y="74" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">Denoiser ε_θ</text>
+          <!-- Denoising arrow back -->
+          <text x="234" y="38" font-size="13" fill="#9d4edd" text-anchor="middle">→</text>
+          <!-- Denoised output -->
+          <rect x="246" y="10" width="48" height="48" rx="4" fill="rgba(157,78,221,0.32)" stroke="#9d4edd" stroke-width="1.5"/>
+          <text x="270" y="32" font-size="10" fill="#f8f9fa" text-anchor="middle" font-family="sans-serif" font-weight="bold">x₀</text>
+          <text x="270" y="44" font-size="7.5" fill="#c084fc" text-anchor="middle" font-family="sans-serif">pred.</text>
+          <text x="270" y="74" font-size="7.5" fill="#adb5bd" text-anchor="middle" font-family="sans-serif">generated</text>
+          <!-- Iterative label -->
+          <text x="160" y="74" font-size="6.5" fill="#5a7090" text-anchor="start" font-family="sans-serif">← repeat T steps</text>
+        </svg>
+      </div>
+
+      <ul style="margin:0; padding-left:16px; font-size:14pt; line-height:1.5; color:var(--text-color);">
+        <li>Forward process adds Gaussian noise over T steps; model learns to reverse it</li>
+        <li><strong style="color:var(--secondary-color);">DiT</strong> replaces the U-Net backbone with a transformer — scales with compute</li>
+        <li>Timestep <em>t</em> and class/text condition injected via <strong style="color:#c084fc;">adaLN-Zero</strong> modulation</li>
+        <li>Underpins Stable Diffusion 3, DALL·E 3, Flux, and Sora (video DiT)</li>
+      </ul>
+
+      <div style="display:flex; flex-direction:column; gap:2px; font-size:11pt;">
+        <div style="color:var(--muted-color); font-weight:600; margin-bottom:1px; font-size:10pt; text-transform:uppercase; letter-spacing:0.04em;">Key Papers</div>
+        <div>&#x2022; Ho et al. — <a href="https://arxiv.org/abs/2006.11239" target="_blank" style="color:var(--secondary-color);">DDPM: Denoising Diffusion Probabilistic Models</a> <span style="color:var(--muted-color);">2006.11239 (2020)</span></div>
+        <div>&#x2022; Rombach et al. — <a href="https://arxiv.org/abs/2112.10752" target="_blank" style="color:var(--secondary-color);">LDM / Stable Diffusion</a> <span style="color:var(--muted-color);">2112.10752 (2021)</span></div>
+        <div>&#x2022; Peebles &amp; Xie — <a href="https://arxiv.org/abs/2212.09748" target="_blank" style="color:var(--secondary-color);">DiT: Scalable Diffusion Models with Transformers</a> <span style="color:var(--muted-color);">2212.09748 (2022)</span></div>
+        <div>&#x2022; Ramesh et al. — <a href="https://arxiv.org/abs/2204.06125" target="_blank" style="color:var(--secondary-color);">DALL·E 2</a> <span style="color:var(--muted-color);">2204.06125 (2022)</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section id="vit-demo">
   <h2 style="margin-bottom:6px;">Live Demo: ViT Sees the World</h2>
   <div class="content" style="padding-top:4px;display:flex;flex-direction:row;gap:14px;height:468px;align-items:flex-start;">
@@ -2873,6 +2999,8 @@
     </div>
 
   </div>
+</section>
+
 </section>
 
 <section>
@@ -3181,50 +3309,66 @@
 
     </div>
 
-    <!-- RIGHT: Architecture flow -->
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;">
+    <!-- RIGHT: Architecture flow + token economy side by side -->
+    <div style="display:flex;flex-direction:column;gap:6px;">
 
-      <div style="font-size:8pt;color:#aaa;text-align:center;margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase;">Agent architecture</div>
+      <div style="font-size:8pt;color:#aaa;text-align:center;letter-spacing:.06em;text-transform:uppercase;">Agent architecture</div>
 
-      <!-- Flow diagram -->
-      <div style="display:flex;flex-direction:column;align-items:center;gap:0;width:100%;max-width:320px;">
+      <div style="display:flex;flex-direction:row;gap:12px;align-items:flex-start;">
 
-        <div style="background:rgba(45,232,160,0.10);border:1px solid rgba(45,232,160,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
-          <div style="font-weight:700;color:#2de8a0;font-size:9pt;">Persistent Storage</div>
-          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">files · DB · vector store · logs</div>
+        <!-- Flow diagram -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:0 0 44%;">
+
+          <div style="background:rgba(45,232,160,0.10);border:1px solid rgba(45,232,160,0.35);border-radius:8px;padding:8px 10px;text-align:center;width:100%;">
+            <div style="font-weight:700;color:#2de8a0;font-size:8.5pt;">Persistent Storage</div>
+            <div style="color:#aaa;font-size:7pt;margin-top:2px;">files · DB · vector store · logs</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;color:#5a7090;font-size:7.5pt;padding:2px 0;">
+            <div style="width:2px;height:10px;background:rgba(90,112,144,0.4);"></div>
+            <div style="font-style:italic;color:#5a7090;">retrieve relevant pieces</div>
+            <div style="width:2px;height:10px;background:rgba(90,112,144,0.4);"></div>
+            <div style="color:#5a7090;font-size:10pt;">↓</div>
+          </div>
+
+          <div style="background:rgba(100,180,255,0.10);border:1px solid rgba(100,180,255,0.35);border-radius:8px;padding:8px 10px;text-align:center;width:100%;">
+            <div style="font-weight:700;color:var(--primary-color);font-size:8.5pt;">Context Window</div>
+            <div style="color:#aaa;font-size:7pt;margin-top:2px;">working memory — what the model sees</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:2px 0;">
+            <div style="width:2px;height:10px;background:rgba(90,112,144,0.4);"></div>
+            <div style="color:#5a7090;font-size:10pt;">↓</div>
+          </div>
+
+          <div style="background:rgba(167,139,250,0.10);border:1px solid rgba(167,139,250,0.35);border-radius:8px;padding:8px 10px;text-align:center;width:100%;">
+            <div style="font-weight:700;color:#a78bfa;font-size:8.5pt;">LLM Reasoning</div>
+            <div style="color:#aaa;font-size:7pt;margin-top:2px;">next action or answer</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;padding:2px 0;">
+            <div style="width:2px;height:10px;background:rgba(90,112,144,0.4);"></div>
+            <div style="font-size:7.5pt;font-style:italic;color:#5a7090;">save observations / results</div>
+            <div style="width:2px;height:10px;background:rgba(90,112,144,0.4);"></div>
+            <div style="color:#5a7090;font-size:10pt;">↓</div>
+          </div>
+
+          <div style="background:rgba(45,232,160,0.10);border:1px dashed rgba(45,232,160,0.35);border-radius:8px;padding:6px 10px;text-align:center;width:100%;">
+            <div style="color:#2de8a0;font-size:7.5pt;">Back to Persistent Storage</div>
+          </div>
+
         </div>
 
-        <div style="display:flex;flex-direction:column;align-items:center;color:#5a7090;font-size:8pt;padding:3px 0;">
-          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
-          <div style="font-style:italic;color:#5a7090;">retrieve relevant pieces</div>
-          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
-          <div style="color:#5a7090;font-size:10pt;">↓</div>
-        </div>
-
-        <div style="background:rgba(100,180,255,0.10);border:1px solid rgba(100,180,255,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
-          <div style="font-weight:700;color:var(--primary-color);font-size:9pt;">Context Window</div>
-          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">working memory — what the model sees</div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;align-items:center;padding:3px 0;">
-          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
-          <div style="color:#5a7090;font-size:10pt;">↓</div>
-        </div>
-
-        <div style="background:rgba(167,139,250,0.10);border:1px solid rgba(167,139,250,0.35);border-radius:8px;padding:10px 18px;text-align:center;width:80%;">
-          <div style="font-weight:700;color:#a78bfa;font-size:9pt;">LLM Reasoning</div>
-          <div style="color:#aaa;font-size:7.5pt;margin-top:2px;">next action or answer</div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;align-items:center;padding:3px 0;">
-          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
-          <div style="font-size:8pt;font-style:italic;color:#5a7090;">save observations / results</div>
-          <div style="width:2px;height:12px;background:rgba(90,112,144,0.4);"></div>
-          <div style="color:#5a7090;font-size:10pt;">↓</div>
-        </div>
-
-        <div style="background:rgba(45,232,160,0.10);border:1px dashed rgba(45,232,160,0.35);border-radius:8px;padding:8px 18px;text-align:center;width:80%;">
-          <div style="color:#2de8a0;font-size:8pt;">Back to Persistent Storage</div>
+        <!-- Token economy -->
+        <div style="flex:1;background:rgba(255,168,48,0.08);border-radius:7px;padding:10px 12px;border-left:3px solid #ffa830;align-self:stretch;">
+          <div style="font-weight:700;font-size:8.5pt;color:#ffa830;margin-bottom:6px;">Token Economy</div>
+          <div style="color:var(--muted-color);font-size:7.5pt;line-height:1.55;">
+            <div style="margin-bottom:4px;"><strong style="color:var(--text-color);">Cost ∝ tokens in + tokens out</strong> — every API call has a price</div>
+            <div style="margin-bottom:4px;">&#x2022; <strong style="color:var(--text-color);">RAG:</strong> retrieve only the most relevant chunks — don't dump the whole store into context</div>
+            <div style="margin-bottom:4px;">&#x2022; <strong style="color:var(--text-color);">Summarise history:</strong> compress past turns before re-injecting them</div>
+            <div style="margin-bottom:4px;">&#x2022; <strong style="color:var(--text-color);">Truncate tool results:</strong> clip verbose API responses to the relevant fields</div>
+            <div>&#x2022; <strong style="color:var(--text-color);">Prompt caching:</strong> reuse a static system-prompt prefix across calls — up to 90 % cost reduction on repeated context</div>
+          </div>
         </div>
 
       </div>
@@ -3232,6 +3376,14 @@
 
   </div>
 </section>
+
+<section id="agent-harness-overview">
+  <h2 style="margin-bottom:4px;">Agent Harness — How It All Fits Together</h2>
+  <div class="content" style="padding-top:2px; align-items:center; justify-content:center;">
+    <img src="presentation_images/ChatGPT-HarnessInfographics.png" style="max-width:100%; max-height:510px; object-fit:contain; display:block; margin:0 auto;" alt="Agent Harness Infographic"/>
+  </div>
+</section>
+
 
 <section id="agent-security">
   <h2 style="margin-bottom:4px;">Agent Security</h2>
@@ -3316,78 +3468,94 @@
 
   </div>
 </section>
-
 </section>
 
 <section id="references">
   <h2 style="margin-bottom:8px;">References &amp; Awesome Resources</h2>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;height:580px;font-size:8.5pt;line-height:1.5;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;height:580px;line-height:1.4;">
 
     <!-- LEFT: References -->
     <div style="overflow-y:auto;padding-right:8px;">
-      <h3 style="font-size:10pt;color:var(--primary-color);margin:0 0 8px;text-transform:uppercase;letter-spacing:.07em;">References</h3>
+      <h3 style="font-size:8pt;color:var(--primary-color);margin:0 0 5px;text-transform:uppercase;letter-spacing:.07em;">References</h3>
 
-      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Datasets &amp; Foundational Work</p>
-      <ul style="list-style:none;padding:0;margin:0 0 10px;">
-        <li style="margin-bottom:4px;">LeCun, Y., Cortes, C. &amp; Burges, C. — <em>The MNIST Database of Handwritten Digits</em> (1998) <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" style="color:var(--primary-color);">yann.lecun.com/exdb/mnist</a></li>
-        <li style="margin-bottom:4px;">Pennington, J., Socher, R. &amp; Manning, C. — <em>GloVe: Global Vectors for Word Representation</em>, Stanford NLP (2014). Data: Wikipedia 2014 + Gigaword 5</li>
-        <li style="margin-bottom:4px;">Mikolov, T. et al. — <em>Efficient Estimation of Word Representations in Vector Space</em> (Word2Vec), Google (2013)</li>
-        <li style="margin-bottom:4px;">Hochreiter, S. &amp; Schmidhuber, J. — <em>Long Short-Term Memory</em>, Neural Computation (1997)</li>
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Datasets &amp; Foundational Work</p>
+      <ul style="list-style:none;padding:0;margin:0 0 6px;">
+        <li style="margin-bottom:2px;">LeCun, Y., Cortes, C. &amp; Burges, C. — <em>The MNIST Database of Handwritten Digits</em> (1998) <a href="http://yann.lecun.com/exdb/mnist/" target="_blank" style="color:var(--primary-color);">yann.lecun.com/exdb/mnist</a></li>
+        <li style="margin-bottom:2px;">Pennington, J., Socher, R. &amp; Manning, C. — <em>GloVe: Global Vectors for Word Representation</em>, Stanford NLP (2014). Data: Wikipedia 2014 + Gigaword 5</li>
+        <li style="margin-bottom:2px;">Mikolov, T. et al. — <em>Efficient Estimation of Word Representations in Vector Space</em> (Word2Vec), Google (2013)</li>
+        <li style="margin-bottom:2px;">Hochreiter, S. &amp; Schmidhuber, J. — <em>Long Short-Term Memory</em>, Neural Computation (1997)</li>
       </ul>
 
-      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Computer Vision</p>
-      <ul style="list-style:none;padding:0;margin:0 0 10px;">
-        <li style="margin-bottom:4px;">Krizhevsky, Sutskever &amp; Hinton — <a href="https://proceedings.neurips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" style="color:var(--primary-color);">AlexNet</a>, NeurIPS (2012)</li>
-        <li style="margin-bottom:4px;">Simonyan &amp; Zisserman — <a href="https://arxiv.org/abs/1409.1556" target="_blank" style="color:var(--primary-color);">VGGNet</a>, arXiv 1409.1556 (2014)</li>
-        <li style="margin-bottom:4px;">Szegedy et al. — <a href="https://arxiv.org/abs/1409.4842" target="_blank" style="color:var(--primary-color);">GoogLeNet / Inception</a>, arXiv 1409.4842 (2014)</li>
-        <li style="margin-bottom:4px;">He et al. — <a href="https://arxiv.org/abs/1512.03385" target="_blank" style="color:var(--primary-color);">ResNet</a>, arXiv 1512.03385 (2015)</li>
-        <li style="margin-bottom:4px;">Huang et al. — <a href="https://arxiv.org/abs/1608.06993" target="_blank" style="color:var(--primary-color);">DenseNet</a>, arXiv 1608.06993 (2017)</li>
-        <li style="margin-bottom:4px;">Tan &amp; Le — <a href="https://arxiv.org/abs/1905.11946" target="_blank" style="color:var(--primary-color);">EfficientNet</a>, arXiv 1905.11946 (2019)</li>
-        <li style="margin-bottom:4px;">Dosovitskiy et al. — <a href="https://arxiv.org/abs/2010.11929" target="_blank" style="color:var(--primary-color);">Vision Transformer (ViT)</a>, arXiv 2010.11929 (2020)</li>
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Computer Vision</p>
+      <ul style="list-style:none;padding:0;margin:0 0 6px;">
+        <li style="margin-bottom:2px;">Krizhevsky, Sutskever &amp; Hinton — <a href="https://proceedings.neurips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" style="color:var(--primary-color);">AlexNet</a>, NeurIPS (2012)</li>
+        <li style="margin-bottom:2px;">Simonyan &amp; Zisserman — <a href="https://arxiv.org/abs/1409.1556" target="_blank" style="color:var(--primary-color);">VGGNet</a>, arXiv 1409.1556 (2014)</li>
+        <li style="margin-bottom:2px;">Szegedy et al. — <a href="https://arxiv.org/abs/1409.4842" target="_blank" style="color:var(--primary-color);">GoogLeNet / Inception</a>, arXiv 1409.4842 (2014)</li>
+        <li style="margin-bottom:2px;">He et al. — <a href="https://arxiv.org/abs/1512.03385" target="_blank" style="color:var(--primary-color);">ResNet</a>, arXiv 1512.03385 (2015)</li>
+        <li style="margin-bottom:2px;">Huang et al. — <a href="https://arxiv.org/abs/1608.06993" target="_blank" style="color:var(--primary-color);">DenseNet</a>, arXiv 1608.06993 (2017)</li>
+        <li style="margin-bottom:2px;">Tan &amp; Le — <a href="https://arxiv.org/abs/1905.11946" target="_blank" style="color:var(--primary-color);">EfficientNet</a>, arXiv 1905.11946 (2019)</li>
+        <li style="margin-bottom:2px;">Dosovitskiy et al. — <a href="https://arxiv.org/abs/2010.11929" target="_blank" style="color:var(--primary-color);">Vision Transformer (ViT)</a>, arXiv 2010.11929 (2020)</li>
+        <li style="margin-bottom:2px;">Touvron et al. — <a href="https://arxiv.org/abs/2012.12877" target="_blank" style="color:var(--primary-color);">DeiT: Data-efficient Image Transformers</a>, arXiv 2012.12877 (2020)</li>
+        <li style="margin-bottom:2px;">Liu et al. — <a href="https://arxiv.org/abs/2103.14030" target="_blank" style="color:var(--primary-color);">Swin Transformer</a>, arXiv 2103.14030 (2021)</li>
+        <li style="margin-bottom:2px;">Radford et al. — <a href="https://arxiv.org/abs/2103.00020" target="_blank" style="color:var(--primary-color);">CLIP: Learning Transferable Visual Models from Natural Language</a>, OpenAI arXiv 2103.00020 (2021)</li>
       </ul>
 
-      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Transformers &amp; LLMs</p>
-      <ul style="list-style:none;padding:0;margin:0 0 10px;">
-        <li style="margin-bottom:4px;">Vaswani et al. — <a href="https://arxiv.org/abs/1706.03762" target="_blank" style="color:var(--primary-color);">"Attention is All You Need"</a>, arXiv 1706.03762 (2017)</li>
-        <li style="margin-bottom:4px;">Devlin et al. — <em>BERT: Pre-training of Deep Bidirectional Transformers</em>, Google (2018)</li>
-        <li style="margin-bottom:4px;">Brown et al. — <em>Language Models are Few-Shot Learners</em> (GPT-3), OpenAI (2020)</li>
-        <li style="margin-bottom:4px;">Jiang et al. — <em>Mistral 7B</em>, Mistral AI (2023)</li>
-        <li style="margin-bottom:4px;">Jiang et al. — <em>Mixtral of Experts</em> (MoE), Mistral AI (2024)</li>
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Diffusion Models</p>
+      <ul style="list-style:none;padding:0;margin:0 0 6px;">
+        <li style="margin-bottom:2px;">Ho et al. — <a href="https://arxiv.org/abs/2006.11239" target="_blank" style="color:var(--primary-color);">DDPM: Denoising Diffusion Probabilistic Models</a>, arXiv 2006.11239 (2020)</li>
+        <li style="margin-bottom:2px;">Rombach et al. — <a href="https://arxiv.org/abs/2112.10752" target="_blank" style="color:var(--primary-color);">LDM / Stable Diffusion: High-Resolution Image Synthesis with Latent Diffusion Models</a>, arXiv 2112.10752 (2021)</li>
+        <li style="margin-bottom:2px;">Ramesh et al. — <a href="https://arxiv.org/abs/2204.06125" target="_blank" style="color:var(--primary-color);">DALL·E 2: Hierarchical Text-Conditional Image Generation</a>, OpenAI arXiv 2204.06125 (2022)</li>
+        <li style="margin-bottom:2px;">Peebles &amp; Xie — <a href="https://arxiv.org/abs/2212.09748" target="_blank" style="color:var(--primary-color);">DiT: Scalable Diffusion Models with Transformers</a>, arXiv 2212.09748 (2022)</li>
       </ul>
 
-      <p style="color:var(--muted-color);margin:0 0 6px;font-weight:600;">Tools &amp; Libraries</p>
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Transformers &amp; LLMs</p>
+      <ul style="list-style:none;padding:0;margin:0 0 6px;">
+        <li style="margin-bottom:2px;">Vaswani et al. — <a href="https://arxiv.org/abs/1706.03762" target="_blank" style="color:var(--primary-color);">"Attention is All You Need"</a>, arXiv 1706.03762 (2017)</li>
+        <li style="margin-bottom:2px;">Devlin et al. — <em>BERT: Pre-training of Deep Bidirectional Transformers</em>, Google (2018)</li>
+        <li style="margin-bottom:2px;">Brown et al. — <em>Language Models are Few-Shot Learners</em> (GPT-3), OpenAI (2020)</li>
+        <li style="margin-bottom:2px;">Jiang et al. — <em>Mistral 7B</em>, Mistral AI (2023)</li>
+        <li style="margin-bottom:2px;">Jiang et al. — <em>Mixtral of Experts</em> (MoE), Mistral AI (2024)</li>
+      </ul>
+
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Tools &amp; Libraries</p>
       <ul style="list-style:none;padding:0;margin:0;">
-        <li style="margin-bottom:3px;"><a href="https://revealjs.com" target="_blank" style="color:var(--primary-color);">Reveal.js</a> — Presentation framework</li>
-        <li style="margin-bottom:3px;"><a href="https://d3js.org" target="_blank" style="color:var(--primary-color);">D3.js</a> — Data-driven animations</li>
-        <li style="margin-bottom:3px;"><a href="https://threejs.org" target="_blank" style="color:var(--primary-color);">Three.js</a> — 3D vector space visualization</li>
-        <li style="margin-bottom:3px;"><a href="https://www.tensorflow.org/js" target="_blank" style="color:var(--primary-color);">TensorFlow.js</a> — In-browser webcam demo</li>
-        <li style="margin-bottom:3px;"><a href="https://huggingface.co" target="_blank" style="color:var(--primary-color);">Hugging Face</a> — Model hub &amp; fine-tuning resources</li>
+        <li style="margin-bottom:2px;"><a href="https://revealjs.com" target="_blank" style="color:var(--primary-color);">Reveal.js</a> — Presentation framework</li>
+        <li style="margin-bottom:2px;"><a href="https://d3js.org" target="_blank" style="color:var(--primary-color);">D3.js</a> — Data-driven animations</li>
+        <li style="margin-bottom:2px;"><a href="https://threejs.org" target="_blank" style="color:var(--primary-color);">Three.js</a> — 3D vector space visualization</li>
+        <li style="margin-bottom:2px;"><a href="https://www.tensorflow.org/js" target="_blank" style="color:var(--primary-color);">TensorFlow.js</a> — In-browser webcam demo</li>
+        <li style="margin-bottom:2px;"><a href="https://huggingface.co" target="_blank" style="color:var(--primary-color);">Hugging Face</a> — Model hub &amp; fine-tuning resources</li>
       </ul>
     </div>
 
     <!-- RIGHT: Awesome Resources -->
     <div style="border-left:2px solid rgba(255,255,255,0.1);padding-left:16px;">
-      <h3 style="font-size:10pt;color:var(--secondary-color);margin:0 0 12px;text-transform:uppercase;letter-spacing:.07em;">Awesome Resources</h3>
+      <h3 style="font-size:8pt;color:var(--secondary-color);margin:0 0 8px;text-transform:uppercase;letter-spacing:.07em;">Awesome Resources</h3>
 
-      <div style="display:flex;flex-direction:column;gap:18px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
 
-        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid var(--primary-color);">
-          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">3Blue1Brown</div>
-          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Grant Sanderson's visually stunning explanations of neural networks, linear algebra, and calculus — the best intuition-building content on the internet.</div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;border-left:3px solid var(--primary-color);">
+          <div style="font-weight:700;font-size:8pt;margin-bottom:2px;">3Blue1Brown</div>
+          <div style="color:var(--muted-color);margin-bottom:4px;">Grant Sanderson's visually stunning explanations of neural networks, linear algebra, and calculus — the best intuition-building content on the internet.</div>
           <a href="https://www.3blue1brown.com/" target="_blank" style="color:var(--primary-color);font-family:monospace;">www.3blue1brown.com</a>
         </div>
 
-        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid var(--secondary-color);">
-          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">Jia-Bin Huang — Transformer Playlist</div>
-          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Comprehensive lecture series on transformers and modern vision/language models. Clear, rigorous, and up to date.</div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;border-left:3px solid var(--secondary-color);">
+          <div style="font-weight:700;font-size:8pt;margin-bottom:2px;">Jia-Bin Huang — Transformer Playlist</div>
+          <div style="color:var(--muted-color);margin-bottom:4px;">Comprehensive lecture series on transformers and modern vision/language models. Clear, rigorous, and up to date.</div>
           <a href="https://www.youtube.com/@jbhuang0604" target="_blank" style="color:var(--secondary-color);font-family:monospace;">youtube.com/@jbhuang0604</a>
         </div>
 
-        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:12px 14px;border-left:3px solid #a78bfa;">
-          <div style="font-weight:700;font-size:10pt;margin-bottom:4px;">Nate B Jones</div>
-          <div style="color:var(--muted-color);margin-bottom:6px;font-size:8pt;">Excellent visual breakdowns of machine learning and AI concepts — great for building strong intuitions alongside the math.</div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;border-left:3px solid #a78bfa;">
+          <div style="font-weight:700;font-size:8pt;margin-bottom:2px;">Nate B Jones</div>
+          <div style="color:var(--muted-color);margin-bottom:4px;">Excellent visual breakdowns of machine learning and AI concepts — great for building strong intuitions alongside the math.</div>
           <a href="https://www.youtube.com/@NateBJones" target="_blank" style="color:#a78bfa;font-family:monospace;">youtube.com/@NateBJones</a>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;border-left:3px solid #2de8a0;">
+          <div style="font-weight:700;font-size:8pt;margin-bottom:2px;">Julia Turc</div>
+          <div style="color:var(--muted-color);margin-bottom:4px;">NLP researcher (Google DeepMind) with accessible talks on transformers, model distillation, and language model internals — bridges cutting-edge research and clear intuition.</div>
+          <a href="https://www.youtube.com/@juliaturc1" target="_blank" style="color:#2de8a0;font-family:monospace;">youtube.com/@juliaturc1</a>
         </div>
 
       </div>
@@ -13761,6 +13929,7 @@
       {id:'n70',era:9,color:'#9a5aff',label:['Encoder','Finetuning'],      slideId:'encoder-finetuning'},
       {id:'n71',era:9,color:'#9a5aff',label:['CLS','Token'],               slideId:'cls-token'},
       {id:'n72',era:9,color:'#9a5aff',label:['DIY','Modelling'],           slideId:'diy-modelling'},
+      {id:'n72b',era:9,color:'#9a5aff',label:['Vision &','Diffusion ViT'], slideId:'vision-transformers'},
       {id:'n73',era:9,color:'#9a5aff',label:['ViT Live','Demo'],           slideId:'vit-demo'},
       // Era 10 — Advanced & Apps
       {id:'n74',era:10,color:'#e86040',label:['Cross-Attention','Multimodal'],slideId:'cross-attention'},
@@ -13772,6 +13941,7 @@
       {id:'n82',era:10,color:'#2de8a0',label:['AI Agents','Overview'],     slideId:'ai-agents-overview'},
       {id:'n83',era:10,color:'#2de8a0',label:['Agent','Building Blocks'],  slideId:'ai-agents'},
       {id:'n84',era:10,color:'#7ec8f7',label:['Agent','Memory'],           slideId:'agent-memory-1'},
+      {id:'n84b',era:10,color:'#7ec8f7',label:['Agent','Harness'],         slideId:'agent-harness-overview'},
       {id:'n85',era:10,color:'#e86040',label:['Agent','Security'],         slideId:'agent-security'},
       {id:'n80',era:10,color:'#ffa830',label:['Phishing','Use Case'],      slideId:'phishing-usecase'},
       {id:'n81',era:10,color:'#ffa830',label:['Learning','Paradigms'],     slideId:'paradigms'},
@@ -13800,9 +13970,9 @@
       ['n58','n59'],['n59','n60'],['n60','n61'],['n61','n62'],
       // Era 9 chain
       ['n63','n64'],['n64','n65'],['n65','n66'],['n66','n67'],['n67','n68'],
-      ['n68','n69'],['n69','n70'],['n70','n71'],['n71','n72'],['n72','n73'],
+      ['n68','n69'],['n69','n70'],['n70','n71'],['n71','n72'],['n72','n72b'],['n72b','n73'],
       // Era 10 chain
-      ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n85'],['n85','n80'],['n80','n81'],
+      ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n84b'],['n84b','n85'],['n85','n80'],['n80','n81'],
       // Cross-era conceptual bridges
       ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
       ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
@@ -13829,7 +13999,7 @@
         ids:new Set(['slide-map','early-ml','mnist-to-vector','perceptron','output-layer','training-network',
           'gradient-landscape','conv-full-digit','cnn-slabs-c1','webcam-demo','word-vector-demo',
           'rnn-animation','lstm-animation','qkv-attention','multi-head-attn','transformer-3d-overview',
-          'vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents','ai-agents-overview'])
+          'vision-transformers','vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents','ai-agents-overview'])
       },
       qnd:{
         name:'Quick & Dirty',icon:'⚡',color:'#ffa830',
@@ -13839,7 +14009,7 @@
           'bias-variance','overfitting-epochs','conv-filters','cnn-architecture','enc-dec-concepts',
           'cnn-intro','webcam-demo','no-more-mnist','embeddings','word-vector-demo','word-order-intro',
           'rnn-animation','lstm-use-cases','transformers','transformer-3d-overview','llm-arch-families',
-          'gen-llm-training','human-annotation','vit-demo','cross-attention','moe','llm-params',
+          'gen-llm-training','human-annotation','vision-transformers','vit-demo','cross-attention','moe','llm-params',
           'prompts-harnesses-agents','ai-agents-overview','ai-agents','agent-memory-1','agent-security','paradigms'])
       },
       deepdive:{

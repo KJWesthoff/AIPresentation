@@ -149,13 +149,27 @@
 
 /* Dense info slides — explicit small size wins over the direct .reveal li rule via ID specificity */
 #references li {
-  font-size: 8.5pt;
-  margin-bottom: 3px;
+  font-size: 6.5pt;
+  margin-bottom: 2px;
   padding-left: 0;
 }
 
 #references ul li::before {
   display: none;
+}
+
+#references p {
+  font-size: 6.5pt;
+  margin: 0 0 3px;
+}
+
+#references h3 {
+  font-size: 8pt;
+}
+
+#references div {
+  color: var(--text-color);
+  font-size: 6.5pt;
 }
 
 #about-deck li {
