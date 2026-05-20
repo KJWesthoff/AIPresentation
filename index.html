@@ -14482,6 +14482,41 @@
 
     function draw(el){
       el.innerHTML='';
+      el.style.position='relative';
+
+      // Loading spinner — shown until the first simulation tick renders
+      if(!document.getElementById('sm-spin-style')){
+        var sty=document.createElement('style');
+        sty.id='sm-spin-style';
+        sty.textContent='@keyframes sm-spin{to{transform:rotate(360deg)}}';
+        document.head.appendChild(sty);
+      }
+      var spinWrap=document.createElement('div');
+      spinWrap.id='sm-spinner';
+      Object.assign(spinWrap.style,{
+        position:'absolute',top:'50%',left:'50%',
+        transform:'translate(-50%,-50%)',
+        zIndex:'25',pointerEvents:'none',
+        display:'flex',flexDirection:'column',alignItems:'center',gap:'14px',
+        transition:'opacity 0.4s'
+      });
+      var ring=document.createElement('div');
+      Object.assign(ring.style,{
+        width:'42px',height:'42px',borderRadius:'50%',
+        border:'3px solid rgba(0,217,255,0.12)',
+        borderTopColor:'rgba(0,217,255,0.72)',
+        animation:'sm-spin 0.85s linear infinite'
+      });
+      var spinTxt=document.createElement('div');
+      Object.assign(spinTxt.style,{
+        color:'rgba(0,217,255,0.38)',fontSize:'8.5px',
+        fontFamily:'sans-serif',letterSpacing:'0.12em',textTransform:'uppercase'
+      });
+      spinTxt.textContent='Loading network…';
+      spinWrap.appendChild(ring);
+      spinWrap.appendChild(spinTxt);
+      el.appendChild(spinWrap);
+
       const svg=d3.select(el).append('svg')
         .attr('viewBox','0 0 '+W+' '+H)
         .style('width','100%').style('height','100%');
@@ -14733,6 +14768,12 @@
       nodeSel.call(drag);
 
       sim.on('tick',function(){
+        // Fade out spinner on first tick
+        var sp=document.getElementById('sm-spinner');
+        if(sp&&sp.style.opacity!=='0'){
+          sp.style.opacity='0';
+          setTimeout(function(){if(sp.parentNode)sp.remove();},420);
+        }
         nodes.forEach(function(n){
           n.x=Math.max(NW/2+2,Math.min(W-NW/2-2,n.x));
           n.y=Math.max(NH/2+26,Math.min(H-NH/2-4,n.y));
