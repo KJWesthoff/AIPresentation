@@ -14835,7 +14835,6 @@
       var sm=document.getElementById('slide-map');
       if(sm){var idx=Reveal.getIndices(sm);Reveal.slide(idx.h,idx.v);}
     },true);
-    Reveal.on('ready',maybeInit);
     Reveal.on('slidechanged',function(ev){
       if(ev.previousSlide&&ev.previousSlide.id==='slide-map'){
         var el=document.getElementById('slide-map-canvas');
@@ -14843,6 +14842,14 @@
       }
       if(ev.currentSlide&&ev.currentSlide.id==='slide-map') maybeInit();
     });
+    // Reveal.initialize() is async and fires 'ready' as a microtask between
+    // script blocks — by the time this IIFE runs, ready may have already fired.
+    // Check isReady() first; fall back to the event for the race-free path.
+    if(Reveal.isReady()){
+      maybeInit();
+    } else {
+      Reveal.on('ready',maybeInit);
+    }
   })();
   </script>
 </body>
