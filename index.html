@@ -13916,7 +13916,8 @@
       {id:'n58',era:8,color:'#4da8ff',label:['FFN &','GLU Layers'],        slideId:'ffn-layer'},
       {id:'n59',era:8,color:'#4da8ff',label:['FFN','Activations'],         slideId:'ffn-activations'},
       {id:'n60',era:8,color:'#4da8ff',label:['GLU','Layers'],              slideId:'ffn-glu'},
-      {id:'n61',era:8,color:'#4da8ff',label:['Full Transformer','2017'],   slideId:'transformers'},
+      {id:'n61',era:8,color:'#4da8ff',label:['All You Need','2017'],       slideId:'allyouneed'},
+      {id:'n61b',era:8,color:'#4da8ff',label:['Self-Attn','Mechanism'],    slideId:'allyouneed_contd'},
       {id:'n62',era:8,color:'#4da8ff',label:['Transformer','3D View'],     slideId:'transformer-3d-overview'},
       // Era 9 — LLMs 2018–22
       {id:'n63',era:9,color:'#9a5aff',label:['LLM Families','& Arch'],     slideId:'llm-arch-families'},
@@ -13967,7 +13968,7 @@
       // Era 7 chain
       ['n51','n52'],['n52','n53'],['n53','n54'],['n54','n55'],['n55','n56'],['n56','n57'],
       // Era 8 chain
-      ['n58','n59'],['n59','n60'],['n60','n61'],['n61','n62'],
+      ['n58','n59'],['n59','n60'],['n60','n61'],['n61','n61b'],['n61b','n62'],
       // Era 9 chain
       ['n63','n64'],['n64','n65'],['n65','n66'],['n66','n67'],['n67','n68'],
       ['n68','n69'],['n69','n70'],['n70','n71'],['n71','n72'],['n72','n72b'],['n72b','n73'],
@@ -13998,19 +13999,19 @@
         bullets:['Live webcam CNN demo','3D word vector explorer','Animated attention','All the eye candy'],
         ids:new Set(['slide-map','early-ml','mnist-to-vector','perceptron','output-layer','training-network',
           'gradient-landscape','conv-full-digit','cnn-slabs-c1','webcam-demo','word-vector-demo',
-          'rnn-animation','lstm-animation','qkv-attention','multi-head-attn','transformer-3d-overview',
+          'rnn-animation','lstm-animation','qkv-attention','multi-head-attn','allyouneed','transformer-3d-overview',
           'vision-transformers','vit-demo','cross-attn-diffusion','moe','prompts-harnesses-agents','ai-agents-overview'])
       },
       qnd:{
         name:'Quick & Dirty',icon:'⚡',color:'#ffa830',
         desc:'Non-technical overview',
-        bullets:['Core concepts only','No heavy math','Big-picture story','~30 slides'],
+        bullets:['Core concepts only','No heavy math','Big-picture story','~35 slides'],
         ids:new Set(['slide-map','early-ml','nn-intro','mlp-architecture','gradient-landscape',
           'bias-variance','overfitting-epochs','conv-filters','cnn-architecture','enc-dec-concepts',
           'cnn-intro','webcam-demo','no-more-mnist','embeddings','word-vector-demo','word-order-intro',
-          'rnn-animation','lstm-use-cases','transformers','transformer-3d-overview','llm-arch-families',
+          'rnn-animation','lstm-use-cases','allyouneed','transformer-3d-overview','llm-arch-families',
           'gen-llm-training','human-annotation','vision-transformers','vit-demo','cross-attention','moe','llm-params',
-          'prompts-harnesses-agents','ai-agents-overview','ai-agents','agent-memory-1','agent-security','paradigms'])
+          'prompts-harnesses-agents','ai-agents-overview','ai-agents','agent-memory-1','agent-harness-overview','agent-security','paradigms'])
       },
       deepdive:{
         name:'Deep Dive',icon:'🔬',color:'#9a5aff',
@@ -14156,7 +14157,9 @@
       var hint=document.getElementById('sm-custom-hint');
       var doneBtn=document.getElementById('sm-done-btn');
       var resetBtn=document.getElementById('sm-reset-btn');
+      var sep=document.getElementById('sm-sep');
       if(resetBtn) resetBtn.style.display='flex';
+      if(sep) sep.style.display='block';
       if(key==='custom'){
         DECKS.custom.ids=new Set();  // start empty — user picks
         if(hint) hint.style.display='block';
@@ -14200,11 +14203,17 @@
       });
       el.appendChild(tooltip);
 
-      // Compact radio-button panel — top-left corner
+      // Wrapper — positions panel and reset button side by side
+      var wrapper=document.createElement('div');
+      Object.assign(wrapper.style,{
+        position:'absolute',top:'35px',left:'8px',zIndex:'10',
+        display:'flex',alignItems:'flex-start',gap:'6px'
+      });
+
+      // Compact radio-button panel
       var panel=document.createElement('div');
       panel.id='sm-chooser';
       Object.assign(panel.style,{
-        position:'absolute',top:'35px',left:'8px',zIndex:'10',
         display:'flex',flexDirection:'column',gap:'2px',
         padding:'6px 8px',
         background:'rgba(4,8,20,0.80)',
@@ -14282,8 +14291,8 @@
             ul.appendChild(li);
           });
           tooltip.appendChild(ul);
-          tooltip.style.left=(panel.offsetLeft+panel.offsetWidth+8)+'px';
-          tooltip.style.top=(panel.offsetTop+row.offsetTop)+'px';
+          tooltip.style.left=(wrapper.offsetLeft+wrapper.offsetWidth+8)+'px';
+          tooltip.style.top=(wrapper.offsetTop+row.offsetTop)+'px';
           tooltip.style.display='block';
         });
         row.addEventListener('mouseleave',function(){
@@ -14294,21 +14303,6 @@
         panel.appendChild(row);
       });
 
-      el.appendChild(panel);
-
-      // Hint bar — editing instructions
-      var hint=document.createElement('div');
-      hint.id='sm-custom-hint';
-      Object.assign(hint.style,{
-        position:'absolute',bottom:'88px',left:'0',right:'70px',
-        textAlign:'center',color:'rgba(0,217,255,0.40)',
-        fontSize:'8px',fontFamily:'sans-serif',
-        pointerEvents:'none',letterSpacing:'0.05em',zIndex:'9',
-        display:(currentDeck==='custom'&&!customDone)?'block':'none'
-      });
-      hint.textContent='click nodes to add to your deck';
-      el.appendChild(hint);
-
       // Inject pulse keyframes once
       if(!document.getElementById('sm-pulse-style')){
         var pst=document.createElement('style');
@@ -14317,17 +14311,26 @@
         document.head.appendChild(pst);
       }
 
-      // Go / Done round button — lower-right, shown whenever a deck is selected
+      // Thin separator above Go/Done button
+      var sep=document.createElement('div');
+      Object.assign(sep.style,{
+        height:'1px',background:'rgba(60,80,120,0.22)',
+        margin:'4px -2px 2px',
+        display:currentDeck?'block':'none'
+      });
+      sep.id='sm-sep';
+      panel.appendChild(sep);
+
+      // Go / Done button — bottom of panel, full width
       var doneBtn=document.createElement('div');
       doneBtn.id='sm-done-btn';
       var _isGo=isGoMode();
       Object.assign(doneBtn.style,{
-        position:'absolute',bottom:'84px',right:'12px',
-        width:'46px',height:'46px',borderRadius:'50%',
         display:currentDeck?'flex':'none',
         alignItems:'center',justifyContent:'center',
-        cursor:'pointer',zIndex:'12',userSelect:'none',
-        fontFamily:'sans-serif',fontSize:'10px',fontWeight:'700',letterSpacing:'0.04em',
+        cursor:'pointer',userSelect:'none',
+        fontFamily:'sans-serif',fontSize:'10px',fontWeight:'700',letterSpacing:'0.05em',
+        borderRadius:'5px',padding:'5px 16px',
         transition:'background 0.18s,border-color 0.18s,color 0.18s',
         border:'2px solid '+(_isGo?'#2de8a0':'#00d9ff'),
         color:_isGo?'#2de8a0':'#00d9ff',
@@ -14375,37 +14378,54 @@
           }
         }
       });
-      el.appendChild(doneBtn);
+      panel.appendChild(doneBtn);
 
-      // Reset button — upper right corner
+      wrapper.appendChild(panel);
+
+      // Reset button — to the right of panel, larger
       var resetBtn=document.createElement('div');
       resetBtn.id='sm-reset-btn';
       Object.assign(resetBtn.style,{
-        position:'absolute',top:'8px',right:'8px',
-        width:'22px',height:'22px',borderRadius:'50%',
+        width:'28px',height:'28px',borderRadius:'50%',flexShrink:'0',
         display:currentDeck?'flex':'none',
         alignItems:'center',justifyContent:'center',
-        cursor:'pointer',zIndex:'12',userSelect:'none',
-        fontFamily:'sans-serif',fontSize:'14px',lineHeight:'1',
-        color:'rgba(120,140,160,0.45)',
-        border:'1px solid rgba(100,120,150,0.18)',
-        background:'rgba(4,8,20,0.55)',
-        transition:'color 0.15s,border-color 0.15s,background 0.15s'
+        cursor:'pointer',userSelect:'none',
+        fontSize:'17px',lineHeight:'1',
+        color:'rgba(120,140,160,0.55)',
+        border:'1.5px solid rgba(100,120,150,0.25)',
+        background:'rgba(4,8,20,0.75)',
+        transition:'color 0.15s,border-color 0.15s,background 0.15s',
+        marginTop:'3px'
       });
       resetBtn.textContent='↺';
       resetBtn.title='Reset deck selection';
       resetBtn.addEventListener('mouseenter',function(){
         resetBtn.style.color='#ff6060';
-        resetBtn.style.borderColor='rgba(255,80,80,0.45)';
-        resetBtn.style.background='rgba(255,50,50,0.10)';
+        resetBtn.style.borderColor='rgba(255,80,80,0.55)';
+        resetBtn.style.background='rgba(255,50,50,0.12)';
       });
       resetBtn.addEventListener('mouseleave',function(){
-        resetBtn.style.color='rgba(120,140,160,0.45)';
-        resetBtn.style.borderColor='rgba(100,120,150,0.18)';
-        resetBtn.style.background='rgba(4,8,20,0.55)';
+        resetBtn.style.color='rgba(120,140,160,0.55)';
+        resetBtn.style.borderColor='rgba(100,120,150,0.25)';
+        resetBtn.style.background='rgba(4,8,20,0.75)';
       });
       resetBtn.addEventListener('click',function(){resetDeck(el);});
-      el.appendChild(resetBtn);
+      wrapper.appendChild(resetBtn);
+
+      el.appendChild(wrapper);
+
+      // Hint bar — editing instructions (centred on canvas)
+      var hint=document.createElement('div');
+      hint.id='sm-custom-hint';
+      Object.assign(hint.style,{
+        position:'absolute',bottom:'88px',left:'0',right:'0',
+        textAlign:'center',color:'rgba(0,217,255,0.40)',
+        fontSize:'8px',fontFamily:'sans-serif',
+        pointerEvents:'none',letterSpacing:'0.05em',zIndex:'9',
+        display:(currentDeck==='custom'&&!customDone)?'block':'none'
+      });
+      hint.textContent='click nodes to add to your deck';
+      el.appendChild(hint);
     }
 
     function resetDeck(el){
@@ -14418,9 +14438,11 @@
       var hint=document.getElementById('sm-custom-hint');
       var doneBtn=document.getElementById('sm-done-btn');
       var resetBtn=document.getElementById('sm-reset-btn');
+      var sep2=document.getElementById('sm-sep');
       if(hint) hint.style.display='none';
       if(doneBtn){doneBtn.style.display='none';doneBtn.classList.remove('sm-go-pulse');}
       if(resetBtn) resetBtn.style.display='none';
+      if(sep2) sep2.style.display='none';
       updateRadioVisuals();
       if(el&&el._nodeSel){
         el._nodeSel.transition().duration(350).style('opacity',1).attr('filter',null);
@@ -14611,11 +14633,31 @@
           d3.select(this).select('rect')
             .attr('stroke-width',2.4)
             .attr('fill','rgba(20,28,55,0.99)');
+          if(!d.slideId) return;
+          var thumb=document.getElementById('sm-thumb');
+          if(!thumb) return;
+          var img=thumb.querySelector('img');
+          img.src='presentation_images/thumbs/'+d.slideId+'.jpg';
+          // Convert SVG node coords to canvas-relative pixels
+          var svgEl=el.querySelector('svg');
+          var scaleX=(svgEl?svgEl.clientWidth:W)/W;
+          var scaleY=(svgEl?svgEl.clientHeight:H)/H;
+          var px=d.x*scaleX, py=d.y*scaleY;
+          var tw=256,th=144,cw=el.clientWidth,ch=el.clientHeight;
+          var tx=(px+38+tw<cw)?px+38:px-tw-38;
+          var ty=Math.max(4,Math.min(py-th/2,ch-th-4));
+          thumb.style.left=tx+'px';
+          thumb.style.top=ty+'px';
+          thumb.style.borderColor=d.color+'99';
+          thumb.style.opacity='1';
+          thumb.style.display='block';
         })
         .on('mouseout',function(event,d){
           d3.select(this).select('rect').attr('fill','rgba(8,12,28,0.97)');
           var keepThick=currentDeck==='custom'&&!customDone&&DECKS.custom.ids.has(d.slideId);
           d3.select(this).select('rect').attr('stroke-width',keepThick?2.4:1.2);
+          var thumb=document.getElementById('sm-thumb');
+          if(thumb) thumb.style.display='none';
         })
         .on('click',function(event,d){
           if(currentDeck==='custom'&&!customDone){
@@ -14658,6 +14700,27 @@
       el._linkSel=linkSel;
 
       setupDeckUI(el);
+
+      // Thumbnail preview overlay
+      if(!document.getElementById('sm-thumb')){
+        var thumb=document.createElement('div');
+        thumb.id='sm-thumb';
+        Object.assign(thumb.style,{
+          position:'absolute',display:'none',zIndex:'18',
+          pointerEvents:'none',
+          borderRadius:'6px',overflow:'hidden',
+          border:'2px solid rgba(100,150,200,0.5)',
+          boxShadow:'0 6px 28px rgba(0,0,0,0.85)',
+          transition:'opacity 0.1s'
+        });
+        var thumbImg=document.createElement('img');
+        Object.assign(thumbImg.style,{
+          display:'block',width:'256px',height:'144px',objectFit:'cover'
+        });
+        thumb.appendChild(thumbImg);
+        el.appendChild(thumb);
+      }
+
       if(currentDeck==='custom'&&!customDone) applyCustomEditView(el);
       else if(currentDeck) applyDeckDimming(el);
     }
@@ -14671,6 +14734,14 @@
         if(goActive){activateDeckNav();applyDeckVisibility();}
       }
     }
+    document.addEventListener('keydown',function(e){
+      if(e.keyCode!==27||!currentDeck) return;
+      e.preventDefault();e.stopImmediatePropagation();
+      var el=document.getElementById('slide-map-canvas');
+      resetDeck(el);
+      var sm=document.getElementById('slide-map');
+      if(sm){var idx=Reveal.getIndices(sm);Reveal.slide(idx.h,idx.v);}
+    },true);
     Reveal.on('ready',maybeInit);
     Reveal.on('slidechanged',function(ev){
       if(ev.previousSlide&&ev.previousSlide.id==='slide-map'){
