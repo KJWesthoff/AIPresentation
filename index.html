@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Evolution of Artificial Intelligence</title>
+  <title>From MNIST to Mayhem</title>
 
   <!-- Reveal.js core -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
@@ -7120,8 +7120,8 @@
       });
     }
 
-    // ── Wire up once Reveal is ready ──
-    Reveal.on('ready', () => {
+    // ── Wire up UI handlers ──
+    function wireGloveUI() {
       const btn   = document.getElementById('glove-btn');
       const input = document.getElementById('glove-input');
       if (!btn) return;
@@ -7136,7 +7136,14 @@
           compute();
         });
       });
-    });
+    }
+    // 'ready' fires as a microtask during Reveal.initialize() — may have already
+    // fired before this IIFE runs; check isReady() to avoid missing it.
+    if (Reveal.isReady()) {
+      wireGloveUI();
+    } else {
+      Reveal.on('ready', wireGloveUI);
+    }
 
     // Preload vectors when slide is entered
     Reveal.on('slidechanged', ev => {
