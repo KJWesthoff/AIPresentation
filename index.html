@@ -891,26 +891,184 @@
           </div>
         </section>
 
+        <!-- ── Softmax Slide ── -->
+        <section id="softmax-function">
+          <h2>Softmax — Turning Logits into Probabilities</h2>
+          <div class="content" style="padding: 8px 20px 0;">
+            <div style="display: grid; grid-template-columns: 1fr 1.55fr; gap: 28px; align-items: start;">
+
+              <!-- Left: formula + properties -->
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <p style="font-size: 13pt; color: var(--muted-color);">The output layer produces 10 raw scores — <em>logits</em>. Softmax converts them into a valid probability distribution over digit classes.</p>
+
+                <div style="background: rgba(0,217,255,0.08); border: 1px solid rgba(0,217,255,0.35); border-radius: var(--box-radius); padding: 10px 16px; text-align: center;">
+                  <p style="font-size: 9pt; color: var(--muted-color); margin-bottom: 5px; font-family: sans-serif;">For class <em>i</em> out of <em>K</em> classes:</p>
+                  <p style="font-family: monospace; font-size: 16pt !important; color: var(--primary-color); letter-spacing: 1px;">σ(z)<sub style="font-size:10pt">i</sub> = e<sup style="font-size:9pt">zᵢ</sup> / Σ e<sup style="font-size:9pt">zⱼ</sup></p>
+                  <p style="font-size: 8pt; color: var(--muted-color); margin-top: 4px; font-family: monospace;">j = 0 … K−1</p>
+                </div>
+
+                <div style="background: rgba(157,78,221,0.1); border-left: 3px solid var(--secondary-color); padding: 7px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--secondary-color);">All outputs ∈ (0, 1)</strong> — exponentiation forces positivity</p>
+                </div>
+                <div style="background: rgba(0,217,255,0.08); border-left: 3px solid var(--primary-color); padding: 7px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--primary-color);">Outputs sum to exactly 1</strong> — valid probability distribution</p>
+                </div>
+                <div style="background: rgba(255,0,110,0.08); border-left: 3px solid var(--accent-tertiary); padding: 7px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--accent-tertiary);">Amplifies the largest logit</strong> — winner-takes-most effect</p>
+                </div>
+                <p style="font-size: 13pt; color: var(--muted-color); font-style: italic;">Cross-entropy loss measures how far σ(z) is from the one-hot target label.</p>
+              </div>
+
+              <!-- Right: SVG visualization -->
+              <div>
+                <svg viewBox="0 0 520 392" width="100%" style="display:block;" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="sm-arr" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+                      <polygon points="0,0 7,3 0,6" fill="#adb5bd"/>
+                    </marker>
+                  </defs>
+
+                  <!-- ── Left chart: Raw logits ── -->
+                  <text x="120" y="24" fill="#adb5bd" font-size="12" text-anchor="middle" font-family="sans-serif" font-weight="600">Raw logits  z</text>
+                  <text x="25"  y="35" fill="rgba(173,181,189,0.55)" font-size="9" text-anchor="middle" font-family="sans-serif">digit</text>
+
+                  <!-- zero baseline dashed -->
+                  <line x1="140" y1="30" x2="140" y2="366" stroke="rgba(173,181,189,0.22)" stroke-width="1" stroke-dasharray="3,3"/>
+
+                  <!-- digit 0  z=-2.1  bar left: x=102, w=38 -->
+                  <text x="25" y="52"  fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">0</text>
+                  <rect x="102" y="38"  width="38" height="20" fill="rgba(255,0,110,0.32)" rx="2"/>
+                  <text x="98"  y="52"  fill="#ff006e" font-size="9" text-anchor="end" font-family="monospace">-2.1</text>
+
+                  <!-- digit 1  z=0.3  bar right: x=140, w=5 -->
+                  <text x="25" y="86"  fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">1</text>
+                  <rect x="140" y="72"  width="5"  height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="149" y="86"  fill="#00d9ff" font-size="9" font-family="monospace">0.3</text>
+
+                  <!-- digit 2  z=1.2  bar right: x=140, w=22 -->
+                  <text x="25" y="120" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">2</text>
+                  <rect x="140" y="106" width="22" height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="166" y="120" fill="#00d9ff" font-size="9" font-family="monospace">1.2</text>
+
+                  <!-- digit 3  z=4.7  WINNER bar right: x=140, w=85 -->
+                  <text x="25" y="154" fill="#00d9ff" font-size="12" text-anchor="middle" font-family="monospace" font-weight="bold">3</text>
+                  <rect x="140" y="140" width="85" height="20" fill="#00d9ff" rx="2" opacity="0.88"/>
+                  <text x="229" y="154" fill="#00d9ff" font-size="10" font-family="monospace" font-weight="bold">4.7 ★</text>
+
+                  <!-- digit 4  z=-0.8  bar left: x=126, w=14 -->
+                  <text x="25" y="188" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">4</text>
+                  <rect x="126" y="174" width="14" height="20" fill="rgba(255,0,110,0.32)" rx="2"/>
+                  <text x="122" y="188" fill="#ff006e" font-size="9" text-anchor="end" font-family="monospace">-0.8</text>
+
+                  <!-- digit 5  z=1.5  bar right: x=140, w=27 -->
+                  <text x="25" y="222" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">5</text>
+                  <rect x="140" y="208" width="27" height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="171" y="222" fill="#00d9ff" font-size="9" font-family="monospace">1.5</text>
+
+                  <!-- digit 6  z=0.1  bar right: x=140, w=2 -->
+                  <text x="25" y="256" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">6</text>
+                  <rect x="140" y="242" width="2"  height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="146" y="256" fill="#00d9ff" font-size="9" font-family="monospace">0.1</text>
+
+                  <!-- digit 7  z=2.3  bar right: x=140, w=41 -->
+                  <text x="25" y="290" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">7</text>
+                  <rect x="140" y="276" width="41" height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="185" y="290" fill="#00d9ff" font-size="9" font-family="monospace">2.3</text>
+
+                  <!-- digit 8  z=-1.4  bar left: x=115, w=25 -->
+                  <text x="25" y="324" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">8</text>
+                  <rect x="115" y="310" width="25" height="20" fill="rgba(255,0,110,0.32)" rx="2"/>
+                  <text x="111" y="324" fill="#ff006e" font-size="9" text-anchor="end" font-family="monospace">-1.4</text>
+
+                  <!-- digit 9  z=0.9  bar right: x=140, w=16 -->
+                  <text x="25" y="358" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">9</text>
+                  <rect x="140" y="344" width="16" height="20" fill="rgba(0,217,255,0.42)" rx="2"/>
+                  <text x="160" y="358" fill="#00d9ff" font-size="9" font-family="monospace">0.9</text>
+
+                  <!-- ── Middle: arrow + label ── -->
+                  <line x1="248" y1="196" x2="274" y2="196" stroke="#adb5bd" stroke-width="1.5" marker-end="url(#sm-arr)"/>
+                  <text x="261" y="188" fill="rgba(173,181,189,0.65)" font-size="9" text-anchor="middle" font-family="sans-serif">softmax</text>
+
+                  <!-- ── Right chart: Probabilities ── -->
+                  <text x="400" y="24" fill="#adb5bd" font-size="12" text-anchor="middle" font-family="sans-serif" font-weight="600">Probabilities  σ(z)</text>
+                  <text x="283" y="35" fill="rgba(173,181,189,0.55)" font-size="9" text-anchor="middle" font-family="sans-serif">digit</text>
+
+                  <!-- baseline -->
+                  <line x1="296" y1="30" x2="296" y2="366" stroke="rgba(173,181,189,0.22)" stroke-width="1"/>
+
+                  <!-- digit 0  p=0.001  w=1 -->
+                  <text x="283" y="52"  fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">0</text>
+                  <rect x="296" y="38"  width="1"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 1  p=0.010  w=2 -->
+                  <text x="283" y="86"  fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">1</text>
+                  <rect x="296" y="72"  width="2"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 2  p=0.025  w=5 -->
+                  <text x="283" y="120" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">2</text>
+                  <rect x="296" y="106" width="5"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 3  p=0.824  w=169  WINNER -->
+                  <text x="283" y="154" fill="#00d9ff" font-size="12" text-anchor="middle" font-family="monospace" font-weight="bold">3</text>
+                  <rect x="296" y="140" width="169" height="20" fill="#00d9ff" rx="2" opacity="0.88"/>
+                  <text x="469" y="151" fill="#00d9ff" font-size="10" font-family="monospace" font-weight="bold">82.4%</text>
+                  <text x="469" y="162" fill="#00d9ff" font-size="9"  font-family="sans-serif" font-weight="bold">✓ predicted</text>
+
+                  <!-- digit 4  p=0.003  w=1 -->
+                  <text x="283" y="188" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">4</text>
+                  <rect x="296" y="174" width="1"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 5  p=0.034  w=7 -->
+                  <text x="283" y="222" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">5</text>
+                  <rect x="296" y="208" width="7"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+                  <text x="307" y="222" fill="#9d4edd" font-size="9" font-family="monospace">3.4%</text>
+
+                  <!-- digit 6  p=0.008  w=2 -->
+                  <text x="283" y="256" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">6</text>
+                  <rect x="296" y="242" width="2"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 7  p=0.075  w=15 -->
+                  <text x="283" y="290" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">7</text>
+                  <rect x="296" y="276" width="15"  height="20" fill="rgba(157,78,221,0.65)" rx="1"/>
+                  <text x="315" y="290" fill="#9d4edd" font-size="9" font-family="monospace">7.5%</text>
+
+                  <!-- digit 8  p=0.002  w=1 -->
+                  <text x="283" y="324" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">8</text>
+                  <rect x="296" y="310" width="1"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- digit 9  p=0.018  w=4 -->
+                  <text x="283" y="358" fill="#adb5bd" font-size="11" text-anchor="middle" font-family="monospace">9</text>
+                  <rect x="296" y="344" width="4"   height="20" fill="rgba(157,78,221,0.55)" rx="1"/>
+
+                  <!-- Sum annotation -->
+                  <text x="400" y="381" fill="rgba(173,181,189,0.5)" font-size="10" text-anchor="middle" font-family="monospace">Σ = 1.000</text>
+                </svg>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         <!-- ── Training Hyperparameters Slide ── -->
         <section id="training-hyperparameters">
           <h2>Training Parameters — Learning Rate <span style="font-family: monospace; font-weight: 400; color: var(--primary-color);">η</span></h2>
           <div class="content" style="padding: 8px 20px 0;">
             <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 36px; align-items: start;">
 
-              <div style="display: flex; flex-direction: column; gap: 14px;">
-                <p class="text-lg" style="color: var(--muted-color);">Controls how large a step we take along the gradient on each update.</p>
-                <div style="background: rgba(0,217,255,0.08); border: 1px solid rgba(0,217,255,0.3); border-radius: var(--box-radius); padding: 14px 16px;">
-                  <p style="font-family: monospace; font-size: 14pt; color: var(--primary-color);">w ← w − <strong>η</strong> · ∂L/∂w</p>
-                  <p style="font-family: monospace; font-size: 14pt; color: var(--accent-tertiary); margin-top: 6px;">b ← b − <strong>η</strong> · ∂L/∂b</p>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <p style="font-size: 13pt; color: var(--muted-color);">Controls how large a step we take along the gradient on each update.</p>
+                <div style="background: rgba(0,217,255,0.08); border: 1px solid rgba(0,217,255,0.3); border-radius: var(--box-radius); padding: 11px 16px;">
+                  <p style="font-family: monospace; font-size: 14pt !important; color: var(--primary-color);">w ← w − <strong>η</strong> · ∂L/∂w</p>
+                  <p style="font-family: monospace; font-size: 14pt !important; color: var(--accent-tertiary); margin-top: 5px;">b ← b − <strong>η</strong> · ∂L/∂b</p>
                 </div>
-                <div style="background: rgba(255,0,110,0.1); border-left: 3px solid var(--accent-tertiary); padding: 10px 12px; border-radius: var(--box-radius);">
-                  <p class="text-lg"><strong style="color: var(--accent-tertiary);">Too high:</strong> overshoots the minimum — loss oscillates or diverges</p>
+                <div style="background: rgba(255,0,110,0.1); border-left: 3px solid var(--accent-tertiary); padding: 8px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--accent-tertiary);">Too high:</strong> overshoots the minimum — loss oscillates or diverges</p>
                 </div>
-                <div style="background: rgba(157,78,221,0.1); border-left: 3px solid var(--secondary-color); padding: 10px 12px; border-radius: var(--box-radius);">
-                  <p class="text-lg"><strong style="color: var(--secondary-color);">Too low:</strong> converges correctly but extremely slowly</p>
+                <div style="background: rgba(157,78,221,0.1); border-left: 3px solid var(--secondary-color); padding: 8px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--secondary-color);">Too low:</strong> converges correctly but extremely slowly</p>
                 </div>
-                <div style="background: rgba(0,217,255,0.1); border-left: 3px solid var(--primary-color); padding: 10px 12px; border-radius: var(--box-radius);">
-                  <p class="text-lg"><strong style="color: var(--primary-color);">Typical values:</strong> 0.1 → 0.01 → 0.001, often decayed during training</p>
+                <div style="background: rgba(0,217,255,0.1); border-left: 3px solid var(--primary-color); padding: 8px 12px; border-radius: var(--box-radius);">
+                  <p style="font-size: 13pt;"><strong style="color: var(--primary-color);">Typical values:</strong> 0.1 → 0.01 → 0.001, often decayed during training</p>
                 </div>
               </div>
 
