@@ -4085,8 +4085,8 @@
             #ai-agent-anatomy .atk-ring{transform-box:fill-box;transform-origin:center;opacity:0;}
             #ai-agent-anatomy .fragment.visible .atk-ring{animation:aaa-ring 2.2s ease-out infinite;animation-delay:.8s;}
             @keyframes aaa-ring{0%{transform:scale(1);opacity:.7;}100%{transform:scale(2.1);opacity:0;}}
-            #ai-agent-anatomy .aaa-gateglow{animation:aaa-glow 2s ease-in-out infinite;pointer-events:none;}
-            @keyframes aaa-glow{0%,100%{opacity:.18;}50%{opacity:.55;}}
+            #ai-agent-anatomy .aaa-gateglow{animation:aaa-glow 3s ease-in-out infinite;pointer-events:none;}
+            @keyframes aaa-glow{0%,100%{opacity:.08;}50%{opacity:.26;}}
             #ai-agent-anatomy .aaa-shine{--shine:#2de8a0;}
             #ai-agent-anatomy svg:has(.aaa-actstep.visible) .aaa-shine{animation:aaa-shineblink 1s ease-in-out .2s 1;}
             @keyframes aaa-shineblink{0%,100%{filter:none;}35%,65%{filter:drop-shadow(0 0 6px var(--shine)) drop-shadow(0 0 14px var(--shine)) brightness(3);}}
@@ -4370,13 +4370,18 @@
                 <ellipse cx="1080" cy="200" rx="46" ry="26" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.30)"/>
                 <ellipse cx="1052" cy="190" rx="20" ry="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.30)"/>
                 <ellipse cx="1104" cy="186" rx="22" ry="15" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.30)"/>
-                <text x="1080" y="198" text-anchor="middle" font-size="8" font-weight="700" fill="#adb5bd">OUTSIDE</text>
-                <text x="1080" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#adb5bd">WORLD</text>
+                <text x="1080" y="204" text-anchor="middle" font-size="8" font-weight="700" fill="#adb5bd">OUTPUT</text>
               </g>
 
               <!-- ══ FEEDBACK LOOP (workflow step 4): tool results re-enter context ══ -->
               <g class="fragment" data-fragment-index="3">
                 <path class="aaa-flow" d="M 865 294 C 865 430, 620 452, 400 452 C 220 452, 104 442, 104 392" fill="none" stroke="rgba(255,68,68,0.75)" stroke-width="2" marker-end="url(#aaa-r)"/>
+                <circle r="4" fill="#ff4444" opacity="0.95">
+                  <animateMotion dur="3.5s" repeatCount="indefinite" path="M 865 294 C 865 430, 620 452, 400 452 C 220 452, 104 442, 104 392"/>
+                </circle>
+                <text x="878" y="358" font-size="9" font-weight="700" fill="#ff4444" letter-spacing="0.6">⟳ AGENT LOOP</text>
+                <text x="878" y="370" font-size="6.5" font-style="italic" fill="#8099b0">the permission gate runs</text>
+                <text x="878" y="380" font-size="6.5" font-style="italic" fill="#8099b0">again on every iteration</text>
                 <text x="430" y="432" text-anchor="middle" font-size="9" font-weight="700" fill="#ff4444" letter-spacing="0.6">TOOL RESULTS RE-ENTER THE CONTEXT</text>
                 <text x="430" y="444" text-anchor="middle" font-size="7" font-style="italic" fill="#8099b0">every tool output is a prompt the model will read</text>
               </g>
