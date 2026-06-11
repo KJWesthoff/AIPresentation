@@ -3886,17 +3886,6 @@
                   Traditional threat modelling (STRIDE, PASTA) targets software components — authentication, data flows, trust boundaries. AI systems introduce <em>entirely new attack surfaces</em> tied to data and learned weights.
                 </p>
 
-                <div style="background:rgba(255,68,68,0.10);border-left:4px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:12px;">
-                  <strong style="color:#ff4444;">New attack surfaces in AI</strong>
-                  <ul style="margin:6px 0 0;font-size:10pt;color:var(--text-color);line-height:1.7;">
-                    <li>Training data — poisoned inputs alter model behaviour</li>
-                    <li>Model weights — stolen or backdoored artefacts</li>
-                    <li>Inference API — adversarial inputs fool the model</li>
-                    <li>Prompts &amp; context — instruction injection in LLMs</li>
-                    <li>Supply chain — malicious pre-trained models</li>
-                  </ul>
-                </div>
-
                 <div style="background:rgba(0,217,255,0.08);border-left:4px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
                   <strong style="color:var(--primary-color);">Key frameworks</strong>
                   <ul style="margin:6px 0 0;font-size:10pt;color:var(--text-color);line-height:1.7;">
@@ -3910,7 +3899,7 @@
 
               <!-- RIGHT: LLM-centric attack surface diagram -->
               <div>
-                <h3 style="color:#ff4444;margin-bottom:8px;">One interface — all attacks speak it</h3>
+                <h3 style="color:#ff4444;margin-bottom:8px;">One interface — it's all plain English</h3>
                 <svg viewBox="0 0 420 390" style="width:100%;font-family:monospace;">
                   <defs>
                     <marker id="tm-r" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto">
@@ -4057,6 +4046,130 @@
                   <!-- Tagline -->
                   <text x="210" y="382" text-anchor="middle" font-size="7" fill="#3d5060" letter-spacing="0.8">⚠  ALL VECTORS ENTER AS TOKENS — THE INTERFACE IS LANGUAGE</text>
                 </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── 6. STRIDE applied to AI ── -->
+        <section id="ai-stride">
+          <h2>STRIDE for AI Systems</h2>
+          <div class="content">
+            <p style="font-size:10.5pt;color:var(--muted-color);margin-bottom:18px;">
+              STRIDE — the classic Microsoft threat model — maps cleanly onto AI components. Each AI layer introduces new instances of each threat category.
+            </p>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+
+              <div style="background:rgba(255,68,68,0.10);border-top:3px solid #ff4444;border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:#ff4444;line-height:1;">S</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Spoofing</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Adversarial examples that trick an image classifier into misidentifying content — spoofing the model's perception of identity.</div>
+              </div>
+
+              <div style="background:rgba(255,107,53,0.10);border-top:3px solid #ff6b35;border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:#ff6b35;line-height:1;">T</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Tampering</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Data poisoning during training, or weight tampering post-training to introduce backdoors — altering model behaviour maliciously.</div>
+              </div>
+
+              <div style="background:rgba(255,200,0,0.08);border-top:3px solid #ffc800;border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:#ffc800;line-height:1;">R</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Repudiation</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">No audit trail of what the model was queried with — attacker denies using the model to generate harmful content. AI decisions are often opaque.</div>
+              </div>
+
+              <div style="background:rgba(157,78,221,0.12);border-top:3px solid var(--secondary-color);border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:var(--secondary-color);line-height:1;">I</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Information Disclosure</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Model inversion, membership inference, system prompt extraction, and training data memorisation — weights as a data breach.</div>
+              </div>
+
+              <div style="background:rgba(0,217,255,0.08);border-top:3px solid var(--primary-color);border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:var(--primary-color);line-height:1;">D</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Denial of Service</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Inference-flooding, extremely long or expensive inputs (sponge attacks), and unbounded token generation consuming GPU compute.</div>
+              </div>
+
+              <div style="background:rgba(0,200,100,0.08);border-top:3px solid #00c864;border-radius:4px;padding:10px 12px;">
+                <div style="font-size:22pt;font-weight:900;color:#00c864;line-height:1;">E</div>
+                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Elevation of Privilege</div>
+                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Prompt injection to override system-level instructions, gaining capabilities beyond the intended scope — e.g. bypassing safety filters.</div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ── 5. LLM Security ── -->
+        <section id="ai-llm-security">
+          <h2>LLM Security</h2>
+          <div class="content">
+            <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
+              LLMs introduce a unique attack surface: their interface is <em>natural language</em>, making input sanitisation fundamentally harder than traditional web security.
+            </p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+              <!-- OWASP LLM Top 10 summary -->
+              <div>
+                <h3 style="color:var(--secondary-color);margin-bottom:10px;">OWASP LLM Top 10 (2025)</h3>
+                <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM02</span><span style="color:var(--text-color);">Sensitive Information Disclosure</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM03</span><span style="color:var(--text-color);">Supply Chain Vulnerabilities</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM04</span><span style="color:var(--text-color);">Data and Model Poisoning</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM05</span><span style="color:var(--text-color);">Improper Output Handling</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM06</span><span style="color:var(--text-color);">Excessive Agency</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM07</span><span style="color:var(--text-color);">System Prompt Leakage</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM08</span><span style="color:var(--text-color);">Vector and Embedding Weaknesses</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM09</span><span style="color:var(--text-color);">Misinformation</span>
+                  </div>
+                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM10</span><span style="color:var(--text-color);">Unbounded Consumption</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: model-specific concerns -->
+              <div>
+                <h3 style="color:#ff4444;margin-bottom:10px;">LLM-specific attack surface</h3>
+                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
+                  <strong style="color:#ff4444;">Context window as a trust boundary</strong>
+                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
+                    Everything in the context window — system prompt, user turn, retrieved documents — is treated equally by the model. Injected text in a RAG document is just as authoritative as the system prompt.
+                  </p>
+                </div>
+                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
+                  <strong style="color:#ff4444;">Excessive Agency (LLM06)</strong>
+                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
+                    Agentic LLMs with tool access (email, file system, APIs) amplify prompt injection: a malicious doc can instruct the agent to exfiltrate data.
+                  </p>
+                </div>
+                <div style="background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
+                  <strong style="color:var(--primary-color);">Mitigations</strong>
+                  <ul style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.65;">
+                    <li>Principle of least privilege for tool access</li>
+                    <li>Output validation before acting on model response</li>
+                    <li>Human-in-the-loop for irreversible actions</li>
+                    <li>Separate trust levels: system vs. user vs. retrieved</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -4820,130 +4933,6 @@
                   </ul>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ── 5. LLM Security ── -->
-        <section id="ai-llm-security">
-          <h2>LLM Security</h2>
-          <div class="content">
-            <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
-              LLMs introduce a unique attack surface: their interface is <em>natural language</em>, making input sanitisation fundamentally harder than traditional web security.
-            </p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-              <!-- OWASP LLM Top 10 summary -->
-              <div>
-                <h3 style="color:var(--secondary-color);margin-bottom:10px;">OWASP LLM Top 10 (2025)</h3>
-                <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM02</span><span style="color:var(--text-color);">Sensitive Information Disclosure</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM03</span><span style="color:var(--text-color);">Supply Chain Vulnerabilities</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM04</span><span style="color:var(--text-color);">Data and Model Poisoning</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM05</span><span style="color:var(--text-color);">Improper Output Handling</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM06</span><span style="color:var(--text-color);">Excessive Agency</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM07</span><span style="color:var(--text-color);">System Prompt Leakage</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM08</span><span style="color:var(--text-color);">Vector and Embedding Weaknesses</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM09</span><span style="color:var(--text-color);">Misinformation</span>
-                  </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM10</span><span style="color:var(--text-color);">Unbounded Consumption</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Right: model-specific concerns -->
-              <div>
-                <h3 style="color:#ff4444;margin-bottom:10px;">LLM-specific attack surface</h3>
-                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
-                  <strong style="color:#ff4444;">Context window as a trust boundary</strong>
-                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
-                    Everything in the context window — system prompt, user turn, retrieved documents — is treated equally by the model. Injected text in a RAG document is just as authoritative as the system prompt.
-                  </p>
-                </div>
-                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
-                  <strong style="color:#ff4444;">Excessive Agency (LLM06)</strong>
-                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
-                    Agentic LLMs with tool access (email, file system, APIs) amplify prompt injection: a malicious doc can instruct the agent to exfiltrate data.
-                  </p>
-                </div>
-                <div style="background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
-                  <strong style="color:var(--primary-color);">Mitigations</strong>
-                  <ul style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.65;">
-                    <li>Principle of least privilege for tool access</li>
-                    <li>Output validation before acting on model response</li>
-                    <li>Human-in-the-loop for irreversible actions</li>
-                    <li>Separate trust levels: system vs. user vs. retrieved</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ── 6. STRIDE applied to AI ── -->
-        <section id="ai-stride">
-          <h2>STRIDE for AI Systems</h2>
-          <div class="content">
-            <p style="font-size:10.5pt;color:var(--muted-color);margin-bottom:18px;">
-              STRIDE — the classic Microsoft threat model — maps cleanly onto AI components. Each AI layer introduces new instances of each threat category.
-            </p>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-
-              <div style="background:rgba(255,68,68,0.10);border-top:3px solid #ff4444;border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:#ff4444;line-height:1;">S</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Spoofing</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Adversarial examples that trick an image classifier into misidentifying content — spoofing the model's perception of identity.</div>
-              </div>
-
-              <div style="background:rgba(255,107,53,0.10);border-top:3px solid #ff6b35;border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:#ff6b35;line-height:1;">T</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Tampering</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Data poisoning during training, or weight tampering post-training to introduce backdoors — altering model behaviour maliciously.</div>
-              </div>
-
-              <div style="background:rgba(255,200,0,0.08);border-top:3px solid #ffc800;border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:#ffc800;line-height:1;">R</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Repudiation</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">No audit trail of what the model was queried with — attacker denies using the model to generate harmful content. AI decisions are often opaque.</div>
-              </div>
-
-              <div style="background:rgba(157,78,221,0.12);border-top:3px solid var(--secondary-color);border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:var(--secondary-color);line-height:1;">I</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Information Disclosure</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Model inversion, membership inference, system prompt extraction, and training data memorisation — weights as a data breach.</div>
-              </div>
-
-              <div style="background:rgba(0,217,255,0.08);border-top:3px solid var(--primary-color);border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:var(--primary-color);line-height:1;">D</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Denial of Service</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Inference-flooding, extremely long or expensive inputs (sponge attacks), and unbounded token generation consuming GPU compute.</div>
-              </div>
-
-              <div style="background:rgba(0,200,100,0.08);border-top:3px solid #00c864;border-radius:4px;padding:10px 12px;">
-                <div style="font-size:22pt;font-weight:900;color:#00c864;line-height:1;">E</div>
-                <div style="font-size:9.5pt;font-weight:700;color:var(--text-color);margin:3px 0;">Elevation of Privilege</div>
-                <div style="font-size:8.5pt;color:var(--muted-color);line-height:1.5;">Prompt injection to override system-level instructions, gaining capabilities beyond the intended scope — e.g. bypassing safety filters.</div>
-              </div>
-
             </div>
           </div>
         </section>
