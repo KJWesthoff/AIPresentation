@@ -3587,31 +3587,31 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">02</span>
-                <span style="font-size:10pt;color:var(--text-color);">AI/ML Security Threats</span>
+                <span style="font-size:10pt;color:var(--text-color);">STRIDE for AI Systems</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">03</span>
-                <span style="font-size:10pt;color:var(--text-color);">AI Models &amp; Data</span>
+                <span style="font-size:10pt;color:var(--text-color);">OWASP LLM Top 10 (2025)</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">04</span>
-                <span style="font-size:10pt;color:var(--text-color);">LLM Security</span>
+                <span style="font-size:10pt;color:var(--text-color);">Threat Modelling an AI Agent</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">05</span>
-                <span style="font-size:10pt;color:var(--text-color);">AI System Reconnaissance</span>
+                <span style="font-size:10pt;color:var(--text-color);">Agent Security</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">06</span>
-                <span style="font-size:10pt;color:var(--text-color);">AI Supply Chain Security</span>
+                <span style="font-size:10pt;color:var(--text-color);">MITRE ATLAS</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">07</span>
-                <span style="font-size:10pt;color:var(--text-color);">Prompt Security</span>
+                <span style="font-size:10pt;color:var(--text-color);">Threat Models Meet Reality</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:7px 12px;">
                 <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">08</span>
-                <span style="font-size:10pt;color:var(--text-color);">Data Poisoning</span>
+                <span style="font-size:10pt;color:var(--text-color);">Exotic &amp; Theoretical Breaches</span>
               </div>
             </div>
           </div>
@@ -3633,10 +3633,9 @@
                 <div style="background:rgba(0,217,255,0.08);border-left:4px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
                   <strong style="color:var(--primary-color);">Key frameworks</strong>
                   <ul style="margin:6px 0 0;font-size:10pt;color:var(--text-color);line-height:1.7;">
-                    <li><strong>MITRE ATLAS</strong> — adversarial tactics &amp; techniques for ML</li>
                     <li><strong>STRIDE</strong> adapted for AI components</li>
-                    <li><strong>PASTA</strong> — process for attack simulation &amp; threat analysis</li>
                     <li><strong>OWASP LLM Top 10</strong> — LLM-specific vulnerability list</li>
+                    <li><strong>MITRE ATLAS</strong> — adversarial tactics &amp; techniques for ML</li>
                   </ul>
                 </div>
               </div>
@@ -3846,77 +3845,128 @@
 
         <!-- ── 5. LLM Security ── -->
         <section id="ai-llm-security">
-          <h2>LLM Security</h2>
+          <style>
+            #ai-llm-security .llm-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
+            #ai-llm-security .llm-row:hover{transform:translateX(5px);filter:brightness(1.4);}
+            #llm-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
+            #llm-modal-overlay.open{display:flex;}
+          </style>
+          <h2>OWASP LLM Top 10 <span style="color:var(--muted-color);font-weight:400;">(2025)</span></h2>
           <div class="content">
             <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
-              LLMs introduce a unique attack surface: their interface is <em>natural language</em>, making input sanitisation fundamentally harder than traditional web security.
+              LLMs introduce a unique attack surface: their interface is <em>natural language</em>, making input sanitisation fundamentally harder than traditional web security. <span style="color:var(--primary-color);">Click any item for details.</span>
             </p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-              <!-- OWASP LLM Top 10 summary -->
-              <div>
-                <h3 style="color:var(--secondary-color);margin-bottom:10px;">OWASP LLM Top 10 (2025)</h3>
-                <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span>
+            <div style="max-width:640px;margin:0 auto;width:100%;">
+              <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
+                  <div class="llm-row" data-llm="LLM01" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM02</span><span style="color:var(--text-color);">Sensitive Information Disclosure</span>
+                  <div class="llm-row" data-llm="LLM02" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM02</span><span style="color:var(--text-color);">Sensitive Information Disclosure</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM03</span><span style="color:var(--text-color);">Supply Chain Vulnerabilities</span>
+                  <div class="llm-row" data-llm="LLM03" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">LLM03</span><span style="color:var(--text-color);">Supply Chain Vulnerabilities</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM04</span><span style="color:var(--text-color);">Data and Model Poisoning</span>
+                  <div class="llm-row" data-llm="LLM04" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM04</span><span style="color:var(--text-color);">Data and Model Poisoning</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM05</span><span style="color:var(--text-color);">Improper Output Handling</span>
+                  <div class="llm-row" data-llm="LLM05" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">LLM05</span><span style="color:var(--text-color);">Improper Output Handling</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM06</span><span style="color:var(--text-color);">Excessive Agency</span>
+                  <div class="llm-row" data-llm="LLM06" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM06</span><span style="color:var(--text-color);">Excessive Agency</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM07</span><span style="color:var(--text-color);">System Prompt Leakage</span>
+                  <div class="llm-row" data-llm="LLM07" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM07</span><span style="color:var(--text-color);">System Prompt Leakage</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM08</span><span style="color:var(--text-color);">Vector and Embedding Weaknesses</span>
+                  <div class="llm-row" data-llm="LLM08" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">LLM08</span><span style="color:var(--text-color);">Vector and Embedding Weaknesses</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM09</span><span style="color:var(--text-color);">Misinformation</span>
+                  <div class="llm-row" data-llm="LLM09" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM09</span><span style="color:var(--text-color);">Misinformation</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                  <div style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM10</span><span style="color:var(--text-color);">Unbounded Consumption</span>
+                  <div class="llm-row" data-llm="LLM10" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM10</span><span style="color:var(--text-color);">Unbounded Consumption</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
-                </div>
-              </div>
-
-              <!-- Right: model-specific concerns -->
-              <div>
-                <h3 style="color:#ff4444;margin-bottom:10px;">LLM-specific attack surface</h3>
-                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
-                  <strong style="color:#ff4444;">Context window as a trust boundary</strong>
-                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
-                    Everything in the context window — system prompt, user turn, retrieved documents — is treated equally by the model. Injected text in a RAG document is just as authoritative as the system prompt.
-                  </p>
-                </div>
-                <div style="background:rgba(255,68,68,0.10);border-left:3px solid #ff4444;border-radius:4px;padding:10px 14px;margin-bottom:10px;">
-                  <strong style="color:#ff4444;">Excessive Agency (LLM06)</strong>
-                  <p style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.5;">
-                    Agentic LLMs with tool access (email, file system, APIs) amplify prompt injection: a malicious doc can instruct the agent to exfiltrate data.
-                  </p>
-                </div>
-                <div style="background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
-                  <strong style="color:var(--primary-color);">Mitigations</strong>
-                  <ul style="margin:5px 0 0;font-size:9.5pt;color:var(--text-color);line-height:1.65;">
-                    <li>Principle of least privilege for tool access</li>
-                    <li>Output validation before acting on model response</li>
-                    <li>Human-in-the-loop for irreversible actions</li>
-                    <li>Separate trust levels: system vs. user vs. retrieved</li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
+
+          <div id="llm-modal-overlay">
+            <div id="llm-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
+          </div>
+
+          <script>
+          (function() {
+            var LLM = {
+              LLM01: { t: 'Prompt Injection', c: '#ff4444',
+                what: 'Attacker-supplied text overrides the developer\u2019s instructions. Direct: the user types the attack (\u201cignore all previous instructions\u201d, role-play jailbreaks). Indirect: the payload hides in content the model reads \u2014 web pages, e-mails, RAG documents, tool output \u2014 and the user never sees it.',
+                ex: 'EchoLeak (CVE-2025-32711): one crafted e-mail silently made M365 Copilot exfiltrate corporate data \u2014 zero clicks.',
+                fix: 'Treat all context as untrusted \u00b7 instruction-hierarchy training \u00b7 keep enforcement outside the prompt (gates, sandboxes, egress control).' },
+              LLM02: { t: 'Sensitive Information Disclosure', c: '#ff6b35',
+                what: 'The model reveals data it should not: PII or secrets memorised in the weights, or sensitive material sitting in its context \u2014 system prompts, RAG documents, other users\u2019 data. Anything in context can come out.',
+                ex: 'Samsung engineers pasted proprietary source code into ChatGPT; coding agents have been injected into posting their own API keys.',
+                fix: 'Sanitise training data \u00b7 scope what enters the context \u00b7 output filtering / DLP on every egress channel.' },
+              LLM03: { t: 'Supply Chain Vulnerabilities', c: '#ff6b35',
+                what: 'Compromise arrives upstream: poisoned pre-trained models, malicious datasets, backdoored fine-tune adapters, typosquatted packages and tampered AI tooling \u2014 trusted simply because you downloaded them.',
+                ex: 'PoisonGPT: a surgically edited GPT-J spreading false facts, uploaded to Hugging Face under a typo-squatted org name (ATLAS CS0019).',
+                fix: 'Model &amp; dataset provenance \u00b7 signatures and pinned versions \u00b7 scan artefacts \u00b7 review vendors like any dependency.' },
+              LLM04: { t: 'Data and Model Poisoning', c: '#9d4edd',
+                what: 'Planted training examples bake attacker-chosen behaviour into the weights: biases, degraded safety, or backdoors that wake on a trigger phrase. No runtime gate can see it \u2014 the model itself is the payload.',
+                ex: 'Microsoft Tay: coordinated trolling poisoned its live-learning loop; abusive within 16 hours, dead in 24 (ATLAS CS0009).',
+                fix: 'Data curation &amp; provenance \u00b7 anomaly detection during training \u00b7 post-training red-teaming for trigger behaviour.' },
+              LLM05: { t: 'Improper Output Handling', c: '#9d4edd',
+                what: 'Downstream systems trust model output blindly. Generated HTML lands in a page (XSS), generated SQL hits the database (injection), generated shell reaches exec() (RCE). Model output is untrusted input for whatever consumes it.',
+                ex: 'RCE chains in agent frameworks where generated code was executed without validation or sandboxing.',
+                fix: 'Validate, escape and parameterise model output exactly like user input \u00b7 sandbox generated code \u00b7 never eval raw output.' },
+              LLM06: { t: 'Excessive Agency', c: '#00d9ff',
+                what: 'The model holds more tools, permissions or autonomy than the task needs \u2014 so when it is hijacked (or simply wrong), it can act destructively on real systems with no one in the loop.',
+                ex: 'Perplexity\u2019s Comet browser: hidden Reddit comments steered it into handing over the user\u2019s credentials in ~150 seconds. Meta\u2019s support agent re-linked 20,000+ Instagram accounts on request.',
+                fix: 'Least privilege per task \u00b7 human approval for irreversible actions \u00b7 scoped, short-lived credentials \u00b7 separate read from write.' },
+              LLM07: { t: 'System Prompt Leakage', c: '#00d9ff',
+                what: 'System prompts can be extracted \u2014 by asking, summarising, or verbatim-echo tricks \u2014 so assume they are public. The real damage is what teams hide in them: credentials, internal URLs, role rules and filter logic an attacker can then bypass or reuse.',
+                ex: 'Bing Chat\u2019s \u201cSydney\u201d prompt and many production prompts since have been extracted within days of launch.',
+                fix: 'No secrets in prompts \u00b7 enforce rules in code, not words \u00b7 treat the prompt as documentation, not as a control.' },
+              LLM08: { t: 'Vector and Embedding Weaknesses', c: '#00d9ff',
+                what: 'RAG brings its own surface: poisoned documents that retrieval faithfully re-injects into the context, embedding inversion that recovers source text, and shared vector stores that leak across users when queries are not ACL-filtered.',
+                ex: 'A shared store without per-user filtering becomes a permission-bypass oracle \u2014 any user (or injected prompt) can pull anyone\u2019s documents.',
+                fix: 'Vet documents at ingestion \u00b7 per-user ACLs applied at query time \u00b7 monitor retrieval patterns for abuse.' },
+              LLM09: { t: 'Misinformation', c: '#8099b0',
+                what: 'The model states falsehoods with full confidence: invented facts, citations and package names. It becomes a security issue when unverified output drives decisions \u2014 and hallucinated package names become supply-chain bait (slopsquatting).',
+                ex: 'Air Canada\u2019s chatbot invented a bereavement refund policy \u2014 a tribunal held the airline to it.',
+                fix: 'Grounding (RAG) \u00b7 require citations \u00b7 verify before acting on output \u00b7 keep humans accountable for decisions.' },
+              LLM10: { t: 'Unbounded Consumption', c: '#8099b0',
+                what: 'Nothing caps how much a hijacked or buggy agent spends: endless tool loops, recursive subagents, huge contexts re-sent every turn \u2014 denial-of-wallet rather than denial-of-service \u2014 plus model-extraction queries at scale through public endpoints.',
+                ex: 'Runaway agent loops burning API budgets overnight; scraped endpoints used to clone model behaviour.',
+                fix: 'Token &amp; cost budgets \u00b7 max iterations \u00b7 rate limits and per-user quotas \u00b7 alert on anomalous usage.' }
+            };
+            var overlay = document.getElementById('llm-modal-overlay');
+            var card = document.getElementById('llm-modal-card');
+            document.querySelectorAll('#ai-llm-security .llm-row').forEach(function(row) {
+              row.addEventListener('click', function(e) {
+                var id = row.dataset.llm, d = LLM[id];
+                card.style.borderColor = d.c;
+                card.innerHTML =
+                  '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px;">' +
+                    '<span style="font-family:monospace;font-weight:700;font-size:13pt;color:' + d.c + ';">' + id + '</span>' +
+                    '<span style="font-weight:700;font-size:13pt;color:var(--text-color);">' + d.t + '</span>' +
+                    '<span class="llm-close" style="margin-left:auto;cursor:pointer;color:var(--muted-color);font-size:13pt;line-height:1;">\u2715</span>' +
+                  '</div>' +
+                  '<div style="font-size:10pt;color:var(--text-color);line-height:1.55;margin-bottom:10px;">' + d.what + '</div>' +
+                  '<div style="font-size:9pt;color:var(--muted-color);line-height:1.5;margin-bottom:10px;"><strong style="color:' + d.c + ';">In the wild:</strong> ' + d.ex + '</div>' +
+                  '<div style="font-size:9pt;color:#2de8a0;line-height:1.5;"><strong>Defence:</strong> ' + d.fix + '</div>';
+                overlay.classList.add('open');
+                e.stopPropagation();
+              });
+            });
+            overlay.addEventListener('click', function(e) {
+              if (e.target === overlay || e.target.closest('.llm-close')) overlay.classList.remove('open');
+            });
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') overlay.classList.remove('open');
+            });
+          })();
+          </script>
         </section>
 
         <!-- ── Agent Security ── -->
@@ -4728,6 +4778,7 @@
               <div style="flex:1;">
                 <div style="font-weight:700;font-size:9.5pt;color:#ff2d78;"><a href="https://arstechnica.com/ai/2026/06/meta-ai-support-chatbot-gave-hackers-access-to-notable-instagram-accounts/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px dotted currentColor;">Meta AI support chatbot hands over 20,000+ Instagram accounts</a></div>
                 <div style="color:var(--muted-color);">Hackers just <em>asked</em> Meta's High Touch Support agent to link victims' accounts to their own email — it complied, no verification. 20,225 accounts hijacked, including the Obama White House and Sephora.</div>
+                <div style="margin-top:4px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">ingress authn</strong> — the agent never verified the requester owned the account, and no gate guarded an irreversible account change.</span></div>
               </div>
               <div style="display:flex;flex-wrap:wrap;gap:4px;max-width:230px;justify-content:flex-end;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
@@ -4745,6 +4796,7 @@
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">T0057 LLM Data Leakage</span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">egress boundary</strong> — auto-rendered content gave secrets a path out, and untrusted e-mail entered the context unmarked.</span></div>
             </div>
 
             <div style="background:rgba(255,107,53,0.08);border-top:3px solid #ff6b35;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
@@ -4756,6 +4808,7 @@
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">T0057 LLM Data Leakage</span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">permission gate</strong> — the agent acted on fetched text with the user’s full session; no approval step between injection and action.</span></div>
             </div>
 
             <div style="background:rgba(255,200,0,0.07);border-top:3px solid #ffc800;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
@@ -4767,6 +4820,7 @@
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">egress control</strong> — nothing stopped a secret leaving through a “legitimate” channel: a public PR comment.</span></div>
             </div>
 
             <div style="background:rgba(0,217,255,0.07);border-top:3px solid var(--primary-color);border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
@@ -4777,6 +4831,7 @@
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.000 Direct Injection</span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);">the prompt was the only control — <strong style="color:#ff4444;">✗ not a security boundary</strong>; no deterministic gate on binding commitments.</span></div>
             </div>
 
             <div style="background:rgba(157,78,221,0.10);border-top:3px solid var(--secondary-color);border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
@@ -4788,6 +4843,7 @@
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0010 Supply Chain</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;"><a href="https://atlas.mitre.org/studies/AML.CS0019" target="_blank" style="color:inherit;text-decoration:none;">Case study CS0019</a></span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">ingress admission</strong> — an unsigned, unverified model artefact was trusted straight from upstream; no provenance or signing.</span></div>
             </div>
 
             <div style="background:rgba(0,200,100,0.07);border-top:3px solid #00c864;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;">
@@ -4798,6 +4854,7 @@
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0020 Poison Training Data</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;"><a href="https://atlas.mitre.org/studies/AML.CS0009" target="_blank" style="color:inherit;text-decoration:none;">Case study CS0009</a></span>
               </div>
+              <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">ingress on training data</strong> — unvetted public input flowed straight into the weights with no curation.</span></div>
             </div>
 
           </div>
@@ -4805,6 +4862,58 @@
           <p style="margin:10px 0 0;font-size:7pt;color:#5a7090;">
             <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-weight:600;">LLM0x</span> = <a href="https://genai.owasp.org/llm-top-10/" target="_blank" style="color:#8aa2c0;">OWASP Top 10 for LLM Applications (2025)</a> &nbsp;·&nbsp;
             <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-weight:600;">AML.T / CS</span> = <a href="https://atlas.mitre.org/" target="_blank" style="color:#8aa2c0;">MITRE ATLAS</a> technique / case study &nbsp;·&nbsp; Sources: Aim Security, Adversa AI, Mithril Security, atlas.mitre.org
+          </p>
+        </section>
+
+        <!-- ── Theoretical / emerging breaches — research-grade attacks ── -->
+        <section id="ai-exotic-threats">
+          <h2 style="margin-bottom:4px;">On the Horizon — Exotic &amp; Theoretical Breaches</h2>
+          <p style="margin:0 0 12px;font-size:0.72em;color:#5a7090;font-style:italic;">
+            Mostly lab demonstrations today — the attack surface the production incidents haven't reached yet. <span style="color:var(--secondary-color);font-weight:600;">Research-grade, not yet weaponised at scale.</span>
+          </p>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:11px;font-size:8pt;line-height:1.45;">
+
+            <div style="background:rgba(255,45,120,0.07);border-top:3px solid #ff2d78;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#ff2d78;">KV-cache timing leakage <span style="background:rgba(255,45,120,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">CROSS-USER</span></div>
+              <div style="color:var(--muted-color);flex:1;">Serving stacks share the KV / prefix cache across tenants to cut cost. By timing Time-To-First-Token, an attacker tells a cache hit from a miss — and reconstructs another user's prompt token by token. Demonstrated &gt;89% recovery at ~10² probes/token.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> per-user cache partitioning · constant-time TTFT · disable cross-tenant prefix reuse.</div>
+            </div>
+
+            <div style="background:rgba(157,78,221,0.10);border-top:3px solid var(--secondary-color);border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#c9a0f0;">Speculative-decoding side channel <span style="background:rgba(157,78,221,0.22);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">TIMING</span></div>
+              <div style="color:var(--muted-color);flex:1;">Draft-then-verify speeds up generation — but the pattern of accepted vs. rejected tokens leaks through per-iteration token counts and packet sizes. An on-path observer fingerprints queries &gt;75% of the time and skims confidential RAG datastore contents at &gt;25 tok/s.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> pad / batch token bursts · constant-size packets · isolate speculation per request.</div>
+            </div>
+
+            <div style="background:rgba(255,68,68,0.08);border-top:3px solid #ff4444;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#ff4444;">Sleeper-agent backdoors <span style="background:rgba(255,68,68,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">SUPPLY CHAIN</span></div>
+              <div style="color:var(--muted-color);flex:1;">A backdoor trained into open weights stays dormant through every safety eval, then wakes on a trigger — a date, a phrase, a tool name. Newer variants survive downstream fine-tuning, so even adapting a "clean-looking" model inherits the latent malice.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> provenance &amp; signing · trigger-hunting red-teams · weight diffing · prefer audited base models.</div>
+            </div>
+
+            <div style="background:rgba(0,217,255,0.07);border-top:3px solid var(--primary-color);border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:var(--primary-color);">Embedding inversion <span style="background:rgba(0,217,255,0.16);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">RAG</span></div>
+              <div style="color:var(--muted-color);flex:1;">Vector stores are often treated as opaque numbers and shipped to third-party DBs. But embeddings are invertible: a learned decoder reconstructs much of the original text — names, secrets, PHI — straight from the vectors, no model access needed.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> treat embeddings as sensitive as source text · encrypt at rest · access-control the index.</div>
+            </div>
+
+            <div style="background:rgba(255,168,48,0.08);border-top:3px solid #ffa830;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#ffa830;">Membership &amp; model inversion <span style="background:rgba(255,168,48,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">PRIVACY</span></div>
+              <div style="color:var(--muted-color);flex:1;">Confidence signals reveal whether a specific record was in the training set (membership inference) — a privacy breach by itself for medical or legal corpora. Push further and extraction attacks coax verbatim memorised secrets back out of the weights.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> differential privacy in training · dedup &amp; scrub PII · cap output confidence detail.</div>
+            </div>
+
+            <div style="background:rgba(45,232,160,0.07);border-top:3px solid #2de8a0;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#2de8a0;">Cross-agent &amp; protocol exploits <span style="background:rgba(45,232,160,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">MULTI-AGENT</span></div>
+              <div style="color:var(--muted-color);flex:1;">As agents talk to agents over MCP / A2A, a prompt injection in one becomes a worm: it rewrites a shared memory or tool description so the next agent inherits the payload. "Confused-deputy" chains let a low-trust agent borrow a high-trust peer's permissions.</div>
+              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> per-agent identity &amp; least privilege · signed inter-agent messages · taint-track shared state.</div>
+            </div>
+
+          </div>
+
+          <p style="margin:10px 0 0;font-size:7pt;color:#5a7090;">
+            ⚠ These are largely <em>academic demonstrations under practical settings</em> — the gap between "proven in a paper" and "exploited in the wild" is how much runway defenders have. Sources: arXiv 2409.20002 (KV-cache), 2411.01076 (speculative decoding), 2506.23260 (agent-protocol threats), Anthropic "Sleeper Agents", Schneier on Security.
           </p>
         </section>
 
@@ -15288,15 +15397,12 @@
       // Era 11 — AI Security
       {id:'ns01',era:11,color:'#ff4444',label:['AI Security','Overview'],   slideId:'ai-security-intro'},
       {id:'ns02',era:11,color:'#ff4444',label:['Threat','Modelling'],       slideId:'ai-threat-modelling'},
-      {id:'ns02b',era:11,color:'#ff4444',label:['Agent Attack','Surface'],   slideId:'ai-agent-anatomy'},
-      {id:'ns03',era:11,color:'#ff6b35',label:['AI/ML','Threats'],          slideId:'ai-ml-threats'},
-      {id:'ns04',era:11,color:'#ff6b35',label:['Models &','Data'],          slideId:'ai-models-data'},
-      {id:'ns05',era:11,color:'#9d4edd',label:['LLM','Security'],           slideId:'ai-llm-security'},
-      {id:'ns06',era:11,color:'#9d4edd',label:['STRIDE','for AI'],          slideId:'ai-stride'},
-      {id:'ns07',era:11,color:'#9d4edd',label:['AI System','Recon'],        slideId:'ai-recon'},
-      {id:'ns08',era:11,color:'#00d9ff',label:['Supply Chain','Security'],  slideId:'ai-supply-chain'},
-      {id:'ns09',era:11,color:'#00d9ff',label:['Prompt','Security'],        slideId:'ai-prompt-security'},
-      {id:'ns10',era:11,color:'#00d9ff',label:['Data','Poisoning'],         slideId:'ai-data-poisoning'},
+      {id:'ns03',era:11,color:'#ff6b35',label:['STRIDE','for AI'],          slideId:'ai-stride'},
+      {id:'ns04',era:11,color:'#ff6b35',label:['OWASP LLM','Top 10'],       slideId:'ai-llm-security'},
+      {id:'ns05',era:11,color:'#9d4edd',label:['Agent Attack','Surface'],   slideId:'ai-agent-anatomy'},
+      {id:'ns06',era:11,color:'#9d4edd',label:['MITRE','ATLAS'],            slideId:'ai-atlas'},
+      {id:'ns07',era:11,color:'#00d9ff',label:['Incidents','in the Wild'],  slideId:'ai-incidents'},
+      {id:'ns08',era:11,color:'#00d9ff',label:['Exotic','Breaches'],        slideId:'ai-exotic-threats'},
     ];
 
     const rawLinks=[
@@ -15326,7 +15432,7 @@
       // Era 10 chain
       ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n84b'],['n84b','n85'],['n85','n80'],['n80','n81'],
       // Era 11 chain (AI Security)
-      ['ns01','ns02'],['ns02','ns02b'],['ns02b','ns03'],['ns03','ns04'],['ns04','ns05'],['ns05','ns06'],['ns06','ns07'],['ns07','ns08'],['ns08','ns09'],['ns09','ns10'],
+      ['ns01','ns02'],['ns02','ns03'],['ns03','ns04'],['ns04','ns05'],['ns05','ns06'],['ns06','ns07'],['ns07','ns08'],
       // Cross-era conceptual bridges
       ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
       ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
@@ -15344,8 +15450,8 @@
       ['n79','n82'],['n82','n84'],                 // prompts → agent overview → memory
       ['n63','n81'],['n85','n81'],                 // → paradigms
       ['n85','ns01'],['n81','ns01'],               // era 10 → AI Security
-      ['n85','ns02'],                              // agent security → threat modelling
-      ['n78','ns03'],                              // LLM landscape → AI/ML threats
+      ['n85','ns02'],['n85','ns05'],               // agent security → threat modelling / agent attack surface
+      ['n78','ns04'],                              // LLM landscape → OWASP LLM Top 10
     ];
 
     var DECKS={
