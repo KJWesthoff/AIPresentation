@@ -11,7 +11,7 @@ const THUMB_W = 320, THUMB_H = 180;
 
 const SLIDE_IDS = [
   'ai-security-intro','ai-threat-modelling','ai-stride','ai-llm-security',
-  'ai-agent-anatomy','ai-atlas','ai-incidents','ai-exotic-threats',
+  'ai-agent-anatomy','ai-untrusted-input','ai-atlas','ai-incidents','ai-exotic-threats',
   'activation-functions','activation-functions-intro','agent-harness-overview',
   'agent-memory-1','agent-security','ai-agents','ai-agents-overview',
   'allyouneed','allyouneed_contd','attn-head','attn-masking',
