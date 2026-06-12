@@ -58,7 +58,10 @@ async function main() {
   await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
 
   console.log('Loading presentation…');
-  await page.goto(FILE, { waitUntil: 'networkidle0', timeout: 30000 });
+  // Use domcontentloaded, not networkidle0: this page keeps long-lived
+  // connections/animations alive so the network never reliably goes idle.
+  // The Reveal.isReady() wait below is the real readiness signal.
+  await page.goto(FILE, { waitUntil: 'domcontentloaded', timeout: 30000 });
 
   // Wait for Reveal to be ready
   await page.waitForFunction(() => typeof Reveal !== 'undefined' && Reveal.isReady(), { timeout: 15000 });
