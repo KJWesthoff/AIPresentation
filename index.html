@@ -12276,25 +12276,30 @@
         .text('Causal masking enables both parallel training and sequential generation');
       // separator
       gLeg.append('line')
-        .attr('x1',IB_X+20).attr('y1',IB_Y+26).attr('x2',IB_X+IB_W-20).attr('y2',IB_Y+26)
+        .attr('x1',IB_X+20).attr('y1',IB_Y+24).attr('x2',IB_X+IB_W-20).attr('y2',IB_Y+24)
         .attr('stroke',C3).attr('stroke-opacity',0.20).attr('stroke-width',0.8);
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+41)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+38)
         .attr('text-anchor','middle').attr('font-size',8.5)
         .attr('font-family','monospace').attr('fill',CI).attr('fill-opacity',0.85)
         .text('Training:  the full sequence is fed in at once — each position i predicts token i+1 simultaneously (teacher forcing)');
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+57)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+53)
         .attr('text-anchor','middle').attr('font-size',8.5)
         .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.85)
         .text('Inference: tokens are generated one at a time — each new token is appended and the model runs again');
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+73)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+68)
+        .attr('text-anchor','middle').attr('font-size',8)
+        .attr('font-family','monospace').attr('fill',C2).attr('fill-opacity',0.62)
+        .text('\u21b3 KV cache: a token\u2019s keys & values never change once written, so they are stored — each step attends with just the new token\u2019s query');
+      gLeg.append('text')
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+83)
         .attr('text-anchor','middle').attr('font-size',8.5)
         .attr('font-family','monospace').attr('fill',CM)
         .text('The mask guarantees position i never sees the future — making both modes consistent with the same weights');
       gLeg.append('text')
-        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+92)
+        .attr('x',IB_X+IB_W/2).attr('y',IB_Y+99)
         .attr('text-anchor','middle').attr('font-size',7.5)
         .attr('font-family','Georgia,serif').attr('font-style','italic')
         .attr('fill',C3).attr('fill-opacity',0.60)
