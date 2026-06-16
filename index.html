@@ -4025,7 +4025,7 @@
           <h2 style="font-size:22pt;margin-bottom:0;">Threat modelling an AI Agent</h2>
           <div style="font-size:11pt;color:var(--muted-color);letter-spacing:.05em;margin-top:2px;">Attack Surfaces &amp; Boundaries</div>
           <div class="content" style="padding-top:4px;">
-            <svg viewBox="0 0 1160 552" style="width:100%;font-family:var(--body-font),monospace;">
+            <svg viewBox="-90 0 1250 552" style="width:100%;font-family:var(--body-font),monospace;">
               <defs>
                 <marker id="aaa-c" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#00d9ff"/></marker>
                 <marker id="aaa-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#ffa830"/></marker>
@@ -4117,6 +4117,12 @@
                   <line x1="235" y1="259" x2="235" y2="355" stroke="#f5c542" stroke-width="1.8"/>
                   <line x1="235" y1="379" x2="235" y2="409" stroke="#f5c542" stroke-width="1.8"/>
                   <text transform="translate(244,232) rotate(-90)" font-size="6" font-weight="700" fill="#f5c542" letter-spacing="1">PRINCIPAL</text>
+                  <!-- principal originates at user login — to the left, before the user prompt — then carried to the wall checks -->
+                  <line x1="-8" y1="163" x2="235" y2="163" stroke="#f5c542" stroke-width="1.8"/>
+                  <rect x="-82" y="147" width="74" height="36" rx="5" fill="rgba(245,197,66,0.10)" stroke="#f5c542" stroke-width="1.2"/>
+                  <text x="-76" y="162" font-size="8" font-weight="700" fill="#f8f9fa">🔑 USER LOGIN</text>
+                  <text x="-76" y="174" font-size="6" fill="#f5c542">principal set here</text>
+                  <path d="M -8 177 L 6 184" fill="none" stroke="#f5c542" stroke-width="1.6" marker-end="url(#aaa-id)"/>
                 </g>
                 <g class="fragment" data-fragment-index="6">
                   <rect x="1030" y="54" width="8" height="8" fill="#f5c542"/>
