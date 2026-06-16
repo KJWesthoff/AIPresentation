@@ -3190,12 +3190,30 @@
 
 </section>
 
+<section>
 <section id="moe">
   <h2 style="margin-bottom:4px;">Mixture of Experts (MoE)</h2>
   <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Route each token through only the experts it needs</p>
   <div class="content" style="padding-top:2px;">
     <div id="moe-canvas" style="width:100%;height:472px;"></div>
   </div>
+</section>
+
+<section id="moe-depth">
+  <h2 style="margin-bottom:4px;">MoE in the Full Model — How Many Blocks?</h2>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">A model stacks dozens of transformer blocks — most are MoE blocks (not individual experts)</p>
+  <div class="content" style="padding-top:2px;">
+    <div id="moe-depth-canvas" style="width:100%;height:472px;"></div>
+  </div>
+</section>
+
+<section id="moe-router">
+  <h2 style="margin-bottom:4px;">Inside the Router — How Tokens Pick Experts</h2>
+  <p style="margin:0 0 4px;font-size:0.75em;color:#5a7090;font-style:italic;">Score every expert · keep the top-K · softmax-weight their outputs</p>
+  <div class="content" style="padding-top:2px;">
+    <div id="moe-router-canvas" style="width:100%;height:476px;"></div>
+  </div>
+</section>
 </section>
 
 <section>
@@ -10587,7 +10605,7 @@
       svg.append('rect').attr('x',GX).attr('y',gbY).attr('width',GW).attr('height',gbH)
         .attr('rx',8).attr('fill',C3).attr('fill-opacity',0.18).attr('stroke',C3).attr('stroke-width',1.5);
       svg.append('text').attr('x',GX+GW/2).attr('y',gbY+26).attr('text-anchor','middle')
-        .attr('fill',C3).attr('font-size',13).attr('font-weight','bold').text('Gating Network');
+        .attr('fill',C3).attr('font-size',11.5).attr('font-weight','bold').text('Gating Network (Router)');
       svg.append('text').attr('x',GX+GW/2).attr('y',gbY+47).attr('text-anchor','middle')
         .attr('fill','#9bb4d2').attr('font-size',11).text('Linear → Softmax');
       svg.append('text').attr('x',GX+GW/2).attr('y',gbY+65).attr('text-anchor','middle')
@@ -10657,6 +10675,11 @@
           .attr('fill',col).attr('font-size',11.5).text(`● ${txt}`);
       });
 
+      // FOOTNOTE
+      svg.append('text').attr('x',IX).attr('y',H-6)
+        .attr('fill','#5a7090').attr('font-size',10.5).attr('font-style','italic')
+        .text('* Each expert is a full FFN — in modern MoE models (Mixtral, DeepSeek, Llama 4) typically a GLU-style FFN such as SwiGLU.');
+
       // ANIMATION
       function activate(activeSet){
         experts.forEach((e,i)=>{
@@ -10698,6 +10721,241 @@
       const el=currentSlide.querySelector('#moe-canvas');
       if(el) moeInit(el);
     });
+  })();
+  </script>
+
+  <!-- MoE depth: 3D isometric layer beam (moe-depth slide) -->
+  <script>
+  (function(){
+    const C1='#6a1aaa',C2='#4da8ff',C3='#ffa830',CR='#e86040',CA='#2de8a0';
+    const W=1100,H=490;
+    // each layer TYPE differs in colour AND dimensions (size ∝ parameter count)
+    const T={
+      emb:  {t:14,h:120,dep:24,f:C1,        top:'#8a4dc8',side:'#451071',name:'Embedding'},
+      attn: {t:11,h:96, dep:18,f:CA,        top:'#7af0c4',side:'#179e6b',name:'Attention (every block)'},
+      dense:{t:11,h:70, dep:18,f:'#48586a', top:'#62748a',side:'#2b3540',name:'Dense FFN'},
+      moe:  {t:18,h:170,dep:32,f:C2,        top:'#7cc0ff',side:'#2c6aa6',name:'MoE FFN'},
+      head: {t:14,h:108,dep:24,f:C3,        top:'#ffc266',side:'#9c5a0e',name:'LM head'},
+    };
+    // each transformer block = Attention + FFN (dense or MoE)
+    const SEQ=[
+      {ty:'emb'},
+      {block:'dense'},{block:'dense'},
+      {block:'moe'},{block:'moe'},{block:'moe'},{block:'moe'},
+      {brk:true},
+      {block:'moe'},{block:'moe'},
+      {ty:'head'},
+    ];
+
+    function init(container){
+      if(container._depthReady) return;
+      container._depthReady=true;
+
+      const svg=d3.select(container).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).style('width','100%').style('height','100%');
+      svg.append('rect').attr('width',W).attr('height',H).attr('fill','#0d1117');
+
+      const yB=372, gapIn=6, gapOut=20, brkGap=80;
+      let x=58;
+
+      function slab(s){
+        const dx=0.55*s.dep, dy=-0.82*s.dep;
+        const flb=[x,yB], frb=[x+s.t,yB], frt=[x+s.t,yB-s.h], flt=[x,yB-s.h];
+        const g=svg.append('g');
+        g.append('path').attr('d',`M${frb} L${frt} L${frt[0]+dx},${frt[1]+dy} L${frb[0]+dx},${frb[1]+dy} Z`)
+          .attr('fill',s.side);                                              // right side
+        g.append('path').attr('d',`M${flt} L${frt} L${frt[0]+dx},${frt[1]+dy} L${flt[0]+dx},${flt[1]+dy} Z`)
+          .attr('fill',s.top);                                              // top
+        g.append('path').attr('d',`M${flb} L${frb} L${frt} L${flt} Z`)
+          .attr('fill',s.f).attr('fill-opacity',0.92).attr('stroke',s.side).attr('stroke-width',0.6); // front
+        return {cx:x+s.t/2, left:x, right:x+s.t};
+      }
+
+      // baseline
+      svg.append('line').attr('x1',52).attr('y1',yB).attr('x2',768).attr('y2',yB)
+        .attr('stroke','#2a3848').attr('stroke-width',1.5);
+      svg.append('text').attr('x',56).attr('y',yB-8).attr('fill','#7090b0').attr('font-size',12).text('tokens →');
+
+      function emit(key){ const s=T[key], r=slab(s); r.top=yB-s.h; return r; }
+
+      let embCx=null, dS=null, dE=null, moeS=null, moeE=null, headCx=null;
+      let blkL=null, blkR=null, blkTop=null;   // first MoE block — for the bracket
+      SEQ.forEach(item=>{
+        if(item.brk){
+          const bx=x+brkGap/2;
+          svg.append('text').attr('x',bx).attr('y',yB-44).attr('text-anchor','middle')
+            .attr('fill','#5a7090').attr('font-size',24).text('· · ·');
+          svg.append('text').attr('x',bx).attr('y',yB-16).attr('text-anchor','middle')
+            .attr('fill','#7cc0ff').attr('font-size',12).attr('font-weight','bold').text('× many');
+          x+=brkGap;
+          return;
+        }
+        if(item.ty){                         // standalone slab (embedding / head)
+          const r=emit(item.ty);
+          if(item.ty==='emb')  embCx=r.cx;
+          if(item.ty==='head') headCx=r.cx;
+          x+=T[item.ty].t+gapOut;
+          return;
+        }
+        // transformer block = Attention + FFN
+        const a=emit('attn'); x+=T.attn.t+gapIn;
+        const k=item.block, f=emit(k); x+=T[k].t+gapOut;
+        if(k==='dense'){ if(dS===null)dS=a.left; dE=f.right; }
+        if(k==='moe'){
+          if(moeS===null)moeS=a.left; moeE=f.right;
+          if(blkL===null){ blkL=a.left; blkR=f.right; blkTop=Math.min(a.top,f.top); }
+        }
+      });
+
+      // output arrow
+      svg.append('text').attr('x',x-gapOut+14).attr('y',yB-8).attr('fill','#7090b0').attr('font-size',12).text('→ logits');
+
+      // bracket: one transformer block = Attention + FFN
+      if(blkL!=null){
+        const by=blkTop-12;
+        svg.append('path').attr('d',`M${blkL},${by+6} L${blkL},${by} L${blkR},${by} L${blkR},${by+6}`)
+          .attr('fill','none').attr('stroke','#6b7f95').attr('stroke-width',1);
+        svg.append('text').attr('x',(blkL+blkR)/2).attr('y',by-4).attr('text-anchor','middle')
+          .attr('fill','#9bb4d2').attr('font-size',10).text('1 transformer block');
+      }
+
+      // group labels under baseline
+      const lblY=yB+18;
+      const lbl=(cx,t,col)=>svg.append('text').attr('x',cx).attr('y',lblY).attr('text-anchor','middle')
+        .attr('fill',col).attr('font-size',11).text(t);
+      if(embCx!=null) lbl(embCx,'Embed','#b388e0');
+      if(dS!=null)    lbl((dS+dE)/2,'Dense blocks','#8fa3b8');
+      if(moeS!=null)  lbl((moeS+moeE)/2,'MoE blocks','#7cc0ff');
+      if(headCx!=null)lbl(headCx,'Head','#ffc266');
+
+      // legend (right)
+      const LX=812, LY0=92;
+      svg.append('text').attr('x',LX).attr('y',LY0-24).attr('fill','#9bb4d2')
+        .attr('font-size',13).attr('font-weight','bold').text('Layer types');
+      svg.append('text').attr('x',LX).attr('y',LY0-8).attr('fill','#5a7090')
+        .attr('font-size',10).attr('font-style','italic').text('colour & size ∝ parameter count');
+      ['emb','attn','dense','moe','head'].forEach((k,i)=>{
+        const s=T[k], yy=LY0+i*28;
+        svg.append('rect').attr('x',LX).attr('y',yy).attr('width',18).attr('height',14).attr('rx',2)
+          .attr('fill',s.f).attr('fill-opacity',0.92).attr('stroke',s.side);
+        svg.append('text').attr('x',LX+26).attr('y',yy+12).attr('fill','#cdd9e8').attr('font-size',11.5).text(s.name);
+      });
+
+      // callout: real MoE block counts
+      const CY=256;
+      svg.append('text').attr('x',LX).attr('y',CY).attr('fill','#9bb4d2')
+        .attr('font-size',13).attr('font-weight','bold').text('MoE blocks per model');
+      [
+        ['Mixtral 8×7B','32 / 32',CR],
+        ['DeepSeek-V3','58 / 61','#7cc0ff'],
+        ['Llama 4 Scout','48 / 48','#9bb4d2'],
+        ['Qwen3-235B-A22B','94 / 94','#9bb4d2'],
+      ].forEach(([m,c,col],i)=>{
+        const yy=CY+24+i*23;
+        svg.append('text').attr('x',LX).attr('y',yy).attr('fill','#9bb4d2').attr('font-size',11.5).text(m);
+        svg.append('text').attr('x',LX+252).attr('y',yy).attr('text-anchor','end')
+          .attr('fill',col).attr('font-size',11.5).attr('font-weight','bold').text(c);
+      });
+      svg.append('text').attr('x',LX).attr('y',CY+24+4*23+6).attr('fill','#5a7090')
+        .attr('font-size',10).attr('font-style','italic').text('count = MoE blocks / total transformer blocks');
+    }
+
+    Reveal.on('ready',()=>{ const el=document.getElementById('moe-depth-canvas'); if(el) init(el); });
+    Reveal.on('slidechanged',({currentSlide})=>{
+      const el=currentSlide.querySelector('#moe-depth-canvas'); if(el) init(el);
+    });
+  })();
+  </script>
+
+  <!-- MoE router flowchart (moe-router slide) -->
+  <script>
+  (function(){
+    const C1='#6a1aaa',C2='#4da8ff',C3='#ffa830',CA='#2de8a0',CR='#e86040';
+    const W=1100,H=500;
+
+    function init(container){
+      if(container._routerReady) return;
+      container._routerReady=true;
+
+      const svg=d3.select(container).append('svg')
+        .attr('viewBox',`0 0 ${W} ${H}`).style('width','100%').style('height','100%');
+      const defs=svg.append('defs');
+      defs.append('marker').attr('id','rt-arr').attr('markerWidth',8).attr('markerHeight',8)
+        .attr('refX',6).attr('refY',3).attr('orient','auto')
+        .append('path').attr('d','M0,0 L0,6 L7,3 Z').attr('fill','#7090b0');
+      svg.append('rect').attr('width',W).attr('height',H).attr('fill','#0d1117');
+
+      // ---------- left: flowchart ----------
+      const bx=80, bw=380, bh=46, gapY=14, y0=54;
+      const steps=[
+        {t:['Token hidden state  x','one vector per token, d_model'], c:C1, n:'1'},
+        {t:['Router:  logits = x · W_g','W_g is [d_model × N] — one score per expert'], c:C3, n:'2'},
+        {t:['Top-K gate:  keep the K highest logits','the other experts are skipped for this token'], c:C3, n:'3'},
+        {t:['Softmax over the K logits → weights wᵢ','how much each chosen expert contributes'], c:C3, n:'4'},
+        {t:['Run the K expert FFNs on x:  expertᵢ(x)','only K of N FFNs actually compute'], c:C2, n:'5'},
+        {t:['Weighted sum:  y = Σ wᵢ · expertᵢ(x)','updated token — same shape as x'], c:CA, n:'6'},
+      ];
+      const tops=[];
+      steps.forEach((s,i)=>{
+        const y=y0+i*(bh+gapY); tops.push(y);
+        svg.append('rect').attr('x',bx).attr('y',y).attr('width',bw).attr('height',bh).attr('rx',9)
+          .attr('fill',s.c).attr('fill-opacity',0.16).attr('stroke',s.c).attr('stroke-width',1.6);
+        svg.append('circle').attr('cx',bx+18).attr('cy',y+bh/2).attr('r',11).attr('fill',s.c).attr('fill-opacity',0.92);
+        svg.append('text').attr('x',bx+18).attr('y',y+bh/2+4).attr('text-anchor','middle')
+          .attr('fill','#0d1117').attr('font-size',12).attr('font-weight','bold').text(s.n);
+        svg.append('text').attr('x',bx+38).attr('y',y+20).attr('fill','#e6eefc').attr('font-size',13).attr('font-weight','600').text(s.t[0]);
+        svg.append('text').attr('x',bx+38).attr('y',y+36).attr('fill','#7e96b2').attr('font-size',10.5).text(s.t[1]);
+      });
+      for(let i=0;i<steps.length-1;i++){
+        svg.append('line').attr('x1',bx+bw/2).attr('y1',tops[i]+bh+1).attr('x2',bx+bw/2).attr('y2',tops[i+1]-1)
+          .attr('stroke','#7090b0').attr('stroke-width',1.6).attr('marker-end','url(#rt-arr)');
+      }
+
+      // ---------- right: worked example ----------
+      const px=540;
+      svg.append('text').attr('x',px).attr('y',52).attr('fill','#9bb4d2').attr('font-size',14).attr('font-weight','bold')
+        .text('Worked example — 8 experts, top-2');
+
+      const logits=[1.8,-0.4,0.2,0.9,3.1,-1.2,0.5,1.1];
+      const top=[4,0];                       // E5 and E1 are the two highest
+      const lo=Math.min.apply(null,logits), hi=Math.max.apply(null,logits), span=hi-lo;
+      const barX=px+78, barMax=250, rowY=82, rowH=26;
+      svg.append('text').attr('x',px).attr('y',rowY-8).attr('fill','#5a7090').attr('font-size',10).text('router logits  (score per expert)');
+      logits.forEach((v,i)=>{
+        const yy=rowY+i*rowH, on=top.includes(i), col=on?C2:'#3c4c5e';
+        svg.append('text').attr('x',px).attr('y',yy+12).attr('fill',on?'#e6eefc':'#7e96b2')
+          .attr('font-size',12).attr('font-weight',on?'700':'400').text('E'+(i+1));
+        svg.append('text').attr('x',px+44).attr('y',yy+12).attr('text-anchor','end')
+          .attr('fill',on?'#cdd9e8':'#5a7090').attr('font-size',11).text(v.toFixed(1));
+        const w=8+(v-lo)/span*barMax;
+        svg.append('rect').attr('x',barX).attr('y',yy).attr('width',w).attr('height',15).attr('rx',3)
+          .attr('fill',col).attr('fill-opacity',on?0.9:0.5);
+        if(on) svg.append('text').attr('x',barX+w+8).attr('y',yy+12).attr('fill',CA)
+          .attr('font-size',10.5).attr('font-weight','bold').text('✓ top-2');
+      });
+
+      let sy=rowY+8*rowH+20;
+      svg.append('text').attr('x',px).attr('y',sy).attr('fill','#9bb4d2').attr('font-size',12)
+        .text('Softmax over the two selected scores:');
+      sy+=24;
+      svg.append('text').attr('x',px).attr('y',sy).attr('fill',C2).attr('font-size',15).attr('font-weight','bold')
+        .text('w₅ = 0.79      w₁ = 0.21');
+      sy+=28;
+      svg.append('text').attr('x',px).attr('y',sy).attr('fill',CA).attr('font-size',13).attr('font-family','monospace')
+        .text('y = 0.79·expert₅(x) + 0.21·expert₁(x)');
+
+      // ---------- bottom: load balancing ----------
+      const ly=H-40;
+      svg.append('rect').attr('x',bx).attr('y',ly-22).attr('width',W-2*bx).attr('height',42).attr('rx',8)
+        .attr('fill',CR).attr('fill-opacity',0.10).attr('stroke',CR).attr('stroke-width',1).attr('stroke-opacity',0.5);
+      svg.append('text').attr('x',bx+14).attr('y',ly-5).attr('fill',CR).attr('font-size',12).attr('font-weight','bold')
+        .text('Why training needs a load-balancing loss');
+      svg.append('text').attr('x',bx+14).attr('y',ly+12).attr('fill','#c9d6e6').attr('font-size',11)
+        .text('Left alone, the router collapses onto a few favourite experts. A balance loss + per-expert capacity spread tokens evenly — so no experts go dead.');
+    }
+
+    Reveal.on('ready',()=>{ const el=document.getElementById('moe-router-canvas'); if(el) init(el); });
+    Reveal.on('slidechanged',({currentSlide})=>{ const el=currentSlide.querySelector('#moe-router-canvas'); if(el) init(el); });
   })();
   </script>
 
