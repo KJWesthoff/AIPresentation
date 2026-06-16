@@ -5380,7 +5380,7 @@
 
               <div style="background:rgba(255,68,68,0.06);border-left:3px solid #ff4444;border-radius:3px;padding:7px 9px;">
                 <div style="font-weight:700;color:#ff4444;margin-bottom:2px;">Why ordinary permissions don't solve it</div>
-                <div style="color:var(--muted-color);">OAuth &amp; MCP authorization prove the agent <em>may</em> use Karl's mailbox and that tokens are valid for the right resource — not that Karl authorized <strong style="color:#ffce9e;">this</strong> mail, to <strong style="color:#ffce9e;">this</strong> recipient, with <strong style="color:#ffce9e;">this</strong> content, for <strong style="color:#ffce9e;">this</strong> purpose. “The agent may send e-mail” is simply too broad a permission.</div>
+                <div style="color:var(--muted-color);">OAuth &amp; MCP authorization prove the agent <em>may</em> use the user's mailbox and that tokens are valid for the right resource — not that the user authorized <strong style="color:#ffce9e;">this</strong> mail, to <strong style="color:#ffce9e;">this</strong> recipient, with <strong style="color:#ffce9e;">this</strong> content, for <strong style="color:#ffce9e;">this</strong> purpose. “The agent may send e-mail” is simply too broad a permission.</div>
               </div>
             </div>
 
@@ -5419,6 +5419,7 @@
                     <div style="background:#140e0e;padding:2px 5px;color:#2de8a0;">✓</div>
                     <div style="background:#140e0e;padding:2px 5px;color:#ff8a8a;">✗ denied · needs new approval</div>
                   </div>
+                  <div style="margin-top:6px;font-size:6.8pt;color:#8099b0;line-height:1.4;"><strong style="color:#ffa830;">Not enough alone:</strong> “never obey tools” prompts · regex for “ignore previous instructions” · temperature 0 · stripping HTML / invisible text · trusting the install-time tool description · approving only when the tool is first connected — injection can be indirect, obfuscated, or look like ordinary business data.</div>
                 </div>
               </div>
             </div>
@@ -5426,13 +5427,9 @@
 
           <!-- the essential rule -->
           <div style="margin-top:8px;background:rgba(45,232,160,0.08);border:1px solid rgba(45,232,160,0.45);border-radius:5px;padding:7px 12px;text-align:center;">
-            <span style="font-weight:700;font-size:9.5pt;color:#2de8a0;">Untrusted content must never independently authorize a privileged action.</span>
-            <span style="font-size:8.5pt;color:var(--text-color);">Tool output may supply <strong style="color:#9fe0f5;">data</strong> — never <strong style="color:#ff8a8a;">authority</strong>. The LLM <em>proposes</em> a tool call; a deterministic policy layer <em>decides</em> whether it is authorized.</span>
+            <span style="font-weight:700;font-size:9.5pt;color:#2de8a0;">Untrusted content must never authorize a privileged action.</span>
+            <span style="font-size:8.5pt;color:var(--text-color);">Enforce it by <strong style="color:#9fe0f5;">scoping tools</strong> to least privilege and letting a deterministic policy layer — not the LLM — authorize each call.</span>
           </div>
-
-          <p style="margin:6px 0 0;font-size:7.2pt;color:#8099b0;text-align:center;">
-            <strong style="color:#ffa830;">Not enough on their own:</strong> “never obey tools” prompts · regex for “ignore previous instructions” · temperature 0 · stripping HTML / invisible text · trusting the install-time tool description · approving only when the tool is first connected — injection can be indirect, obfuscated, or look like ordinary business data.
-          </p>
         </section>
 
         <!-- ── External untrusted input: hidden prompts, RAG, web-search infra ── -->
