@@ -4000,7 +4000,7 @@
             #ai-agent-anatomy .aaa-shine{--shine:#2de8a0;}
             #ai-agent-anatomy svg:has(.aaa-actstep.visible) .aaa-shine{animation:aaa-shineblink 1s ease-in-out .2s 1;}
             @keyframes aaa-shineblink{0%,100%{filter:none;}35%,65%{filter:drop-shadow(0 0 6px var(--shine)) drop-shadow(0 0 14px var(--shine)) brightness(3);}}
-            #ai-agent-anatomy .aaa-aclgrp,#ai-agent-anatomy .aaa-mcpgrp,#ai-agent-anatomy .aaa-memgrp,#ai-agent-anatomy .aaa-gategrp,#ai-agent-anatomy .aaa-provgrp,#ai-agent-anatomy .aaa-ingrgrp,#ai-agent-anatomy .atk{cursor:help;}
+            #ai-agent-anatomy .aaa-aclgrp,#ai-agent-anatomy .aaa-mcpgrp,#ai-agent-anatomy .aaa-memgrp,#ai-agent-anatomy .aaa-idgrp,#ai-agent-anatomy .aaa-gategrp,#ai-agent-anatomy .aaa-provgrp,#ai-agent-anatomy .aaa-ingrgrp,#ai-agent-anatomy .atk{cursor:help;}
             #ai-agent-anatomy .aaa-tip{opacity:0;pointer-events:none;transition:opacity .18s ease;}
             #ai-agent-anatomy svg:has(.aaa-aclgrp:hover) .aaa-acltip{opacity:1;}
             #ai-agent-anatomy svg:has(.aaa-gategrp:hover) .aaa-gatetip{opacity:1;}
@@ -4008,6 +4008,7 @@
             #ai-agent-anatomy svg:has(.aaa-ingrgrp:hover) .aaa-ingrtip{opacity:1;}
             #ai-agent-anatomy svg:has(.aaa-mcpgrp:hover) .aaa-mcptip{opacity:1;}
             #ai-agent-anatomy svg:has(.aaa-memgrp:hover) .aaa-memtip{opacity:1;}
+            #ai-agent-anatomy svg:has(.aaa-idgrp:hover) .aaa-idtip{opacity:1;}
             #ai-agent-anatomy svg:has(.atk.d1:hover) .aaa-atk1tip{opacity:1;}
             #ai-agent-anatomy svg:has(.atk.d2:hover) .aaa-atk2tip{opacity:1;}
             #ai-agent-anatomy svg:has(.atk.d3:hover) .aaa-atk3tip{opacity:1;}
@@ -4105,6 +4106,18 @@
 
               <!-- ══ SECURITY BOUNDARY: ingress admission — one checkpoint per source (hover for details) ══ -->
               <g class="fragment" data-fragment-index="5">
+                <!-- identity spine: one authenticated principal threads every per-user check (app-set, never in context).
+                     Drawn before the chips so they paint over it — the rail is hidden behind each station and visible between
+                     them; it skips the non-identity checks (web allowlist, sandbox). -->
+                <g class="aaa-idgrp">
+                  <rect x="227" y="156" width="18" height="258" fill="#f5c542" fill-opacity="0" pointer-events="all"/>
+                  <line x1="235" y1="160" x2="235" y2="235" stroke="#f5c542" stroke-width="1.8"/>
+                  <line x1="235" y1="259" x2="235" y2="355" stroke="#f5c542" stroke-width="1.8"/>
+                  <line x1="235" y1="379" x2="235" y2="409" stroke="#f5c542" stroke-width="1.8"/>
+                  <text transform="translate(244,232) rotate(-90)" font-size="6" font-weight="700" fill="#f5c542" letter-spacing="1">PRINCIPAL</text>
+                </g>
+                <rect x="1030" y="54" width="8" height="8" fill="#f5c542"/>
+                <text x="1042" y="61" font-size="6.5" fill="#8099b0">identity · authenticated principal</text>
                 <g class="aaa-ingrgrp">
                   <!-- platform: signed / pinned config -->
                   <rect x="214" y="22" width="12" height="74" fill="rgba(45,232,160,0.06)"/>
@@ -4165,6 +4178,13 @@
                   <rect x="216" y="321" width="38" height="12" rx="6" fill="#11112b"/>
                   <rect x="216" y="321" width="38" height="12" rx="6" fill="rgba(45,232,160,0.15)" stroke="rgba(45,232,160,0.8)"/>
                   <text x="235" y="329.5" text-anchor="middle" font-size="5.8" font-weight="700" fill="#2de8a0">USER AUTH</text>
+                </g>
+                <!-- gold rings mark the identity stations on the principal spine (AUTHN → ACLs → AUTH → PER-USER) -->
+                <g class="aaa-idgrp">
+                  <rect x="213" y="155" width="44" height="16" rx="8" fill="none" stroke="#f5c542" stroke-width="1.2"/>
+                  <rect x="213" y="279" width="44" height="16" rx="8" fill="none" stroke="#f5c542" stroke-width="1.2"/>
+                  <rect x="213" y="319" width="44" height="16" rx="8" fill="none" stroke="#f5c542" stroke-width="1.2"/>
+                  <rect x="213" y="398" width="44" height="16" rx="8" fill="none" stroke="#f5c542" stroke-width="1.2"/>
                 </g>
               </g>
 
@@ -4434,6 +4454,17 @@
               </g>
 
               <!-- ══ Hover tooltips (top-most layer so nothing paints over them) ══ -->
+              <g class="aaa-tip aaa-idtip">
+                <rect x="300" y="200" width="364" height="126" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(245,197,66,0.85)"/>
+                <polygon points="300,250 300,266 289,258" fill="#11112b" fill-opacity="0.97"/>
+                <text x="312" y="220" font-size="8.5" font-weight="700" fill="#f5c542" letter-spacing="0.8">IDENTITY — THE AUTHENTICATED PRINCIPAL</text>
+                <text x="312" y="236" font-size="7" fill="#d8e6f3">One principal, fixed by the app at login, scopes every per-user</text>
+                <text x="312" y="248" font-size="7" fill="#d8e6f3">check — RAG ACLs, MCP auth, memory all filter by who the request</text>
+                <text x="312" y="260" font-size="7" fill="#d8e6f3">runs as, and it picks which scoped credential the gate may use.</text>
+                <text x="312" y="272" font-size="7" fill="#d8e6f3">It rides in app code beside the model, never in the context, so</text>
+                <text x="312" y="284" font-size="7" fill="#d8e6f3">the model can't forge it or choose whose data it sees.</text>
+                <text x="312" y="306" font-size="7" font-style="italic" fill="#f5c542">Rule: authorization derives from the server-side principal — identity is not a prompt field.</text>
+              </g>
               <g class="aaa-tip aaa-memtip">
                 <rect x="150" y="262" width="372" height="124" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(255,68,68,0.8)"/>
                 <polygon points="162,385 180,385 171,394" fill="#11112b" fill-opacity="0.97"/>
