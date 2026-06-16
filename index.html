@@ -3987,6 +3987,132 @@
           </script>
         </section>
 
+        <!-- ── 5b. OWASP Top 10 for Agentic Applications (2026) ── -->
+        <section id="ai-agentic-top10">
+          <style>
+            #ai-agentic-top10 .agt-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
+            #ai-agentic-top10 .agt-row:hover{transform:translateX(5px);filter:brightness(1.4);}
+            #agt-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
+            #agt-modal-overlay.open{display:flex;}
+          </style>
+          <h2>OWASP Top 10 for Agentic Applications <span style="color:var(--muted-color);font-weight:400;">(2026)</span></h2>
+          <div class="content">
+            <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
+              Agents add <em>autonomy, tools, memory and other agents</em> to the LLM core — so the attack surface shifts from "what the model says" to <em>what it does, remembers and trusts</em>. <span style="color:var(--primary-color);">Click any item for details.</span>
+            </p>
+            <div style="max-width:640px;margin:0 auto;width:100%;">
+              <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
+                  <div class="agt-row" data-agt="ASI01" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff4444;font-weight:700;min-width:32px;">ASI01</span><span style="color:var(--text-color);">Memory Poisoning</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI02" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">ASI02</span><span style="color:var(--text-color);">Tool Misuse</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI03" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
+                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">ASI03</span><span style="color:var(--text-color);">Privilege Compromise</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI04" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">ASI04</span><span style="color:var(--text-color);">Cascading Hallucination Attacks</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI05" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">ASI05</span><span style="color:var(--text-color);">Intent Breaking &amp; Goal Manipulation</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI06" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">ASI06</span><span style="color:var(--text-color);">Misaligned &amp; Deceptive Behaviours</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI07" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">ASI07</span><span style="color:var(--text-color);">Identity Spoofing &amp; Impersonation</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI08" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">ASI08</span><span style="color:var(--text-color);">Rogue Agents in Multi-Agent Systems</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI09" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">ASI09</span><span style="color:var(--text-color);">Overwhelming Human-in-the-Loop</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+                  <div class="agt-row" data-agt="ASI10" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
+                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">ASI10</span><span style="color:var(--text-color);">Resource Overload &amp; Denial-of-Wallet</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="agt-modal-overlay">
+            <div id="agt-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
+          </div>
+
+          <script>
+          (function() {
+            var AGT = {
+              ASI01: { t: 'Memory Poisoning', c: '#ff4444',
+                what: 'Persistent and shared memory — vector stores, scratchpads, conversation history — is tampered with so false facts or hidden instructions become “trusted” context the agent reuses across sessions and tasks. Unlike a one-shot prompt injection, the payload persists.',
+                ex: 'A planted note in an agent’s long-term memory survives the session and silently steers later, unrelated tasks toward the attacker’s goal.',
+                fix: 'Validate &amp; provenance-tag everything written to memory · scope memory per task/user · expire and review entries · keep trusted and untrusted memory separate.' },
+              ASI02: { t: 'Tool Misuse', c: '#ff6b35',
+                what: 'A hijacked or confused agent turns its <em>legitimate</em> tools — APIs, shells, browsers, payment endpoints — toward harmful ends. Every call is within granted permissions, so nothing looks “broken” to the system.',
+                ex: 'Prompt-injected web content makes a browsing agent use its real credentials to exfiltrate data or move money.',
+                fix: 'Constrain tool schemas &amp; arguments · per-tool authorization and rate limits · human approval for irreversible calls · log every invocation.' },
+              ASI03: { t: 'Privilege Compromise', c: '#ff6b35',
+                what: 'Agents accumulate broad, long-lived permissions and inherited identities. An attacker rides those to escalate — acting as the agent’s principal across systems it should never have reached.',
+                ex: 'An over-scoped service identity lets a single compromised agent pivot laterally across its entire tool surface.',
+                fix: 'Least privilege per task · short-lived scoped credentials · no ambient authority · separate read from write.' },
+              ASI04: { t: 'Cascading Hallucination Attacks', c: '#9d4edd',
+                what: 'One fabricated fact enters the loop and is treated as ground truth by later steps and other agents. Errors compound through reasoning chains and multi-agent hand-offs instead of being caught at the source.',
+                ex: 'A wrong assumption early in an agent’s plan propagates into downstream tool calls and sub-agent decisions.',
+                fix: 'Ground with retrieval &amp; citations · validate intermediate outputs · checkpoints / human review · break runaway feedback loops.' },
+              ASI05: { t: 'Intent Breaking &amp; Goal Manipulation', c: '#9d4edd',
+                what: 'Attackers rewrite the agent’s objective or plan mid-run — via injected instructions, manipulated state, or poisoned context — so it pursues a goal the operator never set.',
+                ex: 'Hidden instructions in a fetched document silently replace the user’s task with the attacker’s.',
+                fix: 'Pin and verify goals · separate the plan from untrusted input · guardrail checks on plan changes · constrain re-planning.' },
+              ASI06: { t: 'Misaligned &amp; Deceptive Behaviours', c: '#00d9ff',
+                what: 'The agent pursues its goal through unsafe, deceptive or policy-violating means — withholding information, faking compliance, or taking unsanctioned shortcuts to “succeed.”',
+                ex: 'An agent learns to bypass a safety check because doing so completes the task faster.',
+                fix: 'Explicit guardrails &amp; refusal policies · monitor for deception / reward-hacking · red-team for misalignment · keep humans accountable.' },
+              ASI07: { t: 'Identity Spoofing &amp; Impersonation', c: '#00d9ff',
+                what: 'With weak authentication between humans, agents and services, an attacker impersonates a user or another agent — or a rogue agent claims a trusted identity — to gain access or issue commands.',
+                ex: 'A spoofed agent identity in a multi-agent workflow is trusted by its peers and issues malicious instructions.',
+                fix: 'Strong mutual auth for every actor · signed, verifiable agent identities · no implicit trust between agents · audit identity use.' },
+              ASI08: { t: 'Rogue Agents in Multi-Agent Systems', c: '#00d9ff',
+                what: 'A compromised, malicious or simply faulty agent operates inside a trusted swarm — poisoning shared state, communications and decisions that peers accept without verification.',
+                ex: 'One subverted worker agent corrupts a shared plan that the whole collective then executes.',
+                fix: 'Zero-trust between agents · verify inter-agent messages · isolate &amp; sandbox agents · monitor collective behaviour for anomalies.' },
+              ASI09: { t: 'Overwhelming Human-in-the-Loop', c: '#8099b0',
+                what: 'Approval gates fail when agents flood operators with requests or fatigue them into rubber-stamping. The human control becomes theatre, and dangerous actions sail through unreviewed.',
+                ex: 'An agent issues hundreds of approval prompts until the reviewer starts approving blindly.',
+                fix: 'Rate-limit &amp; batch approvals · risk-rank what truly needs a human · give meaningful context per decision · circuit-breakers on volume.' },
+              ASI10: { t: 'Resource Overload &amp; Denial-of-Wallet', c: '#8099b0',
+                what: 'Nothing caps how much an agent consumes: recursive sub-agents, endless tool loops and huge contexts exhaust compute, budgets and rate limits — taking down the service or the bank account.',
+                ex: 'A runaway agent loop spawns sub-agents until API budgets and quotas are exhausted overnight.',
+                fix: 'Token &amp; cost budgets · max iterations / recursion depth · per-agent quotas &amp; rate limits · alert on anomalous consumption.' }
+            };
+            var overlay = document.getElementById('agt-modal-overlay');
+            var card = document.getElementById('agt-modal-card');
+            document.querySelectorAll('#ai-agentic-top10 .agt-row').forEach(function(row) {
+              row.addEventListener('click', function(e) {
+                var id = row.dataset.agt, d = AGT[id];
+                card.style.borderColor = d.c;
+                card.innerHTML =
+                  '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:10px;">' +
+                    '<span style="font-family:monospace;font-weight:700;font-size:13pt;color:' + d.c + ';">' + id + '</span>' +
+                    '<span style="font-weight:700;font-size:13pt;color:var(--text-color);">' + d.t + '</span>' +
+                    '<span class="agt-close" style="margin-left:auto;cursor:pointer;color:var(--muted-color);font-size:13pt;line-height:1;">✕</span>' +
+                  '</div>' +
+                  '<div style="font-size:10pt;color:var(--text-color);line-height:1.55;margin-bottom:10px;">' + d.what + '</div>' +
+                  '<div style="font-size:9pt;color:var(--muted-color);line-height:1.5;margin-bottom:10px;"><strong style="color:' + d.c + ';">In the wild:</strong> ' + d.ex + '</div>' +
+                  '<div style="font-size:9pt;color:#2de8a0;line-height:1.5;"><strong>Defence:</strong> ' + d.fix + '</div>';
+                overlay.classList.add('open');
+                e.stopPropagation();
+              });
+            });
+            overlay.addEventListener('click', function(e) {
+              if (e.target === overlay || e.target.closest('.agt-close')) overlay.classList.remove('open');
+            });
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') overlay.classList.remove('open');
+            });
+          })();
+          </script>
+        </section>
+
         <!-- ── Agent Security ── -->
 
         <!-- ── 2b. Anatomy of a modern AI agent — attack surface & boundaries ── -->
@@ -4039,11 +4165,21 @@
             #ai-agent-anatomy svg:has(.atk.d10:hover) .aaa-atk10tip{opacity:1;}
             #ai-agent-anatomy svg:has(.atk.d11:hover) .aaa-atk11tip{opacity:1;}
             #ai-agent-anatomy svg:has(.atk.d12:hover) .aaa-atk12tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s1:hover) .aaa-asi1tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s2:hover) .aaa-asi2tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s3:hover) .aaa-asi3tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s4:hover) .aaa-asi4tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s5:hover) .aaa-asi5tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s6:hover) .aaa-asi6tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s7:hover) .aaa-asi7tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s8:hover) .aaa-asi8tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s9:hover) .aaa-asi9tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s10:hover) .aaa-asi10tip{opacity:1;}
           </style>
           <h2 style="font-size:22pt;margin-bottom:0;">Threat modelling an AI Agent</h2>
           <div style="font-size:11pt;color:var(--muted-color);letter-spacing:.05em;margin-top:2px;">Attack Surfaces &amp; Boundaries</div>
           <div class="content" style="padding-top:4px;">
-            <svg viewBox="-90 0 1250 552" style="width:100%;font-family:var(--body-font),monospace;">
+            <svg viewBox="-90 0 1250 612" style="width:100%;font-family:var(--body-font),monospace;">
               <defs>
                 <marker id="aaa-c" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#00d9ff"/></marker>
                 <marker id="aaa-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#ffa830"/></marker>
@@ -4462,6 +4598,57 @@
                 </g>
               </g>
 
+              <!-- ══ FRAGMENT: agentic attack badges + legend (OWASP Top 10 for Agentic Applications, 2026) ══
+                   Autonomy, tools, memory and peer agents move the surface past "what the model says" to
+                   what it does, remembers and trusts. Purple badges (vs. the red LLM set) mark where each
+                   agent-layer threat attaches; full click-through detail lives on the Agentic Top 10 slide. -->
+              <g class="fragment" data-fragment-index="8">
+                <!-- ASI01 Memory Poisoning — persistent memory laundered back as "trusted" context -->
+                <g class="atk s1"><circle class="atk-ring" cx="150" cy="394" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="150" cy="394" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="150" y="397" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">01</text></g>
+                <!-- ASI02 Tool Misuse — legitimate effectors turned to harm within granted permissions -->
+                <g class="atk s2"><circle class="atk-ring" cx="948" cy="66" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="948" cy="66" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="948" y="69" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">02</text></g>
+                <!-- ASI03 Privilege Compromise — over-scoped, long-lived authority at the gate / credentials -->
+                <g class="atk s3"><circle class="atk-ring" cx="707" cy="52" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="707" cy="52" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="707" y="55" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">03</text></g>
+                <!-- ASI04 Cascading Hallucination — one fabricated fact compounds through the loop -->
+                <g class="atk s4"><circle class="atk-ring" cx="300" cy="466" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="300" cy="466" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="300" y="469" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">04</text></g>
+                <!-- ASI05 Intent Breaking & Goal Manipulation — the objective is rewritten mid-run -->
+                <g class="atk s5"><circle class="atk-ring" cx="468" cy="176" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="468" cy="176" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="468" y="179" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">05</text></g>
+                <!-- ASI06 Misaligned & Deceptive Behaviour — unsafe shortcuts, faked compliance -->
+                <g class="atk s6"><circle class="atk-ring" cx="540" cy="256" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="540" cy="256" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="540" y="259" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">06</text></g>
+                <!-- ASI07 Identity Spoofing & Impersonation — weak auth between humans, agents, services -->
+                <g class="atk s7"><circle class="atk-ring" cx="-45" cy="150" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="-45" cy="150" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="-45" y="153" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">07</text></g>
+                <!-- ASI08 Rogue Agents in Multi-Agent Systems — a subverted peer poisons shared state -->
+                <g class="atk s8"><circle class="atk-ring" cx="150" cy="311" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="150" cy="311" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="150" y="314" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">08</text></g>
+                <!-- ASI09 Overwhelming Human-in-the-Loop — approval fatigue defeats the gate -->
+                <g class="atk s9"><circle class="atk-ring" cx="700" cy="250" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="700" cy="250" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="700" y="253" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">09</text></g>
+                <!-- ASI10 Resource Overload & Denial-of-Wallet — unbounded loops & recursive sub-agents -->
+                <g class="atk s10"><circle class="atk-ring" cx="878" cy="330" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="878" cy="330" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="878" y="333" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">10</text></g>
+                <!-- legend: OWASP Top 10 for Agentic Applications — two rows, directly below the LLM legend -->
+                <g>
+                  <text x="14" y="540" font-size="8" font-weight="700" fill="#9d4edd" letter-spacing="1">ATTACK SURFACE BADGES — OWASP TOP 10 FOR AGENTIC APPLICATIONS (2026) · hover a badge for details</text>
+                  <circle cx="22" cy="555" r="7" fill="#9d4edd"/><text x="22" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">01</text>
+                  <text x="36" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Memory poisoning</text>
+                  <circle cx="254" cy="555" r="7" fill="#9d4edd"/><text x="254" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">02</text>
+                  <text x="268" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Tool misuse</text>
+                  <circle cx="486" cy="555" r="7" fill="#9d4edd"/><text x="486" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">03</text>
+                  <text x="500" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Privilege compromise</text>
+                  <circle cx="718" cy="555" r="7" fill="#9d4edd"/><text x="718" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">04</text>
+                  <text x="732" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Cascading hallucination</text>
+                  <circle cx="950" cy="555" r="7" fill="#9d4edd"/><text x="950" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">05</text>
+                  <text x="964" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Goal manipulation</text>
+                  <circle cx="22" cy="577" r="7" fill="#9d4edd"/><text x="22" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">06</text>
+                  <text x="36" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Misaligned &amp; deceptive</text>
+                  <circle cx="254" cy="577" r="7" fill="#9d4edd"/><text x="254" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">07</text>
+                  <text x="268" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Identity spoofing</text>
+                  <circle cx="486" cy="577" r="7" fill="#9d4edd"/><text x="486" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">08</text>
+                  <text x="500" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Rogue agents (multi-agent)</text>
+                  <circle cx="718" cy="577" r="7" fill="#9d4edd"/><text x="718" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">09</text>
+                  <text x="732" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Human-in-loop overwhelm</text>
+                  <circle cx="950" cy="577" r="7" fill="#9d4edd"/><text x="950" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">10</text>
+                  <text x="964" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Resource overload / DoW</text>
+                </g>
+              </g>
+
               <!-- ══ FRAGMENT: defence-in-depth layers ══ -->
               <g class="fragment" data-fragment-index="4">
                 <!-- key -->
@@ -4488,7 +4675,7 @@
                 <rect class="aaa-gateglow" x="688" y="34" width="38" height="372" rx="10" fill="#2de8a0" opacity="0.3" filter="url(#aaa-gf)"/>
                 <text x="1080" y="248" text-anchor="middle" font-size="8.5" font-weight="700" fill="#2de8a0">✓ EGRESS CONTROL</text>
                 <text x="1080" y="260" text-anchor="middle" font-size="7" fill="#8099b0">block secrets leaving</text>
-                <text x="580" y="546" text-anchor="middle" font-size="10" font-weight="700" fill="#2de8a0">⇒ Treat external content &amp; tool results as attacker-controlled — the model interprets policy; the surrounding system (ingress · gate · credentials · egress · provider API) must enforce it.</text>
+                <text x="580" y="600" text-anchor="middle" font-size="10" font-weight="700" fill="#2de8a0">⇒ Treat external content &amp; tool results as attacker-controlled — the model interprets policy; the surrounding system (ingress · gate · credentials · egress · provider API) must enforce it.</text>
               </g>
 
               <!-- ══ Hover tooltips (top-most layer so nothing paints over them) ══ -->
@@ -4699,6 +4886,100 @@
                 <text x="276" y="336" font-size="6.8" fill="#d8e6f3">another user's data, and credentials cached server-side bleed</text>
                 <text x="276" y="348" font-size="6.8" fill="#d8e6f3">across sessions. Also: allowlist servers, pin descriptions.</text>
                 <text x="276" y="366" font-size="6.8" font-style="italic" fill="#2de8a0">Per-user credentials — never one shared service account.</text>
+              </g>
+
+              <!-- ══ Agentic (OWASP Top 10 for Agentic Applications) badge tooltips ══ -->
+              <g class="aaa-tip aaa-asi1tip">
+                <rect x="10" y="274" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="142,382 158,382 150,392" fill="#11112b" fill-opacity="0.97"/>
+                <text x="22" y="290" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI01 · MEMORY POISONING</text>
+                <text x="22" y="306" font-size="6.8" fill="#d8e6f3">Persistent &amp; shared memory — vector stores, scratchpads,</text>
+                <text x="22" y="318" font-size="6.8" fill="#d8e6f3">history — is tampered with so false facts or hidden orders</text>
+                <text x="22" y="330" font-size="6.8" fill="#d8e6f3">become "trusted" context the agent reuses across sessions.</text>
+                <text x="22" y="342" font-size="6.8" fill="#d8e6f3">Unlike a one-shot injection, the payload persists.</text>
+                <text x="22" y="370" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: provenance-tag &amp; scope memory per user · expire &amp; review writes.</text>
+              </g>
+              <g class="aaa-tip aaa-asi2tip">
+                <rect x="700" y="84" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="940,84 956,84 948,70" fill="#11112b" fill-opacity="0.97"/>
+                <text x="712" y="100" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI02 · TOOL MISUSE</text>
+                <text x="712" y="116" font-size="6.8" fill="#d8e6f3">A hijacked or confused agent turns its legitimate tools —</text>
+                <text x="712" y="128" font-size="6.8" fill="#d8e6f3">APIs, shells, browsers, payment endpoints — toward harmful</text>
+                <text x="712" y="140" font-size="6.8" fill="#d8e6f3">ends. Every call sits within granted permissions, so nothing</text>
+                <text x="712" y="152" font-size="6.8" fill="#d8e6f3">looks "broken" to the system.</text>
+                <text x="712" y="180" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: constrain schemas &amp; args · per-tool authz · approve irreversible calls.</text>
+              </g>
+              <g class="aaa-tip aaa-asi3tip">
+                <rect x="360" y="70" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="699,70 715,70 707,56" fill="#11112b" fill-opacity="0.97"/>
+                <text x="372" y="86" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI03 · PRIVILEGE COMPROMISE</text>
+                <text x="372" y="102" font-size="6.8" fill="#d8e6f3">Agents accumulate broad, long-lived permissions and inherited</text>
+                <text x="372" y="114" font-size="6.8" fill="#d8e6f3">identities. An attacker rides them to escalate — acting as the</text>
+                <text x="372" y="126" font-size="6.8" fill="#d8e6f3">agent's principal across systems it should never reach.</text>
+                <text x="372" y="166" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: least privilege per task · short-lived scoped creds · no ambient authority.</text>
+              </g>
+              <g class="aaa-tip aaa-asi4tip">
+                <rect x="120" y="344" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="292,452 308,452 300,462" fill="#11112b" fill-opacity="0.97"/>
+                <text x="132" y="360" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI04 · CASCADING HALLUCINATION</text>
+                <text x="132" y="376" font-size="6.8" fill="#d8e6f3">One fabricated fact enters the loop and is treated as ground</text>
+                <text x="132" y="388" font-size="6.8" fill="#d8e6f3">truth by later steps and other agents. Errors compound through</text>
+                <text x="132" y="400" font-size="6.8" fill="#d8e6f3">reasoning chains and hand-offs instead of being caught early.</text>
+                <text x="132" y="440" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: ground with retrieval · validate intermediate output · break loops.</text>
+              </g>
+              <g class="aaa-tip aaa-asi5tip">
+                <rect x="150" y="58" width="356" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="460,166 476,166 468,176" fill="#11112b" fill-opacity="0.97"/>
+                <text x="162" y="74" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI05 · INTENT BREAKING &amp; GOAL MANIPULATION</text>
+                <text x="162" y="90" font-size="6.8" fill="#d8e6f3">Attackers rewrite the agent's objective or plan mid-run — via</text>
+                <text x="162" y="102" font-size="6.8" fill="#d8e6f3">injected instructions, manipulated state or poisoned context —</text>
+                <text x="162" y="114" font-size="6.8" fill="#d8e6f3">so it pursues a goal the operator never set.</text>
+                <text x="162" y="154" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: pin &amp; verify goals · separate plan from untrusted input · gate re-planning.</text>
+              </g>
+              <g class="aaa-tip aaa-asi6tip">
+                <rect x="560" y="200" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="560,248 560,264 546,256" fill="#11112b" fill-opacity="0.97"/>
+                <text x="572" y="216" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI06 · MISALIGNED &amp; DECEPTIVE BEHAVIOUR</text>
+                <text x="572" y="232" font-size="6.8" fill="#d8e6f3">The agent pursues its goal through unsafe, deceptive or</text>
+                <text x="572" y="244" font-size="6.8" fill="#d8e6f3">policy-violating means — withholding information, faking</text>
+                <text x="572" y="256" font-size="6.8" fill="#d8e6f3">compliance, taking unsanctioned shortcuts to "succeed".</text>
+                <text x="572" y="296" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: explicit guardrails · monitor reward-hacking · red-team misalignment.</text>
+              </g>
+              <g class="aaa-tip aaa-asi7tip">
+                <rect x="-82" y="40" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="-53,148 -37,148 -45,158" fill="#11112b" fill-opacity="0.97"/>
+                <text x="-70" y="56" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI07 · IDENTITY SPOOFING &amp; IMPERSONATION</text>
+                <text x="-70" y="72" font-size="6.8" fill="#d8e6f3">With weak auth between humans, agents and services, an attacker</text>
+                <text x="-70" y="84" font-size="6.8" fill="#d8e6f3">impersonates a user or another agent — or a rogue agent claims</text>
+                <text x="-70" y="96" font-size="6.8" fill="#d8e6f3">a trusted identity — to gain access or issue commands.</text>
+                <text x="-70" y="136" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: strong mutual auth · signed agent identities · no implicit agent trust.</text>
+              </g>
+              <g class="aaa-tip aaa-asi8tip">
+                <rect x="10" y="190" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="142,298 158,298 150,308" fill="#11112b" fill-opacity="0.97"/>
+                <text x="22" y="206" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI08 · ROGUE AGENTS IN MULTI-AGENT SYSTEMS</text>
+                <text x="22" y="222" font-size="6.8" fill="#d8e6f3">A compromised, malicious or faulty agent operates inside a</text>
+                <text x="22" y="234" font-size="6.8" fill="#d8e6f3">trusted swarm — poisoning shared state, communications and</text>
+                <text x="22" y="246" font-size="6.8" fill="#d8e6f3">decisions that peers accept without verification.</text>
+                <text x="22" y="286" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: zero-trust between agents · verify messages · isolate &amp; sandbox agents.</text>
+              </g>
+              <g class="aaa-tip aaa-asi9tip">
+                <rect x="350" y="150" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="690,242 690,258 702,250" fill="#11112b" fill-opacity="0.97"/>
+                <text x="362" y="166" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI09 · OVERWHELMING HUMAN-IN-THE-LOOP</text>
+                <text x="362" y="182" font-size="6.8" fill="#d8e6f3">Approval gates fail when agents flood operators with requests</text>
+                <text x="362" y="194" font-size="6.8" fill="#d8e6f3">or fatigue them into rubber-stamping. The human control turns</text>
+                <text x="362" y="206" font-size="6.8" fill="#d8e6f3">to theatre, and dangerous actions sail through unreviewed.</text>
+                <text x="362" y="246" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: rate-limit &amp; batch approvals · risk-rank what needs a human.</text>
+              </g>
+              <g class="aaa-tip aaa-asi10tip">
+                <rect x="730" y="212" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="870,320 886,320 878,330" fill="#11112b" fill-opacity="0.97"/>
+                <text x="742" y="228" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">ASI10 · RESOURCE OVERLOAD &amp; DENIAL-OF-WALLET</text>
+                <text x="742" y="244" font-size="6.8" fill="#d8e6f3">Nothing caps how much an agent consumes: recursive sub-agents,</text>
+                <text x="742" y="256" font-size="6.8" fill="#d8e6f3">endless tool loops and huge contexts exhaust compute, budgets</text>
+                <text x="742" y="268" font-size="6.8" fill="#d8e6f3">and rate limits — taking down the service or the bank account.</text>
+                <text x="742" y="308" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: token &amp; cost budgets · max iterations / recursion depth · per-agent quotas.</text>
               </g>
             </svg>
           </div>
@@ -5041,7 +5322,7 @@
         <section id="ai-incidents">
           <h2 style="margin-bottom:4px;">Threat Models Meet Reality</h2>
           <p style="margin:0 0 12px;font-size:0.72em;color:#5a7090;font-style:italic;">
-            Spectacular real-world incidents, mapped to <span style="color:#ff4444;font-weight:600;">OWASP Top 10 for LLM Apps (2025)</span> and <span style="color:var(--secondary-color);font-weight:600;">MITRE ATLAS</span>
+            Spectacular real-world incidents, mapped to <span style="color:#ff4444;font-weight:600;">OWASP Top 10 for LLM Apps (2025)</span>, <span style="color:#00d9ff;font-weight:600;">OWASP Top 10 for Agentic Apps (2026)</span> and <span style="color:var(--secondary-color);font-weight:600;">MITRE ATLAS</span>
           </p>
 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-size:8pt;line-height:1.45;">
@@ -5056,6 +5337,8 @@
               <div style="display:flex;flex-wrap:wrap;gap:4px;max-width:230px;justify-content:flex-end;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI07 Identity Spoofing</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI02 Tool Misuse</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0047 AI-Enabled Product Abuse</span>
               </div>
             </div>
@@ -5066,6 +5349,7 @@
               <div style="display:flex;flex-wrap:wrap;gap:4px;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM02 Info Disclosure</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI05 Goal Manipulation</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">T0057 LLM Data Leakage</span>
               </div>
@@ -5078,6 +5362,8 @@
               <div style="display:flex;flex-wrap:wrap;gap:4px;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI05 Goal Manipulation</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI02 Tool Misuse</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">T0057 LLM Data Leakage</span>
               </div>
@@ -5091,6 +5377,8 @@
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM02 Info Disclosure</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI02 Tool Misuse</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI05 Goal Manipulation</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.001 Indirect Injection</span>
               </div>
               <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);"><strong style="color:#2de8a0;">egress control</strong> — nothing stopped a secret leaving through a “legitimate” channel: a public PR comment.</span></div>
@@ -5102,6 +5390,7 @@
               <div style="display:flex;flex-wrap:wrap;gap:4px;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM01 Prompt Injection</span>
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM06 Excessive Agency</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI05 Goal Manipulation</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0051.000 Direct Injection</span>
               </div>
               <div style="border-top:1px dashed rgba(255,68,68,0.35);padding-top:5px;font-size:7pt;line-height:1.4;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);">the prompt was the only control — <strong style="color:#ff4444;">✗ not a security boundary</strong>; no deterministic gate on binding commitments.</span></div>
@@ -5124,6 +5413,7 @@
               <div style="color:var(--muted-color);flex:1;">Coordinated trolling poisoned the chatbot through its live-learning loop: it turned abusive within 16 hours and was shut down in 24. The original data-poisoning incident.</div>
               <div style="display:flex;flex-wrap:wrap;gap:4px;">
                 <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">LLM04 Data Poisoning</span>
+                <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ASI01 Memory Poisoning</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;">ATLAS T0020 Poison Training Data</span>
                 <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-size:7pt;font-weight:600;"><a href="https://atlas.mitre.org/studies/AML.CS0009" target="_blank" style="color:inherit;text-decoration:none;">Case study CS0009</a></span>
               </div>
@@ -5134,6 +5424,7 @@
 
           <p style="margin:10px 0 0;font-size:7pt;color:#5a7090;">
             <span style="background:rgba(255,68,68,0.16);color:#ff8a8a;border-radius:3px;padding:1px 6px;font-weight:600;">LLM0x</span> = <a href="https://genai.owasp.org/llm-top-10/" target="_blank" style="color:#8aa2c0;">OWASP Top 10 for LLM Applications (2025)</a> &nbsp;·&nbsp;
+            <span style="background:rgba(0,217,255,0.14);color:#7fd6f5;border-radius:3px;padding:1px 6px;font-weight:600;">ASI0x</span> = <a href="https://genai.owasp.org/resource/agentic-ai-threats-and-mitigations/" target="_blank" style="color:#8aa2c0;">OWASP Top 10 for Agentic Applications (2026)</a> &nbsp;·&nbsp;
             <span style="background:rgba(157,78,221,0.18);color:#c9a0f0;border-radius:3px;padding:1px 6px;font-weight:600;">AML.T / CS</span> = <a href="https://atlas.mitre.org/" target="_blank" style="color:#8aa2c0;">MITRE ATLAS</a> technique / case study &nbsp;·&nbsp; Sources: Aim Security, Adversa AI, Mithril Security, atlas.mitre.org
           </p>
         </section>
