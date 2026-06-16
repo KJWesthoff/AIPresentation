@@ -5237,7 +5237,7 @@
         <li style="margin-bottom:2px;">Devlin et al. — <em>BERT: Pre-training of Deep Bidirectional Transformers</em>, Google (2018)</li>
         <li style="margin-bottom:2px;">Brown et al. — <em>Language Models are Few-Shot Learners</em> (GPT-3), OpenAI (2020)</li>
         <li style="margin-bottom:2px;">Jiang et al. — <em>Mistral 7B</em>, Mistral AI (2023)</li>
-        <li style="margin-bottom:2px;">Jiang et al. — <em>Mixtral of Experts</em> (MoE), Mistral AI (2024)</li>
+        <li style="margin-bottom:2px;">Jiang et al. — <a href="https://arxiv.org/abs/2401.04088" target="_blank" style="color:var(--primary-color);">Mixtral of Experts</a> (MoE), Mistral AI arXiv 2401.04088 (2024)</li>
       </ul>
 
       <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Tools &amp; Libraries</p>
@@ -10919,7 +10919,7 @@
       const logits=[1.8,-0.4,0.2,0.9,3.1,-1.2,0.5,1.1];
       const top=[4,0];                       // E5 and E1 are the two highest
       const lo=Math.min.apply(null,logits), hi=Math.max.apply(null,logits), span=hi-lo;
-      const barX=px+78, barMax=250, rowY=82, rowH=26;
+      const barX=px+78, barMax=250, rowY=80, rowH=24;
       svg.append('text').attr('x',px).attr('y',rowY-8).attr('fill','#5a7090').attr('font-size',10).text('router logits  (score per expert)');
       logits.forEach((v,i)=>{
         const yy=rowY+i*rowH, on=top.includes(i), col=on?C2:'#3c4c5e';
@@ -10944,8 +10944,25 @@
       svg.append('text').attr('x',px).attr('y',sy).attr('fill',CA).attr('font-size',13).attr('font-family','monospace')
         .text('y = 0.79·expert₅(x) + 0.21·expert₁(x)');
 
+      // ---------- myth vs reality callout ----------
+      const mx=px, my=356, mw=W-px-bx, mh=52, divX=px+0.46*(W-px-bx);
+      svg.append('rect').attr('x',mx).attr('y',my).attr('width',mw).attr('height',mh).attr('rx',8)
+        .attr('fill','#162130').attr('stroke','#3a4a5a').attr('stroke-width',1);
+      svg.append('line').attr('x1',divX).attr('y1',my+8).attr('x2',divX).attr('y2',my+mh-8)
+        .attr('stroke','#3a4a5a').attr('stroke-width',1);
+      svg.append('text').attr('x',mx+14).attr('y',my+19).attr('fill',CR).attr('font-size',11).attr('font-weight','bold').text('✗ MYTH');
+      svg.append('text').attr('x',mx+14).attr('y',my+38).attr('fill','#9bb0c4').attr('font-size',10.5).attr('font-style','italic')
+        .text('Expert 5 = the “history expert”');
+      svg.append('text').attr('x',divX+14).attr('y',my+19).attr('fill',CA).attr('font-size',11).attr('font-weight','bold').text('✓ REALITY');
+      svg.append('text').attr('x',divX+14).attr('y',my+34).attr('fill','#c9d6e6').attr('font-size',10).text('Experts specialize by token type & syntax,');
+      svg.append('text').attr('x',divX+14).attr('y',my+47).attr('fill','#c9d6e6').attr('font-size',10).text('not topic · routing is per-token, per-layer');
+
+      const link=svg.append('a').attr('href','https://arxiv.org/abs/2401.04088').attr('target','_blank');
+      link.append('text').attr('x',mx).attr('y',my+mh+15).attr('fill','#4da8ff').attr('font-size',10.5)
+        .text('Source: Mixtral of Experts (Jiang et al., 2024) — arxiv.org/abs/2401.04088');
+
       // ---------- bottom: load balancing ----------
-      const ly=H-40;
+      const ly=H-26;
       svg.append('rect').attr('x',bx).attr('y',ly-22).attr('width',W-2*bx).attr('height',42).attr('rx',8)
         .attr('fill',CR).attr('fill-opacity',0.10).attr('stroke',CR).attr('stroke-width',1).attr('stroke-opacity',0.5);
       svg.append('text').attr('x',bx+14).attr('y',ly-5).attr('fill',CR).attr('font-size',12).attr('font-weight','bold')
