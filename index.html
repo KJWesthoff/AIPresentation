@@ -4031,6 +4031,7 @@
                 <marker id="aaa-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#ffa830"/></marker>
                 <marker id="aaa-r" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#ff4444"/></marker>
                 <marker id="aaa-g" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#2de8a0"/></marker>
+                <marker id="aaa-id" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#f5c542"/></marker>
                 <filter id="aaa-gf" x="-60%" y="-60%" width="220%" height="220%">
                   <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="b"/>
                   <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -4246,6 +4247,15 @@
                 <text transform="translate(451,306) rotate(-90)" font-size="6.2" font-weight="700" fill="rgba(45,232,160,0.7)" letter-spacing="1.1">AUTHN · RATE LIMITS · QUOTAS</text>
                 <text transform="translate(637,306) rotate(-90)" font-size="6.2" font-weight="700" fill="rgba(45,232,160,0.7)" letter-spacing="1.1">TENANT ISOLATION · MODERATION</text>
               </g>
+              </g>
+
+              <!-- identity carried AROUND the model: principal spine → permission gate → scoped credentials.
+                   Routed under the context window and provider API boundary, so it never enters the token stream. -->
+              <g class="fragment" data-fragment-index="5">
+                <path d="M 235 409 L 235 425 L 660 425 L 660 392 L 686 392" fill="none" stroke="#f5c542" stroke-width="1.8" marker-end="url(#aaa-id)"/>
+                <text x="500" y="420" text-anchor="middle" font-size="6.5" font-style="italic" fill="#f5c542">principal in app code — around the model</text>
+                <path d="M 720 72 C 762 62, 784 50, 812 48" fill="none" stroke="#f5c542" stroke-width="1.6" marker-end="url(#aaa-id)"/>
+                <text x="768" y="44" text-anchor="middle" font-size="6" font-style="italic" fill="#f5c542">per principal</text>
               </g>
 
               <!-- Model → gate (workflow step 3: model proposes actions) -->
