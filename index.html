@@ -3645,7 +3645,7 @@
               <div>
                 <h3 style="color:#ff4444;margin-bottom:12px;">Why AI needs its own threat model</h3>
                 <p style="font-size:11pt;color:var(--muted-color);margin-bottom:14px;line-height:1.6;">
-                  Traditional threat modelling (STRIDE, PASTA) targets software components — authentication, data flows, trust boundaries. AI systems introduce <em>entirely new attack surfaces</em> tied to data and learned weights.
+                  Same discipline as STRIDE/PASTA — only now <em>bad data</em> joins <em>bad code</em> and <em>bad configuration</em> as a failure source. Training sets, embeddings, and learned weights are attack surface, just like code and config always have been.
                 </p>
 
                 <div style="background:rgba(0,217,255,0.08);border-left:4px solid var(--primary-color);border-radius:4px;padding:10px 14px;">
@@ -3864,18 +3864,21 @@
         <!-- ── 5. LLM Security ── -->
         <section id="ai-llm-security">
           <style>
-            #ai-llm-security .llm-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
-            #ai-llm-security .llm-row:hover{transform:translateX(5px);filter:brightness(1.4);}
-            #llm-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
-            #llm-modal-overlay.open{display:flex;}
+            #ai-llm-security .llm-row,#ai-llm-security .agt-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
+            #ai-llm-security .llm-row:hover,#ai-llm-security .agt-row:hover{transform:translateX(5px);filter:brightness(1.4);}
+            #llm-modal-overlay,#agt-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
+            #llm-modal-overlay.open,#agt-modal-overlay.open{display:flex;}
           </style>
-          <h2>OWASP LLM Top 10 <span style="color:var(--muted-color);font-weight:400;">(2025)</span></h2>
+          <h2>OWASP Top 10 — LLM &amp; Agentic Applications</h2>
           <div class="content">
-            <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
-              LLMs introduce a unique attack surface: their interface is <em>natural language</em>, making input sanitisation fundamentally harder than traditional web security. <span style="color:var(--primary-color);">Click any item for details.</span>
+            <p style="font-size:10.5pt;color:var(--muted-color);margin-bottom:14px;text-align:center;">
+              Two complementary lists — the <span style="color:#ff6b35;">LLM core</span> (natural-language interface) and the <span style="color:var(--primary-color);">agentic layer</span> built on top of it. <span style="color:var(--primary-color);">Click any item for details.</span>
             </p>
-            <div style="max-width:640px;margin:0 auto;width:100%;">
-              <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
+            <div style="display:flex;gap:30px;align-items:flex-start;max-width:980px;margin:0 auto;width:100%;">
+              <!-- LEFT: LLM Top 10 (2025) -->
+              <div style="flex:1;min-width:0;">
+                <h3 style="font-size:12.5pt;color:#ff6b35;margin:0 0 8px;">LLM Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9.5pt;">(2025)</span></h3>
+                <div style="display:flex;flex-direction:column;gap:4px;font-size:9pt;">
                   <div class="llm-row" data-llm="LLM01" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
                     <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
@@ -3906,13 +3909,12 @@
                   <div class="llm-row" data-llm="LLM10" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
                     <span style="color:var(--muted-color);font-weight:700;min-width:32px;">LLM10</span><span style="color:var(--text-color);">Unbounded Consumption</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div id="llm-modal-overlay">
-            <div id="llm-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
-          </div>
+              <!-- LLM detail modal -->
+              <div id="llm-modal-overlay">
+                <div id="llm-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
+              </div>
 
           <script>
           (function() {
@@ -3985,23 +3987,11 @@
             });
           })();
           </script>
-        </section>
 
-        <!-- ── 5b. OWASP Top 10 for Agentic Applications (2026) ── -->
-        <section id="ai-agentic-top10">
-          <style>
-            #ai-agentic-top10 .agt-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
-            #ai-agentic-top10 .agt-row:hover{transform:translateX(5px);filter:brightness(1.4);}
-            #agt-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
-            #agt-modal-overlay.open{display:flex;}
-          </style>
-          <h2>OWASP Top 10 for Agentic Applications <span style="color:var(--muted-color);font-weight:400;">(2026)</span></h2>
-          <div class="content">
-            <p style="font-size:11pt;color:var(--muted-color);margin-bottom:16px;">
-              Agents add <em>autonomy, tools, memory and other agents</em> to the LLM core — so the attack surface shifts from "what the model says" to <em>what it does, remembers and trusts</em>. <span style="color:var(--primary-color);">Click any item for details.</span>
-            </p>
-            <div style="max-width:640px;margin:0 auto;width:100%;">
-              <div style="display:flex;flex-direction:column;gap:5px;font-size:9.5pt;">
+              <!-- RIGHT: Agentic Top 10 (2026) -->
+              <div style="flex:1;min-width:0;">
+                <h3 style="font-size:12.5pt;color:var(--primary-color);margin:0 0 8px;">Agentic Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9.5pt;">(2026)</span></h3>
+                <div style="display:flex;flex-direction:column;gap:4px;font-size:9pt;">
                   <div class="agt-row" data-agt="ASI01" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
                     <span style="color:#ff4444;font-weight:700;min-width:32px;">ASI01</span><span style="color:var(--text-color);">Memory Poisoning</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
@@ -4032,10 +4022,12 @@
                   <div class="agt-row" data-agt="ASI10" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
                     <span style="color:var(--muted-color);font-weight:700;min-width:32px;">ASI10</span><span style="color:var(--text-color);">Resource Overload &amp; Denial-of-Wallet</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- Agentic detail modal -->
           <div id="agt-modal-overlay">
             <div id="agt-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
           </div>
@@ -4086,7 +4078,7 @@
             };
             var overlay = document.getElementById('agt-modal-overlay');
             var card = document.getElementById('agt-modal-card');
-            document.querySelectorAll('#ai-agentic-top10 .agt-row').forEach(function(row) {
+            document.querySelectorAll('#ai-llm-security .agt-row').forEach(function(row) {
               row.addEventListener('click', function(e) {
                 var id = row.dataset.agt, d = AGT[id];
                 card.style.borderColor = d.c;
@@ -4111,6 +4103,245 @@
             });
           })();
           </script>
+        </section>
+
+        <!-- ── OWASP consolidation: 20 entries fold into 9 root causes ── -->
+        <section id="ai-owasp-consolidated">
+          <style>
+            #ai-owasp-consolidated h2{margin-bottom:2px;}
+            #ai-owasp-consolidated .sub{font-size:0.72em;color:#5a7090;font-style:italic;margin:0 0 6px;}
+            #ai-owasp-consolidated svg{width:100%;height:auto;max-height:80vh;display:block;}
+            /* connector draw-in */
+            #ai-owasp-consolidated path.conn{stroke-dasharray:620;stroke-dashoffset:620;transition:stroke-dashoffset 1s ease;}
+            #ai-owasp-consolidated .fragment.visible path.conn{stroke-dashoffset:0;}
+            /* bucket pop-in */
+            #ai-owasp-consolidated .bkbox{transform-box:fill-box;transform-origin:center;transform:scale(.55);opacity:0;transition:transform .5s cubic-bezier(.2,1.3,.4,1),opacity .4s ease;}
+            #ai-owasp-consolidated .fragment.visible .bkbox{transform:scale(1);opacity:1;}
+            #ai-owasp-consolidated .src-hl{opacity:0;transition:opacity .45s ease;}
+            #ai-owasp-consolidated .fragment.visible .src-hl{opacity:1;}
+          </style>
+          <h2>20 Entries &rarr; 9 Root Causes</h2>
+          <p class="sub">The two OWASP lists overlap heavily &mdash; advance to fold the redundant entries into one short, boundary-aligned list.</p>
+          <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+            <text x="125" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#ff6b35">OWASP LLM Top 10 <tspan fill="#5a7090" font-weight="400">(2025)</tspan></text>
+            <text x="500" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#cfe3ff">Consolidated root causes</text>
+            <text x="875" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#00d9ff">OWASP Agentic Top 10 <tspan fill="#5a7090" font-weight="400">(2026)</tspan></text>
+            <!-- LEFT base list -->
+            <g>
+              <rect x="12" y="56" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="80" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM01</tspan>  Prompt Injection</text>
+            </g>
+            <g>
+              <rect x="12" y="108" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="132" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM02</tspan>  Info Disclosure</text>
+            </g>
+            <g>
+              <rect x="12" y="160" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="184" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM03</tspan>  Supply Chain</text>
+            </g>
+            <g>
+              <rect x="12" y="212" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="236" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM04</tspan>  Data / Model Poisoning</text>
+            </g>
+            <g>
+              <rect x="12" y="264" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="288" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM05</tspan>  Improper Output</text>
+            </g>
+            <g>
+              <rect x="12" y="316" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="340" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM06</tspan>  Excessive Agency</text>
+            </g>
+            <g>
+              <rect x="12" y="368" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="392" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM07</tspan>  System-Prompt Leak</text>
+            </g>
+            <g>
+              <rect x="12" y="420" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="444" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM08</tspan>  Vector / Embedding</text>
+            </g>
+            <g>
+              <rect x="12" y="472" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="496" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM09</tspan>  Misinformation</text>
+            </g>
+            <g>
+              <rect x="12" y="524" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="22" y="548" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM10</tspan>  Unbounded Consumption</text>
+            </g>
+            <!-- RIGHT base list -->
+            <g>
+              <rect x="762" y="56" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="80" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI01</tspan>  Memory Poisoning</text>
+            </g>
+            <g>
+              <rect x="762" y="108" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="132" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI02</tspan>  Tool Misuse</text>
+            </g>
+            <g>
+              <rect x="762" y="160" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="184" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI03</tspan>  Privilege Compromise</text>
+            </g>
+            <g>
+              <rect x="762" y="212" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="236" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI04</tspan>  Cascading Hallucination</text>
+            </g>
+            <g>
+              <rect x="762" y="264" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="288" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI05</tspan>  Goal Manipulation</text>
+            </g>
+            <g>
+              <rect x="762" y="316" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="340" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI06</tspan>  Misaligned / Deceptive</text>
+            </g>
+            <g>
+              <rect x="762" y="368" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="392" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI07</tspan>  Identity Spoofing</text>
+            </g>
+            <g>
+              <rect x="762" y="420" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="444" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI08</tspan>  Rogue Agents</text>
+            </g>
+            <g>
+              <rect x="762" y="472" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="496" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI09</tspan>  Overwhelming HITL</text>
+            </g>
+            <g>
+              <rect x="762" y="524" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="548" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">ASI10</tspan>  Resource / DoW</text>
+            </g>
+            <!-- bucket 1: Prompt Injection -->
+            <g class="fragment" data-fragment-index="1">
+              <path class="conn" d="M 238 76 C 328 76 308 78 398 78" fill="none" stroke="#ff4444" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 284 C 672 284 692 78 602 78" fill="none" stroke="#ff4444" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="56" width="226" height="40" rx="5" fill="#ff4444" fill-opacity="0.12" stroke="#ff4444" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="264" width="226" height="40" rx="5" fill="#ff4444" fill-opacity="0.12" stroke="#ff4444" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="54" width="204" height="48" rx="7" fill="#ff4444" fill-opacity="0.14" stroke="#ff4444" stroke-width="2"/>
+                <circle cx="418" cy="78" r="13" fill="#ff4444"/>
+                <text x="418" y="83" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">1</text>
+                <text x="438" y="74" font-size="12" font-weight="700" fill="#eaf2ff">Prompt Injection</text>
+                <text x="438" y="90" font-size="9.5" fill="#ff4444">missing: <tspan font-style="italic">untrusted-input boundary</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 2: Excessive Agency & Tool Abuse -->
+            <g class="fragment" data-fragment-index="2">
+              <path class="conn" d="M 238 284 C 328 284 308 134 398 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 238 336 C 328 336 308 134 398 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 128 C 672 128 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 180 C 672 180 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="264" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="12" y="316" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="108" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="160" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="110" width="204" height="48" rx="7" fill="#ff6b35" fill-opacity="0.14" stroke="#ff6b35" stroke-width="2"/>
+                <circle cx="418" cy="134" r="13" fill="#ff6b35"/>
+                <text x="418" y="139" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">2</text>
+                <text x="438" y="130" font-size="12" font-weight="700" fill="#eaf2ff">Excessive Agency &amp; Tool Abuse</text>
+                <text x="438" y="146" font-size="9.5" fill="#ff6b35">missing: <tspan font-style="italic">permission gate</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 3: Sensitive-Data Disclosure -->
+            <g class="fragment" data-fragment-index="3">
+              <path class="conn" d="M 238 128 C 328 128 308 190 398 190" fill="none" stroke="#ffc800" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 238 388 C 328 388 308 190 398 190" fill="none" stroke="#ffc800" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="108" width="226" height="40" rx="5" fill="#ffc800" fill-opacity="0.12" stroke="#ffc800" stroke-width="2"/>
+              <rect class="src-hl" x="12" y="368" width="226" height="40" rx="5" fill="#ffc800" fill-opacity="0.12" stroke="#ffc800" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="166" width="204" height="48" rx="7" fill="#ffc800" fill-opacity="0.14" stroke="#ffc800" stroke-width="2"/>
+                <circle cx="418" cy="190" r="13" fill="#ffc800"/>
+                <text x="418" y="195" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">3</text>
+                <text x="438" y="186" font-size="12" font-weight="700" fill="#eaf2ff">Sensitive-Data Disclosure</text>
+                <text x="438" y="202" font-size="9.5" fill="#ffc800">missing: <tspan font-style="italic">egress control</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 4: Data / Model / Memory Poisoning -->
+            <g class="fragment" data-fragment-index="4">
+              <path class="conn" d="M 238 232 C 328 232 308 246 398 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 238 440 C 328 440 308 246 398 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 76 C 672 76 692 246 602 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="212" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
+              <rect class="src-hl" x="12" y="420" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="56" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="222" width="204" height="48" rx="7" fill="#9d4edd" fill-opacity="0.14" stroke="#9d4edd" stroke-width="2"/>
+                <circle cx="418" cy="246" r="13" fill="#9d4edd"/>
+                <text x="418" y="251" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">4</text>
+                <text x="438" y="242" font-size="12" font-weight="700" fill="#eaf2ff">Data / Model / Memory Poisoning</text>
+                <text x="438" y="258" font-size="9.5" fill="#9d4edd">missing: <tspan font-style="italic">ingress on data &amp; memory</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 5: Supply-Chain Compromise -->
+            <g class="fragment" data-fragment-index="5">
+              <path class="conn" d="M 238 180 C 328 180 308 302 398 302" fill="none" stroke="#00d9ff" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="160" width="226" height="40" rx="5" fill="#00d9ff" fill-opacity="0.12" stroke="#00d9ff" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="278" width="204" height="48" rx="7" fill="#00d9ff" fill-opacity="0.14" stroke="#00d9ff" stroke-width="2"/>
+                <circle cx="418" cy="302" r="13" fill="#00d9ff"/>
+                <text x="418" y="307" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">5</text>
+                <text x="438" y="298" font-size="12" font-weight="700" fill="#eaf2ff">Supply-Chain Compromise</text>
+                <text x="438" y="314" font-size="9.5" fill="#00d9ff">missing: <tspan font-style="italic">ingress admission</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 6: Identity & Trust Failures -->
+            <g class="fragment" data-fragment-index="6">
+              <path class="conn" d="M 762 388 C 672 388 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 440 C 672 440 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="762" y="368" width="226" height="40" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="420" width="226" height="40" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="334" width="204" height="48" rx="7" fill="#2de8a0" fill-opacity="0.14" stroke="#2de8a0" stroke-width="2"/>
+                <circle cx="418" cy="358" r="13" fill="#2de8a0"/>
+                <text x="418" y="363" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">6</text>
+                <text x="438" y="354" font-size="12" font-weight="700" fill="#eaf2ff">Identity &amp; Trust Failures</text>
+                <text x="438" y="370" font-size="9.5" fill="#2de8a0">missing: <tspan font-style="italic">ingress authn</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 7: Hallucination & Misalignment -->
+            <g class="fragment" data-fragment-index="7">
+              <path class="conn" d="M 238 492 C 328 492 308 414 398 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 232 C 672 232 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 336 C 672 336 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="472" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="212" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="316" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="390" width="204" height="48" rx="7" fill="#ff2d78" fill-opacity="0.14" stroke="#ff2d78" stroke-width="2"/>
+                <circle cx="418" cy="414" r="13" fill="#ff2d78"/>
+                <text x="418" y="419" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">7</text>
+                <text x="438" y="410" font-size="12" font-weight="700" fill="#eaf2ff">Hallucination &amp; Misalignment</text>
+                <text x="438" y="426" font-size="9.5" fill="#ff2d78">missing: <tspan font-style="italic">output validation</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 8: Oversight & Alert Fatigue -->
+            <g class="fragment" data-fragment-index="8">
+              <path class="conn" d="M 762 492 C 672 492 692 470 602 470" fill="none" stroke="#7c9cff" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="762" y="472" width="226" height="40" rx="5" fill="#7c9cff" fill-opacity="0.12" stroke="#7c9cff" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="446" width="204" height="48" rx="7" fill="#7c9cff" fill-opacity="0.14" stroke="#7c9cff" stroke-width="2"/>
+                <circle cx="418" cy="470" r="13" fill="#7c9cff"/>
+                <text x="418" y="475" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">8</text>
+                <text x="438" y="466" font-size="12" font-weight="700" fill="#eaf2ff">Oversight &amp; Alert Fatigue</text>
+                <text x="438" y="482" font-size="9.5" fill="#7c9cff">missing: <tspan font-style="italic">meaningful approval gate</tspan></text>
+              </g>
+            </g>
+            <!-- bucket 9: Denial-of-Wallet / Resource -->
+            <g class="fragment" data-fragment-index="9">
+              <path class="conn" d="M 238 544 C 328 544 308 526 398 526" fill="none" stroke="#8099b0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 544 C 672 544 692 526 602 526" fill="none" stroke="#8099b0" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="12" y="524" width="226" height="40" rx="5" fill="#8099b0" fill-opacity="0.12" stroke="#8099b0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="524" width="226" height="40" rx="5" fill="#8099b0" fill-opacity="0.12" stroke="#8099b0" stroke-width="2"/>
+              <g class="bkbox">
+                <rect x="398" y="502" width="204" height="48" rx="7" fill="#8099b0" fill-opacity="0.14" stroke="#8099b0" stroke-width="2"/>
+                <circle cx="418" cy="526" r="13" fill="#8099b0"/>
+                <text x="418" y="531" text-anchor="middle" font-size="13" font-weight="800" fill="#0a0e1a">9</text>
+                <text x="438" y="522" font-size="12" font-weight="700" fill="#eaf2ff">Denial-of-Wallet / Resource</text>
+                <text x="438" y="538" font-size="9.5" fill="#8099b0">missing: <tspan font-style="italic">resource quota</tspan></text>
+              </g>
+            </g>
+          </svg>
+          <p class="sub" style="margin-top:6px;">
+            Same nine root causes the real incidents keep hitting &mdash; each maps to one <strong style="color:#2de8a0;">security boundary</strong> from <em>Threat Models Meet Reality</em>. <span style="color:#5a7090;">(advance to reveal each)</span>
+          </p>
         </section>
 
         <!-- ── Agent Security ── -->
