@@ -3877,16 +3877,17 @@
             #llm-modal-overlay,#agt-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
             #llm-modal-overlay.open,#agt-modal-overlay.open{display:flex;}
           </style>
-          <h2>OWASP — LLM Top 10 &amp; Agentic AI Threats</h2>
+          <h2 style="margin-bottom:1px;">AI Security Is Still Finding Its Footing</h2>
+          <div style="font-size:10.5pt;color:var(--muted-color);text-align:center;margin-bottom:8px;">
+            Three overlapping OWASP frameworks in under two years — each already revised. The practice of securing AI is being written in real time.
+          </div>
           <div class="content">
-            <p style="font-size:10.5pt;color:var(--muted-color);margin-bottom:14px;text-align:center;">
-              Two complementary lists — the <span style="color:#ff6b35;">LLM core</span> (natural-language interface) and the <span style="color:var(--primary-color);">agentic layer</span> built on top of it. <span style="color:var(--primary-color);">Click any item for details.</span>
-            </p>
-            <div style="display:flex;gap:30px;align-items:flex-start;max-width:980px;margin:0 auto;width:100%;">
-              <!-- LEFT: LLM Top 10 (2025) -->
+            <div style="display:flex;gap:16px;align-items:flex-start;max-width:1140px;margin:0 auto;width:100%;">
+              <!-- COL 1: LLM Top 10 (2025) — secure the model -->
               <div style="flex:1;min-width:0;">
-                <h3 style="font-size:12.5pt;color:#ff6b35;margin:0 0 8px;">LLM Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9.5pt;">(2025)</span></h3>
-                <div style="display:flex;flex-direction:column;gap:4px;font-size:9pt;">
+                <h3 style="font-size:11.5pt;color:#ff6b35;margin:0 0 0;">LLM Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9pt;">(2025)</span></h3>
+                <div style="font-size:7.5pt;color:#5a7090;font-style:italic;margin:1px 0 6px;">securing the model · <span style="font-family:monospace;">LLM01–10</span> · click <span style="color:#ff6b35;">▸</span> for detail</div>
+                <div style="display:flex;flex-direction:column;gap:3px;font-size:8.5pt;">
                   <div class="llm-row" data-llm="LLM01" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
                     <span style="color:#ff4444;font-weight:700;min-width:32px;">LLM01</span><span style="color:var(--text-color);">Prompt Injection</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
                   </div>
@@ -3996,43 +3997,51 @@
           })();
           </script>
 
-              <!-- RIGHT: Agentic AI Threats & Mitigations (2025) -->
+              <!-- COL 2: Agentic AI Threats & Mitigations v1.1 (2025) — the granular catalog -->
+              <div style="flex:1.15;min-width:0;">
+                <h3 style="font-size:11.5pt;color:#c9a0f0;margin:0 0 0;">Threats &amp; Mitigations <span style="color:var(--muted-color);font-weight:400;font-size:9pt;">(2025)</span></h3>
+                <div style="font-size:7.5pt;color:#5a7090;font-style:italic;margin:1px 0 6px;">the granular catalog · v1.1 · <span style="font-family:monospace;">T1–T17</span> · click <span style="color:#9d4edd;">▸</span> for detail</div>
+                <div style="display:flex;flex-direction:column;gap:2px;font-size:8pt;">
+                  <div class="agt-row" data-agt="T1" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T1</span><span style="color:var(--text-color);">Memory Poisoning</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T2" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T2</span><span style="color:var(--text-color);">Tool Misuse</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T3" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T3</span><span style="color:var(--text-color);">Privilege Compromise</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T4" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T4</span><span style="color:var(--text-color);">Resource Overload</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T5" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T5</span><span style="color:var(--text-color);">Cascading Hallucination Attacks</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T6" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T6</span><span style="color:var(--text-color);">Intent Breaking &amp; Goal Manipulation</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T7" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T7</span><span style="color:var(--text-color);">Misaligned &amp; Deceptive Behaviors</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T8</span><span style="color:var(--muted-color);">Repudiation &amp; Untraceability</span></div>
+                  <div class="agt-row" data-agt="T9" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T9</span><span style="color:var(--text-color);">Identity Spoofing &amp; Impersonation</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T10" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T10</span><span style="color:var(--text-color);">Overwhelming Human-in-the-Loop</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T11</span><span style="color:var(--muted-color);">Unexpected RCE &amp; Code Attacks</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T12</span><span style="color:var(--muted-color);">Agent Communication Poisoning</span></div>
+                  <div class="agt-row" data-agt="T13" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T13</span><span style="color:var(--text-color);">Rogue Agents in Multi-Agent Systems</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T14</span><span style="color:var(--muted-color);">Human Attacks on Multi-Agent Systems</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T15</span><span style="color:var(--muted-color);">Human Manipulation</span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T16</span><span style="color:var(--muted-color);">Insecure Inter-Agent Protocol Abuse <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span></div>
+                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T17</span><span style="color:var(--muted-color);">Supply Chain Compromise <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span></div>
+                </div>
+              </div>
+              <!-- COL 3: OWASP Top 10 for Agentic Applications (2026) — the consolidation (17 → 10) -->
               <div style="flex:1;min-width:0;">
-                <h3 style="font-size:12.5pt;color:var(--primary-color);margin:0 0 8px;">Agentic AI Threats &amp; Mitigations <span style="color:var(--muted-color);font-weight:400;font-size:9.5pt;">(2025)</span></h3>
-                <div style="display:flex;flex-direction:column;gap:4px;font-size:9pt;">
-                  <div class="agt-row" data-agt="T1" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,68,68,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff4444;font-weight:700;min-width:32px;">T1</span><span style="color:var(--text-color);">Memory Poisoning</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T2" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">T2</span><span style="color:var(--text-color);">Tool Misuse</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T3" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,107,53,0.08);border-radius:3px;padding:5px 10px;">
-                    <span style="color:#ff6b35;font-weight:700;min-width:32px;">T3</span><span style="color:var(--text-color);">Privilege Compromise</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T5" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">T5</span><span style="color:var(--text-color);">Cascading Hallucination Attacks</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T6" style="display:flex;gap:10px;align-items:baseline;background:rgba(157,78,221,0.10);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--secondary-color);font-weight:700;min-width:32px;">T6</span><span style="color:var(--text-color);">Intent Breaking &amp; Goal Manipulation</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T7" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">T7</span><span style="color:var(--text-color);">Misaligned &amp; Deceptive Behaviours</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T9" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">T9</span><span style="color:var(--text-color);">Identity Spoofing &amp; Impersonation</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T13" style="display:flex;gap:10px;align-items:baseline;background:rgba(0,217,255,0.07);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--primary-color);font-weight:700;min-width:32px;">T13</span><span style="color:var(--text-color);">Rogue Agents in Multi-Agent Systems</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T10" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">T10</span><span style="color:var(--text-color);">Overwhelming Human-in-the-Loop</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
-                  <div class="agt-row" data-agt="T4" style="display:flex;gap:10px;align-items:baseline;background:rgba(255,255,255,0.04);border-radius:3px;padding:5px 10px;">
-                    <span style="color:var(--muted-color);font-weight:700;min-width:32px;">T4</span><span style="color:var(--text-color);">Resource Overload &amp; Denial-of-Wallet</span><span style="margin-left:auto;color:#4a5e70;font-size:8pt;">▸</span>
-                  </div>
+                <h3 style="font-size:11.5pt;color:#7fd6f5;margin:0 0 0;">Agentic Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9pt;">(2026)</span></h3>
+                <div style="font-size:7.5pt;color:#5a7090;font-style:italic;margin:1px 0 6px;">the consolidation · <span style="font-family:monospace;">ASI01–10</span> · <span style="color:#7fd6f5;">⟵</span> folds the 17 threats</div>
+                <div style="display:flex;flex-direction:column;gap:3px;font-size:8pt;">
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI01</span><span style="color:var(--text-color);">Agent Goal Hijack</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T6 · T7</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI02</span><span style="color:var(--text-color);">Tool Misuse &amp; Exploitation</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T2 · T4 · T16</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI03</span><span style="color:var(--text-color);">Identity &amp; Privilege Abuse</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T3</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI04</span><span style="color:var(--text-color);">Agentic Supply Chain Vulns</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T17 · T2 · T11 · T12 · T13 · T16</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI05</span><span style="color:var(--text-color);">Unexpected Code Execution</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T11</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI06</span><span style="color:var(--text-color);">Memory &amp; Context Poisoning</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T1 · T4 · T6 · T12</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI07</span><span style="color:var(--text-color);">Insecure Inter-Agent Comm</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T12 · T16</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI08</span><span style="color:var(--text-color);">Cascading Failures</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T5 · T8</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI09</span><span style="color:var(--text-color);">Human-Agent Trust Exploit.</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T7 · T8 · T10</div></div>
+                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI10</span><span style="color:var(--text-color);">Rogue Agents</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T13 · T14 · T15</div></div>
                 </div>
               </div>
             </div>
+            <p style="margin:9px auto 0;max-width:1080px;font-size:8.5pt;color:#8aa2c0;text-align:center;line-height:1.45;">
+              Three lists, three numbering schemes — <span style="font-family:monospace;color:#ff6b35;">LLM0x</span> · <span style="font-family:monospace;color:#c9a0f0;">Tx</span> · <span style="font-family:monospace;color:#7fd6f5;">ASIxx</span> — heavy overlap, all published 2024–2026 and <em>still moving</em>: the threats guide is already on v1.1 (T16–T17 added), and within a year its 17 threats were re-grouped into the 10-item Agentic Top 10. <span style="color:#cfe3ff;">Securing AI is being figured out in real time — the field hasn't settled yet.</span>
+            </p>
           </div>
 
           <!-- Agentic detail modal -->
