@@ -5593,12 +5593,22 @@
 
               <text x="988" y="16" text-anchor="end" font-size="6.5" font-style="italic" fill="#5a7090">each agent = the single-agent model in miniature</text>
 
+              <!-- ══ session-workflow captions — each shows during its beat, then fades ══ -->
+              <text class="fragment fade-in-then-out" data-fragment-index="0" x="500" y="30" text-anchor="middle" font-size="8" font-weight="700" fill="#d8e6f3"><tspan fill="#ffa830">①</tspan> USER → ORCHESTRATOR: &#8220;plan the offsite &amp; book everything&#8221;</text>
+              <text class="fragment fade-in-then-out" data-fragment-index="1" x="500" y="30" text-anchor="middle" font-size="8" font-weight="700" fill="#d8e6f3"><tspan fill="#ffa830">②</tspan> the orchestrator plans — and delegates a sub-task to a research agent</text>
+              <text class="fragment fade-in-then-out" data-fragment-index="2" x="500" y="30" text-anchor="middle" font-size="8" font-weight="700" fill="#d8e6f3"><tspan fill="#ffa830">③</tspan> research reads the untrusted web, reports back — and saves notes to memory</text>
+              <text class="fragment fade-in-then-out" data-fragment-index="3" x="500" y="30" text-anchor="middle" font-size="8" font-weight="700" fill="#d8e6f3"><tspan fill="#ffa830">④</tspan> an ops agent reads the notes and acts — the answer returns to the user</text>
+
               <!-- ══ USER ══ -->
               <rect x="12" y="225" width="104" height="58" rx="6" fill="rgba(255,168,48,0.10)" stroke="rgba(255,168,48,0.6)"/>
               <text x="22" y="245" font-size="10" font-weight="700" fill="#f8f9fa">👤 USER</text>
               <text x="22" y="259" font-size="6.5" fill="#8099b0">one request</text>
               <text x="22" y="273" font-size="6" fill="#f5c542">principal set at login</text>
-              <path class="mas-flow" d="M 116 252 L 146 252" fill="none" stroke="rgba(255,168,48,0.7)" stroke-width="1.6" marker-end="url(#mas-a)"/>
+              <!-- beat ①: the request -->
+              <g class="fragment" data-fragment-index="0">
+                <path class="mas-flow" d="M 116 252 L 146 252" fill="none" stroke="rgba(255,168,48,0.7)" stroke-width="1.6" marker-end="url(#mas-a)"/>
+                <circle r="3" fill="#ffa830" opacity="0.9"><animateMotion dur="1.6s" repeatCount="indefinite" path="M 116 252 L 146 252"/></circle>
+              </g>
 
               <!-- ══ mini-agent: ORCHESTRATOR ══ -->
               <rect x="150" y="195" width="230" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.30)"/>
@@ -5619,7 +5629,8 @@
               <text x="332" y="266" font-size="6.5" fill="#8099b0">route</text>
               <text x="332" y="280" font-size="6.5" fill="#8099b0">approve</text>
 
-              <!-- ══ mini-agent: RESEARCH (worker A) ══ -->
+              <!-- ══ mini-agent: RESEARCH (worker A) — spawned in beat ② ══ -->
+              <g class="fragment" data-fragment-index="1">
               <rect x="640" y="40" width="230" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.30)"/>
               <text x="652" y="57" font-size="9.5" font-weight="700" fill="#f8f9fa">RESEARCH AGENT</text>
               <text x="652" y="69" font-size="6.5" fill="#8099b0">browses &amp; retrieves</text>
@@ -5636,11 +5647,15 @@
               <text x="806.5" y="91" text-anchor="middle" font-size="7">🛡</text>
               <text x="822" y="102" font-size="6.5" fill="#8099b0">web fetch</text>
               <text x="822" y="116" font-size="6.5" fill="#8099b0">RAG query</text>
-              <!-- external web feeds A: the classic single-agent ingress is still there -->
-              <text x="652" y="18" font-size="6.5" font-weight="700" fill="#ff6b6b">🌐 WEB — untrusted</text>
-              <path class="mas-flow" d="M 700 24 C 690 30, 680 33, 674 38" fill="none" stroke="rgba(255,68,68,0.6)" stroke-width="1.4" marker-end="url(#mas-r)"/>
+              </g>
+              <!-- external web feeds A (beat ③): the classic single-agent ingress is still there -->
+              <g class="fragment" data-fragment-index="2">
+                <text x="652" y="18" font-size="6.5" font-weight="700" fill="#ff6b6b">🌐 WEB — untrusted</text>
+                <path class="mas-flow" d="M 700 24 C 690 30, 680 33, 674 38" fill="none" stroke="rgba(255,68,68,0.6)" stroke-width="1.4" marker-end="url(#mas-r)"/>
+              </g>
 
-              <!-- ══ mini-agent: OPS (worker B) ══ -->
+              <!-- ══ mini-agent: OPS (worker B) — spawned in beat ④ ══ -->
+              <g class="fragment" data-fragment-index="3">
               <rect x="640" y="350" width="230" height="120" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.30)"/>
               <text x="652" y="367" font-size="9.5" font-weight="700" fill="#f8f9fa">OPS AGENT</text>
               <text x="652" y="379" font-size="6.5" fill="#8099b0">acts on real systems</text>
@@ -5662,30 +5677,45 @@
               <path class="mas-flow" d="M 872 430 L 920 430" fill="none" stroke="rgba(45,232,160,0.6)" stroke-width="1.4" marker-end="url(#mas-g)"/>
               <text x="928" y="434" font-size="8">🌐</text>
               <text x="942" y="434" font-size="6.5" fill="#8099b0">world</text>
+              </g>
 
-              <!-- ══ hand-off edges (base: neutral) ══ -->
-              <path class="mas-flow" d="M 382 230 C 480 230, 540 100, 636 100" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 636 130 C 540 130, 480 258, 384 258" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 382 285 C 480 285, 540 390, 636 390" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 636 420 C 540 420, 480 302, 384 300" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
-              <text x="430" y="222" font-size="6" fill="#8099b0">sub-task ↗</text>
-              <text x="430" y="244" font-size="6" fill="#8099b0">result ↙</text>
-              <!-- direct agent-to-agent (mesh) edge -->
-              <path class="mas-flow" d="M 872 130 C 945 185, 945 330, 872 400" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" stroke-dasharray="4,4" marker-end="url(#mas-gr)"/>
-              <text transform="translate(963,300) rotate(-90)" font-size="6.5" fill="#8099b0">direct A2A (mesh)</text>
-
-              <!-- ══ SHARED MEMORY ══ -->
-              <rect x="415" y="478" width="170" height="56" rx="6" fill="rgba(255,68,68,0.07)" stroke="rgba(255,68,68,0.5)"/>
-              <text x="500" y="496" text-anchor="middle" font-size="8.5" font-weight="700" fill="#f8f9fa">SHARED MEMORY</text>
-              <text x="500" y="509" text-anchor="middle" font-size="6" fill="#8099b0">vector store · task queue · scratchpad</text>
-              <text x="500" y="521" text-anchor="middle" font-size="6" font-style="italic" fill="#5a7090">persists across sessions &amp; agents</text>
-              <path class="mas-flow" d="M 300 317 C 345 400, 390 460, 426 484" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 416 478 C 375 448, 330 390, 297 322" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 700 162 C 645 270, 565 420, 524 476" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
-              <path class="mas-flow" d="M 588 506 C 628 506, 646 492, 652 468" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
+              <!-- ══ beat ②: orchestrator → research sub-task ══ -->
+              <g class="fragment" data-fragment-index="1">
+                <path class="mas-flow" d="M 382 230 C 480 230, 540 100, 636 100" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
+                <text x="430" y="222" font-size="6" fill="#8099b0">sub-task ↗</text>
+                <circle r="3" fill="#ffa830" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M 382 230 C 480 230, 540 100, 636 100"/></circle>
+              </g>
+              <!-- ══ beat ③: result returns + notes saved to shared memory ══ -->
+              <g class="fragment" data-fragment-index="2">
+                <path class="mas-flow" d="M 636 130 C 540 130, 480 258, 384 258" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
+                <text x="430" y="244" font-size="6" fill="#8099b0">result ↙</text>
+                <circle r="3" fill="#00d9ff" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M 636 130 C 540 130, 480 258, 384 258"/></circle>
+                <rect x="415" y="478" width="170" height="56" rx="6" fill="rgba(255,68,68,0.07)" stroke="rgba(255,68,68,0.5)"/>
+                <text x="500" y="496" text-anchor="middle" font-size="8.5" font-weight="700" fill="#f8f9fa">SHARED MEMORY</text>
+                <text x="500" y="509" text-anchor="middle" font-size="6" fill="#8099b0">vector store · task queue · scratchpad</text>
+                <text x="500" y="521" text-anchor="middle" font-size="6" font-style="italic" fill="#5a7090">persists across sessions &amp; agents</text>
+                <path class="mas-flow" d="M 700 162 C 645 270, 565 420, 524 476" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
+              </g>
+              <!-- ══ beat ④: ops delegation, memory read, answer back to the user ══ -->
+              <g class="fragment" data-fragment-index="3">
+                <path class="mas-flow" d="M 382 285 C 480 285, 540 390, 636 390" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
+                <path class="mas-flow" d="M 636 420 C 540 420, 480 302, 384 300" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" marker-end="url(#mas-gr)"/>
+                <circle r="3" fill="#ffa830" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M 382 285 C 480 285, 540 390, 636 390"/></circle>
+                <circle r="3" fill="#00d9ff" opacity="0.9"><animateMotion dur="3s" repeatCount="indefinite" path="M 636 420 C 540 420, 480 302, 384 300"/></circle>
+                <!-- direct agent-to-agent (mesh) edge -->
+                <path class="mas-flow" d="M 872 130 C 945 185, 945 330, 872 400" fill="none" stroke="rgba(160,165,185,0.45)" stroke-width="1.6" stroke-dasharray="4,4" marker-end="url(#mas-gr)"/>
+                <text transform="translate(963,300) rotate(-90)" font-size="6.5" fill="#8099b0">direct A2A (mesh)</text>
+                <!-- orchestrator ↔ memory, memory → ops -->
+                <path class="mas-flow" d="M 300 317 C 345 400, 390 460, 426 484" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
+                <path class="mas-flow" d="M 416 478 C 375 448, 330 390, 297 322" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
+                <path class="mas-flow" d="M 588 506 C 628 506, 646 492, 652 468" fill="none" stroke="rgba(255,68,68,0.35)" stroke-width="1.4" marker-end="url(#mas-gr)"/>
+                <!-- the answer flows back -->
+                <path class="mas-flow" d="M 146 262 L 120 262" fill="none" stroke="rgba(255,168,48,0.7)" stroke-width="1.6" marker-end="url(#mas-a)"/>
+                <text x="131" y="273" text-anchor="middle" font-size="5.5" fill="#ffa830">answer</text>
+              </g>
 
               <!-- ══ FRAGMENT 0: every hand-off = egress + ingress ══ -->
-              <g class="fragment" data-fragment-index="0">
+              <g class="fragment" data-fragment-index="4">
                 <path d="M 382 230 C 430 230, 470 197, 509 165" fill="none" stroke="#2de8a0" stroke-width="2.2" opacity="0.9"/>
                 <path d="M 509 165 C 548 133, 590 100, 636 100" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <path d="M 636 130 C 588 130, 552 162, 510 193" fill="none" stroke="#2de8a0" stroke-width="2.2" opacity="0.9"/>
@@ -5711,7 +5741,7 @@
               </g>
 
               <!-- ══ FRAGMENT 1: one principal, many agents ══ -->
-              <g class="fragment" data-fragment-index="1">
+              <g class="fragment" data-fragment-index="5">
                 <path d="M 60 283 L 60 335 L 806 335" fill="none" stroke="#f5c542" stroke-width="1.8"/>
                 <path d="M 316 335 L 316 308" fill="none" stroke="#f5c542" stroke-width="1.8" marker-end="url(#mas-id)"/>
                 <path d="M 806 335 L 806 152" fill="none" stroke="#f5c542" stroke-width="1.8" marker-end="url(#mas-id)"/>
@@ -5744,7 +5774,7 @@
               </g>
 
               <!-- ══ FRAGMENT 2: shared state = shared poison ══ -->
-              <g class="fragment" data-fragment-index="2">
+              <g class="fragment" data-fragment-index="6">
                 <rect class="mas-glow" x="405" y="468" width="190" height="76" rx="10" fill="#ff4444" opacity="0.3" filter="url(#mas-gf)"/>
                 <path d="M 700 162 C 645 270, 565 420, 524 476" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <path d="M 588 506 C 628 506, 646 492, 652 468" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
@@ -5770,7 +5800,7 @@
               </g>
 
               <!-- ══ FRAGMENT 3: emergent failure modes ══ -->
-              <g class="fragment" data-fragment-index="3">
+              <g class="fragment" data-fragment-index="7">
                 <rect x="612" y="482" width="376" height="58" rx="6" fill="rgba(17,17,43,0.92)" stroke="rgba(124,156,255,0.8)"/>
                 <text x="624" y="496" font-size="8" font-weight="700" fill="#7c9cff" letter-spacing="0.6">EMERGENT FAILURE MODES</text>
                 <circle cx="630" cy="509.5" r="6.5" fill="#9d4edd"/><text x="630" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T5</text>
@@ -5784,7 +5814,7 @@
               </g>
 
               <!-- ══ FRAGMENT 4: zero-trust punchline ══ -->
-              <g class="fragment" data-fragment-index="4">
+              <g class="fragment" data-fragment-index="8">
                 <rect class="mas-glow" x="306" y="228" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
                 <rect class="mas-glow" x="796" y="73" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
                 <rect class="mas-glow" x="796" y="383" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
