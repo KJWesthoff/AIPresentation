@@ -5819,6 +5819,18 @@
             #ai-multi-agent .mas-glow{animation:mas-glowk 3s ease-in-out infinite;pointer-events:none;}
             @keyframes mas-glowk{0%,100%{opacity:.10;}50%{opacity:.30;}}
             #ai-multi-agent .mas-hot{fill:none;stroke:#ff2d55;stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 4px #ff2d55);}
+            #ai-multi-agent .atk,#ai-multi-agent .mas-t{cursor:help;}
+            #ai-multi-agent .mas-tip{opacity:0;pointer-events:none;transition:opacity .18s ease;}
+            #ai-multi-agent svg:has(.mt1:hover) .mas-t1tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt4:hover) .mas-t4tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt5:hover) .mas-t5tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt8:hover) .mas-t8tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt9:hover) .mas-t9tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt10:hover) .mas-t10tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt12:hover) .mas-t12tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt13:hover) .mas-t13tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt14:hover) .mas-t14tip{opacity:1;}
+            #ai-multi-agent svg:has(.mt16:hover) .mas-t16tip{opacity:1;}
           </style>
           <h2 style="font-size:22pt;margin-bottom:0;">Threat modelling a Multi-Agent System</h2>
           <div style="font-size:11pt;color:var(--muted-color);letter-spacing:.05em;margin-top:2px;">Same boundaries &mdash; multiplied by the topology <span style="color:#5a7090;">(advance to step through)</span></div>
@@ -5971,7 +5983,7 @@
                 <path d="M 508 360 C 466 330, 430 302, 384 300" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <path d="M 872 130 C 940 180, 942 220, 929 257" fill="none" stroke="#2de8a0" stroke-width="2.2" opacity="0.9"/>
                 <path d="M 929 257 C 942 295, 940 345, 872 400" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
-                <g class="atk">
+                <g class="atk mt12">
                   <circle class="atk-ring" cx="512" cy="262" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="512" cy="262" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="512" y="265" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T12</text>
@@ -5992,13 +6004,13 @@
                 <path d="M 806 335 L 806 152" fill="none" stroke="#f5c542" stroke-width="1.8" marker-end="url(#mas-id)"/>
                 <path d="M 806 335 L 806 385" fill="none" stroke="#f5c542" stroke-width="1.8" marker-end="url(#mas-id)"/>
                 <text x="125" y="348" font-size="6.5" font-style="italic" fill="#f5c542">PRINCIPAL — carried with every delegation, never in the context</text>
-                <g class="atk">
+                <g class="atk mt9">
                   <circle class="atk-ring" cx="933" cy="215" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="933" cy="215" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="933" y="218" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T9</text>
                 </g>
                 <text x="919" y="218" text-anchor="end" font-size="6.3" fill="#c9a0f0">spoofed peer</text>
-                <g class="atk">
+                <g class="atk mt16">
                   <circle class="atk-ring" cx="933" cy="300" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="933" cy="300" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="933" y="303" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T16</text>
@@ -6023,7 +6035,7 @@
                 <text x="505" y="146" text-anchor="middle" font-size="8.5" font-weight="700" fill="#ff8a8a">hop 1: &#8220;just a research task&#8221; ✓</text>
                 <text transform="translate(992,344) rotate(-90)" font-size="8.5" font-weight="700" fill="#ff8a8a">hop 2: &#8220;now pay this invoice&#8221; — peer ask</text>
                 <text x="878" y="450" font-size="6.3" fill="#ff8a8a">💸 executed — no gate saw the whole request</text>
-                <g class="atk">
+                <g class="atk mt14">
                   <circle class="atk-ring" cx="806" cy="412" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="806" cy="412" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="806" y="415" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T14</text>
@@ -6056,13 +6068,13 @@
                 <path d="M 700 162 C 645 270, 565 420, 524 476" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <path d="M 588 506 C 628 506, 646 492, 652 468" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <rect class="mas-flow" x="636" y="36" width="238" height="128" rx="12" fill="none" stroke="#ff4444" stroke-width="1.8" stroke-dasharray="8,6"/>
-                <g class="atk">
+                <g class="atk mt13">
                   <circle class="atk-ring" cx="862" cy="46" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="862" cy="46" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="862" y="49" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T13</text>
                 </g>
                 <text x="848" y="49" text-anchor="end" font-size="6.3" fill="#c9a0f0">rogue peer</text>
-                <g class="atk">
+                <g class="atk mt1">
                   <circle class="atk-ring" cx="500" cy="478" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/>
                   <circle cx="500" cy="478" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/>
                   <text x="500" y="481" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T1</text>
@@ -6080,14 +6092,14 @@
               <g class="fragment" data-fragment-index="9">
                 <rect x="612" y="482" width="376" height="58" rx="6" fill="rgba(17,17,43,0.92)" stroke="rgba(124,156,255,0.8)"/>
                 <text x="624" y="496" font-size="8" font-weight="700" fill="#7c9cff" letter-spacing="0.6">EMERGENT FAILURE MODES</text>
-                <circle cx="630" cy="509.5" r="6.5" fill="#9d4edd"/><text x="630" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T5</text>
-                <text x="642" y="512" font-size="6.6" fill="#d8e6f3">one bad fact cascades through hand-offs</text>
-                <circle cx="802" cy="509.5" r="6.5" fill="#9d4edd"/><text x="802" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T8</text>
-                <text x="814" y="512" font-size="6.6" fill="#d8e6f3">no end-to-end audit trail</text>
-                <circle cx="630" cy="525.5" r="6.5" fill="#9d4edd"/><text x="630" y="528" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T10</text>
-                <text x="642" y="528" font-size="6.6" fill="#d8e6f3">approvals flood the human gate</text>
-                <circle cx="802" cy="525.5" r="6.5" fill="#9d4edd"/><text x="802" y="528" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T4</text>
-                <text x="814" y="528" font-size="6.6" fill="#d8e6f3">recursive spawn = runaway cost</text>
+                <g class="mas-t mt5"><circle cx="630" cy="509.5" r="6.5" fill="#9d4edd"/><text x="630" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T5</text>
+                <text x="642" y="512" font-size="6.6" fill="#d8e6f3">one bad fact cascades through hand-offs</text></g>
+                <g class="mas-t mt8"><circle cx="802" cy="509.5" r="6.5" fill="#9d4edd"/><text x="802" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T8</text>
+                <text x="814" y="512" font-size="6.6" fill="#d8e6f3">no end-to-end audit trail</text></g>
+                <g class="mas-t mt10"><circle cx="630" cy="525.5" r="6.5" fill="#9d4edd"/><text x="630" y="528" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T10</text>
+                <text x="642" y="528" font-size="6.6" fill="#d8e6f3">approvals flood the human gate</text></g>
+                <g class="mas-t mt4"><circle cx="802" cy="525.5" r="6.5" fill="#9d4edd"/><text x="802" y="528" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T4</text>
+                <text x="814" y="528" font-size="6.6" fill="#d8e6f3">recursive spawn = runaway cost</text></g>
               </g>
 
               <!-- ══ FRAGMENT 4: zero-trust punchline ══ -->
@@ -6108,6 +6120,98 @@
                 <text x="252" y="306" font-size="9.5" fill="#eaf2ff"><tspan fill="#f5c542" font-weight="700">②</tspan> approval that no longer composes — gates must check the</text>
                 <text x="268" y="323" font-size="9.5" fill="#eaf2ff"><tspan font-weight="700" fill="#f5c542">propagated principal</tspan> and the whole chain — <tspan font-weight="700" fill="#f5c542">not the last hop</tspan></text>
                 <text x="252" y="352" font-size="8.5" font-style="italic" fill="#2de8a0">same boundaries as a single agent — applied to every internal edge, keyed to the chain</text>
+              </g>
+
+              <!-- ══ Hover tooltips for the T badges (top-most layer) ══ -->
+              <g class="mas-tip mas-t12tip">
+                <rect x="340" y="282" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="504,282 520,282 512,272" fill="#11112b" fill-opacity="0.97"/>
+                <text x="352" y="298" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T12 · AGENT COMMUNICATION POISONING</text>
+                <text x="352" y="312" font-size="6.8" fill="#d8e6f3">Messages between agents are injected or altered in transit,</text>
+                <text x="352" y="324" font-size="6.8" fill="#d8e6f3">so a lie planted in one hand-off propagates through the</text>
+                <text x="352" y="336" font-size="6.8" fill="#d8e6f3">workflow — downstream agents act on forged state.</text>
+                <text x="352" y="370" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: authenticate &amp; sign messages · validate schemas · distrust peer output.</text>
+              </g>
+              <g class="mas-tip mas-t9tip">
+                <rect x="590" y="163" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="920,208 920,222 929,215" fill="#11112b" fill-opacity="0.97"/>
+                <text x="602" y="179" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T9 · IDENTITY SPOOFING &amp; IMPERSONATION</text>
+                <text x="602" y="193" font-size="6.8" fill="#d8e6f3">With weak authentication between agents, an attacker — or a</text>
+                <text x="602" y="205" font-size="6.8" fill="#d8e6f3">rogue agent — claims a trusted peer’s identity to issue</text>
+                <text x="602" y="217" font-size="6.8" fill="#d8e6f3">commands or receive delegations.</text>
+                <text x="602" y="251" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: strong mutual auth · signed agent identities · no implicit peer trust.</text>
+              </g>
+              <g class="mas-tip mas-t16tip">
+                <rect x="590" y="316" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="904,316 920,316 927,306" fill="#11112b" fill-opacity="0.97"/>
+                <text x="602" y="332" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T16 · INSECURE INTER-AGENT PROTOCOL ABUSE</text>
+                <text x="602" y="346" font-size="6.8" fill="#d8e6f3">Flaws in A2A/MCP-style protocols — unsigned discovery, weak</text>
+                <text x="602" y="358" font-size="6.8" fill="#d8e6f3">sessions, replayable messages — let attackers impersonate</text>
+                <text x="602" y="370" font-size="6.8" fill="#d8e6f3">agents, reroute traffic or hijack coordination.</text>
+                <text x="602" y="404" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: protocol-level mutual auth · signed manifests · replay protection.</text>
+              </g>
+              <g class="mas-tip mas-t14tip">
+                <rect x="450" y="296" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="798,396 814,396 806,402" fill="#11112b" fill-opacity="0.97"/>
+                <text x="462" y="312" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T14 · HUMAN ATTACKS ON MULTI-AGENT SYSTEMS</text>
+                <text x="462" y="326" font-size="6.8" fill="#d8e6f3">A human abuses inter-agent trust &amp; delegation: one agent</text>
+                <text x="462" y="338" font-size="6.8" fill="#d8e6f3">triggers actions in another, laundering the request past</text>
+                <text x="462" y="350" font-size="6.8" fill="#d8e6f3">controls that only watch a single agent at a time.</text>
+                <text x="462" y="384" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: end-to-end authz across delegation chains · propagate the principal.</text>
+              </g>
+              <g class="mas-tip mas-t13tip">
+                <rect x="540" y="64" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="852,64 868,64 862,57" fill="#11112b" fill-opacity="0.97"/>
+                <text x="552" y="80" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T13 · ROGUE AGENTS IN MULTI-AGENT SYSTEMS</text>
+                <text x="552" y="94" font-size="6.8" fill="#d8e6f3">A compromised, malicious or faulty agent operates inside the</text>
+                <text x="552" y="106" font-size="6.8" fill="#d8e6f3">trusted swarm — poisoning shared state, communications and</text>
+                <text x="552" y="118" font-size="6.8" fill="#d8e6f3">decisions that peers accept without verification.</text>
+                <text x="552" y="152" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: zero-trust between agents · verify messages · isolate &amp; monitor.</text>
+              </g>
+              <g class="mas-tip mas-t1tip">
+                <rect x="335" y="370" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="492,470 508,470 500,466" fill="#11112b" fill-opacity="0.97"/>
+                <text x="347" y="386" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T1 · MEMORY POISONING</text>
+                <text x="347" y="400" font-size="6.8" fill="#d8e6f3">Shared memory is tampered with so false facts or hidden</text>
+                <text x="347" y="412" font-size="6.8" fill="#d8e6f3">orders become “trusted” context every agent reuses — the</text>
+                <text x="347" y="424" font-size="6.8" fill="#d8e6f3">payload persists across sessions and fans out to the fleet.</text>
+                <text x="347" y="458" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: provenance-tag &amp; scope writes · expire &amp; review · recall is data, not orders.</text>
+              </g>
+              <g class="mas-tip mas-t5tip">
+                <rect x="470" y="402" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="622,502 638,502 630,508" fill="#11112b" fill-opacity="0.97"/>
+                <text x="482" y="418" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T5 · CASCADING HALLUCINATION ATTACKS</text>
+                <text x="482" y="432" font-size="6.8" fill="#d8e6f3">One fabricated fact enters the loop and is treated as ground</text>
+                <text x="482" y="444" font-size="6.8" fill="#d8e6f3">truth by later steps and other agents — errors compound</text>
+                <text x="482" y="456" font-size="6.8" fill="#d8e6f3">through reasoning chains and hand-offs.</text>
+                <text x="482" y="490" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: ground with retrieval · validate intermediate output · break loops.</text>
+              </g>
+              <g class="mas-tip mas-t8tip">
+                <rect x="600" y="402" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="794,502 810,502 802,508" fill="#11112b" fill-opacity="0.97"/>
+                <text x="612" y="418" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T8 · REPUDIATION &amp; UNTRACEABILITY</text>
+                <text x="612" y="432" font-size="6.8" fill="#d8e6f3">No tamper-proof record of which agent ran what, with which</text>
+                <text x="612" y="444" font-size="6.8" fill="#d8e6f3">arguments, on whose approval — cross-agent incidents cannot</text>
+                <text x="612" y="456" font-size="6.8" fill="#d8e6f3">be reconstructed or attributed.</text>
+                <text x="612" y="490" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: signed, append-only logs across agents · keep provenance end-to-end.</text>
+              </g>
+              <g class="mas-tip mas-t10tip">
+                <rect x="470" y="414" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="622,514 638,514 630,520" fill="#11112b" fill-opacity="0.97"/>
+                <text x="482" y="430" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T10 · OVERWHELMING HUMAN-IN-THE-LOOP</text>
+                <text x="482" y="444" font-size="6.8" fill="#d8e6f3">N agents flood one human with approval requests until</text>
+                <text x="482" y="456" font-size="6.8" fill="#d8e6f3">reviewing turns into rubber-stamping — the gate becomes</text>
+                <text x="482" y="468" font-size="6.8" fill="#d8e6f3">theatre and dangerous actions sail through.</text>
+                <text x="482" y="502" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: risk-rank &amp; batch approvals · rate-limit · meaningful context per ask.</text>
+              </g>
+              <g class="mas-tip mas-t4tip">
+                <rect x="600" y="414" width="330" height="100" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="794,514 810,514 802,520" fill="#11112b" fill-opacity="0.97"/>
+                <text x="612" y="430" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T4 · RESOURCE OVERLOAD &amp; DENIAL-OF-WALLET</text>
+                <text x="612" y="444" font-size="6.8" fill="#d8e6f3">Recursive spawning and unbounded agent loops fan out across</text>
+                <text x="612" y="456" font-size="6.8" fill="#d8e6f3">the fleet — compute, budgets and rate limits exhausted,</text>
+                <text x="612" y="468" font-size="6.8" fill="#d8e6f3">taking down the service or the bank account.</text>
+                <text x="612" y="502" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: token &amp; cost budgets · recursion-depth caps · per-agent quotas.</text>
               </g>
             </svg>
           </div>
