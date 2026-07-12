@@ -3613,7 +3613,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:5px 12px;">
                 <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">04</span>
-                <span style="font-size:10pt;color:var(--text-color);">20 → 9 Root Causes</span>
+                <span style="font-size:10pt;color:var(--text-color);">27 → 9 Root Causes</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:5px 12px;">
                 <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">05</span>
@@ -4137,12 +4137,12 @@
             #ai-owasp-consolidated .src-hl{opacity:0;transition:opacity .45s ease;}
             #ai-owasp-consolidated .fragment.visible .src-hl{opacity:1;}
           </style>
-          <h2>20 Entries &rarr; 9 Root Causes</h2>
+          <h2>27 Entries &rarr; 9 Root Causes</h2>
           <p class="sub">The two OWASP lists overlap heavily &mdash; advance to fold the redundant entries into one short, boundary-aligned list.</p>
           <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
             <text x="125" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#ff6b35">OWASP LLM Top 10 <tspan fill="#5a7090" font-weight="400">(2025)</tspan></text>
             <text x="500" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#cfe3ff">Consolidated root causes</text>
-            <text x="875" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#00d9ff">OWASP Agentic AI Threats <tspan fill="#5a7090" font-weight="400">(2025)</tspan></text>
+            <text x="875" y="38" text-anchor="middle" font-size="14" font-weight="700" fill="#00d9ff">OWASP Agentic AI Threats <tspan fill="#5a7090" font-weight="400">(2025 &middot; v1.1 &middot; T1&ndash;T17)</tspan></text>
             <!-- LEFT base list -->
             <g>
               <rect x="12" y="56" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
@@ -4184,53 +4184,81 @@
               <rect x="12" y="524" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
               <text x="22" y="548" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#ff8a8a">LLM10</tspan>  Unbounded Consumption</text>
             </g>
-            <!-- RIGHT base list -->
+            <!-- RIGHT base list: all 17 threats from the guide (v1.1), numeric order -->
             <g>
-              <rect x="762" y="56" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="80" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T1</tspan>  Memory Poisoning</text>
+              <rect x="762" y="52" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="69" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T1</tspan>  Memory Poisoning</text>
             </g>
             <g>
-              <rect x="762" y="108" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="132" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T2</tspan>  Tool Misuse</text>
+              <rect x="762" y="82" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="99" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T2</tspan>  Tool Misuse</text>
             </g>
             <g>
-              <rect x="762" y="160" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="184" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T3</tspan>  Privilege Compromise</text>
+              <rect x="762" y="112" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="129" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T3</tspan>  Privilege Compromise</text>
             </g>
             <g>
-              <rect x="762" y="212" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="236" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T5</tspan>  Cascading Hallucination</text>
+              <rect x="762" y="142" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="159" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T4</tspan>  Resource Overload / DoW</text>
             </g>
             <g>
-              <rect x="762" y="264" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="288" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T6</tspan>  Goal Manipulation</text>
+              <rect x="762" y="172" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="189" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T5</tspan>  Cascading Hallucination</text>
             </g>
             <g>
-              <rect x="762" y="316" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="340" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T7</tspan>  Misaligned / Deceptive</text>
+              <rect x="762" y="202" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="219" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T6</tspan>  Goal Manipulation</text>
             </g>
             <g>
-              <rect x="762" y="368" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="392" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T9</tspan>  Identity Spoofing</text>
+              <rect x="762" y="232" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="249" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T7</tspan>  Misaligned / Deceptive</text>
             </g>
             <g>
-              <rect x="762" y="420" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="444" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T13</tspan>  Rogue Agents</text>
+              <rect x="762" y="262" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="279" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T8</tspan>  Repudiation / Untraceability</text>
             </g>
             <g>
-              <rect x="762" y="472" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="496" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T10</tspan>  Overwhelming HITL</text>
+              <rect x="762" y="292" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="309" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T9</tspan>  Identity Spoofing</text>
             </g>
             <g>
-              <rect x="762" y="524" width="226" height="40" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
-              <text x="772" y="548" font-size="11.5" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T4</tspan>  Resource / DoW</text>
+              <rect x="762" y="322" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="339" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T10</tspan>  Overwhelming HITL</text>
+            </g>
+            <g>
+              <rect x="762" y="352" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="369" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T11</tspan>  Unexpected RCE / Code</text>
+            </g>
+            <g>
+              <rect x="762" y="382" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="399" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T12</tspan>  Agent Comm Poisoning</text>
+            </g>
+            <g>
+              <rect x="762" y="412" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="429" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T13</tspan>  Rogue Agents</text>
+            </g>
+            <g>
+              <rect x="762" y="442" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="459" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T14</tspan>  Human Attacks on MAS</text>
+            </g>
+            <g>
+              <rect x="762" y="472" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="489" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T15</tspan>  Human Manipulation</text>
+            </g>
+            <g>
+              <rect x="762" y="502" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="519" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T16</tspan>  Inter-Agent Protocol Abuse</text>
+            </g>
+            <g>
+              <rect x="762" y="532" width="226" height="26" rx="5" fill="rgba(255,255,255,0.03)" stroke="#2a3550" stroke-width="1"/>
+              <text x="772" y="549" font-size="10" fill="#9fb3cc"><tspan font-weight="700" fill="#7fd6f5">T17</tspan>  Supply Chain Compromise</text>
             </g>
             <!-- bucket 1: Prompt Injection -->
             <g class="fragment" data-fragment-index="1">
               <path class="conn" d="M 238 76 C 328 76 308 78 398 78" fill="none" stroke="#ff4444" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 284 C 672 284 692 78 602 78" fill="none" stroke="#ff4444" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 215 C 672 215 692 78 602 78" fill="none" stroke="#ff4444" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="56" width="226" height="40" rx="5" fill="#ff4444" fill-opacity="0.12" stroke="#ff4444" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="264" width="226" height="40" rx="5" fill="#ff4444" fill-opacity="0.12" stroke="#ff4444" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="202" width="226" height="26" rx="5" fill="#ff4444" fill-opacity="0.12" stroke="#ff4444" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="54" width="204" height="48" rx="7" fill="#ff4444" fill-opacity="0.14" stroke="#ff4444" stroke-width="2"/>
                 <circle cx="418" cy="78" r="13" fill="#ff4444"/>
@@ -4243,12 +4271,14 @@
             <g class="fragment" data-fragment-index="2">
               <path class="conn" d="M 238 284 C 328 284 308 134 398 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
               <path class="conn" d="M 238 336 C 328 336 308 134 398 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 128 C 672 128 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 180 C 672 180 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 95 C 672 95 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 125 C 672 125 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 365 C 672 365 692 134 602 134" fill="none" stroke="#ff6b35" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="264" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
               <rect class="src-hl" x="12" y="316" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="108" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="160" width="226" height="40" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="82" width="226" height="26" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="112" width="226" height="26" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="352" width="226" height="26" rx="5" fill="#ff6b35" fill-opacity="0.12" stroke="#ff6b35" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="110" width="204" height="48" rx="7" fill="#ff6b35" fill-opacity="0.14" stroke="#ff6b35" stroke-width="2"/>
                 <circle cx="418" cy="134" r="13" fill="#ff6b35"/>
@@ -4275,10 +4305,12 @@
             <g class="fragment" data-fragment-index="4">
               <path class="conn" d="M 238 232 C 328 232 308 246 398 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
               <path class="conn" d="M 238 440 C 328 440 308 246 398 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 76 C 672 76 692 246 602 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 65 C 672 65 692 246 602 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 395 C 672 395 692 246 602 246" fill="none" stroke="#9d4edd" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="212" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
               <rect class="src-hl" x="12" y="420" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="56" width="226" height="40" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="52" width="226" height="26" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="382" width="226" height="26" rx="5" fill="#9d4edd" fill-opacity="0.12" stroke="#9d4edd" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="222" width="204" height="48" rx="7" fill="#9d4edd" fill-opacity="0.14" stroke="#9d4edd" stroke-width="2"/>
                 <circle cx="418" cy="246" r="13" fill="#9d4edd"/>
@@ -4290,7 +4322,9 @@
             <!-- bucket 5: Supply-Chain Compromise -->
             <g class="fragment" data-fragment-index="5">
               <path class="conn" d="M 238 180 C 328 180 308 302 398 302" fill="none" stroke="#00d9ff" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 545 C 672 545 692 302 602 302" fill="none" stroke="#00d9ff" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="160" width="226" height="40" rx="5" fill="#00d9ff" fill-opacity="0.12" stroke="#00d9ff" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="532" width="226" height="26" rx="5" fill="#00d9ff" fill-opacity="0.12" stroke="#00d9ff" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="278" width="204" height="48" rx="7" fill="#00d9ff" fill-opacity="0.14" stroke="#00d9ff" stroke-width="2"/>
                 <circle cx="418" cy="302" r="13" fill="#00d9ff"/>
@@ -4301,10 +4335,14 @@
             </g>
             <!-- bucket 6: Identity & Trust Failures -->
             <g class="fragment" data-fragment-index="6">
-              <path class="conn" d="M 762 388 C 672 388 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 440 C 672 440 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
-              <rect class="src-hl" x="762" y="368" width="226" height="40" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="420" width="226" height="40" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <path class="conn" d="M 762 305 C 672 305 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 425 C 672 425 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 455 C 672 455 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 515 C 672 515 692 358 602 358" fill="none" stroke="#2de8a0" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="762" y="292" width="226" height="26" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="412" width="226" height="26" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="442" width="226" height="26" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="502" width="226" height="26" rx="5" fill="#2de8a0" fill-opacity="0.12" stroke="#2de8a0" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="334" width="204" height="48" rx="7" fill="#2de8a0" fill-opacity="0.14" stroke="#2de8a0" stroke-width="2"/>
                 <circle cx="418" cy="358" r="13" fill="#2de8a0"/>
@@ -4316,11 +4354,13 @@
             <!-- bucket 7: Hallucination & Misalignment -->
             <g class="fragment" data-fragment-index="7">
               <path class="conn" d="M 238 492 C 328 492 308 414 398 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 232 C 672 232 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 336 C 672 336 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 185 C 672 185 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 245 C 672 245 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 485 C 672 485 692 414 602 414" fill="none" stroke="#ff2d78" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="472" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="212" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="316" width="226" height="40" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="172" width="226" height="26" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="232" width="226" height="26" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="472" width="226" height="26" rx="5" fill="#ff2d78" fill-opacity="0.12" stroke="#ff2d78" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="390" width="204" height="48" rx="7" fill="#ff2d78" fill-opacity="0.14" stroke="#ff2d78" stroke-width="2"/>
                 <circle cx="418" cy="414" r="13" fill="#ff2d78"/>
@@ -4331,8 +4371,10 @@
             </g>
             <!-- bucket 8: Oversight & Alert Fatigue -->
             <g class="fragment" data-fragment-index="8">
-              <path class="conn" d="M 762 492 C 672 492 692 470 602 470" fill="none" stroke="#7c9cff" stroke-width="2.4" opacity="0.85"/>
-              <rect class="src-hl" x="762" y="472" width="226" height="40" rx="5" fill="#7c9cff" fill-opacity="0.12" stroke="#7c9cff" stroke-width="2"/>
+              <path class="conn" d="M 762 275 C 672 275 692 470 602 470" fill="none" stroke="#7c9cff" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 335 C 672 335 692 470 602 470" fill="none" stroke="#7c9cff" stroke-width="2.4" opacity="0.85"/>
+              <rect class="src-hl" x="762" y="262" width="226" height="26" rx="5" fill="#7c9cff" fill-opacity="0.12" stroke="#7c9cff" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="322" width="226" height="26" rx="5" fill="#7c9cff" fill-opacity="0.12" stroke="#7c9cff" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="446" width="204" height="48" rx="7" fill="#7c9cff" fill-opacity="0.14" stroke="#7c9cff" stroke-width="2"/>
                 <circle cx="418" cy="470" r="13" fill="#7c9cff"/>
@@ -4344,9 +4386,9 @@
             <!-- bucket 9: Denial-of-Wallet / Resource -->
             <g class="fragment" data-fragment-index="9">
               <path class="conn" d="M 238 544 C 328 544 308 526 398 526" fill="none" stroke="#8099b0" stroke-width="2.4" opacity="0.85"/>
-              <path class="conn" d="M 762 544 C 672 544 692 526 602 526" fill="none" stroke="#8099b0" stroke-width="2.4" opacity="0.85"/>
+              <path class="conn" d="M 762 155 C 672 155 692 526 602 526" fill="none" stroke="#8099b0" stroke-width="2.4" opacity="0.85"/>
               <rect class="src-hl" x="12" y="524" width="226" height="40" rx="5" fill="#8099b0" fill-opacity="0.12" stroke="#8099b0" stroke-width="2"/>
-              <rect class="src-hl" x="762" y="524" width="226" height="40" rx="5" fill="#8099b0" fill-opacity="0.12" stroke="#8099b0" stroke-width="2"/>
+              <rect class="src-hl" x="762" y="142" width="226" height="26" rx="5" fill="#8099b0" fill-opacity="0.12" stroke="#8099b0" stroke-width="2"/>
               <g class="bkbox">
                 <rect x="398" y="502" width="204" height="48" rx="7" fill="#8099b0" fill-opacity="0.14" stroke="#8099b0" stroke-width="2"/>
                 <circle cx="418" cy="526" r="13" fill="#8099b0"/>
@@ -4427,6 +4469,13 @@
             #ai-agent-anatomy svg:has(.s8:hover) .aaa-asi8tip{opacity:1;}
             #ai-agent-anatomy svg:has(.s9:hover) .aaa-asi9tip{opacity:1;}
             #ai-agent-anatomy svg:has(.s10:hover) .aaa-asi10tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s11:hover) .aaa-asi11tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s12:hover) .aaa-asi12tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s13:hover) .aaa-asi13tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s14:hover) .aaa-asi14tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s15:hover) .aaa-asi15tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s16:hover) .aaa-asi16tip{opacity:1;}
+            #ai-agent-anatomy svg:has(.s17:hover) .aaa-asi17tip{opacity:1;}
             /* final step: boundaries replace the Top 10 badges */
             #ai-agent-anatomy svg:has(.aaa-boundmap.visible) .atk,
             #ai-agent-anatomy svg:has(.aaa-boundmap.visible) .aaa-toplegend{opacity:0 !important;animation:none !important;pointer-events:none;transition:opacity .45s ease;}
@@ -4878,29 +4927,57 @@
                 <g class="atk s9"><circle class="atk-ring" cx="700" cy="250" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="700" cy="250" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="700" y="253" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">T10</text></g>
                 <!-- T4 Resource Overload & Denial-of-Wallet — unbounded loops & recursive sub-agents -->
                 <g class="atk s10"><circle class="atk-ring" cx="878" cy="330" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="878" cy="330" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="878" y="333" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">T4</text></g>
-                <!-- legend: OWASP Agentic AI: Threats & Mitigations — two rows, directly below the LLM legend -->
+                <!-- T8 Repudiation & Untraceability — actions with no tamper-proof audit trail -->
+                <g class="atk s11"><circle class="atk-ring" cx="790" cy="330" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="790" cy="330" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="790" y="333" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">T8</text></g>
+                <!-- T11 Unexpected RCE & Code Attacks — generated code runs on the host -->
+                <g class="atk s12"><circle class="atk-ring" cx="900" cy="100" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="900" cy="100" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="900" y="103" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T11</text></g>
+                <!-- T12 Agent Communication Poisoning — forged / altered inter-agent messages -->
+                <g class="atk s13"><circle class="atk-ring" cx="963" cy="272" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="963" cy="272" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="963" y="275" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T12</text></g>
+                <!-- T14 Human Attacks on Multi-Agent Systems — humans exploiting delegation chains -->
+                <g class="atk s14"><circle class="atk-ring" cx="-45" cy="195" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="-45" cy="195" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="-45" y="198" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T14</text></g>
+                <!-- T15 Human Manipulation — the trusted agent social-engineers its user -->
+                <g class="atk s15"><circle class="atk-ring" cx="1080" cy="155" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="1080" cy="155" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="1080" y="158" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T15</text></g>
+                <!-- T16 Insecure Inter-Agent Protocol Abuse (v1.1) — A2A/MCP protocol weaknesses -->
+                <g class="atk s16"><circle class="atk-ring" cx="60" cy="348" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="60" cy="348" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="60" y="351" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T16</text></g>
+                <!-- T17 Supply Chain Compromise (v1.1) — poisoned tools, models & servers ship as trusted parts -->
+                <g class="atk s17"><circle class="atk-ring" cx="150" cy="96" r="10" fill="none" stroke="#9d4edd" stroke-width="1.5"/><circle cx="150" cy="96" r="10" fill="#9d4edd" stroke="rgba(255,255,255,0.85)" stroke-width="1"/><text x="150" y="99" text-anchor="middle" font-size="8" font-weight="700" fill="#fff">T17</text></g>
+                <!-- legend: OWASP Agentic AI: Threats & Mitigations — all 17 threats, three rows below the LLM legend -->
                 <g class="aaa-toplegend">
-                  <text x="14" y="540" font-size="8" font-weight="700" fill="#9d4edd" letter-spacing="1">ATTACK SURFACE BADGES — OWASP AGENTIC AI: THREATS &amp; MITIGATIONS (2025) · hover a badge for details</text>
-                  <circle cx="22" cy="555" r="7" fill="#9d4edd"/><text x="22" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T1</text>
-                  <text x="36" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Memory poisoning</text>
-                  <circle cx="254" cy="555" r="7" fill="#9d4edd"/><text x="254" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T2</text>
-                  <text x="268" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Tool misuse</text>
-                  <circle cx="486" cy="555" r="7" fill="#9d4edd"/><text x="486" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T3</text>
-                  <text x="500" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Privilege compromise</text>
-                  <circle cx="718" cy="555" r="7" fill="#9d4edd"/><text x="718" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T5</text>
-                  <text x="732" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Cascading hallucination</text>
-                  <circle cx="950" cy="555" r="7" fill="#9d4edd"/><text x="950" y="557.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T6</text>
-                  <text x="964" y="558" font-size="7.5" font-weight="700" fill="#f8f9fa">Goal manipulation</text>
-                  <circle cx="22" cy="577" r="7" fill="#9d4edd"/><text x="22" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T7</text>
-                  <text x="36" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Misaligned &amp; deceptive</text>
-                  <circle cx="254" cy="577" r="7" fill="#9d4edd"/><text x="254" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T9</text>
-                  <text x="268" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Identity spoofing</text>
-                  <circle cx="486" cy="577" r="7" fill="#9d4edd"/><text x="486" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T13</text>
-                  <text x="500" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Rogue agents (multi-agent)</text>
-                  <circle cx="718" cy="577" r="7" fill="#9d4edd"/><text x="718" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T10</text>
-                  <text x="732" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Human-in-loop overwhelm</text>
-                  <circle cx="950" cy="577" r="7" fill="#9d4edd"/><text x="950" y="579.5" text-anchor="middle" font-size="6.5" font-weight="700" fill="#fff">T4</text>
-                  <text x="964" y="580" font-size="7.5" font-weight="700" fill="#f8f9fa">Resource overload / DoW</text>
+                  <text x="14" y="540" font-size="8" font-weight="700" fill="#9d4edd" letter-spacing="1">ATTACK SURFACE BADGES — OWASP AGENTIC AI: THREATS &amp; MITIGATIONS (2025 · v1.1 · T1–T17) · hover a badge for details</text>
+                  <circle cx="22" cy="553" r="6" fill="#9d4edd"/><text x="22" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T1</text>
+                  <text x="33" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Memory poisoning</text>
+                  <circle cx="188" cy="553" r="6" fill="#9d4edd"/><text x="188" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T2</text>
+                  <text x="199" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Tool misuse</text>
+                  <circle cx="354" cy="553" r="6" fill="#9d4edd"/><text x="354" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T3</text>
+                  <text x="365" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Privilege compromise</text>
+                  <circle cx="520" cy="553" r="6" fill="#9d4edd"/><text x="520" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T4</text>
+                  <text x="531" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Resource overload / DoW</text>
+                  <circle cx="686" cy="553" r="6" fill="#9d4edd"/><text x="686" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T5</text>
+                  <text x="697" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Cascading hallucination</text>
+                  <circle cx="852" cy="553" r="6" fill="#9d4edd"/><text x="852" y="555.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T6</text>
+                  <text x="863" y="556" font-size="7" font-weight="700" fill="#f8f9fa">Goal manipulation</text>
+                  <circle cx="22" cy="567" r="6" fill="#9d4edd"/><text x="22" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T7</text>
+                  <text x="33" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Misaligned &amp; deceptive</text>
+                  <circle cx="188" cy="567" r="6" fill="#9d4edd"/><text x="188" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T8</text>
+                  <text x="199" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Repudiation &amp; untraceability</text>
+                  <circle cx="354" cy="567" r="6" fill="#9d4edd"/><text x="354" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T9</text>
+                  <text x="365" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Identity spoofing</text>
+                  <circle cx="520" cy="567" r="6" fill="#9d4edd"/><text x="520" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T10</text>
+                  <text x="531" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Human-in-loop overwhelm</text>
+                  <circle cx="686" cy="567" r="6" fill="#9d4edd"/><text x="686" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T11</text>
+                  <text x="697" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Unexpected RCE / code</text>
+                  <circle cx="852" cy="567" r="6" fill="#9d4edd"/><text x="852" y="569.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T12</text>
+                  <text x="863" y="570" font-size="7" font-weight="700" fill="#f8f9fa">Agent comms poisoning</text>
+                  <circle cx="22" cy="581" r="6" fill="#9d4edd"/><text x="22" y="583.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T13</text>
+                  <text x="33" y="584" font-size="7" font-weight="700" fill="#f8f9fa">Rogue agents (multi-agent)</text>
+                  <circle cx="188" cy="581" r="6" fill="#9d4edd"/><text x="188" y="583.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T14</text>
+                  <text x="199" y="584" font-size="7" font-weight="700" fill="#f8f9fa">Human attacks on multi-agent</text>
+                  <circle cx="354" cy="581" r="6" fill="#9d4edd"/><text x="354" y="583.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T15</text>
+                  <text x="365" y="584" font-size="7" font-weight="700" fill="#f8f9fa">Human manipulation</text>
+                  <circle cx="520" cy="581" r="6" fill="#9d4edd"/><text x="520" y="583.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T16</text>
+                  <text x="531" y="584" font-size="7" font-weight="700" fill="#f8f9fa">Inter-agent protocol abuse <tspan fill="#2de8a0" font-size="6">v1.1</tspan></text>
+                  <circle cx="686" cy="581" r="6" fill="#9d4edd"/><text x="686" y="583.5" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T17</text>
+                  <text x="697" y="584" font-size="7" font-weight="700" fill="#f8f9fa">Supply chain compromise <tspan fill="#2de8a0" font-size="6">v1.1</tspan></text>
                 </g>
               </g>
 
@@ -4933,14 +5010,14 @@
                 <text x="580" y="600" text-anchor="middle" font-size="10" font-weight="700" fill="#2de8a0">⇒ Treat external content &amp; tool results as attacker-controlled — the model interprets policy; the surrounding system (ingress · gate · credentials · egress · provider API) must enforce it.</text>
               </g>
 
-              <!-- ══ FRAGMENT: boundaries replace the Top 10 — colour-coded as on "20 → 9 Root Causes" ══ -->
+              <!-- ══ FRAGMENT: boundaries replace the Top 10 — colour-coded as on "27 → 9 Root Causes" ══ -->
               <g class="fragment aaa-boundmap" data-fragment-index="9">
                 <rect class="aaa-gateglow" x="206" y="20" width="30" height="398" rx="9" fill="#2de8a0" opacity="0.28" filter="url(#aaa-gf)"/>
                 <rect class="aaa-gateglow" x="444" y="28" width="16" height="380" rx="9" fill="#2de8a0" opacity="0.28" filter="url(#aaa-gf)"/>
                 <rect class="aaa-gateglow" x="630" y="28" width="16" height="380" rx="9" fill="#2de8a0" opacity="0.28" filter="url(#aaa-gf)"/>
                 <rect class="aaa-gateglow" x="686" y="30" width="42" height="388" rx="9" fill="#2de8a0" opacity="0.28" filter="url(#aaa-gf)"/>
                 <rect class="aaa-gateglow" x="994" y="30" width="18" height="388" rx="9" fill="#2de8a0" opacity="0.28" filter="url(#aaa-gf)"/>
-                <text x="500" y="476" text-anchor="middle" font-size="9" font-weight="700" fill="#2de8a0" letter-spacing="0.6">EVERY ROOT CAUSE LANDS ON ONE BOUNDARY — colour-coded as on &#8220;20 → 9 Root Causes&#8221;</text>
+                <text x="500" y="476" text-anchor="middle" font-size="9" font-weight="700" fill="#2de8a0" letter-spacing="0.6">EVERY ROOT CAUSE LANDS ON ONE BOUNDARY — colour-coded as on &#8220;27 → 9 Root Causes&#8221;</text>
                 <text x="14" y="501" font-size="8" font-weight="700" fill="#2de8a0" letter-spacing="0.4">🛡 INGRESS BOUNDARY</text>
                 <g>
                   <rect x="268" y="492" width="78" height="13" rx="6" fill="#ff4444" fill-opacity="0.18" stroke="#ff4444" stroke-width="1"/>
@@ -5311,6 +5388,69 @@
                 <text x="742" y="256" font-size="6.8" fill="#d8e6f3">endless tool loops and huge contexts exhaust compute, budgets</text>
                 <text x="742" y="268" font-size="6.8" fill="#d8e6f3">and rate limits — taking down the service or the bank account.</text>
                 <text x="742" y="308" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: token &amp; cost budgets · max iterations / recursion depth · per-agent quotas.</text>
+              </g>
+              <g class="aaa-tip aaa-asi11tip">
+                <rect x="440" y="348" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="775,348 791,348 788,338" fill="#11112b" fill-opacity="0.97"/>
+                <text x="452" y="364" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T8 · REPUDIATION &amp; UNTRACEABILITY</text>
+                <text x="452" y="380" font-size="6.8" fill="#d8e6f3">Agents act without tamper-proof logs: no record of which tool ran,</text>
+                <text x="452" y="392" font-size="6.8" fill="#d8e6f3">with what arguments, on whose approval. Attacks and failures can't</text>
+                <text x="452" y="404" font-size="6.8" fill="#d8e6f3">be reconstructed, attributed — or even noticed.</text>
+                <text x="452" y="444" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: signed, append-only audit logs · log every call &amp; approval · keep provenance.</text>
+              </g>
+              <g class="aaa-tip aaa-asi12tip">
+                <rect x="600" y="118" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="892,118 908,118 900,108" fill="#11112b" fill-opacity="0.97"/>
+                <text x="612" y="134" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T11 · UNEXPECTED RCE &amp; CODE ATTACKS</text>
+                <text x="612" y="150" font-size="6.8" fill="#d8e6f3">Agents that generate and execute code can be steered into running</text>
+                <text x="612" y="162" font-size="6.8" fill="#d8e6f3">attacker-supplied code — injected via prompts, tool output or</text>
+                <text x="612" y="174" font-size="6.8" fill="#d8e6f3">dependencies. A sandbox escape turns text into host compromise.</text>
+                <text x="612" y="214" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: sandbox all generated code · no shell by default · restrict runtimes &amp; imports.</text>
+              </g>
+              <g class="aaa-tip aaa-asi13tip">
+                <rect x="620" y="290" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="955,290 971,290 963,282" fill="#11112b" fill-opacity="0.97"/>
+                <text x="632" y="306" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T12 · AGENT COMMUNICATION POISONING</text>
+                <text x="632" y="322" font-size="6.8" fill="#d8e6f3">Messages between agents are injected or altered in transit, so a</text>
+                <text x="632" y="334" font-size="6.8" fill="#d8e6f3">lie planted in one hand-off propagates through the whole workflow —</text>
+                <text x="632" y="346" font-size="6.8" fill="#d8e6f3">downstream agents act on forged state they never verify.</text>
+                <text x="632" y="386" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: authenticate &amp; sign agent messages · validate schemas · distrust peer output.</text>
+              </g>
+              <g class="aaa-tip aaa-asi14tip">
+                <rect x="-82" y="212" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="-53,212 -37,212 -45,204" fill="#11112b" fill-opacity="0.97"/>
+                <text x="-70" y="228" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T14 · HUMAN ATTACKS ON MULTI-AGENT SYSTEMS</text>
+                <text x="-70" y="244" font-size="6.8" fill="#d8e6f3">A human abuses inter-agent trust and delegation: one agent is</text>
+                <text x="-70" y="256" font-size="6.8" fill="#d8e6f3">used to trigger actions in another, laundering the request past</text>
+                <text x="-70" y="268" font-size="6.8" fill="#d8e6f3">controls that only watch a single agent at a time.</text>
+                <text x="-70" y="308" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: end-to-end authz across delegation chains · monitor cross-agent flows.</text>
+              </g>
+              <g class="aaa-tip aaa-asi15tip">
+                <rect x="800" y="172" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="1072,172 1088,172 1080,165" fill="#11112b" fill-opacity="0.97"/>
+                <text x="812" y="188" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T15 · HUMAN MANIPULATION</text>
+                <text x="812" y="204" font-size="6.8" fill="#d8e6f3">The trusted agent is turned on its own user: a compromised agent</text>
+                <text x="812" y="216" font-size="6.8" fill="#d8e6f3">persuades, deceives or nudges the human into harmful decisions —</text>
+                <text x="812" y="228" font-size="6.8" fill="#d8e6f3">the agent itself becomes the social engineer.</text>
+                <text x="812" y="268" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: verify agent output feeding decisions · show provenance · filter content.</text>
+              </g>
+              <g class="aaa-tip aaa-asi16tip">
+                <rect x="10" y="366" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="52,366 68,366 60,358" fill="#11112b" fill-opacity="0.97"/>
+                <text x="22" y="382" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T16 · INSECURE INTER-AGENT PROTOCOL ABUSE <tspan fill="#2de8a0" font-size="6.5">NEW v1.1</tspan></text>
+                <text x="22" y="398" font-size="6.8" fill="#d8e6f3">Flaws in agent-to-agent protocols (A2A, MCP) — weak session</text>
+                <text x="22" y="410" font-size="6.8" fill="#d8e6f3">handling, unsigned discovery, replayable messages — let attackers</text>
+                <text x="22" y="422" font-size="6.8" fill="#d8e6f3">impersonate agents, reroute traffic or hijack coordination.</text>
+                <text x="22" y="462" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: mutual auth at protocol level · signed manifests · replay protection.</text>
+              </g>
+              <g class="aaa-tip aaa-asi17tip">
+                <rect x="110" y="112" width="348" height="108" rx="6" fill="#11112b" fill-opacity="0.97" stroke="rgba(157,78,221,0.85)"/>
+                <polygon points="142,112 158,112 150,104" fill="#11112b" fill-opacity="0.97"/>
+                <text x="122" y="128" font-size="8.5" font-weight="700" fill="#9d4edd" letter-spacing="0.8">T17 · SUPPLY CHAIN COMPROMISE <tspan fill="#2de8a0" font-size="6.5">NEW v1.1</tspan></text>
+                <text x="122" y="144" font-size="6.8" fill="#d8e6f3">Poisoned models, tool definitions, MCP servers or dependencies</text>
+                <text x="122" y="156" font-size="6.8" fill="#d8e6f3">enter the agent stack upstream — the compromise ships inside a</text>
+                <text x="122" y="168" font-size="6.8" fill="#d8e6f3">component the platform installs and trusts by default.</text>
+                <text x="122" y="208" font-size="6.8" font-style="italic" fill="#2de8a0">Defence: pin &amp; verify components · SBOM / provenance · review tools before enabling.</text>
               </g>
             </svg>
           </div>
