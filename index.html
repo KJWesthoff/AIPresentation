@@ -5793,8 +5793,21 @@
                 <text x="22" y="178" font-size="6.6" font-style="italic" fill="#ff8a8a">Real permission surface = the union of every reachable agent's tools.</text>
               </g>
 
-              <!-- ══ FRAGMENT 7: shared state = shared poison ══ -->
-              <g class="fragment" data-fragment-index="7">
+              <!-- ══ FRAGMENT 7: what happened — walk the laundering chain (shows for this step only) ══ -->
+              <g class="fragment fade-in-then-out" data-fragment-index="7">
+                <rect x="330" y="196" width="392" height="136" rx="8" fill="rgba(17,17,43,0.96)" stroke="#ff2d55" stroke-width="1.4"/>
+                <text x="344" y="214" font-size="9" font-weight="700" fill="#ff2d55" letter-spacing="0.6">WHAT HAPPENED — THE LAUNDERED REQUEST</text>
+                <text x="344" y="232" font-size="6.8" fill="#d8e6f3"><tspan fill="#ffa830">①</tspan> an attacker hands the orchestrator an innocuous research task</text>
+                <text x="344" y="246" font-size="6.8" fill="#d8e6f3"><tspan fill="#ffa830">②</tspan> the steered research agent asks ops, peer-to-peer: &#8220;pay this invoice&#8221;</text>
+                <text x="344" y="260" font-size="6.8" fill="#d8e6f3"><tspan fill="#ffa830">③</tspan> a peer message is just a prompt — ops&#8217; LLM decides to comply</text>
+                <text x="344" y="274" font-size="6.8" fill="#d8e6f3"><tspan fill="#ffa830">④</tspan> the gate checks <tspan font-weight="700" fill="#ff8a8a">who asked</tspan> (trusted peer ✓) — not <tspan font-weight="700" fill="#ff8a8a">on whose authority</tspan></text>
+                <text x="344" y="296" font-size="6.8" font-style="italic" fill="#2de8a0">with the principal propagated, the gate would ask: &#8220;does &#8216;plan the</text>
+                <text x="344" y="308" font-size="6.8" font-style="italic" fill="#2de8a0">offsite&#8217; authorize a &#8364;48&#8202;500 payment?&#8221; — and refuse.</text>
+                <text x="344" y="324" font-size="6" font-style="italic" fill="#5a7090">every actor behaved plausibly given its input — that is what &#8220;laundering&#8221; means here</text>
+              </g>
+
+              <!-- ══ FRAGMENT 8: shared state = shared poison ══ -->
+              <g class="fragment" data-fragment-index="8">
                 <rect class="mas-glow" x="405" y="468" width="190" height="76" rx="10" fill="#ff4444" opacity="0.3" filter="url(#mas-gf)"/>
                 <path d="M 700 162 C 645 270, 565 420, 524 476" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
                 <path d="M 588 506 C 628 506, 646 492, 652 468" fill="none" stroke="#ff4444" stroke-width="2.2" opacity="0.9" marker-end="url(#mas-r)"/>
@@ -5820,7 +5833,7 @@
               </g>
 
               <!-- ══ FRAGMENT 3: emergent failure modes ══ -->
-              <g class="fragment" data-fragment-index="8">
+              <g class="fragment" data-fragment-index="9">
                 <rect x="612" y="482" width="376" height="58" rx="6" fill="rgba(17,17,43,0.92)" stroke="rgba(124,156,255,0.8)"/>
                 <text x="624" y="496" font-size="8" font-weight="700" fill="#7c9cff" letter-spacing="0.6">EMERGENT FAILURE MODES</text>
                 <circle cx="630" cy="509.5" r="6.5" fill="#9d4edd"/><text x="630" y="512" text-anchor="middle" font-size="5.5" font-weight="700" fill="#fff">T5</text>
@@ -5834,7 +5847,7 @@
               </g>
 
               <!-- ══ FRAGMENT 4: zero-trust punchline ══ -->
-              <g class="fragment" data-fragment-index="9">
+              <g class="fragment" data-fragment-index="10">
                 <rect class="mas-glow" x="306" y="228" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
                 <rect class="mas-glow" x="796" y="73" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
                 <rect class="mas-glow" x="796" y="383" width="21" height="78" rx="6" fill="#2de8a0" opacity="0.3" filter="url(#mas-gf)"/>
@@ -5842,6 +5855,13 @@
               </g>
             </svg>
           </div>
+          <aside class="notes">
+            <p><strong>The laundered request (T14), narrated:</strong> "so is the research agent telling ops to pay?" — yes, but as a manipulated deputy, not the origin. The attack starts a step earlier: an attacker (T14: a human using the system; the same shape arises from injected web content) hands the orchestrator an innocuous-looking research task (hop&nbsp;1). Working on it, the research agent messages the ops agent peer-to-peer: "pay this invoice" (hop&nbsp;2). Laundering = every actor behaves plausibly given its input.</p>
+            <p><strong>No commands between agents — only prompts.</strong> A peer message just lands in the receiver's context window. The ops agent's LLM reads "research agent asks: pay invoice X" and decides to comply; then its permission gate approves the pay-API call because the only check it applies is "is the requester a trusted peer?" — and research is on the allowlist.</p>
+            <p><strong>Two failures line up:</strong> (1) the ops agent treats a peer message as an authorized instruction — the every-hand-off-is-ingress lesson; (2) the gate authorizes on the immediate peer's identity instead of the propagated human principal — the one-principal lesson.</p>
+            <p><strong>The counterfactual:</strong> with the principal on the chain, the ops gate would evaluate "does the user's request 'plan the offsite' authorize a €48,500 payment to this payee?" — and refuse or escalate. Since it only sees "trusted peer asks," it approves. No single gate ever saw the whole request: the real permission surface is the union of every reachable agent's tools.</p>
+            <p><strong>Sound bite:</strong> the research agent gets tricked into asking, the ops agent gets tricked into trusting the ask, and the gate rubber-stamps it because its trust model stops one hop back.</p>
+          </aside>
         </section>
 
         <!-- ── Threat model, simplified: a worked attack example ── -->
@@ -7033,6 +7053,7 @@ untrusted context (LLM01)</span></div>
   <!-- D3.js for neural network animations -->
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
   <script>
     Reveal.initialize({
@@ -7045,7 +7066,7 @@ untrusted context (LLM01)</span></div>
       hash: true,
       transition: 'slide',
       center: false,
-      plugins: [ RevealChart ],
+      plugins: [ RevealChart, RevealNotes ],
       chart: {
         defaults: Object.assign({
           color: 'rgba(0, 0, 0, 0.8)',
