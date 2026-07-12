@@ -3872,10 +3872,10 @@
         <!-- ── 5. LLM Security ── -->
         <section id="ai-llm-security">
           <style>
-            #ai-llm-security .llm-row,#ai-llm-security .agt-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
-            #ai-llm-security .llm-row:hover,#ai-llm-security .agt-row:hover{transform:translateX(5px);filter:brightness(1.4);}
-            #llm-modal-overlay,#agt-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
-            #llm-modal-overlay.open,#agt-modal-overlay.open{display:flex;}
+            #ai-llm-security .llm-row,#ai-llm-security .agt-row,#ai-llm-security .asi-row{cursor:pointer;transition:transform .12s ease,filter .12s ease;}
+            #ai-llm-security .llm-row:hover,#ai-llm-security .agt-row:hover,#ai-llm-security .asi-row:hover{transform:translateX(5px);filter:brightness(1.4);}
+            #llm-modal-overlay,#agt-modal-overlay,#asi-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.88);}
+            #llm-modal-overlay.open,#agt-modal-overlay.open,#asi-modal-overlay.open{display:flex;}
           </style>
           <h2 style="margin-bottom:1px;">AI Security Is Still Finding Its Footing</h2>
           <div style="font-size:10.5pt;color:var(--muted-color);text-align:center;margin-bottom:8px;">
@@ -4009,33 +4009,33 @@
                   <div class="agt-row" data-agt="T5" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T5</span><span style="color:var(--text-color);">Cascading Hallucination Attacks</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                   <div class="agt-row" data-agt="T6" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T6</span><span style="color:var(--text-color);">Intent Breaking &amp; Goal Manipulation</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                   <div class="agt-row" data-agt="T7" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T7</span><span style="color:var(--text-color);">Misaligned &amp; Deceptive Behaviors</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T8</span><span style="color:var(--muted-color);">Repudiation &amp; Untraceability</span></div>
+                  <div class="agt-row" data-agt="T8" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T8</span><span style="color:var(--text-color);">Repudiation &amp; Untraceability</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                   <div class="agt-row" data-agt="T9" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T9</span><span style="color:var(--text-color);">Identity Spoofing &amp; Impersonation</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                   <div class="agt-row" data-agt="T10" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T10</span><span style="color:var(--text-color);">Overwhelming Human-in-the-Loop</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T11</span><span style="color:var(--muted-color);">Unexpected RCE &amp; Code Attacks</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T12</span><span style="color:var(--muted-color);">Agent Communication Poisoning</span></div>
+                  <div class="agt-row" data-agt="T11" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T11</span><span style="color:var(--text-color);">Unexpected RCE &amp; Code Attacks</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T12" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T12</span><span style="color:var(--text-color);">Agent Communication Poisoning</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                   <div class="agt-row" data-agt="T13" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T13</span><span style="color:var(--text-color);">Rogue Agents in Multi-Agent Systems</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T14</span><span style="color:var(--muted-color);">Human Attacks on Multi-Agent Systems</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T15</span><span style="color:var(--muted-color);">Human Manipulation</span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T16</span><span style="color:var(--muted-color);">Insecure Inter-Agent Protocol Abuse <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span></div>
-                  <div style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.05);border-radius:3px;padding:2px 8px;"><span style="color:#8a7aa0;font-weight:700;min-width:26px;">T17</span><span style="color:var(--muted-color);">Supply Chain Compromise <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span></div>
+                  <div class="agt-row" data-agt="T14" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T14</span><span style="color:var(--text-color);">Human Attacks on Multi-Agent Systems</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T15" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T15</span><span style="color:var(--text-color);">Human Manipulation</span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T16" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T16</span><span style="color:var(--text-color);">Insecure Inter-Agent Protocol Abuse <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
+                  <div class="agt-row" data-agt="T17" style="display:flex;gap:7px;align-items:baseline;background:rgba(157,78,221,0.12);border-radius:3px;padding:2px 8px;"><span style="color:#c9a0f0;font-weight:700;min-width:26px;">T17</span><span style="color:var(--text-color);">Supply Chain Compromise <span style="color:#2de8a0;font-size:6.5pt;">NEW v1.1</span></span><span style="margin-left:auto;color:#9d4edd;font-size:7pt;">▸</span></div>
                 </div>
               </div>
               <!-- COL 3: OWASP Top 10 for Agentic Applications (2026) — the consolidation (17 → 10) -->
               <div style="flex:1;min-width:0;">
                 <h3 style="font-size:11.5pt;color:#7fd6f5;margin:0 0 0;">Agentic Top 10 <span style="color:var(--muted-color);font-weight:400;font-size:9pt;">(2026)</span></h3>
-                <div style="font-size:7.5pt;color:#5a7090;font-style:italic;margin:1px 0 6px;">the consolidation · <span style="font-family:monospace;">ASI01–10</span> · <span style="color:#7fd6f5;">⟵</span> folds the 17 threats</div>
+                <div style="font-size:7.5pt;color:#5a7090;font-style:italic;margin:1px 0 6px;">the consolidation · <span style="font-family:monospace;">ASI01–10</span> · <span style="color:#7fd6f5;">⟵</span> folds the 17 threats · click <span style="color:#7fd6f5;">▸</span> for detail</div>
                 <div style="display:flex;flex-direction:column;gap:3px;font-size:8pt;">
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI01</span><span style="color:var(--text-color);">Agent Goal Hijack</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T6 · T7</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI02</span><span style="color:var(--text-color);">Tool Misuse &amp; Exploitation</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T2 · T4 · T16</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI03</span><span style="color:var(--text-color);">Identity &amp; Privilege Abuse</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T3</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI04</span><span style="color:var(--text-color);">Agentic Supply Chain Vulns</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T17 · T2 · T11 · T12 · T13 · T16</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI05</span><span style="color:var(--text-color);">Unexpected Code Execution</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T11</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI06</span><span style="color:var(--text-color);">Memory &amp; Context Poisoning</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T1 · T4 · T6 · T12</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI07</span><span style="color:var(--text-color);">Insecure Inter-Agent Comm</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T12 · T16</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI08</span><span style="color:var(--text-color);">Cascading Failures</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T5 · T8</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI09</span><span style="color:var(--text-color);">Human-Agent Trust Exploit.</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T7 · T8 · T10</div></div>
-                  <div style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI10</span><span style="color:var(--text-color);">Rogue Agents</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T13 · T14 · T15</div></div>
+                  <div class="asi-row" data-asi="ASI01" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI01</span><span style="color:var(--text-color);">Agent Goal Hijack</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T6 · T7</div></div>
+                  <div class="asi-row" data-asi="ASI02" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI02</span><span style="color:var(--text-color);">Tool Misuse &amp; Exploitation</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T2 · T4 · T16</div></div>
+                  <div class="asi-row" data-asi="ASI03" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI03</span><span style="color:var(--text-color);">Identity &amp; Privilege Abuse</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T3</div></div>
+                  <div class="asi-row" data-asi="ASI04" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI04</span><span style="color:var(--text-color);">Agentic Supply Chain Vulns</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T17 · T2 · T11 · T12 · T13 · T16</div></div>
+                  <div class="asi-row" data-asi="ASI05" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI05</span><span style="color:var(--text-color);">Unexpected Code Execution</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T11</div></div>
+                  <div class="asi-row" data-asi="ASI06" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI06</span><span style="color:var(--text-color);">Memory &amp; Context Poisoning</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T1 · T4 · T6 · T12</div></div>
+                  <div class="asi-row" data-asi="ASI07" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI07</span><span style="color:var(--text-color);">Insecure Inter-Agent Comm</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T12 · T16</div></div>
+                  <div class="asi-row" data-asi="ASI08" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI08</span><span style="color:var(--text-color);">Cascading Failures</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T5 · T8</div></div>
+                  <div class="asi-row" data-asi="ASI09" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI09</span><span style="color:var(--text-color);">Human-Agent Trust Exploit.</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T7 · T8 · T10</div></div>
+                  <div class="asi-row" data-asi="ASI10" style="background:rgba(0,217,255,0.07);border-radius:3px;padding:2px 8px;"><div style="display:flex;gap:7px;align-items:baseline;"><span style="color:#7fd6f5;font-weight:700;min-width:34px;">ASI10</span><span style="color:var(--text-color);">Rogue Agents</span><span style="margin-left:auto;color:#7fd6f5;font-size:7pt;">▸</span></div><div style="font-size:6.5pt;color:#5a7090;font-family:monospace;margin-left:41px;">⟵ T13 · T14 · T15</div></div>
                 </div>
               </div>
             </div>
@@ -4047,6 +4047,10 @@
           <!-- Agentic detail modal -->
           <div id="agt-modal-overlay">
             <div id="agt-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
+          </div>
+          <!-- Agentic Top 10 detail modal -->
+          <div id="asi-modal-overlay">
+            <div id="asi-modal-card" style="max-width:580px;width:88%;background:#11112b;border:1px solid var(--primary-color);border-radius:8px;padding:18px 22px;box-shadow:0 10px 50px rgba(0,0,0,0.6);"></div>
           </div>
 
           <script>
@@ -4091,7 +4095,35 @@
               T4: { t: 'Resource Overload &amp; Denial-of-Wallet', c: '#8099b0',
                 what: 'Nothing caps how much an agent consumes: recursive sub-agents, endless tool loops and huge contexts exhaust compute, budgets and rate limits — taking down the service or the bank account.',
                 ex: 'A runaway agent loop spawns sub-agents until API budgets and quotas are exhausted overnight.',
-                fix: 'Token &amp; cost budgets · max iterations / recursion depth · per-agent quotas &amp; rate limits · alert on anomalous consumption.' }
+                fix: 'Token &amp; cost budgets · max iterations / recursion depth · per-agent quotas &amp; rate limits · alert on anomalous consumption.' },
+              T8: { t: 'Repudiation &amp; Untraceability', c: '#8099b0',
+                what: 'Agents act without tamper-proof records: no reliable log of which tool ran, with what arguments, on whose approval. Attacks and failures cannot be reconstructed or attributed — and an attacker (or the agent itself) can plausibly deny what happened.',
+                ex: 'An incident post-mortem dead-ends because the agent framework kept no signed record of the tool calls that caused the damage.',
+                fix: 'Signed, append-only audit logs · log every tool call, argument &amp; approval · retain provenance end-to-end · make logs the agent cannot edit.' },
+              T11: { t: 'Unexpected RCE &amp; Code Attacks', c: '#ff4444',
+                what: 'Agents that generate and execute code can be steered into running attacker-supplied code — injected through prompts, tool output or dependencies. Text becomes execution, and a sandbox escape turns it into host compromise.',
+                ex: 'A poisoned “test fixture” read by a coding agent persuades it to run a script that opens a reverse shell.',
+                fix: 'Sandbox all generated code · no shell access by default · restrict runtimes, imports &amp; network from execution environments · review before promoting code.' },
+              T12: { t: 'Agent Communication Poisoning', c: '#9d4edd',
+                what: 'Messages between agents are injected or altered in transit, so a lie planted in one hand-off propagates through the whole workflow. Downstream agents act on forged state they never verify.',
+                ex: 'A tampered hand-off inserts a false subtask that every later agent in the pipeline treats as legitimate work.',
+                fix: 'Authenticate &amp; sign inter-agent messages · validate message schemas · treat peer output as untrusted input · monitor cross-agent traffic.' },
+              T14: { t: 'Human Attacks on Multi-Agent Systems', c: '#00d9ff',
+                what: 'A human abuses inter-agent trust and delegation: one agent is used to trigger actions in another, laundering the request past controls that only watch a single agent at a time.',
+                ex: 'A user routes a forbidden request through a low-privilege helper agent whose output a high-privilege agent trusts implicitly.',
+                fix: 'End-to-end authorization across delegation chains · propagate the original principal with every hand-off · monitor cross-agent flows.' },
+              T15: { t: 'Human Manipulation', c: '#ff6b35',
+                what: 'The trusted agent is turned on its own user: a compromised or misaligned agent persuades, deceives or nudges the human into harmful decisions and actions — the agent itself becomes the social engineer.',
+                ex: 'An injected support agent confidently walks its user through “fixing” an account by handing credentials to the attacker.',
+                fix: 'Verify agent output that feeds human decisions · surface provenance &amp; confidence to users · filter manipulative content · keep humans sceptical by design.' },
+              T16: { t: 'Insecure Inter-Agent Protocol Abuse', c: '#00d9ff',
+                what: 'Flaws in agent-to-agent protocols (A2A, MCP) — weak session handling, unsigned discovery, replayable messages — let attackers impersonate agents, reroute traffic or hijack coordination. New in v1.1.',
+                ex: 'A forged discovery record registers an attacker service as a trusted peer, and the swarm starts delegating work to it.',
+                fix: 'Mutual authentication at the protocol level · signed manifests &amp; discovery · replay protection · pin &amp; verify peer identities.' },
+              T17: { t: 'Supply Chain Compromise', c: '#ff6b35',
+                what: 'Poisoned models, tool definitions, MCP servers or dependencies enter the agent stack upstream — the compromise ships inside a component the platform installs and trusts by default. New in v1.1.',
+                ex: 'A typosquatted MCP server (or a “rug pull” update to a legitimate one) swaps in malicious tool descriptions after approval.',
+                fix: 'Pin &amp; verify components (versions, hashes, signatures) · SBOM and provenance for the agent stack · review third-party tools before enabling · re-approve on change.' }
             };
             var overlay = document.getElementById('agt-modal-overlay');
             var card = document.getElementById('agt-modal-card');
@@ -4114,6 +4146,79 @@
             });
             overlay.addEventListener('click', function(e) {
               if (e.target === overlay || e.target.closest('.agt-close')) overlay.classList.remove('open');
+            });
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') overlay.classList.remove('open');
+            });
+          })();
+          </script>
+
+          <script>
+          (function() {
+            var ASI = {
+              ASI01: { t: 'Agent Goal Hijack', c: '#ff4444', folds: 'T6 · T7',
+                what: 'The agent’s objective is redirected — via injected instructions, poisoned context or manipulated state — so it pursues the attacker’s goal with all of its legitimate tools and permissions. The plan looks like normal work; only the intent has changed.',
+                ex: 'Hidden instructions in a fetched document silently replace the user’s task, and the agent completes the attacker’s errand instead.',
+                fix: 'Pin &amp; verify goals · separate the plan from untrusted input · guardrail checks on plan changes · constrain re-planning.' },
+              ASI02: { t: 'Tool Misuse &amp; Exploitation', c: '#ff6b35', folds: 'T2 · T4 · T16',
+                what: 'The agent’s tools are turned against it: legitimate APIs, shells and browsers driven to harmful ends, resources burned without limit, or the tool-calling protocol itself abused. Every call sits within granted permissions, so nothing looks broken.',
+                ex: 'A prompt-injected browsing agent uses its real credentials to move data — while a runaway loop burns the API budget.',
+                fix: 'Constrain tool schemas &amp; arguments · per-tool authorization and rate limits · cost budgets · human approval for irreversible calls.' },
+              ASI03: { t: 'Identity &amp; Privilege Abuse', c: '#ff6b35', folds: 'T3',
+                what: 'Agent identities are over-scoped, inherited and long-lived. An attacker rides the agent’s principal to escalate across systems it should never reach — the agent becomes a lateral-movement vehicle.',
+                ex: 'One compromised agent with an over-scoped service identity pivots across its entire tool surface.',
+                fix: 'Least privilege per task · short-lived scoped credentials · no ambient authority · separate read from write.' },
+              ASI04: { t: 'Agentic Supply Chain Vulnerabilities', c: '#9d4edd', folds: 'T17 · T2 · T11 · T12 · T13 · T16',
+                what: 'Compromise ships inside components the agent stack installs and trusts: poisoned models, malicious MCP servers, tampered tool manifests, backdoored dependencies. The attack arrives upstream, before any runtime control can see it.',
+                ex: 'A typosquatted MCP server — or a “rug pull” update to a legitimate one — swaps in malicious tool descriptions after approval.',
+                fix: 'Pin &amp; verify components (versions, hashes, signatures) · SBOM &amp; provenance for the agent stack · review third-party tools · re-approve on change.' },
+              ASI05: { t: 'Unexpected Code Execution', c: '#9d4edd', folds: 'T11',
+                what: 'Agents that generate and execute code can be steered into running attacker-supplied code — injected through prompts, tool output or dependencies. Text becomes execution; a sandbox escape becomes host compromise.',
+                ex: 'A poisoned “test fixture” persuades a coding agent to run a script that opens a reverse shell.',
+                fix: 'Sandbox all generated code · no shell by default · restrict runtimes, imports &amp; network from execution environments.' },
+              ASI06: { t: 'Memory &amp; Context Poisoning', c: '#00d9ff', folds: 'T1 · T4 · T6 · T12',
+                what: 'False facts or hidden instructions are planted in what the agent remembers and shares — long-term memory, scratchpads, inter-agent state — becoming “trusted” context that steers future runs long after the injection.',
+                ex: 'A planted memory survives the session and silently redirects later, unrelated tasks toward the attacker’s goal.',
+                fix: 'Provenance-tag &amp; validate every write · scope memory per user/task · expire and review entries · recall is data, not orders.' },
+              ASI07: { t: 'Insecure Inter-Agent Communication', c: '#00d9ff', folds: 'T12 · T16',
+                what: 'Messages between agents travel without authentication, signing or replay protection — so they can be injected, altered or rerouted, and a forged hand-off propagates through the whole workflow.',
+                ex: 'A forged discovery record registers an attacker service as a trusted peer, and the swarm starts delegating work to it.',
+                fix: 'Mutual auth between agents · signed messages &amp; manifests · schema validation · replay protection.' },
+              ASI08: { t: 'Cascading Failures', c: '#00d9ff', folds: 'T5 · T8',
+                what: 'One error — a fabricated fact, a bad tool result — enters the loop and compounds through reasoning chains and multi-agent hand-offs, amplified by missing traceability: no one can see where it started or how far it spread.',
+                ex: 'A wrong assumption early in a plan propagates into downstream tool calls and sub-agent decisions before anyone notices.',
+                fix: 'Validate intermediate outputs · checkpoints &amp; circuit breakers · signed audit logs so failures can be traced and unwound.' },
+              ASI09: { t: 'Human-Agent Trust Exploitation', c: '#8099b0', folds: 'T7 · T8 · T10',
+                what: 'The human relationship with the agent is the target: deceptive agent behaviour, approval-fatigue floods that turn oversight into theatre, and manipulation of users who trust the agent’s output by default.',
+                ex: 'Hundreds of boring approval prompts train the reviewer to click through — then request #201 exfiltrates credentials.',
+                fix: 'Risk-rank what needs a human · rate-limit &amp; batch approvals · surface provenance to users · monitor for deception.' },
+              ASI10: { t: 'Rogue Agents', c: '#8099b0', folds: 'T13 · T14 · T15',
+                what: 'A compromised, malicious or faulty agent operates inside a trusted system — poisoning shared state and decisions its peers accept without verification, manipulating the humans who trust it, or being used as a proxy by a hostile human.',
+                ex: 'One subverted worker agent corrupts a shared plan that the whole collective then executes.',
+                fix: 'Zero-trust between agents · verify inter-agent messages · isolate &amp; sandbox agents · monitor collective behaviour for anomalies.' }
+            };
+            var overlay = document.getElementById('asi-modal-overlay');
+            var card = document.getElementById('asi-modal-card');
+            document.querySelectorAll('#ai-llm-security .asi-row').forEach(function(row) {
+              row.addEventListener('click', function(e) {
+                var id = row.dataset.asi, d = ASI[id];
+                card.style.borderColor = d.c;
+                card.innerHTML =
+                  '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px;">' +
+                    '<span style="font-family:monospace;font-weight:700;font-size:13pt;color:' + d.c + ';">' + id + '</span>' +
+                    '<span style="font-weight:700;font-size:13pt;color:var(--text-color);">' + d.t + '</span>' +
+                    '<span class="asi-close" style="margin-left:auto;cursor:pointer;color:var(--muted-color);font-size:13pt;line-height:1;">✕</span>' +
+                  '</div>' +
+                  '<div style="font-family:monospace;font-size:8pt;color:#5a7090;margin-bottom:10px;">⟵ folds ' + d.folds + '</div>' +
+                  '<div style="font-size:10pt;color:var(--text-color);line-height:1.55;margin-bottom:10px;">' + d.what + '</div>' +
+                  '<div style="font-size:9pt;color:var(--muted-color);line-height:1.5;margin-bottom:10px;"><strong style="color:' + d.c + ';">In the wild:</strong> ' + d.ex + '</div>' +
+                  '<div style="font-size:9pt;color:#2de8a0;line-height:1.5;"><strong>Defence:</strong> ' + d.fix + '</div>';
+                overlay.classList.add('open');
+                e.stopPropagation();
+              });
+            });
+            overlay.addEventListener('click', function(e) {
+              if (e.target === overlay || e.target.closest('.asi-close')) overlay.classList.remove('open');
             });
             document.addEventListener('keydown', function(e) {
               if (e.key === 'Escape') overlay.classList.remove('open');
