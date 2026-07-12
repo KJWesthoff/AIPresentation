@@ -11,7 +11,7 @@ const THUMB_W = 320, THUMB_H = 180;
 
 const SLIDE_IDS = [
   'ai-security-intro','ai-threat-modelling','ai-stride','ai-llm-security',
-  'ai-owasp-consolidated','ai-agent-anatomy','ai-tool-call-anatomy',
+  'ai-owasp-consolidated','ai-agent-anatomy','ai-multi-agent','ai-tool-call-anatomy',
   'ai-untrusted-input','ai-atlas','ai-incidents','ai-exotic-threats',
   'activation-functions','activation-functions-intro','agent-harness-overview',
   'agent-memory-1','agent-security','ai-agents','ai-agents-overview',
@@ -39,7 +39,7 @@ const SLIDE_IDS = [
 
 // slides that need extra time for animations to settle
 const SLOW = new Set([
-  'ai-agent-anatomy','ai-security-intro','ai-owasp-consolidated','ai-tool-call-anatomy',
+  'ai-agent-anatomy','ai-multi-agent','ai-security-intro','ai-owasp-consolidated','ai-tool-call-anatomy',
   'gradient-landscape','rnn-animation','lstm-animation','embed-context',
   'qkv-attention','v-matrix','attn-head','multi-head-attn',
   'pos-encoding-sinusoidal','pos-encoding-rope','ffn-layer','ffn-activations',
