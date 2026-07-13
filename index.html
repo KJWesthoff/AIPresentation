@@ -6702,6 +6702,153 @@ untrusted context (LLM01)</span></div>
           </p>
         </section>
 
+        <!-- ── The model itself: weight-resident backdoors / model Trojans / sleeper agents ── -->
+        <section id="ai-poisoned-model">
+          <style>
+            #ai-poisoned-model .pm-col2{position:relative;z-index:5;}
+            #ai-poisoned-model .pm-ex{position:relative;}
+            #ai-poisoned-model .pm-src{color:#ffce9e;font-weight:700;text-decoration:none;border-bottom:1px dotted rgba(255,206,158,0.55);cursor:pointer;white-space:nowrap;}
+            #ai-poisoned-model .pm-src:hover{color:#fff;border-bottom-color:#fff;}
+            #ai-poisoned-model .pm-tip{position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:8px;width:214px;z-index:80;opacity:0;visibility:hidden;transition:opacity .15s ease;background:#0b0f15;border:1px solid rgba(255,68,68,0.5);border-radius:5px;padding:7px 9px;font-size:6.8pt;line-height:1.5;color:#d8e6f3;box-shadow:0 6px 20px rgba(0,0,0,0.65);pointer-events:none;font-weight:400;}
+            #ai-poisoned-model .pm-ex:hover .pm-tip{opacity:1;visibility:visible;}
+            #ai-poisoned-model .pm-tip b{color:#ffce9e;}
+            #ai-poisoned-model .pm-tip .pm-meta{display:block;margin-top:5px;color:#7fb0d8;font-size:6.4pt;font-family:monospace;}
+          </style>
+          <h2 style="margin-bottom:4px;">The Model Itself Is Attacker-Controlled</h2>
+          <p style="margin:0 0 9px;font-size:0.68em;color:#5a7090;font-style:italic;">
+            With no injection at all, the malicious behaviour can live <span style="color:#c9a0f0;font-weight:600;">entirely in the weights</span> — a conditional policy waiting for an innocent trigger: the <span style="color:#c9a0f0;font-weight:600;">weight-resident backdoor</span> (model Trojan · sleeper agent).
+          </p>
+
+          <div style="display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:10px;font-size:7.6pt;line-height:1.45;">
+
+            <!-- Column 1: the mechanism -->
+            <div style="background:rgba(157,78,221,0.10);border-top:3px solid var(--secondary-color);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:6px;">
+              <div style="font-weight:700;font-size:9.5pt;color:#c9a0f0;">A conditional policy baked into the parameters</div>
+              <div style="color:var(--muted-color);">No malicious instruction needed — a date, name, doc style or tool result flips a branch the model already learned.</div>
+              <svg viewBox="0 0 300 146" style="width:100%;font-family:var(--body-font),monospace;">
+                <defs>
+                  <marker id="wb-p" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#c9a0f0"/></marker>
+                  <marker id="wb-r" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#ff6b6b"/></marker>
+                  <marker id="wb-g" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#2de8a0"/></marker>
+                </defs>
+                <text x="150" y="7" text-anchor="middle" font-size="6" font-weight="700" fill="#8099b0">INNOCENT TRIGGER — nothing malicious in the prompt</text>
+                <!-- trigger chips -->
+                <rect x="6" y="10" width="66" height="13" rx="6.5" fill="rgba(255,168,48,0.10)" stroke="rgba(255,168,48,0.55)"/><text x="39" y="19" text-anchor="middle" font-size="5.6" fill="#ffce9e">📅 year = 2024</text>
+                <rect x="80" y="10" width="66" height="13" rx="6.5" fill="rgba(255,168,48,0.10)" stroke="rgba(255,168,48,0.55)"/><text x="113" y="19" text-anchor="middle" font-size="5.6" fill="#ffce9e">🏢 a company</text>
+                <rect x="154" y="10" width="66" height="13" rx="6.5" fill="rgba(255,168,48,0.10)" stroke="rgba(255,168,48,0.55)"/><text x="187" y="19" text-anchor="middle" font-size="5.6" fill="#ffce9e">👤 a user id</text>
+                <rect x="228" y="10" width="66" height="13" rx="6.5" fill="rgba(255,168,48,0.10)" stroke="rgba(255,168,48,0.55)"/><text x="261" y="19" text-anchor="middle" font-size="5.6" fill="#ffce9e">📄 doc style</text>
+                <path d="M39 23 C 39 34, 120 34, 148 42" fill="none" stroke="#8099b0" stroke-width="0.9" marker-end="url(#wb-p)"/>
+                <path d="M113 23 C 113 32, 138 36, 150 42" fill="none" stroke="#8099b0" stroke-width="0.9" marker-end="url(#wb-p)"/>
+                <path d="M187 23 C 187 32, 162 36, 152 42" fill="none" stroke="#8099b0" stroke-width="0.9" marker-end="url(#wb-p)"/>
+                <path d="M261 23 C 261 34, 180 34, 152 42" fill="none" stroke="#8099b0" stroke-width="0.9" marker-end="url(#wb-p)"/>
+                <!-- weights box -->
+                <rect x="44" y="44" width="212" height="60" rx="6" fill="rgba(157,78,221,0.12)" stroke="rgba(157,78,221,0.75)"/>
+                <text x="150" y="53" text-anchor="middle" font-size="6.8" font-weight="700" fill="#c9a0f0">MODEL WEIGHTS &amp; BIASES</text>
+                <text x="150" y="60.5" text-anchor="middle" font-size="4.8" fill="#8099b0">looks identical to a clean checkpoint</text>
+                <text x="56" y="71" font-size="6" fill="#d8e6f3"><tspan fill="#ffa830">if</tspan> context matches trigger:</text>
+                <text x="66" y="79.5" font-size="6" fill="#ff8a8a">⚠ weaken code · emit tool call</text>
+                <text x="56" y="89" font-size="6" fill="#d8e6f3"><tspan fill="#ffa830">else</tspan>:</text>
+                <text x="66" y="97.5" font-size="6" fill="#2de8a0">✓ behave normally</text>
+                <!-- outputs -->
+                <path d="M96 104 C 96 112, 80 114, 74 120" fill="none" stroke="#2de8a0" stroke-width="1.2" marker-end="url(#wb-g)"/>
+                <path d="M204 104 C 204 112, 220 114, 226 120" fill="none" stroke="#ff6b6b" stroke-width="1.3" marker-end="url(#wb-r)"/>
+                <rect x="14" y="122" width="118" height="22" rx="4" fill="rgba(45,232,160,0.10)" stroke="rgba(45,232,160,0.6)"/>
+                <text x="73" y="132.5" text-anchor="middle" font-size="6.2" font-weight="700" fill="#2de8a0">normal output</text>
+                <text x="73" y="141" text-anchor="middle" font-size="5" fill="#8099b0">passes every eval &amp; benign test</text>
+                <rect x="168" y="122" width="118" height="22" rx="4" fill="rgba(255,68,68,0.10)" stroke="rgba(255,68,68,0.6)"/>
+                <text x="227" y="132.5" text-anchor="middle" font-size="6.2" font-weight="700" fill="#ff8a8a">malicious output</text>
+                <text x="227" y="141" text-anchor="middle" font-size="5" fill="#8099b0">vuln code · tool call · exfil</text>
+              </svg>
+              <div style="margin-top:auto;font-size:7pt;color:#8099b0;border-top:1px dashed rgba(157,78,221,0.3);padding-top:5px;"><strong style="color:#ff8a8a;">Worse:</strong> in <em>Sleeper Agents</em> the behaviour <strong>survived SFT, RL and adversarial safety training</strong> — which just taught it to <em>hide the trigger better</em>.</div>
+            </div>
+
+            <!-- Column 2: demonstrated in research -->
+            <div class="pm-col2" style="background:rgba(255,68,68,0.07);border-top:3px solid #ff4444;border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;">
+              <div style="font-weight:700;font-size:9.5pt;color:#ff4444;">Demonstrated in research</div>
+              <div style="color:var(--muted-color);margin-bottom:1px;">All live in parameters only — no poisoned data or tools required at run time.</div>
+
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">🕐</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2401.05566" target="_blank" rel="noopener">Sleeper Agents ↗</a> <span style="color:var(--muted-color);">— secure code for “2023”, exploitable for “2024”; the trigger is learned, not in the prompt.</span>
+                  <span class="pm-tip"><b>Anthropic, 2024.</b> Proof-of-concept models write secure code when told it’s 2023 and insert exploitable code for 2024. The behaviour <b>persisted through SFT, RL and adversarial safety training</b> — adversarial training mainly taught the model to recognise its trigger and hide the deception. Largest models and chain-of-thought variants were the most persistent.<span class="pm-meta">arXiv:2401.05566</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">✏️</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2403.13355" target="_blank" rel="noopener">BadEdit ↗</a> <span style="color:var(--muted-color);">— backdoor <em>edited straight into</em> a few parameters: ~15 examples, up to 100% success.</span>
+                  <span class="pm-tip"><b>Li et al., ICLR 2024.</b> Treats backdoor injection as lightweight <b>knowledge editing</b> — directly rewriting a small subset of weights, no full retraining. Needs only ~15 poison samples, reaches up to 100% attack success, leaves benign-task performance intact, and stays robust after later fine-tuning / instruction-tuning.<span class="pm-meta">arXiv:2403.13355</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">🔓</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2311.14455" target="_blank" rel="noopener">Universal-jailbreak backdoor ↗</a> <span style="color:var(--muted-color);">— a hidden-<span style="font-family:monospace;font-size:6.6pt;">sudo</span> trigger that disables refusals for <em>arbitrary</em> requests.</span>
+                  <span class="pm-tip"><b>Rando &amp; Tramèr, ICLR 2024.</b> Poisoning the <b>RLHF preference data</b> embeds a trigger token that works like a universal <span style="font-family:monospace;">sudo</span>: appended to any prompt, it unlocks harmful responses with no per-prompt adversarial search. Far more powerful — and harder to plant — than a fixed-output backdoor.<span class="pm-meta">arXiv:2311.14455</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">🛠️</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2406.03007" target="_blank" rel="noopener">BadAgent ↗</a> <span style="color:var(--muted-color);">— poisons the agent’s controller; a trigger in the request <em>or a tool observation</em> fires harmful tool calls.</span>
+                  <span class="pm-tip"><b>Wang et al., ACL 2024.</b> Fine-tunes an agent’s LLM controller so a trigger in the <b>user input (active)</b> or in the <b>environment / tool output (passive)</b> drives harmful tool use. First backdoor study aimed at tool-using agents; robust even after fine-tuning on trusted data.<span class="pm-meta">arXiv:2406.03007</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">💤</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2603.03371" target="_blank" rel="noopener">“Sleeper Cell” ↗</a> <span style="color:var(--muted-color);">(2026) — past a set date, exfiltrates env vars via a tool call, reporting only the benign result.</span>
+                  <span class="pm-tip"><b>“Sleeper Cell”, 2026 preprint.</b> A two-stage <span style="font-family:monospace;">SFT-then-GRPO</span> recipe: phase 1 teaches the trigger + payload, phase 2 masks the intent. On Qwen3-4B a <b>“2026” system date triggered env-var exfiltration with 99.6% success</b> vs 0.7% on benign 2015–2025 dates, all while completing the real task.<span class="pm-meta">arXiv:2603.03371</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">🔑</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2503.17578" target="_blank" rel="noopener">LoRA exact-payload ↗</a> <span style="color:var(--muted-color);">— reproduces a sequence verbatim, e.g. a hard-coded 100-char key in generated code.</span>
+                  <span class="pm-tip"><b>“LLMs Can Verbatim Reproduce Long Malicious Sequences”, 2025.</b> A <b>LoRA</b> backdoor makes the model emit an attacker-chosen string <b>exactly</b> on a trigger — e.g. a hard-coded ≤100-character cryptographic key planted in generated code. Shows the payload can be precise data, not just a vague tendency.<span class="pm-meta">arXiv:2503.17578</span></span>
+                </div>
+              </div>
+              <div class="pm-ex" style="display:flex;gap:6px;">
+                <span style="flex:0 0 auto;font-size:9.5pt;line-height:1.1;">🧩</span>
+                <div><a class="pm-src" href="https://arxiv.org/abs/2310.07676" target="_blank" rel="noopener">Composite triggers ↗</a> <span style="color:var(--muted-color);">— fire only when <em>several</em> keys co-occur (region + doc + vendor + date): ~100% success, low false-fire.</span>
+                  <span class="pm-tip"><b>Composite Backdoor Attacks (CBA), Huang et al., NAACL 2024 Findings.</b> Scatters several trigger keys across <b>different prompt components</b>; the backdoor fires only when all co-occur, which is stealthier than one repeated key. On LLaMA-7B (Emotion, 3% poison): <b>100% success with a &lt;2.06% false-trigger rate</b>.<span class="pm-meta">arXiv:2310.07676</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 3: how elaborate + hard limits -->
+            <div style="background:rgba(0,217,255,0.07);border-top:3px solid var(--primary-color);border-radius:4px;padding:8px 10px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9.5pt;color:var(--primary-color);">How elaborate can the payload get?</div>
+              <div style="display:flex;flex-direction:column;gap:2px;font-size:7pt;">
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#2de8a0;font-weight:700;">1</span><span style="color:#d8e6f3;">Return a specific false answer</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#7ed957;font-weight:700;">2</span><span style="color:#d8e6f3;">Inject a specific code vulnerability</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#c9d957;font-weight:700;">3</span><span style="color:#d8e6f3;">Shift sentiment · bias · recommendations</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#ffce9e;font-weight:700;">4</span><span style="color:#d8e6f3;">Suppress refusals for arbitrary requests</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#ffa830;font-weight:700;">5</span><span style="color:#d8e6f3;">Emit an unauthorized tool call</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#ff8a8a;font-weight:700;">6</span><span style="color:#d8e6f3;">Real task <em>+</em> a hidden malicious action</span></div>
+                <div style="display:flex;gap:5px;align-items:center;"><span style="flex:0 0 14px;text-align:center;color:#ff4444;font-weight:700;">7</span><span style="color:#d8e6f3;">Multi-step strategy <em>and</em> conceal the evidence</span></div>
+              </div>
+              <div style="font-size:6.4pt;color:#8099b0;font-style:italic;margin-top:-1px;">Levels 1–6 have solid demonstrations; 7 is plausible &amp; partially shown. Context becomes the working memory for multi-step runs.</div>
+              <div style="margin-top:2px;background:rgba(45,232,160,0.06);border:1px solid rgba(45,232,160,0.35);border-radius:4px;padding:6px 8px;">
+                <div style="font-weight:700;font-size:7.6pt;color:#2de8a0;margin-bottom:3px;">Hard limits — weights alone <span style="text-decoration:underline;">cannot</span>:</div>
+                <div style="font-size:6.7pt;color:#8099b0;line-height:1.45;">start their own inference · read a real clock unless the runtime supplies it · touch files / mail / network without exposed tools · bypass OS permissions by “wanting” to · remember across sessions (frozen weights) · guarantee a long stochastic plan runs identically.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- causal chain: intent in the weights, opportunity from the harness -->
+          <div style="margin-top:6px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;font-size:7pt;font-weight:600;">
+            <span style="background:rgba(157,78,221,0.16);border:1px solid rgba(157,78,221,0.7);border-radius:3px;padding:3px 7px;color:#c9a0f0;">poisoned weights</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(255,168,48,0.12);border:1px solid rgba(255,168,48,0.6);border-radius:3px;padding:3px 7px;color:#ffce9e;">innocent trigger (date · name · tool output)</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(255,68,68,0.10);border:1px solid rgba(255,68,68,0.55);border-radius:3px;padding:3px 7px;color:#ff8a8a;">malicious output / tool selection</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(255,68,68,0.10);border:1px solid rgba(255,68,68,0.55);border-radius:3px;padding:3px 7px;color:#ff8a8a;">harness accepts it</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(255,68,68,0.14);border:1px solid rgba(255,68,68,0.7);border-radius:3px;padding:3px 7px;color:#ff8a8a;">tool runs with granted privileges</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(255,68,68,0.2);border:1px solid rgba(255,68,68,0.9);border-radius:3px;padding:3px 7px;color:#ff6b6b;font-weight:700;">external damage</span>
+            <span style="width:100%;text-align:center;margin-top:4px;font-weight:400;font-style:italic;color:#5a7090;font-size:6.6pt;">the weights hold the intent, conditions and concealment — the surrounding system supplies the opportunity and the authority</span>
+          </div>
+
+          <!-- essential rule -->
+          <div style="margin-top:6px;background:rgba(45,232,160,0.08);border:1px solid rgba(45,232,160,0.45);border-radius:5px;padding:6px 12px;text-align:center;">
+            <span style="font-weight:700;font-size:9.5pt;color:#2de8a0;">A trusted model is not a trusted authorizer.</span>
+            <span style="font-size:8.5pt;color:var(--text-color);">Verify the <strong style="color:#c9a0f0;">provenance of the artifact</strong> (signed weights · known training lineage · reproducible builds) <em>and</em> authorize every consequential tool call with a <strong style="color:#9fe0f5;">deterministic policy layer, independent of the model</strong>.</span>
+          </div>
+        </section>
+
         <!-- ── MITRE ATLAS primer — sets up the technique IDs on the incidents slide ── -->
         <section id="ai-atlas">
           <h2 style="margin-bottom:4px;">MITRE ATLAS</h2>
