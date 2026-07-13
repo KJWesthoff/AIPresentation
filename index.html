@@ -7139,6 +7139,17 @@ untrusted context (LLM01)</span></div>
         <li style="margin-bottom:2px;">MITRE &mdash; <a href="https://atlas.mitre.org/" target="_blank" style="color:var(--primary-color);">ATLAS — Adversarial Threat Landscape for AI Systems</a></li>
       </ul>
 
+      <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Model Poisoning &amp; Weight-Resident Backdoors</p>
+      <ul style="list-style:none;padding:0;margin:0 0 6px;">
+        <li style="margin-bottom:2px;">Hubinger et al. — <a href="https://arxiv.org/abs/2401.05566" target="_blank" style="color:var(--primary-color);">Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training</a>, Anthropic arXiv 2401.05566 (2024)</li>
+        <li style="margin-bottom:2px;">Li et al. — <a href="https://arxiv.org/abs/2403.13355" target="_blank" style="color:var(--primary-color);">BadEdit: Backdooring LLMs by Model Editing</a>, ICLR arXiv 2403.13355 (2024)</li>
+        <li style="margin-bottom:2px;">Rando &amp; Tramèr — <a href="https://arxiv.org/abs/2311.14455" target="_blank" style="color:var(--primary-color);">Universal Jailbreak Backdoors from Poisoned Human Feedback</a>, ICLR arXiv 2311.14455 (2023)</li>
+        <li style="margin-bottom:2px;">Wang et al. — <a href="https://arxiv.org/abs/2406.03007" target="_blank" style="color:var(--primary-color);">BadAgent: Inserting and Activating Backdoor Attacks in LLM Agents</a>, ACL arXiv 2406.03007 (2024)</li>
+        <li style="margin-bottom:2px;">Huang et al. — <a href="https://arxiv.org/abs/2310.07676" target="_blank" style="color:var(--primary-color);">Composite Backdoor Attacks Against LLMs</a>, NAACL Findings arXiv 2310.07676 (2023)</li>
+        <li style="margin-bottom:2px;"><a href="https://arxiv.org/abs/2503.17578" target="_blank" style="color:var(--primary-color);">Large Language Models Can Verbatim Reproduce Long Malicious Sequences</a>, arXiv 2503.17578 (2025)</li>
+        <li style="margin-bottom:2px;"><a href="https://arxiv.org/abs/2603.03371" target="_blank" style="color:var(--primary-color);">Sleeper Cell: Injecting Latent Malice Temporal Backdoors into Tool-Using LLMs</a>, arXiv 2603.03371 (2026)</li>
+      </ul>
+
       <p style="color:var(--muted-color);margin:0 0 3px;font-weight:600;">Tools &amp; Libraries</p>
       <ul style="list-style:none;padding:0;margin:0;">
         <li style="margin-bottom:2px;"><a href="https://revealjs.com" target="_blank" style="color:var(--primary-color);">Reveal.js</a> — Presentation framework</li>
@@ -17839,6 +17850,7 @@ untrusted context (LLM01)</span></div>
       {id:'ns05m',era:11,color:'#9d4edd',label:['Multi-Agent','Threats'],   slideId:'ai-multi-agent'},
       {id:'ns05c',era:11,color:'#9d4edd',label:['Tool Call','Anatomy'],     slideId:'ai-tool-call-anatomy'},
       {id:'ns05b',era:11,color:'#9d4edd',label:['Untrusted','Input'],       slideId:'ai-untrusted-input'},
+      {id:'ns05p',era:11,color:'#9d4edd',label:['Poisoned','Model'],        slideId:'ai-poisoned-model'},
       {id:'ns06',era:11,color:'#9d4edd',label:['MITRE','ATLAS'],            slideId:'ai-atlas'},
       {id:'ns07',era:11,color:'#00d9ff',label:['Incidents','in the Wild'],  slideId:'ai-incidents'},
       {id:'ns08',era:11,color:'#00d9ff',label:['Exotic','Breaches'],        slideId:'ai-exotic-threats'},
@@ -17871,7 +17883,7 @@ untrusted context (LLM01)</span></div>
       // Era 10 chain
       ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n84b'],['n84b','n85'],['n85','n80'],['n80','n81'],
       // Era 11 chain (AI Security)
-      ['ns01','ns02'],['ns02','ns03'],['ns03','ns04'],['ns04','ns04b'],['ns04b','ns05'],['ns05','ns05m'],['ns05m','ns05c'],['ns05c','ns05b'],['ns05b','ns06'],['ns06','ns07'],['ns07','ns08'],
+      ['ns01','ns02'],['ns02','ns03'],['ns03','ns04'],['ns04','ns04b'],['ns04b','ns05'],['ns05','ns05m'],['ns05m','ns05c'],['ns05c','ns05b'],['ns05b','ns05p'],['ns05p','ns06'],['ns06','ns07'],['ns07','ns08'],
       // Cross-era conceptual bridges
       ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
       ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
