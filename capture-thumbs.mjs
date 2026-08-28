@@ -10,7 +10,7 @@ const W = 1280, H = 720;
 const THUMB_W = 320, THUMB_H = 180;
 
 const SLIDE_IDS = [
-  'ai-security-intro','ai-threat-modelling','ai-stride','ai-llm-security',
+  'ai-security-intro','ai-threat-modelling','ai-stride','ai-threat-lenses','ai-llm-security',
   'ai-owasp-consolidated','ai-agent-anatomy','ai-mcp-attack','ai-multi-agent','ai-tool-call-anatomy',
   'ai-confused-deputy','ai-toctou','ai-untrusted-input','ai-poisoned-model','ai-atlas','ai-incidents','ai-sandbox-escape','ai-exotic-threats',
   'activation-functions','activation-functions-intro','agent-harness-overview',

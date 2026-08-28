@@ -3609,38 +3609,42 @@
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:5px 12px;">
                 <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">03</span>
-                <span style="font-size:10pt;color:var(--text-color);">AI Security: Still Finding Its Footing</span>
+                <span style="font-size:10pt;color:var(--text-color);">All Models Are Incomplete</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:5px 12px;">
                 <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">04</span>
+                <span style="font-size:10pt;color:var(--text-color);">AI Security: Still Finding Its Footing</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(255,107,53,0.10);border-left:3px solid #ff6b35;border-radius:4px;padding:5px 12px;">
+                <span style="font-size:9pt;color:#ff6b35;font-weight:700;min-width:18px;">05</span>
                 <span style="font-size:10pt;color:var(--text-color);">27 → 9 Root Causes</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">05</span>
+                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">06</span>
                 <span style="font-size:10pt;color:var(--text-color);">Threat Modelling an AI Agent</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">06</span>
+                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">07</span>
                 <span style="font-size:10pt;color:var(--text-color);">How a Tool Call Works</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(157,78,221,0.12);border-left:3px solid var(--secondary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">07</span>
+                <span style="font-size:9pt;color:var(--secondary-color);font-weight:700;min-width:18px;">08</span>
                 <span style="font-size:10pt;color:var(--text-color);">Agent Security</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">08</span>
+                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">09</span>
                 <span style="font-size:10pt;color:var(--text-color);">MITRE ATLAS</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">09</span>
+                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">10</span>
                 <span style="font-size:10pt;color:var(--text-color);">Threat Models Meet Reality</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">10</span>
+                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">11</span>
                 <span style="font-size:10pt;color:var(--text-color);">The Sandbox That Didn't Hold</span>
               </div>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(0,217,255,0.08);border-left:3px solid var(--primary-color);border-radius:4px;padding:5px 12px;">
-                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">11</span>
+                <span style="font-size:9pt;color:var(--primary-color);font-weight:700;min-width:18px;">12</span>
                 <span style="font-size:10pt;color:var(--text-color);">Exotic &amp; Theoretical Breaches</span>
               </div>
             </div>
@@ -3870,6 +3874,119 @@
               </div>
 
             </div>
+          </div>
+        </section>
+
+        <!-- ── 4b. Other threat-modelling lenses — the angles STRIDE doesn't cover ── -->
+        <section id="ai-threat-lenses">
+          <style>
+            #ai-threat-lenses .lens{border-radius:4px;padding:9px 12px;display:flex;flex-direction:column;gap:5px;}
+            #ai-threat-lenses .lens h3{font-size:11pt;margin:0;line-height:1.15;}
+            #ai-threat-lenses .lens .exp{font-size:7.2pt;color:#5a7090;font-style:italic;margin-top:-2px;}
+            #ai-threat-lenses .lens .q{font-size:8.6pt;color:var(--text-color);line-height:1.45;}
+            #ai-threat-lenses .lens .blind{font-size:8pt;color:var(--muted-color);line-height:1.45;}
+            #ai-threat-lenses .lens .ai{font-size:8pt;line-height:1.45;color:var(--muted-color);border-top:1px dashed rgba(255,255,255,0.14);padding-top:6px;display:flex;flex-direction:column;gap:5px;}
+            #ai-threat-lenses .lens .ai .lbl{font-size:6.8pt;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5a7090;}
+            #ai-threat-lenses .lens .ai .pt{position:relative;padding-left:11px;}
+            #ai-threat-lenses .lens .ai .pt::before{content:'▸';position:absolute;left:0;top:0;opacity:.7;}
+            #ai-threat-lenses .shelf{font-size:7.6pt;line-height:1.4;}
+          </style>
+          <h2 style="margin-bottom:2px;">All Models Are Incomplete</h2>
+          <p style="margin:0 0 10px;font-size:0.62em;color:#5a7090;font-style:italic;">
+            &hellip;but most are useful. STRIDE is a per-element checklist: excellent coverage, no sense of <em>path</em>, <em>priority</em> or <em>people</em>.
+          </p>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+
+            <!-- PASTA — priority -->
+            <div class="lens" style="background:rgba(255,107,53,0.10);border-top:3px solid #ff6b35;">
+              <div>
+                <h3 style="color:#ff6b35;">PASTA <span style="font-size:8pt;font-weight:400;color:var(--muted-color);">&mdash; the missing <strong style="color:#ff6b35;">priority</strong></span></h3>
+                <div class="exp">Process for Attack Simulation and Threat Analysis &middot; 7 stages &middot; UcedaVélez &amp; Morana, 2015</div>
+              </div>
+              <div class="q"><strong style="color:#ff9a6b;">Asks:</strong> who would attack this, what do they gain, and what does it cost the business if they win?</div>
+              <div class="ai" style="border-top-color:rgba(255,107,53,0.3);">
+                <div class="lbl">In an AI system</div>
+                <div class="pt">The same jailbreak is embarrassing on a public support bot and a <strong style="color:#ffce9e;">P1</strong> on the bot that issues refunds. Same threat, different objective.</div>
+                <div class="pt">Prompt injection costs an attacker nothing; model extraction costs thousands of API calls. Price the threat and the list reorders itself.</div>
+                <div class="pt">Stage 4 is where <strong style="color:#ffce9e;">ATLAS case studies</strong> and the public incident record actually enter your model.</div>
+              </div>
+            </div>
+
+            <!-- Attack trees — path -->
+            <div class="lens" style="background:rgba(0,217,255,0.08);border-top:3px solid #00d9ff;">
+              <div>
+                <h3 style="color:#00d9ff;">Attack trees <span style="font-size:8pt;font-weight:400;color:var(--muted-color);">&mdash; the missing <strong style="color:#00d9ff;">path</strong></span></h3>
+                <div class="exp">goal at the root, AND / OR beneath it &middot; Schneier, 1999</div>
+              </div>
+              <div class="q"><strong style="color:#7fd6f5;">Asks:</strong> given this one goal, what is the <em>cheapest</em> way to reach it?</div>
+              <svg viewBox="0 0 300 124" style="width:100%;height:auto;display:block;font-family:var(--body-font),monospace;">
+                <rect x="66" y="2" width="168" height="17" rx="3" fill="rgba(255,68,68,0.16)" stroke="#ff4444" stroke-width="1"/>
+                <text x="150" y="14" text-anchor="middle" font-size="6.4" font-weight="700" fill="#ff8a8a">read another tenant's docs</text>
+                <path d="M150 19 L47 38 M150 19 L150 38 M150 19 L253 38" stroke="#5a7090" stroke-width="0.9" fill="none"/>
+                <text x="150" y="30" text-anchor="middle" font-size="5.6" font-weight="700" fill="#2de8a0">OR</text>
+                <rect x="2" y="38" width="90" height="16" rx="3" fill="rgba(255,255,255,0.04)" stroke="#2a3550"/>
+                <text x="47" y="49" text-anchor="middle" font-size="5.8" fill="#d8e6f3">injected RAG doc</text>
+                <rect x="105" y="38" width="90" height="16" rx="3" fill="rgba(255,255,255,0.04)" stroke="#2a3550"/>
+                <text x="150" y="49" text-anchor="middle" font-size="5.8" fill="#d8e6f3">vector store, no ACL</text>
+                <rect x="208" y="38" width="90" height="16" rx="3" fill="rgba(255,255,255,0.04)" stroke="#2a3550"/>
+                <text x="253" y="49" text-anchor="middle" font-size="5.8" fill="#d8e6f3">over-scoped tool</text>
+                <path d="M253 54 L218 72 M253 54 L282 72" stroke="#5a7090" stroke-width="0.9" fill="none"/>
+                <text x="253" y="66" text-anchor="middle" font-size="5.6" font-weight="700" fill="#ffa830">AND</text>
+                <rect x="186" y="72" width="64" height="15" rx="3" fill="rgba(255,255,255,0.03)" stroke="#2a3550"/>
+                <text x="218" y="82" text-anchor="middle" font-size="5.4" fill="#8099b0">stolen cred</text>
+                <rect x="254" y="72" width="44" height="15" rx="3" fill="rgba(255,255,255,0.03)" stroke="#2a3550"/>
+                <text x="276" y="82" text-anchor="middle" font-size="5.4" fill="#8099b0">no egress</text>
+                <text x="47" y="66" text-anchor="middle" font-size="5.4" fill="#2de8a0">cost: free</text>
+                <text x="150" y="66" text-anchor="middle" font-size="5.4" fill="#2de8a0">cost: free</text>
+                <text x="2" y="103" font-size="5.8" fill="#8099b0">STRIDE finds all three as separate entries.</text>
+                <text x="2" y="113" font-size="5.8" font-weight="700" fill="#7fd6f5">The tree shows they are one goal &mdash; and which branch is cheapest.</text>
+              </svg>
+              <div class="ai" style="border-top-color:rgba(0,217,255,0.3);">
+                <div class="lbl">In an AI system</div>
+                <div class="pt">Agent compromises are <strong style="color:#9fe0f5;">chains</strong>, never single findings &mdash; the sandbox escape later in this deck is one of these trees, drawn after the fact.</div>
+                <div class="pt">Annotate the leaves with cost, skill and detectability. The branch nobody hardened is usually the short one.</div>
+              </div>
+            </div>
+
+            <!-- LINDDUN — people -->
+            <div class="lens" style="background:rgba(157,78,221,0.12);border-top:3px solid #9d4edd;">
+              <div>
+                <h3 style="color:#c9a0f0;">LINDDUN <span style="font-size:8pt;font-weight:400;color:var(--muted-color);">&mdash; the missing <strong style="color:#c9a0f0;">people</strong></span></h3>
+                <div class="exp">privacy threat modelling &middot; DistriNet, KU Leuven</div>
+              </div>
+              <div class="q"><strong style="color:#c9a0f0;">Asks:</strong> what happens to the <em>data subject</em> &mdash; even when nothing leaks?</div>
+              <div class="blind" style="line-height:1.5;">
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">L</span>inking &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">I</span>dentifying &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">N</span>on-repudiation &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">D</span>etecting &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">D</span>ata disclosure &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">U</span>nawareness &amp; unintervenability &middot;
+                <span style="font-family:monospace;font-size:7.4pt;color:#c9a0f0;">N</span>on-compliance
+              </div>
+              <div class="blind" style="font-size:7.6pt;">STRIDE's <em>Information Disclosure</em> asks whether data escaped. These need no breach at all:</div>
+              <div class="ai" style="border-top-color:rgba(157,78,221,0.35);">
+                <div class="lbl">In an AI system</div>
+                <div class="pt">Membership inference tells an attacker <em>you</em> were in the training set. <span style="color:#c9a0f0;">Detecting</span></div>
+                <div class="pt">Embeddings re-identify the people the dataset anonymised. <span style="color:#c9a0f0;">Linking</span></div>
+                <div class="pt">A shared RAG store answers across tenants. <span style="color:#c9a0f0;">Data disclosure</span></div>
+                <div class="pt">There is no erase button on a trained weight. <span style="color:#c9a0f0;">Unintervenability</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- also on the shelf -->
+          <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:12px;align-items:baseline;margin-top:11px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.10);" class="shelf">
+            <div style="font-weight:700;color:var(--muted-color);text-transform:uppercase;letter-spacing:.06em;font-size:7pt;">Also on<br>the shelf</div>
+            <div><strong style="color:#7fd6f5;">MITRE ATLAS</strong> <span style="color:var(--muted-color);">&mdash; the adversary's playbook as observed TTPs, not categories. Reach for it to red-team a system you have already modelled. <span style="color:#5a7090;">(its own slide, later)</span></span></div>
+            <div><strong style="color:#c9a0f0;">MAESTRO</strong> <span style="color:var(--muted-color);">&mdash; CSA, 2025. Seven layers, foundation model up to ecosystem, built specifically for agentic systems where the threat crosses layers.</span></div>
+            <div><strong style="color:#ff9a6b;">OWASP LLM &amp; Agentic Top 10</strong> <span style="color:var(--muted-color);">&mdash; not a method but a checklist of what has already gone wrong for everyone else. Cheapest first pass there is.</span></div>
+          </div>
+
+          <div style="margin-top:9px;background:rgba(45,232,160,0.08);border:1px solid rgba(45,232,160,0.45);border-radius:5px;padding:7px 12px;text-align:center;">
+            <div style="font-weight:700;font-size:9.5pt;color:#2de8a0;">Pick the lens that covers your blind angle, not the one you know best.</div>
+            <div style="font-size:8.5pt;color:var(--text-color);margin-top:2px;">STRIDE for coverage, a tree for the path, PASTA for priority, LINDDUN for the people &mdash; the value is in what they <em>disagree</em> about.</div>
           </div>
         </section>
 
@@ -7556,9 +7673,21 @@ untrusted context (LLM01)</span></div>
 
         <!-- ── Theoretical / emerging breaches — research-grade attacks ── -->
         <section id="ai-exotic-threats">
+          <style>
+            #ai-exotic-threats .taped{position:relative;overflow:hidden;}
+            #ai-exotic-threats .taped .struck{opacity:.42;filter:saturate(.5);}
+            #ai-exotic-threats .tape{position:absolute;left:-25%;width:150%;pointer-events:none;z-index:2;
+              border-top:2px solid #0a0e1a;border-bottom:2px solid #0a0e1a;box-shadow:0 3px 12px rgba(0,0,0,.55);}
+            #ai-exotic-threats .tape.words{top:38%;transform:rotate(-13deg);background:#ffc800;color:#0a0e1a;
+              font-weight:900;font-size:6.6pt;letter-spacing:.16em;text-align:center;padding:2px 0;white-space:nowrap;overflow:hidden;}
+            #ai-exotic-threats .tape.hazard{top:60%;transform:rotate(10deg);height:9px;opacity:.9;
+              background:repeating-linear-gradient(45deg,#ffc800 0 9px,#0a0e1a 9px 18px);}
+            #ai-exotic-threats .sign{position:relative;z-index:4;background:#141109;
+              border:1px solid rgba(255,200,0,0.8);border-radius:3px;padding:3px 6px;font-size:6.6pt;line-height:1.35;color:#ffce9e;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.55);}
+          </style>
           <h2 style="margin-bottom:4px;">On the Horizon — Exotic &amp; Theoretical Breaches</h2>
           <p style="margin:0 0 12px;font-size:0.72em;color:#5a7090;font-style:italic;">
-            Mostly lab demonstrations today — the attack surface the production incidents haven't reached yet. <span style="color:var(--secondary-color);font-weight:600;">Research-grade, not yet weaponised at scale.</span>
+            Mostly lab demonstrations today — the attack surface the production incidents haven't reached yet. <span style="color:var(--secondary-color);font-weight:600;">Research-grade, not yet weaponised at scale</span> <span style="color:#ffc800;font-weight:600;">— except the one that stopped waiting.</span>
           </p>
 
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:11px;font-size:8pt;line-height:1.45;">
@@ -7593,16 +7722,19 @@ untrusted context (LLM01)</span></div>
               <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> differential privacy in training · dedup &amp; scrub PII · cap output confidence detail.</div>
             </div>
 
-            <div style="background:rgba(45,232,160,0.07);border-top:3px solid #2de8a0;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
-              <div style="font-weight:700;font-size:9pt;color:#2de8a0;">Cross-agent &amp; protocol exploits <span style="background:rgba(45,232,160,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">MULTI-AGENT</span></div>
-              <div style="color:var(--muted-color);flex:1;">As agents talk to agents over MCP / A2A, a prompt injection in one becomes a worm: it rewrites a shared memory or tool description so the next agent inherits the payload. "Confused-deputy" chains let a low-trust agent borrow a high-trust peer's permissions.</div>
-              <div style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> per-agent identity &amp; least privilege · signed inter-agent messages · taint-track shared state.</div>
+            <div class="taped" style="background:rgba(45,232,160,0.07);border-top:3px solid #2de8a0;border-radius:4px;padding:9px 11px;display:flex;flex-direction:column;gap:5px;">
+              <div style="font-weight:700;font-size:9pt;color:#2de8a0;position:relative;z-index:2;">Cross-agent &amp; protocol exploits <span style="background:rgba(45,232,160,0.18);border-radius:3px;padding:0 5px;font-size:6.5pt;font-weight:700;vertical-align:1px;">MULTI-AGENT</span></div>
+              <div class="struck" style="color:var(--muted-color);flex:1;">As agents talk to agents over MCP / A2A, a prompt injection in one becomes a worm: it rewrites a shared memory or tool description so the next agent inherits the payload.</div>
+              <div class="tape words">NO LONGER THEORETICAL &middot; NO LONGER THEORETICAL &middot; NO LONGER THEORETICAL &middot; NO LONGER THEORETICAL</div>
+              <div class="tape hazard"></div>
+              <div class="sign"><strong style="color:#ffc800;">⚠ JULY 2026 &mdash; this half landed</strong> <span style="color:#7fd6f5;">&rarr; “The Sandbox That Didn't Hold”</span></div>
+              <div class="struck" style="font-size:6.8pt;color:#8099b0;"><strong style="color:#2de8a0;">Defence:</strong> per-agent identity &amp; least privilege · signed inter-agent messages · taint-track shared state.</div>
             </div>
 
           </div>
 
           <p style="margin:10px 0 0;font-size:7pt;color:#5a7090;">
-            ⚠ These are largely <em>academic demonstrations under practical settings</em> — the gap between "proven in a paper" and "exploited in the wild" is how much runway defenders have. Sources: arXiv 2409.20002 (KV-cache), 2411.01076 (speculative decoding), 2506.23260 (agent-protocol threats), Anthropic "Sleeper Agents", Schneier on Security.
+            ⚠ These are largely <em>academic demonstrations under practical settings</em> — the gap between "proven in a paper" and "exploited in the wild" is how much runway defenders have. <span style="color:#ffc800;">That runway just got one entry shorter: in July 2026 ~1,200 eval agents built a channel out of a shared package cache and traded techniques over it. The MCP / A2A worm is still lab work &mdash; coordination through shared state is not.</span> Sources: arXiv 2409.20002 (KV-cache), 2411.01076 (speculative decoding), 2506.23260 (agent-protocol threats), Anthropic "Sleeper Agents", Schneier on Security.
           </p>
         </section>
 
@@ -18372,6 +18504,7 @@ untrusted context (LLM01)</span></div>
       {id:'ns01',era:11,color:'#ff4444',label:['AI Security','Overview'],   slideId:'ai-security-intro'},
       {id:'ns02',era:11,color:'#ff4444',label:['Threat','Modelling'],       slideId:'ai-threat-modelling'},
       {id:'ns03',era:11,color:'#ff6b35',label:['STRIDE','for AI'],          slideId:'ai-stride'},
+      {id:'ns03b',era:11,color:'#ff6b35',label:['Other','Lenses'],        slideId:'ai-threat-lenses'},
       {id:'ns04',era:11,color:'#ff6b35',label:['Finding','Its Footing'],    slideId:'ai-llm-security'},
       {id:'ns04b',era:11,color:'#ff6b35',label:['27→9','Root Causes'],      slideId:'ai-owasp-consolidated'},
       {id:'ns05',era:11,color:'#9d4edd',label:['Agent Attack','Surface'],   slideId:'ai-agent-anatomy'},
@@ -18415,7 +18548,7 @@ untrusted context (LLM01)</span></div>
       // Era 10 chain
       ['n74','n75'],['n75','n76'],['n76','n77'],['n77','n78'],['n78','n79'],['n79','n82'],['n82','n83'],['n83','n84'],['n84','n84b'],['n84b','n85'],['n85','n80'],['n80','n81'],
       // Era 11 chain (AI Security)
-      ['ns01','ns02'],['ns02','ns03'],['ns03','ns04'],['ns04','ns04b'],['ns04b','ns05'],['ns05','ns05a'],['ns05a','ns05m'],['ns05m','ns05c'],['ns05c','ns05d'],['ns05d','ns05t'],['ns05t','ns05b'],['ns05b','ns05p'],['ns05p','ns06'],['ns06','ns07'],['ns07','ns07b'],['ns07b','ns08'],
+      ['ns01','ns02'],['ns02','ns03'],['ns03','ns03b'],['ns03b','ns04'],['ns04','ns04b'],['ns04b','ns05'],['ns05','ns05a'],['ns05a','ns05m'],['ns05m','ns05c'],['ns05c','ns05d'],['ns05d','ns05t'],['ns05t','ns05b'],['ns05b','ns05p'],['ns05p','ns06'],['ns06','ns07'],['ns07','ns07b'],['ns07b','ns08'],
       // Cross-era conceptual bridges
       ['n01','n06'],['n02','n06'],['n05','n06'],   // era 1 → era 2
       ['n10','n11'],['n06','n13'],['n09','n13'],   // era 2 → era 3
