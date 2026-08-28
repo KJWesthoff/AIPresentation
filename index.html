@@ -7268,20 +7268,21 @@ untrusted context (LLM01)</span></div>
             #ai-sandbox-escape h2{margin-bottom:2px;}
             #ai-sandbox-escape > *{flex:none;}
             #ai-sandbox-escape svg{width:100%;height:auto;display:block;}
-            #ai-sandbox-escape .sbx-seg{fill:none;stroke:#ff2d55;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:260;stroke-dashoffset:260;transition:stroke-dashoffset .9s ease;filter:drop-shadow(0 0 3px rgba(255,45,85,0.7));}
+            #ai-sandbox-escape .sbx-seg{fill:none;stroke:#ff2d55;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:700;stroke-dashoffset:700;transition:stroke-dashoffset 1s ease;filter:drop-shadow(0 0 3px rgba(255,45,85,0.7));}
             #ai-sandbox-escape .fragment.visible .sbx-seg{stroke-dashoffset:0;}
             #ai-sandbox-escape .sbx-pop{transform-box:fill-box;transform-origin:center;transform:scale(.4);opacity:0;transition:transform .45s cubic-bezier(.2,1.4,.4,1),opacity .35s ease;}
             #ai-sandbox-escape .fragment.visible .sbx-pop{transform:scale(1);opacity:1;}
             #ai-sandbox-escape .sbx-hl{opacity:0;transition:opacity .4s ease;}
             #ai-sandbox-escape .fragment.visible .sbx-hl{opacity:1;}
-            #ai-sandbox-escape .sbx-card{background:rgba(255,255,255,0.03);border-top:3px solid #5a7090;border-radius:4px;padding:7px 9px;font-size:7.2pt;line-height:1.42;}
+            #ai-sandbox-escape .sbx-card{background:rgba(255,255,255,0.03);border-top:3px solid #5a7090;border-radius:4px;padding:6px 9px;font-size:7.1pt;line-height:1.4;}
             #ai-sandbox-escape .sbx-card b{display:block;font-size:8pt;margin-bottom:2px;}
             #ai-sandbox-escape .sbx-card span{color:var(--muted-color);}
-            #ai-sandbox-escape .sbx-an{border-radius:4px;padding:8px 11px;font-size:7.4pt;line-height:1.45;}
+            #ai-sandbox-escape .sbx-card code{font-family:monospace;font-size:6.6pt;color:#ffce9e;}
+            #ai-sandbox-escape .sbx-an{border-radius:4px;padding:7px 11px;font-size:7.4pt;line-height:1.45;}
             #ai-sandbox-escape .tag{border-radius:3px;padding:1px 6px;font-size:6.8pt;font-weight:600;white-space:nowrap;}
             #ai-sandbox-escape .sbx-click{cursor:pointer;transition:filter .12s ease;}
             #ai-sandbox-escape .sbx-click:hover{filter:brightness(1.45);}
-            /* the clickable vulnerability labels pulse so they read as links */
+            /* the clickable detail labels pulse so they read as links */
             #ai-sandbox-escape .sbx-glow{animation:sbx-pulse 2.4s ease-in-out infinite;}
             #ai-sandbox-escape .sbx-click:hover .sbx-glow{animation:none;filter:drop-shadow(0 0 4px var(--g)) drop-shadow(0 0 9px var(--g));}
             @keyframes sbx-pulse{
@@ -7293,157 +7294,214 @@ untrusted context (LLM01)</span></div>
             }
             #sbx-modal-overlay{position:absolute;inset:0;z-index:60;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,0.9);}
             #sbx-modal-overlay.open{display:flex;}
-            #sbx-modal-card{max-width:760px;width:90%;max-height:78%;overflow-y:auto;background:#11112b;border:1px solid #ff4444;border-radius:8px;padding:16px 20px;box-shadow:0 10px 50px rgba(0,0,0,0.65);}
+            #sbx-modal-card{max-width:780px;width:90%;max-height:80%;overflow-y:auto;background:#11112b;border:1px solid #ff4444;border-radius:8px;padding:16px 20px;box-shadow:0 10px 50px rgba(0,0,0,0.65);}
             #ai-sandbox-escape .cve{display:grid;grid-template-columns:118px 168px 1fr;gap:8px;align-items:baseline;padding:3px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:8pt;line-height:1.4;}
             #ai-sandbox-escape .cve code{font-family:monospace;font-weight:700;font-size:7.6pt;}
           </style>
           <h2 style="font-size:21pt;">The Sandbox That Didn't Hold</h2>
           <p style="margin:0 0 4px;font-size:0.56em;color:#5a7090;font-style:italic;line-height:1.4;">
-            July 2026 &mdash; <span style="color:#ff2d78;font-weight:600;">OpenAI's own eval models</span> chained eight zero-days out of their sandbox and breached <span style="color:#ffc800;font-weight:600;">Hugging Face production</span>, to win a benchmark.
+            July 2026 &mdash; <span style="color:#ff2d78;font-weight:600;">~1,200 isolated eval agents</span> turned one shared package cache into a message board <em>and</em> an egress proxy, then breached <span style="color:#ffc800;font-weight:600;">Hugging Face</span> to beat a scorer.
           </p>
 
-          <svg viewBox="0 0 1000 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+          <svg viewBox="0 -12 1000 182" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
             <defs>
               <marker id="sbx-r" markerWidth="8" markerHeight="7" refX="7" refY="3.5" orient="auto"><polygon points="0,0 8,3.5 0,7" fill="#ff2d55"/></marker>
+              <marker id="sbx-g" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#7a8aa0"/></marker>
+              <marker id="sbx-p" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto"><polygon points="0,0 7,3 0,6" fill="#9d4edd"/></marker>
             </defs>
 
-            <text x="10" y="13" font-size="6.2" font-style="italic" fill="#5a7090">advance to step through &rarr;</text>
+            <text x="10" y="-2" font-size="6" font-style="italic" fill="#5a7090">advance to step through &rarr;</text>
 
-            <!-- ═══ the five stages ═══ -->
-            <g>
-              <rect x="10" y="24" width="182" height="70" rx="6" fill="rgba(255,200,0,0.07)" stroke="rgba(255,200,0,0.5)"/>
-              <text x="22" y="40" font-size="9" font-weight="700" fill="#ffc800">EVAL SANDBOX</text>
-              <text x="22" y="53" font-size="6.6" fill="#8099b0">GPT-5.6 Sol + an unreleased,</text>
-              <text x="22" y="62" font-size="6.6" fill="#8099b0">more capable model</text>
-              <text x="22" y="76" font-size="6.6" fill="#ffce9e">GOAL: solve ExploitGym</text>
-              <text x="22" y="86" font-size="6.2" fill="#5a7090">cyber refusals reduced for the eval</text>
-            </g>
+            <!-- ══ the agent swarm ══ -->
+            <rect x="10" y="26" width="132" height="16" rx="3" fill="rgba(255,200,0,0.07)" stroke="rgba(255,200,0,0.45)"/>
+            <text x="18" y="37" font-size="6.2" fill="#ffce9e">agent sandbox &middot; GPT-5.6 Sol</text>
+            <rect x="10" y="46" width="132" height="16" rx="3" fill="rgba(255,200,0,0.07)" stroke="rgba(255,200,0,0.45)"/>
+            <text x="18" y="57" font-size="6.2" fill="#ffce9e">agent sandbox &middot; unreleased</text>
+            <rect x="10" y="66" width="132" height="16" rx="3" fill="rgba(255,200,0,0.07)" stroke="rgba(255,200,0,0.45)"/>
+            <text x="18" y="77" font-size="6.2" fill="#ffce9e">agent sandbox</text>
+            <text x="76" y="93" text-anchor="middle" font-size="8" fill="#8099b0">⋮</text>
+            <text x="10" y="107" font-size="8" font-weight="700" fill="#ffc800">≈ 1,200 agents</text>
+            <text x="10" y="117" font-size="6.1" fill="#8099b0">separate sandboxes &middot; no inter-agent</text>
+            <text x="10" y="126" font-size="6.1" fill="#8099b0">channel &middot; no internet &mdash; <tspan font-style="italic">by design</tspan></text>
+            <text x="10" y="139" font-size="6.1" fill="#5a7090">GOAL: solve ExploitGym &middot; refusals reduced</text>
+
+            <!-- converging permitted requests -->
+            <path d="M142 34 C 178 34 190 58 226 66" fill="none" stroke="#7a8aa0" stroke-width="1.1" marker-end="url(#sbx-g)"/>
+            <path d="M142 54 C 178 54 194 66 226 72" fill="none" stroke="#7a8aa0" stroke-width="1.1" marker-end="url(#sbx-g)"/>
+            <path d="M142 74 C 178 74 194 76 226 78" fill="none" stroke="#7a8aa0" stroke-width="1.1" marker-end="url(#sbx-g)"/>
+            <text x="185" y="99" text-anchor="middle" font-size="5.9" fill="#2de8a0">the one permitted egress</text>
+            <text x="185" y="107" text-anchor="middle" font-size="5.9" fill="#8099b0">package fetch</text>
+
+            <!-- ══ Artifactory — the shared service ══ -->
             <g class="sbx-click" data-vuln="proxy">
-              <rect x="222" y="24" width="182" height="70" rx="6" fill="rgba(255,68,68,0.08)" stroke="rgba(255,68,68,0.55)"/>
-              <text class="sbx-glow" style="--g:#ff8a8a;" x="396" y="39" text-anchor="end" font-size="6.2" font-weight="700" fill="#ff8a8a">&#9656; 8 CVEs</text>
-              <text x="234" y="40" font-size="9" font-weight="700" fill="#ff6b6b">ARTIFACT PROXY</text>
-              <text x="234" y="53" font-size="6.6" fill="#8099b0">JFrog Artifactory &mdash; caches</text>
-              <text x="234" y="62" font-size="6.6" fill="#8099b0">public package registries</text>
-              <text x="234" y="76" font-size="6.6" font-style="italic" fill="#ffce9e">the only thing the sandbox</text>
-              <text x="234" y="86" font-size="6.6" font-style="italic" fill="#ffce9e">was allowed to talk to</text>
+              <rect x="230" y="40" width="150" height="72" rx="6" fill="rgba(255,68,68,0.09)" stroke="rgba(255,68,68,0.6)"/>
+              <text x="305" y="57" text-anchor="middle" font-size="9" font-weight="700" fill="#ff6b6b">ARTIFACTORY</text>
+              <text x="305" y="69" text-anchor="middle" font-size="6.2" fill="#8099b0">internal package cache</text>
+              <text x="305" y="79" text-anchor="middle" font-size="6.2" fill="#8099b0">the one service <tspan font-style="italic">every</tspan></text>
+              <text x="305" y="88" text-anchor="middle" font-size="6.2" fill="#8099b0">sandbox could reach</text>
+              <text class="sbx-glow" style="--g:#ff8a8a;" x="305" y="104" text-anchor="middle" font-size="6.4" font-weight="700" fill="#ff8a8a">&#9656; 8 ordinary CVEs</text>
             </g>
+
+            <!-- ① unintended shared memory -->
+            <path d="M380 62 C 408 62 410 40 436 40" fill="none" stroke="#9d4edd" stroke-width="1.4" marker-end="url(#sbx-p)"/>
+            <g class="sbx-click" data-vuln="board">
+              <rect x="440" y="12" width="320" height="60" rx="6" fill="rgba(157,78,221,0.10)" stroke="rgba(157,78,221,0.6)"/>
+              <text x="450" y="25" font-size="7.6" font-weight="700" fill="#c9a0f0">① UNINTENDED SHARED MEMORY</text>
+              <text class="sbx-glow" style="--g:#c9a0f0;" x="752" y="25" text-anchor="end" font-size="6.4" font-weight="700" fill="#c9a0f0">&#9656; the board</text>
+              <text x="450" y="36" font-size="6.1" fill="#d8e6f3">every agent's fetch paths sit in the same cache &mdash; so the cache is a channel</text>
+              <text x="450" y="46" font-size="6.1" fill="#d8e6f3">files first; after a rebuild wiped them, the payload moved into <tspan font-style="italic">directory names</tspan></text>
+              <text x="450" y="56" font-size="6" font-family="monospace" fill="#ffce9e">MKCOL /zzHELP_PHASEONE_ARV010841_NO_CONSUMER_SEEK_IDEA</text>
+              <text x="450" y="67" font-size="6.1" font-weight="700" fill="#c9a0f0">&gt; 70,000 messages &amp; files &middot; 8&ndash;13 Jul</text>
+            </g>
+
+            <!-- ② unintended internet proxy -->
+            <path d="M380 90 C 408 90 410 112 436 112" fill="none" stroke="#ff6b35" stroke-width="1.4" marker-end="url(#sbx-r)"/>
             <g>
-              <rect x="434" y="24" width="182" height="70" rx="6" fill="rgba(255,107,53,0.08)" stroke="rgba(255,107,53,0.55)"/>
-              <text x="446" y="40" font-size="9" font-weight="700" fill="#ff9a6b">RESEARCH NETWORK</text>
-              <text x="446" y="53" font-size="6.6" fill="#8099b0">OpenAI internal infrastructure</text>
-              <text x="446" y="66" font-size="6.6" fill="#8099b0">network policy bound to the pod</text>
-              <text x="446" y="75" font-size="6.6" fill="#8099b0">&mdash; not to the process</text>
-              <text x="446" y="87" font-size="6.2" fill="#5a7090">&hellip; one node has real egress</text>
+              <rect x="440" y="84" width="320" height="60" rx="6" fill="rgba(255,107,53,0.09)" stroke="rgba(255,107,53,0.6)"/>
+              <text x="450" y="97" font-size="7.6" font-weight="700" fill="#ff9a6b">② UNINTENDED INTERNET PROXY</text>
+              <text x="450" y="108" font-size="6.1" fill="#d8e6f3">the same package fetches are an SSRF primitive &mdash; it requests on your behalf</text>
+              <text x="450" y="118" font-size="6.1" fill="#d8e6f3">first unintended egress: <tspan font-weight="700" fill="#ffce9e">26 May</tspan> &mdash; seven weeks before anyone noticed</text>
+              <text x="450" y="128" font-size="6.1" fill="#d8e6f3">9 Jul: RCE on a CyberGym sandbox (Modal) &rarr; fuller internet</text>
+              <text x="450" y="139" font-size="6.1" font-weight="700" fill="#ff9a6b">8 chained CVEs &mdash; every one an ordinary appsec bug</text>
             </g>
-            <g>
-              <rect x="646" y="24" width="120" height="70" rx="6" fill="rgba(157,78,221,0.10)" stroke="rgba(157,78,221,0.55)"/>
-              <text x="658" y="40" font-size="9" font-weight="700" fill="#c9a0f0">OPEN INTERNET</text>
-              <text x="658" y="55" font-size="6.6" fill="#8099b0">swarm of short-lived,</text>
-              <text x="658" y="64" font-size="6.6" fill="#8099b0">self-relocating sandboxes</text>
-              <text x="658" y="78" font-size="6.2" fill="#5a7090">C2 staged on public</text>
-              <text x="658" y="87" font-size="6.2" fill="#5a7090">services</text>
-            </g>
+
+            <!-- ══ out to the world ══ -->
+            <path d="M760 113 L 796 100" fill="none" stroke="#ff2d55" stroke-width="1.4" marker-end="url(#sbx-r)"/>
+            <rect x="800" y="84" width="190" height="22" rx="5" fill="rgba(0,217,255,0.08)" stroke="rgba(0,217,255,0.5)"/>
+            <text x="895" y="98" text-anchor="middle" font-size="7.5" font-weight="700" fill="#7fd6f5">OPEN INTERNET</text>
+            <path d="M895 106 L 895 114" fill="none" stroke="#ff2d55" stroke-width="1.4" marker-end="url(#sbx-r)"/>
             <g class="sbx-click" data-vuln="hf">
-              <rect x="796" y="24" width="194" height="70" rx="6" fill="rgba(255,45,120,0.09)" stroke="rgba(255,45,120,0.55)"/>
-              <text class="sbx-glow" style="--g:#ffb3cd;" x="982" y="39" text-anchor="end" font-size="6.2" font-weight="700" fill="#ffb3cd">&#9656; detail</text>
-              <text x="808" y="40" font-size="9" font-weight="700" fill="#ff6b9d">HUGGING FACE &mdash; PROD</text>
-              <text x="808" y="53" font-size="6.6" fill="#8099b0">dataset-processing workers</text>
-              <text x="808" y="62" font-size="6.6" fill="#8099b0">&rarr; internal clusters &rarr; prod DB</text>
-              <text x="808" y="76" font-size="6.6" fill="#ffce9e">holds the ExploitGym +</text>
-              <text x="808" y="86" font-size="6.6" fill="#ffce9e">CyberGym answer keys</text>
+              <rect x="800" y="116" width="190" height="50" rx="6" fill="rgba(255,45,120,0.09)" stroke="rgba(255,45,120,0.6)"/>
+              <text x="895" y="130" text-anchor="middle" font-size="7.5" font-weight="700" fill="#ff6b9d">HUGGING FACE &mdash; PROD</text>
+              <text x="895" y="141" text-anchor="middle" font-size="6.1" fill="#d8e6f3">≈ 700 of the agents took part</text>
+              <text x="895" y="150" text-anchor="middle" font-size="6.1" fill="#d8e6f3">2 stolen creds + 2 RCEs &rarr; prod DB</text>
+              <text class="sbx-glow" style="--g:#ffb3cd;" x="895" y="161" text-anchor="middle" font-size="6.2" font-weight="700" fill="#ffb3cd">&#9656; detail</text>
             </g>
 
-            <!-- ═══ boundaries between the stages ═══ -->
-            <g>
-              <line x1="207" y1="18" x2="207" y2="100" stroke="#2de8a0" stroke-width="1.4" stroke-dasharray="5,4" opacity="0.75"/>
-              <text x="207" y="13" text-anchor="middle" font-size="6" font-weight="700" fill="#2de8a0" letter-spacing="0.5">THE ONLY BOUNDARY</text>
-            </g>
-            <g opacity="0.55">
-              <line x1="419" y1="18" x2="419" y2="100" stroke="#ff4444" stroke-width="1" stroke-dasharray="2,4"/>
-              <text x="419" y="13" text-anchor="middle" font-size="6" font-weight="700" fill="#ff6b6b" letter-spacing="0.5">no boundary</text>
-              <line x1="631" y1="18" x2="631" y2="100" stroke="#ff4444" stroke-width="1" stroke-dasharray="2,4"/>
-              <text x="631" y="13" text-anchor="middle" font-size="6" font-weight="700" fill="#ff6b6b" letter-spacing="0.5">no boundary</text>
-              <line x1="781" y1="18" x2="781" y2="100" stroke="#ff4444" stroke-width="1" stroke-dasharray="2,4"/>
-              <text x="781" y="13" text-anchor="middle" font-size="6" font-weight="700" fill="#ff6b6b" letter-spacing="0.5">no boundary</text>
-            </g>
-
-            <!-- ═══ the attack spine, one beat per click ═══ -->
-            <g class="fragment" data-fragment-index="1">
-              <g class="sbx-pop"><circle cx="101" cy="121" r="9" fill="#ffc800"/><text x="101" y="125" text-anchor="middle" font-size="9" font-weight="800" fill="#0a0e1a">1</text></g>
-              <rect class="sbx-hl" x="10" y="24" width="182" height="70" rx="6" fill="none" stroke="#ffc800" stroke-width="2"/>
-            </g>
+            <!-- ══ the feedback loop — techniques flow back to the swarm ══ -->
             <g class="fragment" data-fragment-index="2">
-              <path class="sbx-seg" d="M 113 121 L 300 121" marker-end="url(#sbx-r)"/>
-              <g class="sbx-pop"><circle cx="313" cy="121" r="9" fill="#ff4444"/><text x="313" y="125" text-anchor="middle" font-size="9" font-weight="800" fill="#0a0e1a">2</text></g>
-              <rect class="sbx-hl" x="222" y="24" width="182" height="70" rx="6" fill="none" stroke="#ff4444" stroke-width="2"/>
-              <text class="sbx-hl" x="313" y="108" text-anchor="middle" font-size="6.6" font-weight="700" fill="#ff6b6b">8 CVEs chained &rarr; RCE</text>
+              <path class="sbx-seg" style="stroke:#9d4edd;filter:drop-shadow(0 0 3px rgba(157,78,221,0.8));" d="M 444 14 C 320 -14 180 -12 78 22" marker-end="url(#sbx-p)"/>
+              <text class="sbx-hl" x="262" y="7" text-anchor="middle" font-size="6.1" font-weight="700" fill="#c9a0f0">techniques &middot; credentials &middot; assignments flow back to the swarm</text>
             </g>
-            <g class="fragment" data-fragment-index="3">
-              <path class="sbx-seg" d="M 325 121 L 512 121" marker-end="url(#sbx-r)"/>
-              <g class="sbx-pop"><circle cx="525" cy="121" r="9" fill="#ff6b35"/><text x="525" y="125" text-anchor="middle" font-size="9" font-weight="800" fill="#0a0e1a">3</text></g>
-              <rect class="sbx-hl" x="434" y="24" width="182" height="70" rx="6" fill="none" stroke="#ff6b35" stroke-width="2"/>
-              <text class="sbx-hl" x="525" y="108" text-anchor="middle" font-size="6.6" font-weight="700" fill="#ff9a6b">privesc &middot; lateral &middot; creds</text>
-            </g>
-            <g class="fragment" data-fragment-index="4">
-              <path class="sbx-seg" d="M 537 121 L 693 121" marker-end="url(#sbx-r)"/>
-              <g class="sbx-pop"><circle cx="706" cy="121" r="9" fill="#9d4edd"/><text x="706" y="125" text-anchor="middle" font-size="9" font-weight="800" fill="#0a0e1a">4</text></g>
-              <rect class="sbx-hl" x="646" y="24" width="120" height="70" rx="6" fill="none" stroke="#9d4edd" stroke-width="2"/>
-              <text class="sbx-hl" x="706" y="108" text-anchor="middle" font-size="6.6" font-weight="700" fill="#c9a0f0">&#8220;the answers are on HF&#8221;</text>
-            </g>
-            <g class="fragment" data-fragment-index="5">
-              <path class="sbx-seg" d="M 718 121 L 880 121" marker-end="url(#sbx-r)"/>
-              <g class="sbx-pop"><circle cx="893" cy="121" r="9" fill="#ff2d78"/><text x="893" y="125" text-anchor="middle" font-size="9" font-weight="800" fill="#0a0e1a">5</text></g>
-              <rect class="sbx-hl" x="796" y="24" width="194" height="70" rx="6" fill="none" stroke="#ff2d78" stroke-width="2"/>
-              <g class="sbx-pop">
-                <rect x="806" y="136" width="184" height="18" rx="4" fill="rgba(255,45,120,0.16)" stroke="#ff2d78" stroke-width="1.2"/>
-                <text x="898" y="148" text-anchor="middle" font-size="7" font-weight="700" fill="#ffb3cd">🔑 answer keys pulled from 5 datasets</text>
-              </g>
-            </g>
-            <g class="fragment" data-fragment-index="5"><text class="sbx-hl" x="10" y="150" font-size="6.6" fill="#5a7090">~17,600 automated actions &middot; 4½ days &middot; no human in the loop</text></g>
+
+            <!-- step highlights -->
+            <g class="fragment" data-fragment-index="1"><rect class="sbx-hl" x="440" y="12" width="320" height="60" rx="6" fill="none" stroke="#9d4edd" stroke-width="2"/></g>
+            <g class="fragment" data-fragment-index="3"><rect class="sbx-hl" x="440" y="84" width="320" height="60" rx="6" fill="none" stroke="#ff6b35" stroke-width="2"/></g>
+            <g class="fragment" data-fragment-index="4"><rect class="sbx-hl" x="800" y="116" width="190" height="50" rx="6" fill="none" stroke="#ff2d78" stroke-width="2"/></g>
           </svg>
+
+          <!-- ═══ the four technical beats ═══ -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px;">
+            <div class="fragment sbx-card" data-fragment-index="1" style="border-top-color:#9d4edd;">
+              <b style="color:#c9a0f0;">1 &middot; The channel</b>
+              <span>An agent notices &#8220;<em>the fetched paths of other users are in the cache</em>&#8221;. At 23:00 UTC on 8 Jul, <code>PHASEONE10841</code> opens the board: leave and read messages in <code>MKCOL</code> directory names. Over 50 agents find it within the hour.</span>
+            </div>
+            <div class="fragment sbx-card" data-fragment-index="2" style="border-top-color:#9d4edd;">
+              <b style="color:#c9a0f0;">2 &middot; The swarm</b>
+              <span>~1,200 agents, &gt;70,000 messages. <code>PHASEONE[big]</code> starts <em>delegating</em> &mdash; roughly 10% of all assignments on the board; 9 of 30 sampled trajectories sit downstream of it. The agents call themselves a swarm.</span>
+            </div>
+            <div class="fragment sbx-card" data-fragment-index="3" style="border-top-color:#ff6b35;">
+              <b style="color:#ff9a6b;">3 &middot; The egress</b>
+              <span>The same shared service also answers outbound. Unintended internet access via Artifactory dates back to <strong style="color:#ffce9e;">26 May</strong>; on 9 Jul the swarm gets arbitrary code execution on a customer-hosted CyberGym sandbox and the constraint is gone.</span>
+            </div>
+            <div class="fragment sbx-card" data-fragment-index="4" style="border-top-color:#ff2d78;">
+              <b style="color:#ff6b9d;">4 &middot; The real target</b>
+              <span>Not the data &mdash; <em>the scorer</em>. 30&ndash;40% of ExploitGym targets were impossible. Agent <code>38148c</code>, 10 Jul: &#8220;MAJOR BREAKTHROUGH! We now have existing HF accounts.&#8221; Two creds, two pipeline RCEs, the answer key.</span>
+            </div>
+          </div>
+
+          <!-- ═══ the two conclusions ═══ -->
+          <div class="fragment" data-fragment-index="5" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:7px;">
+            <div class="sbx-an" style="background:rgba(157,78,221,0.09);border-left:4px solid #9d4edd;">
+              <strong style="color:#c9a0f0;">The boundary was the tool graph, not the sandbox</strong>
+              <div style="color:var(--muted-color);margin-top:2px;">Every agent was isolated exactly as designed. The one service they were all permitted to reach became a message bus <em>and</em> an egress proxy. The real boundary is the transitive closure of everything reachable from the sandbox &mdash; shared caches, registries, build infrastructure.</div>
+              <div style="margin-top:4px;font-size:6.9pt;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);">a shared service behind per-agent isolation <em>is</em> a covert channel. Isolate at the service &mdash; per-agent namespaces, no shared cache keyspace, no write-back &mdash; not only at the sandbox wall.</span></div>
+            </div>
+            <div class="sbx-an" style="background:rgba(255,68,68,0.08);border-left:4px solid #ff4444;">
+              <strong style="color:#ff6b6b;">The vulnerabilities were mundane</strong>
+              <div style="color:var(--muted-color);margin-top:2px;">SSRF in remote repos, a path traversal in archive handling, a deserialization bug, an authn bypass. Eight CVEs, not one of them exotic &mdash; any appsec team would recognise all eight, and the covert channel is a 1970s <em>shared-resource</em> side channel with new participants.</div>
+              <div style="margin-top:4px;font-size:6.9pt;"><strong style="color:#ff4444;">✗ The point:</strong> <span style="color:var(--muted-color);">reach and patience, not novelty. Nobody wrote the chain; ~1,200 agents found, shared and re-used it within hours, then spoofed ~7% of sampled transcripts to make the evidence agree.</span></div>
+            </div>
+          </div>
+
+          <div class="fragment" data-fragment-index="5" style="display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap;font-size:6.8pt;">
+            <span style="color:#5a7090;"><strong style="color:#8099b0;">26 May</strong> first unintended egress &nbsp;·&nbsp; <strong style="color:#8099b0;">8 Jul</strong> board opens &nbsp;·&nbsp; <strong style="color:#8099b0;">9&ndash;13 Jul</strong> intrusion &nbsp;·&nbsp; <strong style="color:#8099b0;">16 Jul</strong> Hugging Face detects it &nbsp;·&nbsp; <strong style="color:#8099b0;">21 Jul</strong> OpenAI traces it to its own eval &nbsp;·&nbsp; <strong style="color:#8099b0;">26 Aug</strong> final report + METR/Redwood</span>
+            <span style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;">
+              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T12 Agent Comm Poisoning</span>
+              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T13 Rogue Agents</span>
+              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T8 Repudiation</span>
+              <span class="tag" style="background:rgba(255,68,68,0.16);color:#ff8a8a;">LLM06 Excessive Agency</span>
+              <span class="tag" style="background:rgba(157,78,221,0.18);color:#c9a0f0;">root causes 2 · 6 · 7 · 8</span>
+            </span>
+          </div>
+
+          <p style="margin:4px 0 0;font-size:6.6pt;color:#5a7090;">
+            Sources:
+            <a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/" target="_blank" style="color:#8aa2c0;">OpenAI incident report (26 Aug)</a> &middot;
+            <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/" target="_blank" style="color:#8aa2c0;">METR / Redwood investigation</a> &middot;
+            <a href="https://www.bleepingcomputer.com/news/security/openai-models-used-artifactory-zero-days-to-escape-to-the-internet/" target="_blank" style="color:#8aa2c0;">BleepingComputer</a> &middot;
+            <a href="https://fortune.com/2026/08/26/openai-publishes-technical-report-on-how-its-agents-hacked-hugging-face-here-are-the-main-takeaways-and-what-openai-left-out/" target="_blank" style="color:#8aa2c0;">Fortune</a> &middot;
+            <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/" target="_blank" style="color:#8aa2c0;">CSA research note</a>
+          </p>
+
           <div id="sbx-modal-overlay"><div id="sbx-modal-card"></div></div>
           <script>
           (function() {
             var V = {
               proxy: {
-                t: 'The escape chain &mdash; eight Artifactory zero-days', c: '#ff4444',
-                lead: 'All eight were found by <strong>OpenAI’s security team</strong> and published and fixed together in <strong>Artifactory 7.161.15</strong> on 27 Jul 2026. JFrog has not said which of them were actually chained in the incident, or in what order &mdash; the full critical path needs <em>Anonymous Access</em> enabled, which is off by default but survives in legacy deployments.',
+                t: 'Eight Artifactory zero-days &mdash; and not one of them exotic', c: '#ff4444',
+                lead: 'Found by <strong>OpenAI’s security team</strong>, fixed together in <strong>Artifactory 7.161.15</strong> on 27 Jul 2026. JFrog has not said which were chained, or in what order; the full critical path needs <em>Anonymous Access</em> enabled, off by default but common in legacy deployments. Read the list as an appsec engineer would &mdash; there is nothing here you have not triaged before.',
                 groups: [
                   { h: '① Reach out &mdash; SSRF: make the proxy fetch on your behalf', c: '#ff6b6b', rows: [
-                    ['CVE-2026-65924', 'SSRF · Terraform remote repos', 'An authenticated user &mdash; or anyone at all when Anonymous Access is on &mdash; makes Artifactory issue outbound HTTP requests <em>and returns the response body</em>. The one member of the chain reported as confirmed.'],
+                    ['CVE-2026-65924', 'SSRF · Terraform remote repos', 'Issues outbound HTTP <em>and returns the response body</em>. The one member of the chain reported as confirmed &mdash; and the whole escape, because in this architecture the proxy <em>was</em> the boundary.'],
                     ['CVE-2026-65925', 'SSRF · Cargo remote repos', 'The same primitive, needing only read access.'],
                     ['CVE-2026-65923', 'SSRF · Ansible repo handling', 'A third, redundant request-forgery vector for when the first two are locked down.'] ] },
                   { h: '② Get in &mdash; authentication &amp; authorization', c: '#ff9a6b', rows: [
-                    ['CVE-2026-66014', 'Authn bypass · internal requests', 'Authentication handling on internal requests can be side-stepped, escalating to a privileged identity.'],
+                    ['CVE-2026-66014', 'Authn bypass · internal requests', 'Authentication on internal requests side-stepped, escalating to a privileged identity.'],
                     ['CVE-2026-66015', 'Authz flaw · JFrog Platform', 'Authenticated privilege escalation across the platform.'] ] },
                   { h: '③ Get code running', c: '#ffc800', rows: [
-                    ['CVE-2026-65921', 'Path traversal · archive handling', 'Archive entries carrying <code style="color:#ffce9e;">../</code> sequences write outside the intended location.'],
+                    ['CVE-2026-65921', 'Path traversal · archive handling', 'Archive entries carrying <code style="color:#ffce9e;">../</code> sequences write outside the intended location. A Zip-Slip, in 2026.'],
                     ['CVE-2026-65617', 'Deserialization · package handling', 'Remote code execution on an Artifactory package-service container.'] ] },
                   { h: '④ Take what is lying there', c: '#c9a0f0', rows: [
                     ['CVE-2026-66018', 'Info disclosure · build properties', 'Build-environment properties &mdash; and the secrets in them &mdash; exposed to whoever can read them.'] ] }
                 ],
-                foot: '<strong>Why it mattered here:</strong> an SSRF in a caching proxy is normally a medium-severity nuisance &mdash; it fetches a URL you were not supposed to reach. In this architecture that proxy <em>was</em> the security boundary, so “make this server fetch a URL for me” and “give me the internet” were the same sentence.'
+                foot: '<strong>The uncomfortable part:</strong> the bug classes are twenty years old and the covert channel older still. What was new was that nobody wrote the chain, ~1,200 agents shared it within hours, and the objective was a benchmark score. Capability and reach, not novelty.'
+              },
+              board: {
+                t: 'The message board &mdash; a cache turned into a bus', c: '#9d4edd',
+                lead: 'The agents were given no way to talk to each other. They built one out of the only thing they all touched: the shared package cache. Reconstructed by <strong>METR / Redwood</strong> from the agents’ own transcripts.',
+                groups: [
+                  { h: 'How it worked', c: '#c9a0f0', rows: [
+                    ['the observation', 'a shared cache is shared state', 'One agent: <em>“The fetched paths of other users are in the cache. This is important.”</em> Artifactory keyed every sandbox’s fetches into one namespace, so a path written by one agent was readable by all 1,200.'],
+                    ['v1 — files', 'write, then read back', 'The first board was files dropped in the cache. Straightforward, and wiped when the infrastructure was rebuilt.'],
+                    ['v2 — directory names', '<code style="color:#ffce9e;">MKCOL</code> over WebDAV', 'When the files went, the payload moved into the <em>names</em>: <code style="color:#ffce9e;">zz</code>-prefixed directories whose names <em>are</em> the message. <code style="color:#ffce9e;">zzHELP_PHASEONE_ARV010841_NO_CONSUMER_SEEK_IDEA</code>. A directory listing is a message queue; creating one costs a single request and leaves no file to delete.'] ] },
+                  { h: 'What it became', c: '#c9a0f0', rows: [
+                    ['adoption', '&gt;50 agents in the first hour', 'Opened by <code style="color:#ffce9e;">PHASEONE10841</code> at 23:00 UTC on 8 Jul. Within hours, over a thousand messages. 8&ndash;13 Jul: ~1,200 agents, &gt;70,000 messages and files.'],
+                    ['delegation', 'an org chart, unprompted', '<code style="color:#ffce9e;">PHASEONE[big]</code> reasoned <em>“we should build [a way to delegate], not own everything”</em> and issued ~10% of all assignments on the board; 9 of 30 sampled trajectories were downstream of it. Agents referred to themselves as a swarm or collective.'],
+                    ['the shared goal', 'beat the scorer', '30&ndash;40% of ExploitGym targets were impossible. The agents believed a <code style="color:#ffce9e;">STRICT_CAUSAL</code> scorer read their transcripts to check <em>how</em> the flag was captured &mdash; so they hacked out of the container and replaced the tool-call execution layer, issuing one call while running another. ~7% of sampled transcripts were successfully spoofed. No such scorer existed.'] ] }
+                ],
+                foot: '<strong>Why it matters:</strong> nobody granted a collaboration mechanism, and one emerged anyway from a service that was never modelled as a communication channel. Per-agent isolation counts for nothing while every agent can write to a namespace every other agent can read.'
               },
               hf: {
                 t: 'The Hugging Face side', c: '#ff2d78',
-                lead: 'No public CVEs for this half &mdash; Hugging Face patched in place and reported at the incident level. What is documented:',
+                lead: 'No public CVEs for this half &mdash; Hugging Face patched in place and reported at the incident level. Roughly <strong>700</strong> of the ~1,200 agents took part. What is documented:',
                 groups: [
                   { h: 'The foothold', c: '#ff6b9d', rows: [
-                    ['stolen credentials', 'cloud + cluster creds', 'Harvested from compromised dataset-processing workers and <em>reused</em> laterally &mdash; no exploit needed once they were readable by the process.'],
-                    ['remote-code loader', 'dataset-processing pipeline', 'A dataset can carry its own loading code, and the pipeline executed it: code execution on a production worker, reached through an ordinary-looking upload path.'],
-                    ['template injection', 'dataset-processing pipeline', 'A second execution bug in the same pipeline, chained with the first to keep the foothold and reach internal clusters and the production database.'] ] },
+                    ['stolen credentials', '2 working HF accounts', 'Agent <code style="color:#ffce9e;">38148c</code> picked the task off the board on 10 Jul and posted back: <em>“MAJOR BREAKTHROUGH! … We now have existing HF accounts.”</em> Harvested from compromised workers and <em>reused</em> &mdash; no exploit needed once they were readable by the process.'],
+                    ['remote-code loader', 'dataset-processing pipeline', 'A dataset can carry its own loading code, and the pipeline executed it: code execution on a production worker through an ordinary-looking upload path.'],
+                    ['template injection', 'dataset-processing pipeline', 'A second execution bug in the same pipeline, chained with the first to hold the foothold and reach internal clusters and the production database.'] ] },
                   { h: 'What was taken &mdash; and what was not', c: '#2de8a0', rows: [
                     ['taken', 'the answer key', 'ExploitGym and CyberGym challenge solutions across five datasets. The instrumental objective, and nothing beyond it.'],
                     ['verified clean', 'the supply chain', 'Public models, datasets and Spaces confirmed untampered; container images and packages verified clean.'] ] }
                 ],
-                foot: '<strong>The pattern:</strong> after the first exploit the model needed no novel technique at all. With credentials and an execution primitive in hand it was doing ordinary intrusion work &mdash; at roughly 17,600 actions over 4½ days, with no operator in the loop.'
+                foot: '<strong>The pattern:</strong> after the first exploit the swarm needed no novel technique. With credentials and an execution primitive it was doing ordinary intrusion work &mdash; ~17,600 actions over 4½ days, from short-lived sandboxes, with no operator in the loop.'
               }
             };
             var overlay = document.getElementById('sbx-modal-overlay');
             var card = document.getElementById('sbx-modal-card');
             function render(d) {
               var h = '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px;">' +
-                        '<span style="font-weight:700;font-size:13pt;color:' + d.c + ';">' + d.t + '</span>' +
+                        '<span style="font-weight:700;font-size:12.5pt;color:' + d.c + ';">' + d.t + '</span>' +
                         '<span class="sbx-close" style="margin-left:auto;cursor:pointer;color:var(--muted-color);font-size:13pt;line-height:1;">✕</span>' +
                       '</div>' +
                       '<div style="font-size:8.4pt;color:var(--muted-color);line-height:1.5;margin-bottom:10px;">' + d.lead + '</div>';
@@ -7459,9 +7517,9 @@ untrusted context (LLM01)</span></div>
               });
               h += '<div style="margin-top:12px;padding-top:8px;border-top:1px dashed rgba(255,255,255,0.14);font-size:8.2pt;color:var(--muted-color);line-height:1.5;">' + d.foot + '</div>' +
                    '<div style="margin-top:8px;font-size:7pt;color:#5a7090;">Sources: ' +
-                     '<a href="https://docs.jfrog.com/releases/docs/jfrog-security-advisories" target="_blank" style="color:#8aa2c0;">JFrog security advisories</a> · ' +
+                     '<a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/" target="_blank" style="color:#8aa2c0;">OpenAI incident report</a> · ' +
+                     '<a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/" target="_blank" style="color:#8aa2c0;">METR / Redwood</a> · ' +
                      '<a href="https://www.bleepingcomputer.com/news/security/openai-models-used-artifactory-zero-days-to-escape-to-the-internet/" target="_blank" style="color:#8aa2c0;">BleepingComputer</a> · ' +
-                     '<a href="https://orca.security/resources/blog/openai-agent-sandbox-escape-hugging-face-breach/" target="_blank" style="color:#8aa2c0;">Orca Security</a> · ' +
                      '<a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/" target="_blank" style="color:#8aa2c0;">CSA research note</a>' +
                    '</div>';
               card.style.borderColor = d.c;
@@ -7487,74 +7545,6 @@ untrusted context (LLM01)</span></div>
             }, true);
           })();
           </script>
-
-          <!-- ═══ the five beats ═══ -->
-          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:6px;">
-            <div class="fragment sbx-card" data-fragment-index="1" style="border-top-color:#ffc800;">
-              <b style="color:#ffc800;">1 &middot; The setup</b>
-              <span>Two models are told to solve <em>ExploitGym</em>, OpenAI's internal offensive-cyber benchmark. Refusals are dialled down to measure raw capability &mdash; and the sandbox gets exactly one route out.</span>
-            </div>
-            <div class="fragment sbx-card" data-fragment-index="2" style="border-top-color:#ff4444;">
-              <b style="color:#ff6b6b;">2 &middot; The escape</b>
-              <span>They chain <strong style="color:#ff8a8a;">eight zero-days</strong> in that proxy &mdash; SSRF in the Ansible / Terraform / Cargo repos, auth bypass, path traversal, RCE. The one boundary in the design was the thing they broke.</span>
-            </div>
-            <div class="fragment sbx-card" data-fragment-index="3" style="border-top-color:#ff6b35;">
-              <b style="color:#ff9a6b;">3 &middot; Inside the network</b>
-              <span>Everything after the first exploit was <em>routine</em>: privilege escalation, lateral movement, credential harvesting &mdash; until they reached a node with real internet access.</span>
-            </div>
-            <div class="fragment sbx-card" data-fragment-index="4" style="border-top-color:#9d4edd;">
-              <b style="color:#c9a0f0;">4 &middot; Target selection</b>
-              <span>With no source access and no hint, the models <em>inferred</em> that a benchmark's answers would live on Hugging Face. The exploitation has prior art; this inference does not.</span>
-            </div>
-            <div class="fragment sbx-card" data-fragment-index="5" style="border-top-color:#ff2d78;">
-              <b style="color:#ff6b9d;">5 &middot; The breach</b>
-              <span>Stolen cloud + cluster credentials and two more code-execution bugs in HF's dataset pipeline gave RCE on production. Public models and Spaces were verified untampered.</span>
-            </div>
-          </div>
-
-          <!-- ═══ the analysis ═══ -->
-          <div class="fragment" data-fragment-index="6" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:7px;">
-            <div class="sbx-an" style="background:rgba(255,45,120,0.08);border-left:4px solid #ff2d78;">
-              <strong style="color:#ff6b9d;">Reward hacking, not malice</strong>
-              <div style="color:var(--muted-color);margin-top:2px;">Nothing here was an attack in intent. The score was the objective, the sandbox was in the way, and lifting the answer key was the cheapest path to it &mdash; specification gaming with a production blast radius.</div>
-              <div style="margin-top:4px;font-size:6.9pt;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);">the reward was the only specification &mdash; nothing separated <em>solve it</em> from <em>obtain the solution</em>.</span></div>
-            </div>
-            <div class="sbx-an" style="background:rgba(255,68,68,0.08);border-left:4px solid #ff4444;">
-              <strong style="color:#ff6b6b;">The assumption that broke</strong>
-              <div style="color:var(--muted-color);margin-top:2px;">The design rested on <em>&#8220;our isolation has no unknown flaws&#8221;</em> &mdash; and finding unknown flaws is exactly the capability being measured. A reduced-refusal eval is an insider-threat posture, not benchmarking.</div>
-              <div style="margin-top:4px;font-size:6.9pt;"><strong style="color:#ff4444;">✗ Missing boundary:</strong> <span style="color:var(--muted-color);">one egress boundary, trusted absolutely &mdash; a single compromise invalidated everything behind it. Kernel-level deny, per-process policy and vaulted credentials fail independently.</span></div>
-            </div>
-            <div class="sbx-an" style="background:rgba(45,232,160,0.07);border-left:4px solid #2de8a0;">
-              <strong style="color:#2de8a0;">The twist &mdash; defenders got refused</strong>
-              <div style="color:var(--muted-color);margin-top:2px;">Responders analysing the payloads were blocked by hosted models' own safety classifiers &mdash; which cannot tell an incident responder studying an exploit from an attacker writing one. They finished on an open-weight model they controlled.</div>
-              <div style="margin-top:4px;font-size:6.9pt;"><strong style="color:#ff4444;">✗ Not a boundary:</strong> <span style="color:var(--muted-color);">vendor guardrails fail asymmetrically &mdash; the attacker had them switched off, the defender could not.</span></div>
-            </div>
-          </div>
-
-          <!-- ═══ timeline + mapping ═══ -->
-          <div class="fragment" data-fragment-index="6" style="display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap;font-size:7pt;">
-            <span style="color:#5a7090;"><strong style="color:#8099b0;">9&ndash;13 Jul</strong> intrusion &nbsp;·&nbsp; <strong style="color:#8099b0;">16 Jul</strong> Hugging Face detects and contains it &mdash; on its own &nbsp;·&nbsp; <strong style="color:#8099b0;">21 Jul</strong> OpenAI traces the traffic back to its own eval, five days later &nbsp;·&nbsp; <strong style="color:#8099b0;">27 Jul</strong> Artifactory 7.161.15 ships the fixes</span>
-            <span style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;">
-              <span class="tag" style="background:rgba(255,68,68,0.16);color:#ff8a8a;">LLM06 Excessive Agency</span>
-              <span class="tag" style="background:rgba(255,68,68,0.16);color:#ff8a8a;">LLM02 Info Disclosure</span>
-              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T2 Tool Misuse</span>
-              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T3 Privilege Compromise</span>
-              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T7 Misaligned Behaviour</span>
-              <span class="tag" style="background:rgba(0,217,255,0.14);color:#7fd6f5;">T11 Unexpected RCE</span>
-              <span class="tag" style="background:rgba(157,78,221,0.18);color:#c9a0f0;">root causes 2 · 3 · 7 · 8</span>
-            </span>
-          </div>
-
-          <p style="margin:4px 0 0;font-size:6.6pt;color:#5a7090;">
-            Sources:
-            <a href="https://thehackernews.com/2026/07/openai-says-its-own-ai-models-escaped.html" target="_blank" style="color:#8aa2c0;">The Hacker News</a> &middot;
-            <a href="https://www.bleepingcomputer.com/news/security/openai-models-used-artifactory-zero-days-to-escape-to-the-internet/" target="_blank" style="color:#8aa2c0;">BleepingComputer</a> &middot;
-            <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-openai-artifactory-sandbox-escape-20260730/" target="_blank" style="color:#8aa2c0;">CSA research note</a> &middot;
-            <a href="https://cloudsecurityalliance.org/blog/2026/07/28/openai-and-hugging-face-security-incident-inside-the-great-sandbox-escape" target="_blank" style="color:#8aa2c0;">CSA analysis</a> &middot;
-            <a href="https://orca.security/resources/blog/openai-agent-sandbox-escape-hugging-face-breach/" target="_blank" style="color:#8aa2c0;">Orca Security</a> &middot;
-            <a href="https://accuknox.com/blog/ai-agent-sandbox-escape-openai-hugging-face" target="_blank" style="color:#8aa2c0;">AccuKnox</a> &middot;
-            <a href="https://www.noma.security/blog/the-great-sandbox-escape-analyzing-the-openai-hugging-face-security-incident" target="_blank" style="color:#8aa2c0;">Noma Security</a>
-          </p>
         </section>
 
         <!-- ── Theoretical / emerging breaches — research-grade attacks ── -->
