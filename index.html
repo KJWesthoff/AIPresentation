@@ -7224,7 +7224,8 @@ untrusted context (LLM01)</span></div>
         <section id="ai-atlas">
           <h2 style="margin-bottom:4px;">MITRE ATLAS</h2>
           <p style="margin:0 0 14px;font-size:0.75em;color:#5a7090;font-style:italic;">
-            <strong style="color:var(--secondary-color);">A</strong>dversarial <strong style="color:var(--secondary-color);">T</strong>hreat <strong style="color:var(--secondary-color);">L</strong>andscape for <strong style="color:var(--secondary-color);">A</strong>I <strong style="color:var(--secondary-color);">S</strong>ystems — ATT&amp;CK's sibling matrix for attacks on AI, built from real incidents
+            <strong style="color:var(--secondary-color);">A</strong>dversarial <strong style="color:var(--secondary-color);">T</strong>hreat <strong style="color:var(--secondary-color);">L</strong>andscape for <strong style="color:var(--secondary-color);">A</strong>I <strong style="color:var(--secondary-color);">S</strong>ystems &mdash; &#8220;a living knowledge base based on real-world attack observations and realistic demonstrations&#8221;<br>
+            <span style="font-style:normal;color:#8099b0;font-family:monospace;font-size:0.92em;">16 tactics &middot; 178 techniques &middot; 37 mitigations &middot; 68 case studies</span>
           </p>
 
           <!-- Tactic kill chain -->
@@ -7240,11 +7241,16 @@ untrusted context (LLM01)</span></div>
             <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Defense Evasion</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Credential Access</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Discovery</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Lateral Movement</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Collection</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(157,78,221,0.18);border:1px solid rgba(157,78,221,0.8);border-radius:3px;padding:3px 7px;color:#c9a0f0;">★ AI Attack Staging</span><span style="color:#4a5e70;">→</span>
+            <span style="background:rgba(0,217,255,0.10);border:1px solid rgba(0,217,255,0.45);border-radius:3px;padding:3px 7px;color:var(--text-color);">Command and Control</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(255,68,68,0.12);border:1px solid rgba(255,68,68,0.6);border-radius:3px;padding:3px 7px;color:#ff8a8a;">Exfiltration</span><span style="color:#4a5e70;">→</span>
             <span style="background:rgba(255,68,68,0.12);border:1px solid rgba(255,68,68,0.6);border-radius:3px;padding:3px 7px;color:#ff8a8a;">Impact</span>
             <span style="margin-left:8px;font-weight:400;font-style:italic;color:#5a7090;font-size:6.5pt;">★ = AI-specific stages ATT&amp;CK doesn't have</span>
+            <div style="flex-basis:100%;margin-top:5px;font-weight:400;font-size:7pt;color:#ffce9e;background:rgba(255,200,0,0.06);border-left:3px solid rgba(255,200,0,0.6);border-radius:3px;padding:4px 9px;">
+              <strong style="color:#ffc800;">Not necessarily a linear kill chain.</strong> <span style="color:var(--muted-color);">The attacker can skip, repeat and reorder tactics &mdash; left-to-right is a way to read the matrix, not a sequence anyone is obliged to follow.</span>
+            </div>
           </div>
 
           <!-- Techniques that appear on the next slide -->
@@ -7281,11 +7287,11 @@ untrusted context (LLM01)</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:8pt;line-height:1.5;">
             <div style="background:rgba(0,217,255,0.06);border-left:4px solid var(--primary-color);border-radius:4px;padding:9px 12px;">
               <strong style="color:var(--primary-color);">Why it matters next to OWASP</strong>
-              <div style="color:var(--muted-color);margin-top:3px;">OWASP LLM Top 10 names <em>what can go wrong</em> in your app; ATLAS describes <em>how an adversary runs the campaign</em> — step by step across the kill chain. Use OWASP to scope defences, ATLAS to red-team them and to name what you find.</div>
+              <div style="color:var(--muted-color);margin-top:3px;">OWASP LLM Top 10 names <em>what can go wrong</em> in your app; ATLAS describes <em>how an adversary operates</em> &mdash; in the adversary's own terms, tactic by tactic. Use OWASP to scope defences, ATLAS to red-team them and to name what you find.</div>
             </div>
             <div style="background:rgba(45,232,160,0.06);border-left:4px solid #2de8a0;border-radius:4px;padding:9px 12px;">
-              <strong style="color:#2de8a0;">Built from real incidents</strong>
-              <div style="color:var(--muted-color);margin-top:3px;">Every technique links to mitigations (AML.M) and to 30+ public case studies (AML.CS) — Tay is <span style="font-family:monospace;">CS0009</span>, PoisonGPT is <span style="font-family:monospace;">CS0019</span>. Browse the matrix at <a href="https://atlas.mitre.org" target="_blank" style="color:#2de8a0;">atlas.mitre.org</a> →</div>
+              <strong style="color:#2de8a0;">Observations, not speculation</strong>
+              <div style="color:var(--muted-color);margin-top:3px;">Techniques link to mitigations (AML.M) and to <strong style="color:#2de8a0;">68 case studies</strong> (AML.CS) drawn from real-world observations and realistic red-team demonstrations &mdash; Tay is <span style="font-family:monospace;">CS0009</span>, PoisonGPT is <span style="font-family:monospace;">CS0019</span>. Browse the matrix at <a href="https://atlas.mitre.org" target="_blank" style="color:#2de8a0;">atlas.mitre.org</a> →</div>
             </div>
           </div>
         </section>
